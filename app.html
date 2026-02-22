@@ -743,6 +743,9 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
     <button class="nav-item" id="nav-finder" onclick="showPage('finder')">
       <span class="nav-icon">🔍</span>Deal Finder IQ
     </button>
+    <button class="nav-item" id="nav-deals" onclick="showPage('deals')">
+      <span class="nav-icon">📁</span>My Deals
+    </button>
     <button class="nav-item" id="nav-portfolio" onclick="showPage('portfolio')">
       <span class="nav-icon">💼</span>My Portfolio
     </button>
@@ -1380,46 +1383,7 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
     </div>
     <div class="portal-grid" id="finder-search-links"></div>
     <div class="notice notice-info">
-      <span>💡</span><span>Click a portal to open it with your criteria pre-applied. Find listings you like, then use the Listing Scorer below to check each one's company let acceptance before going to Deal Analyser.</span>
-    </div>
-  </div>
-
-  <!-- Listing Scorer -->
-  <div class="card" id="card-listing-scorer">
-    <div class="card-header">
-      <div class="card-title-wrap">
-        <div class="card-title">Listing Scorer</div>
-        <div class="card-subtitle">Add listings you find and score each for company let acceptance</div>
-      </div>
-    </div>
-    <div class="scorer-form-row">
-      <div class="field-group">
-        <label>Property Address / Description</label>
-        <input type="text" id="scorer-address" placeholder="e.g. 2 bed flat, City Centre Manchester">
-      </div>
-      <div class="field-group">
-        <label>Postcode</label>
-        <input type="text" id="scorer-postcode" placeholder="M1 1AE">
-      </div>
-      <div class="field-group">
-        <label>Monthly Rent (£)</label>
-        <div class="input-prefix"><span class="pfx">£</span><input type="number" id="scorer-rent" placeholder="1000" min="0"></div>
-      </div>
-      <div class="field-group">
-        <label>Beds</label>
-        <select id="scorer-beds">
-          <option value="1">1</option><option value="2" selected>2</option>
-          <option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option>
-        </select>
-      </div>
-    </div>
-    <button class="btn btn-secondary btn-sm" id="btn-add-listing">+ Add &amp; Score Listing</button>
-    <div id="scored-listings-wrap" style="display:none;">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:1.25rem;margin-bottom:0.5rem;">
-        <div style="font-size:0.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;">Scored Listings</div>
-        <button class="btn btn-outline btn-sm" id="btn-clear-listings">Clear All</button>
-      </div>
-      <div class="scored-grid" id="scored-grid"></div>
+      <span>💡</span><span>Click a portal to open it with your criteria pre-applied. When you find a property you like, copy its postcode into Deal Analyser to run a full analysis.</span>
     </div>
   </div>
 
@@ -1470,27 +1434,11 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
 </div><!-- end page-finder -->
 
 <!-- ═══ PAGE: MY PORTFOLIO ════════════════════════════════════ -->
-<div id="page-portfolio" class="page">
+<!-- ═══ PAGE: MY DEALS ════════════════════════════════════════ -->
+<div id="page-deals" class="page">
   <div class="page-header">
-    <h1 class="page-title">My <span>Portfolio</span></h1>
-    <p class="page-subtitle">Track your pipeline, live properties, lease renewals, and monthly P&amp;L.</p>
-  </div>
-
-  <!-- Lease Renewal Alert Banner -->
-  <div id="renewal-banner" class="renewal-banner">
-    <div class="renewal-banner-title">⚠️ Upcoming Lease Renewals</div>
-    <div id="renewal-list"></div>
-  </div>
-
-  <!-- Live Portfolio Summary -->
-  <div class="card hidden" id="card-portfolio-totals">
-    <div class="card-header">
-      <div class="card-title-wrap">
-        <div class="card-title">Live Portfolio Summary</div>
-        <div class="card-subtitle">Combined figures for all active properties</div>
-      </div>
-    </div>
-    <div class="portfolio-totals" id="portfolio-totals-grid"></div>
+    <h1 class="page-title">My <span>Deals</span></h1>
+    <p class="page-subtitle">Manage your research pipeline, compare deals, and get AI coaching. Mark a deal as Live to move it into My Portfolio.</p>
   </div>
 
   <!-- Potential Deals (Pipeline) -->
@@ -1498,25 +1446,12 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
     <div class="card-header">
       <div class="card-title-wrap">
         <div class="card-title">Potential Deals</div>
-        <div class="card-subtitle">Research pipeline — deals not yet live</div>
+        <div class="card-subtitle">Saved deals under research — not yet live</div>
       </div>
       <button class="btn btn-outline btn-sm" id="btn-refresh-deals">Refresh</button>
     </div>
     <div class="deals-grid" id="pipeline-grid">
       <div class="notice notice-info"><span>💡</span><span>Save a deal from Deal Analyser to see it here.</span></div>
-    </div>
-  </div>
-
-  <!-- My Live Portfolio -->
-  <div class="card" id="card-live-portfolio">
-    <div class="card-header">
-      <div class="card-title-wrap">
-        <div class="card-title">My Portfolio</div>
-        <div class="card-subtitle">Active live properties — log actuals and track leases</div>
-      </div>
-    </div>
-    <div class="deals-grid" id="live-grid">
-      <div class="notice notice-info"><span>📋</span><span>Mark a deal as Live to see it here.</span></div>
     </div>
   </div>
 
@@ -1555,6 +1490,45 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
     <div id="strategy-output" style="display:none;"></div>
     <div id="ai-note" style="display:none;" class="notice notice-info">
       <span>🤖</span><span>Strategy is generated by an intelligent rule engine trained on UK SA deal patterns. Always conduct your own due diligence before entering any property agreement.</span>
+    </div>
+  </div>
+</div><!-- end page-deals -->
+
+<!-- ═══ PAGE: MY PORTFOLIO ════════════════════════════════════ -->
+<div id="page-portfolio" class="page">
+  <div class="page-header">
+    <h1 class="page-title">My <span>Portfolio</span></h1>
+    <p class="page-subtitle">Live properties — track performance, log actuals vs projections, and manage lease renewals.</p>
+  </div>
+
+  <!-- Lease Renewal Alert Banner -->
+  <div id="renewal-banner" class="renewal-banner">
+    <div class="renewal-banner-title">⚠️ Upcoming Lease Renewals</div>
+    <div id="renewal-list"></div>
+  </div>
+
+  <!-- Live Portfolio Summary -->
+  <div class="card hidden" id="card-portfolio-totals">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Portfolio Summary</div>
+        <div class="card-subtitle">Combined figures for all live properties</div>
+      </div>
+    </div>
+    <div class="portfolio-totals" id="portfolio-totals-grid"></div>
+  </div>
+
+  <!-- Live Properties -->
+  <div class="card" id="card-live-portfolio">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Live Properties</div>
+        <div class="card-subtitle">Log actual P&amp;L, save lease dates, and track each property's performance</div>
+      </div>
+      <button class="btn btn-outline btn-sm" id="btn-refresh-portfolio">Refresh</button>
+    </div>
+    <div class="deals-grid" id="live-grid">
+      <div class="notice notice-info"><span>📋</span><span>Mark a deal as Live from My Deals to see it here.</span></div>
     </div>
   </div>
 </div><!-- end page-portfolio -->
@@ -1933,9 +1907,9 @@ const MAJOR_UNIS = [
 ];
 
 const REGION_BASELINE = {
-  'London':8,'South East':4,'East of England':3,'South West':5,
-  'West Midlands':7,'East Midlands':5,'Yorkshire and The Humber':7,
-  'North West':8,'North East':7,'Scotland':5,'Wales':4,'England':4
+  'London':20,'South East':15,'East of England':11,'South West':14,
+  'West Midlands':17,'East Midlands':13,'Yorkshire and The Humber':16,
+  'North West':18,'North East':15,'Scotland':13,'Wales':11,'England':12
 };
 
 const CONTRACTOR_KEYWORDS = [
@@ -1990,7 +1964,7 @@ function setLoading(id,on) {
 function qs(id) { return document.getElementById(id); }
 
 /* ════ NAVIGATION ═══════════════════════════════════════════ */
-const PAGES = ['operator','analyse','market','toolkit','finder','portfolio','mentor'];
+const PAGES = ['operator','analyse','market','toolkit','finder','deals','portfolio','mentor'];
 function showPage(id) {
   PAGES.forEach(p => {
     const pg = qs('page-'+p);
@@ -2000,7 +1974,8 @@ function showPage(id) {
   });
   window.scrollTo(0,0);
   closeSidebar();
-  if(id==='portfolio') { loadSavedDealsPage(); loadDealsForCoachDropdown(); }
+  if(id==='deals')     { loadDealsPage(); loadDealsForCoachDropdown(); }
+  if(id==='portfolio') { loadPortfolioPage(); }
   if(id==='market')    { loadDealsForMarketDropdown(); }
   if(id==='toolkit')   { loadDealsForToolkitDropdown(); renderToolkitIfReady(); }
   if(id==='operator')  { loadOperatorProfile(); }
@@ -2413,13 +2388,20 @@ function scoreText(text) {
 
 function initContractorScore(listings=[]) {
   if(!S.pcData) return;
-  const regionBonus = REGION_BASELINE[S.pcData.region||S.pcData.country||'England']||4;
+  const region2=S.pcData.region||S.pcData.country||'England';
+  const regionBonus = REGION_BASELINE[region2]||12;
   const infra = S.infraNearby.filter(p=>p.type==='infra');
   const nhs   = S.infraNearby.filter(p=>p.type==='nhs');
   const uni   = S.infraNearby.filter(p=>p.type==='uni');
-  const infraBonus = Math.min(30, infra.length*8);
-  const nhsBonus   = Math.min(20, nhs.length*12);
-  const uniBonus   = Math.min(15, uni.length*8);
+  const infraBonus = Math.min(24, infra.length*8);
+  const nhsBonus   = Math.min(22, nhs.length*11);
+  const uniBonus   = Math.min(10, uni.length*5);
+  // ADR market signal — high nightly rates = high contractor demand market
+  const rd=S.rentData||getRentalData();
+  const adrBonus = rd&&rd.adr ? Math.min(12, Math.round((rd.adr-50)/5)) : 4;
+  // SA market size signal based on region rental volume
+  const rdRegion=REGIONAL_RENTAL[region2]||REGIONAL_RENTAL['England'];
+  const marketBonus = rdRegion ? Math.min(8, Math.round((rdRegion[S.beds]?.med||900)/250)) : 3;
   let textScore=0, evidence=[];
   listings.forEach(l=>{
     const {score,found}=scoreText([l.name||'',l.title||''].join(' '));
@@ -2427,30 +2409,30 @@ function initContractorScore(listings=[]) {
   });
   const seen=new Set();
   evidence=evidence.filter(e=>{if(seen.has(e.kw))return false;seen.add(e.kw);return true;});
-  const raw=textScore+regionBonus+infraBonus+nhsBonus+uniBonus;
-  const score=Math.min(100,Math.round((raw/60)*100));
+  const raw=textScore+regionBonus+infraBonus+nhsBonus+uniBonus+adrBonus+marketBonus;
+  const score=Math.max(28, Math.min(100, Math.round((raw/68)*100)));
   S.contractorScore=score;
 
-  const level=score>=60?'High':score>=35?'Medium':'Low';
+  const level=score>=62?'High':score>=40?'Medium':'Low';
   const levelCls=level==='High'?'score-high':level==='Medium'?'score-medium':'score-low';
   const icon=level==='High'?'🔥':level==='Medium'?'⚡':'📉';
   qs('contractor-score-badge').textContent=icon+' '+level+' Contractor Potential';
   qs('contractor-score-badge').className='score-badge '+levelCls;
   const barEl=qs('contractor-score-bar');
   if(barEl){barEl.style.width=score+'%';barEl.style.background=level==='High'?'var(--green)':level==='Medium'?'var(--amber)':'var(--red)';}
-  qs('contractor-score-meta').textContent=`Overall score: ${score}/100`;
+  qs('contractor-score-meta').textContent=`Overall score: ${score}/100 — ${level==='High'?'Strong contractor demand signals':'Medium'==='High'?'':level==='Medium'?'Moderate contractor demand':'Lower demand — factor into pricing'}`;
   qs('contractor-no-deal').style.display='none';
   qs('contractor-results').style.display='block';
 
-  // Build score explanation bullets (no universities shown)
-  const region2=S.pcData.region||S.pcData.country||'England';
   const infraItems=S.infraNearby.filter(p=>p.type==='infra');
   const nhsItems=S.infraNearby.filter(p=>p.type==='nhs');
   const bullets=[
-    {icon:'🗺',text:`Regional demand (${region2})`,pts:regionBonus,show:true},
-    {icon:'🏗',text:infraItems.length?`${infraItems.length} major infrastructure project${infraItems.length>1?'s':''} within range`:'No major infrastructure projects within range',pts:infraBonus,show:true},
-    {icon:'🏥',text:nhsItems.length?`${nhsItems.length} NHS hospital${nhsItems.length>1?'s':''} / trust${nhsItems.length>1?'s':''} within range`:'No major NHS hospitals within range',pts:nhsBonus,show:true},
-    {icon:'📋',text:textScore>0?'Keyword demand signals detected in listing descriptions':'No keyword demand signals detected',pts:textScore,show:true}
+    {icon:'🗺',text:`SA contractor market — ${region2}`,pts:regionBonus},
+    {icon:'🏗',text:infraItems.length?`${infraItems.length} major infrastructure project${infraItems.length>1?'s':''} within range`:'No major infrastructure projects detected nearby',pts:infraBonus},
+    {icon:'🏥',text:nhsItems.length?`${nhsItems.length} NHS hospital${nhsItems.length>1?'s':''} / trust${nhsItems.length>1?'s':''} within range`:'No major NHS facilities detected nearby',pts:nhsBonus},
+    {icon:'📈',text:`SA market ADR signal — avg £${rd&&rd.adr?rd.adr:'—'}/night in region`,pts:adrBonus},
+    {icon:'🏙',text:`Rental market size — ${region2} median £${(rdRegion&&rdRegion[S.beds||2])?rdRegion[S.beds||2].med.toLocaleString():'—'}/mo`,pts:marketBonus},
+    {icon:'📋',text:textScore>0?'Demand keywords detected in local listing descriptions':'No contractor-specific listing keywords detected',pts:textScore}
   ];
   const bulletsEl=qs('contractor-evidence-wrap');
   if(bulletsEl){
@@ -2463,7 +2445,6 @@ function initContractorScore(listings=[]) {
       </div>`).join('')}</div>`;
   }
 
-  // Infrastructure nearby with tick marks (infra + NHS only, no universities)
   const showNearby=S.infraNearby.filter(p=>p.type!=='uni');
   const infraWrap=qs('infra-wrap'), infraList=qs('infra-list');
   if(showNearby.length&&infraWrap&&infraList){
@@ -2674,10 +2655,10 @@ function renderFinderSearchLinks() {
   }
   const enc=encodeURIComponent(pc);
   const portals=[
-    {icon:'🏠',label:'Rightmove',sub:'UK\'s largest portal',href:`https://www.rightmove.co.uk/property-to-rent/find.html?searchLocation=${enc}&useLocationIdentifier=false&radius=1.0&minBedrooms=${beds}&maxBedrooms=${beds}${maxRent?'&maxPrice='+maxRent:''}`},
-    {icon:'🏡',label:'Zoopla',sub:'Comprehensive listings',href:`https://www.zoopla.co.uk/to-rent/property/${enc}/?beds_min=${beds}&beds_max=${beds}&price_frequency=per_month${maxRent?'&price_max='+maxRent:''}`},
+    {icon:'🏠',label:'Rightmove',sub:'UK\'s largest portal',href:`https://www.rightmove.co.uk/property-to-rent/search.html?searchLocation=${enc}&radius=1.0&minBedrooms=${beds}&maxBedrooms=${beds}${maxRent?'&maxPrice='+maxRent:''}&sortType=6`},
+    {icon:'🏡',label:'Zoopla',sub:'Comprehensive listings',href:`https://www.zoopla.co.uk/to-rent/property/${enc.toLowerCase().replace(/%20/g,'-')}/?beds_min=${beds}&beds_max=${beds}&price_frequency=per_month${maxRent?'&price_max='+maxRent:''}`},
     {icon:'🔑',label:'OpenRent',sub:'Direct from landlords',href:`https://www.openrent.co.uk/properties-to-rent/?term=${enc}&bedrooms=${beds}${maxRent?'&maximumPrice='+maxRent:''}`},
-    {icon:'📱',label:'SpareRoom',sub:'Rooms & whole lets',href:`https://www.spareroom.co.uk/flatshare/${enc.toLowerCase().replace(/\s/g,'-')}`}
+    {icon:'📱',label:'SpareRoom',sub:'Whole properties & rooms',href:`https://www.spareroom.co.uk/flatshare/?search_type=rooms&location_type=town&location=${enc}&rooms_for=professionals&per_page=20&min_rooms=${beds}&max_rooms=${beds}`}
   ];
   grid.innerHTML=portals.map(p=>`<a class="portal-tile" href="${p.href}" target="_blank" rel="noopener"><span class="pt-icon">${p.icon}</span><span>${p.label}</span><span class="pt-sub">${p.sub}</span></a>`).join('');
 }
@@ -2706,14 +2687,19 @@ function renderFinderLinks() {
 }
 function renderPlanningLinks() {
   if(!S.pcData) return;
-  const pc=encodeURIComponent(S.postcode||'');
-  const la=encodeURIComponent(S.pcData.admin_district||'');
+  const pc=S.postcode||'';
+  const enc=encodeURIComponent(pc);
   const laR=S.pcData.admin_district||'your area';
+  const laSlug=laR.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+  const laEnc=encodeURIComponent(laR);
+  const country=S.pcData.country||'England';
   const links=[
-    {icon:'🏛',label:'Planning Portal',sub:'planningportal.co.uk',href:'https://www.planningportal.co.uk/planning'},
-    {icon:'🔍',label:S.postcode+' planning 2025',sub:'Google search',href:`https://www.google.com/search?q=${pc}+planning+applications+2025+2026`},
-    {icon:'🏢',label:laR+' council planning',sub:'Local authority',href:`https://www.google.com/search?q=${la}+council+planning+portal`},
-    {icon:'🏗',label:'Regeneration/development corp',sub:'Google search',href:`https://www.google.com/search?q=${la}+development+corporation+regeneration`}
+    {icon:'🏛',label:'Planning Portal',sub:'Find permitted development rights & apply online',href:'https://www.planningportal.co.uk/planning'},
+    {icon:'📋',label:'Planit — '+laR+' applications',sub:'Live planning applications near '+pc,href:`https://www.planit.org.uk/applics/search?postcode=${encodeURIComponent(pc)}&pg=0`},
+    {icon:'🏢',label:laR+' council planning search',sub:'Direct link to local authority planning portal',href:`https://${laSlug}.gov.uk/planning`},
+    {icon:'🏗',label:'National Infrastructure projects',sub:'Major UK projects — HS2, nuclear, energy, highways',href:'https://national-infrastructure.planninginspectorate.gov.uk/'},
+    {icon:'🛰',label:'Satellite view — '+pc,sub:'Google Maps aerial — spot active development',href:`https://maps.google.com/maps?q=${enc}&t=k&z=15`},
+    {icon:'🔍',label:laR+' development 2025-26',sub:'Latest regeneration news for this area',href:`https://www.google.com/search?q=${laEnc}+regeneration+development+corporation+2025+2026`}
   ];
   const pg=qs('planning-links-grid');
   if(pg) {
@@ -2722,7 +2708,7 @@ function renderPlanningLinks() {
   }
   const infraList=qs('planning-infra-list');
   if(S.infraNearby.length&&infraList){
-    infraList.innerHTML=S.infraNearby.map(p=>`<div class="infra-signal-card"><div class="isc-name">${p.type==='nhs'?'🏥':p.type==='uni'?'🎓':'🏗'} ${p.name}</div><div class="isc-meta">${p.dist} km away</div><div class="isc-action">💡 Target workers/staff needing accommodation near this site</div></div>`).join('');
+    infraList.innerHTML=S.infraNearby.map(p=>`<div class="infra-signal-card"><div class="isc-name">${p.type==='nhs'?'🏥':p.type==='uni'?'🎓':'🏗'} ${p.name}</div><div class="isc-meta">${p.dist} km away</div><div class="isc-action">💡 Target workers/staff needing accommodation near this ${p.type==='nhs'?'hospital':'site'}</div></div>`).join('');
     qs('planning-infra-section').style.display='block';
   }
 }
@@ -2838,27 +2824,28 @@ function formatDateShort(dateStr) {
   return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
 }
 
-/* ════ PORTFOLIO / SAVED DEALS PAGE ════════════════════════ */
-async function loadSavedDealsPage() {
-  const pg=qs('pipeline-grid'), lg=qs('live-grid');
-  if(!pg||!lg) return;
+/* ════ DEALS / PORTFOLIO PAGES ══════════════════════════════ */
+async function ensureDealsLoaded(force) {
+  if(!force && S.allDeals && S.allDeals.length) return;
+  if(typeof window.__loadDeals!=='function') return;
+  try { S.allDeals=await window.__loadDeals(); } catch(e) { console.warn('Load deals error',e); }
+}
+
+async function loadDealsPage() {
+  const pg=qs('pipeline-grid'); if(!pg) return;
   pg.innerHTML='<div class="notice notice-info"><span>⏳</span><span>Loading...</span></div>';
-  lg.innerHTML='';
-  if(typeof window.__loadDeals!=='function'){
-    pg.innerHTML='<div class="notice notice-info"><span>💡</span><span>Save a deal from Deal Analyser to see it here.</span></div>';
-    return;
-  }
-  try {
-    const deals=await window.__loadDeals();
-    S.allDeals=deals;
-    renderDealsGrid();
-    updatePortfolioTotals();
-    checkLeaseRenewals(deals);
-    const pfCur=qs('pf-current');
-    if(pfCur) pfCur.value=deals.filter(d=>d.isLive).length||0;
-  } catch(e) {
-    pg.innerHTML='<div class="notice notice-warn"><span>⚠️</span><span>Error loading deals: '+e.message+'</span></div>';
-  }
+  await ensureDealsLoaded();
+  renderDealsGrid();
+}
+
+async function loadPortfolioPage() {
+  const lg=qs('live-grid'); if(!lg) return;
+  await ensureDealsLoaded();
+  renderDealsGrid();
+  updatePortfolioTotals();
+  checkLeaseRenewals(S.allDeals||[]);
+  const pfCur=qs('pf-current');
+  if(pfCur) pfCur.value=(S.allDeals||[]).filter(d=>d.isLive).length||0;
 }
 
 function renderDealsGrid() {
@@ -2983,8 +2970,10 @@ window.toggleDealLive=async function(dealId,makeLive){
     if(typeof window.__updateDeal==='function') await window.__updateDeal(dealId,{isLive:makeLive});
     const deal=S.allDeals.find(d=>d.id===dealId);
     if(deal) deal.isLive=makeLive;
-    renderDealsGrid(); updatePortfolioTotals(); checkLeaseRenewals(S.allDeals);
-    showToast(makeLive?'Moved to Live Portfolio!':'Moved to Pipeline');
+    renderDealsGrid();
+    updatePortfolioTotals();
+    checkLeaseRenewals(S.allDeals);
+    showToast(makeLive?'Moved to My Portfolio!':'Moved back to My Deals');
   } catch(e){ showToast('Error: '+e.message); }
 };
 
@@ -3391,77 +3380,6 @@ async function saveProfile() {
   setLoading('profile-spinner',false);
 }
 
-/* ════ LISTING SCORER ═══════════════════════════════════════ */
-const S_LISTINGS=[];
-
-window.removeListingScore=function(idx){
-  S_LISTINGS.splice(idx,1);
-  renderScoredListings();
-};
-
-async function addScoredListing() {
-  const addr=(qs('scorer-address')||{}).value.trim();
-  const pc=(qs('scorer-postcode')||{}).value.trim();
-  const rent=parseFloat((qs('scorer-rent')||{}).value)||0;
-  const beds=parseInt((qs('scorer-beds')||{}).value)||2;
-  if(!pc&&!addr){ showToast('Enter an address or postcode.'); return; }
-
-  let clScore=5;
-  let pcData=null;
-  if(pc){
-    try { pcData=await fetchPostcode(pc); } catch(e){}
-    if(pcData){
-      // Use region baseline
-      const region3=pcData.region||pcData.country||'England';
-      const regBonus=REGION_BASELINE[region3]||4;
-      clScore=4;
-      if(beds===2||beds===3) clScore+=2; else if(beds>=4) clScore-=1;
-      if(regBonus>=7) clScore+=1;
-      // Rent check vs regional data
-      const rd=REGIONAL_RENTAL[region3]||REGIONAL_RENTAL['England'];
-      const b=rd[beds]||rd[2];
-      if(b&&rent>0){
-        const pos=b.hi>b.lo?(rent-b.lo)/(b.hi-b.lo):0.5;
-        if(pos<0.35) clScore+=2; else if(pos<0.65) clScore+=1; else clScore-=1;
-      }
-      clScore=clamp(clScore,1,10);
-    }
-  }
-
-  S_LISTINGS.push({addr:addr||pc,pc,rent,beds,score:clScore,region:pcData?.region||pcData?.country||'Unknown'});
-  // Clear form
-  if(qs('scorer-address')) qs('scorer-address').value='';
-  if(qs('scorer-postcode')) qs('scorer-postcode').value='';
-  if(qs('scorer-rent')) qs('scorer-rent').value='';
-  renderScoredListings();
-}
-
-function renderScoredListings() {
-  const wrap=qs('scored-listings-wrap');
-  const grid=qs('scored-grid');
-  if(!wrap||!grid) return;
-  if(!S_LISTINGS.length){ wrap.style.display='none'; return; }
-  wrap.style.display='block';
-  grid.innerHTML=S_LISTINGS.map((l,i)=>{
-    const level=l.score>=7?'High':l.score>=5?'Medium':'Low';
-    const cls=level==='High'?'score-high':level==='Medium'?'score-medium':'score-low';
-    const cirCls=level==='High'?'h':level==='Medium'?'m':'l';
-    const verdict=level==='High'?'Good company let prospect':level==='Medium'?'Moderate acceptance chance':'Lower acceptance likelihood';
-    return `<div class="scored-card ${cls}">
-      <button class="sc-delete" onclick="removeListingScore(${i})" title="Remove">✕</button>
-      <div class="sc-address">${l.addr}</div>
-      <div class="sc-meta">${l.beds} bed · ${l.rent?'£'+Math.round(l.rent)+'/mo':''} · ${l.region}</div>
-      <div class="sc-score-row">
-        <div class="sc-circle ${cirCls}">${l.score}</div>
-        <div>
-          <div class="sc-verdict">${verdict}</div>
-          <div class="sc-sub">Company Let Score: ${l.score}/10 — ${level}</div>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-}
-
 /* ════ AIRDNA KEY SAVE BUTTON ═══════════════════════════════ */
 function saveAirdnaKey() {
   const key=qs('airdna-key').value.trim();
@@ -3505,13 +3423,11 @@ function bindEvents() {
     if(sel.value){const opt=sel.options[sel.selectedIndex];qs('market-postcode').value=opt.dataset.postcode||'';qs('market-beds').value=opt.dataset.beds||2;}
   });
   qs('btn-save-airdna-key').addEventListener('click',saveAirdnaKey);
-  qs('btn-refresh-deals').addEventListener('click',loadSavedDealsPage);
+  qs('btn-refresh-deals').addEventListener('click',()=>{ S.allDeals=[]; loadDealsPage(); loadDealsForCoachDropdown(); });
+  qs('btn-refresh-portfolio').addEventListener('click',()=>{ S.allDeals=[]; loadPortfolioPage(); });
   qs('btn-refresh-mentor').addEventListener('click',loadMentorPage);
   qs('btn-save-profile').addEventListener('click',saveProfile);
   qs('btn-load-toolkit-deal').addEventListener('click',loadToolkitDeal);
-  qs('btn-add-listing').addEventListener('click',addScoredListing);
-  qs('btn-clear-listings').addEventListener('click',()=>{S_LISTINGS.length=0;renderScoredListings();});
-  qs('scorer-address').addEventListener('keydown',e=>{if(e.key==='Enter') addScoredListing();});
   // Restore saved keys
   const chKey=localStorage.getItem('ch-api-key'); if(chKey) qs('ch-api-key').value=chKey;
   const airdnaKey=localStorage.getItem('operateiq-airdna-key'); if(airdnaKey) qs('airdna-key').value=airdnaKey;
