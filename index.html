@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OperateIQ — Login</title>
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="OperateIQ">
+<meta name="theme-color" content="#0d1b3e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0d1b3e;--navy-mid:#142248;--navy-card:#1a2f5e;--navy-light:#243870;
+  --gold:#C9A84C;--gold-light:#e8c96a;--gold-dim:rgba(201,168,76,0.18);
+  --white:#fff;--text-muted:#7a93c0;--green:#2ECC71;--green-bg:rgba(46,204,113,0.12);
+  --red:#E74C3C;--red-bg:rgba(231,76,60,0.12);--transition:0.3s cubic-bezier(0.4,0,0.2,1);
+}
+body{font-family:'Inter',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;}
+.auth-wrap{width:100%;max-width:420px;}
+.brand{text-align:center;margin-bottom:2rem;}
+.brand-icon{width:64px;height:64px;background:var(--gold);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;font-weight:900;color:var(--navy);margin:0 auto 1rem;}
+.brand-name{font-size:1.4rem;font-weight:800;}
+.brand-tag{font-size:0.78rem;color:var(--gold);text-transform:uppercase;letter-spacing:0.1em;margin-top:0.2rem;}
+.card{background:var(--navy-mid);border:1px solid rgba(201,168,76,0.15);border-radius:20px;padding:2rem;box-shadow:0 8px 40px rgba(0,0,0,0.4);}
+.tabs{display:flex;gap:0.5rem;margin-bottom:1.5rem;background:rgba(255,255,255,0.04);border-radius:10px;padding:0.35rem;}
+.tab{flex:1;padding:0.6rem;border:none;border-radius:7px;font-family:'Inter',sans-serif;font-size:0.85rem;font-weight:600;cursor:pointer;transition:var(--transition);color:var(--text-muted);background:transparent;}
+.tab.active{background:var(--gold);color:var(--navy);}
+.form-section{display:none;}
+.form-section.active{display:block;}
+.field{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1rem;}
+.field label{font-size:0.75rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;}
+.field input{background:rgba(255,255,255,0.05);border:1.5px solid rgba(201,168,76,0.25);border-radius:10px;color:var(--white);padding:0.75rem 1rem;font-size:0.95rem;font-family:'Inter',sans-serif;width:100%;transition:var(--transition);}
+.field input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,0.12);}
+.field input::placeholder{color:var(--text-muted);}
+.btn-gold{width:100%;background:var(--gold);color:var(--navy);border:none;border-radius:10px;padding:0.9rem;font-size:0.95rem;font-weight:800;font-family:'Inter',sans-serif;cursor:pointer;transition:var(--transition);display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-top:0.5rem;}
+.btn-gold:hover{background:var(--gold-light);}
+.btn-gold:disabled{opacity:0.5;cursor:not-allowed;}
+.msg{border-radius:10px;padding:0.75rem 1rem;font-size:0.82rem;margin-top:0.75rem;display:none;}
+.msg.success{background:var(--green-bg);border:1px solid rgba(46,204,113,0.3);color:var(--green);}
+.msg.error{background:var(--red-bg);border:1px solid rgba(231,76,60,0.3);color:var(--red);}
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(13,27,62,0.3);border-top-color:var(--navy);border-radius:50%;animation:spin 0.7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.divider{text-align:center;font-size:0.75rem;color:var(--text-muted);margin:1rem 0;position:relative;}
+.divider::before,.divider::after{content:'';position:absolute;top:50%;width:40%;height:1px;background:rgba(255,255,255,0.08);}
+.divider::before{left:0;}.divider::after{right:0;}
+.pending-notice{background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.25);border-radius:12px;padding:1rem 1.2rem;margin-top:1rem;font-size:0.82rem;color:var(--text-muted);line-height:1.5;display:none;}
+.pending-notice strong{color:var(--gold);}
+.footer-note{text-align:center;font-size:0.72rem;color:var(--text-muted);margin-top:1.5rem;}
+/* Firebase not configured warning */
+.config-warning{background:rgba(231,76,60,0.1);border:1px solid rgba(231,76,60,0.3);border-radius:12px;padding:1rem 1.2rem;margin-bottom:1.5rem;font-size:0.8rem;color:#fc8c80;line-height:1.6;display:none;}
+.config-warning strong{color:var(--red);}
+.config-warning code{background:rgba(255,255,255,0.08);padding:1px 5px;border-radius:4px;font-size:0.75rem;}
+</style>
+</head>
+<body>
+
+<div class="auth-wrap">
+  <div class="brand">
+    <div class="brand-icon">OQ</div>
+    <div class="brand-name">OperateIQ</div>
+    <div class="brand-tag">Serviced Accommodation Intelligence</div>
+  </div>
+
+  <div id="config-warning" class="config-warning">
+    <strong>⚠️ Firebase not configured yet.</strong><br>
+    Open <code>firebase-config.js</code> and paste your Firebase project credentials.
+    Follow the instructions inside that file to set up your project in ~10 minutes at
+    <strong>console.firebase.google.com</strong>.
+  </div>
+
+  <div class="card">
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('login')">Sign In</button>
+      <button class="tab" onclick="switchTab('register')">Request Access</button>
+    </div>
+
+    <!-- LOGIN -->
+    <div class="form-section active" id="tab-login">
+      <div class="field">
+        <label>Email Address</label>
+        <input type="email" id="login-email" placeholder="your@email.com" autocomplete="email">
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <button class="btn-gold" id="btn-login" onclick="doLogin()">
+        Sign In →
+      </button>
+      <div class="msg" id="login-msg"></div>
+    </div>
+
+    <!-- REGISTER -->
+    <div class="form-section" id="tab-register">
+      <div class="field">
+        <label>Full Name</label>
+        <input type="text" id="reg-name" placeholder="Your full name" autocomplete="name">
+      </div>
+      <div class="field">
+        <label>Email Address</label>
+        <input type="email" id="reg-email" placeholder="your@email.com" autocomplete="email">
+      </div>
+      <div class="field">
+        <label>Password (min. 8 characters)</label>
+        <input type="password" id="reg-password" placeholder="Create a password" autocomplete="new-password">
+      </div>
+      <div class="field">
+        <label>Confirm Password</label>
+        <input type="password" id="reg-confirm" placeholder="Repeat password" autocomplete="new-password">
+      </div>
+      <button class="btn-gold" id="btn-register" onclick="doRegister()">
+        Request Access →
+      </button>
+      <div class="msg" id="reg-msg"></div>
+      <div class="pending-notice" id="pending-notice">
+        <strong>✅ Request submitted!</strong><br>
+        Your account has been created and is pending approval. You'll be able to log in once your access has been granted. Contact your programme manager if you have any questions.
+      </div>
+    </div>
+  </div>
+
+  <p class="footer-note">OperateIQ · Serviced Accommodation Intelligence · v2.0</p>
+</div>
+
+<!-- Firebase SDKs -->
+<script src="firebase-config.js"></script>
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+// Check if Firebase is configured
+const isConfigured = FIREBASE_CONFIG.apiKey && FIREBASE_CONFIG.apiKey !== 'PASTE_YOUR_API_KEY_HERE';
+if (!isConfigured) {
+  document.getElementById('config-warning').style.display = 'block';
+}
+
+let auth, db;
+if (isConfigured) {
+  const app = initializeApp(FIREBASE_CONFIG);
+  auth = getAuth(app);
+  db   = getFirestore(app);
+
+  // Redirect if already logged in and approved
+  // Use a flag to prevent redirect loops
+  let authChecked = false;
+  onAuthStateChanged(auth, async user => {
+    if (authChecked) return;
+    authChecked = true;
+    if (!user) return;
+    try {
+      const userDoc = await getDoc(doc(db, 'users', user.uid));
+      if (userDoc.exists() && userDoc.data().approved === true) {
+        window.location.href = 'app.html';
+      } else {
+        // Logged in but not approved — sign out silently so form works
+        await auth.signOut();
+      }
+    } catch(e) {
+      // Firestore not ready or rules blocked — sign out and let them use the form
+      await auth.signOut();
+    }
+  });
+}
+
+window.switchTab = function(tab) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  event.target.classList.add('active');
+};
+
+window.doLogin = async function() {
+  if (!isConfigured) { showMsg('login-msg', 'error', 'Firebase is not configured yet. Open firebase-config.js.'); return; }
+  const email = document.getElementById('login-email').value.trim();
+  const pass  = document.getElementById('login-password').value;
+  if (!email || !pass) { showMsg('login-msg', 'error', 'Please enter your email and password.'); return; }
+
+  setLoading('btn-login', true);
+  try {
+    const cred = await signInWithEmailAndPassword(auth, email, pass);
+    const userDoc = await getDoc(doc(db, 'users', cred.user.uid));
+    if (!userDoc.exists() || !userDoc.data().approved) {
+      await auth.signOut();
+      showMsg('login-msg', 'error', 'Your account is pending approval. Please contact your programme manager.');
+      setLoading('btn-login', false);
+      return;
+    }
+    // Update last login
+    await setDoc(doc(db, 'users', cred.user.uid), { lastLogin: serverTimestamp() }, { merge: true });
+    window.location.href = 'app.html';
+  } catch(e) {
+    setLoading('btn-login', false);
+    const errs = {
+      'auth/user-not-found': 'No account found with this email.',
+      'auth/wrong-password': 'Incorrect password. Please try again.',
+      'auth/invalid-email': 'Please enter a valid email address.',
+      'auth/too-many-requests': 'Too many attempts. Please try again later.',
+      'auth/invalid-credential': 'Email or password is incorrect.'
+    };
+    showMsg('login-msg', 'error', errs[e.code] || 'Login failed. Please try again.');
+  }
+};
+
+window.doRegister = async function() {
+  if (!isConfigured) { showMsg('reg-msg', 'error', 'Firebase is not configured yet. Open firebase-config.js.'); return; }
+  const name    = document.getElementById('reg-name').value.trim();
+  const email   = document.getElementById('reg-email').value.trim();
+  const pass    = document.getElementById('reg-password').value;
+  const confirm = document.getElementById('reg-confirm').value;
+
+  if (!name)             { showMsg('reg-msg', 'error', 'Please enter your name.'); return; }
+  if (!email)            { showMsg('reg-msg', 'error', 'Please enter your email.'); return; }
+  if (pass.length < 8)   { showMsg('reg-msg', 'error', 'Password must be at least 8 characters.'); return; }
+  if (pass !== confirm)  { showMsg('reg-msg', 'error', 'Passwords do not match.'); return; }
+
+  setLoading('btn-register', true);
+  try {
+    const cred = await createUserWithEmailAndPassword(auth, email, pass);
+    const isAdmin = email.toLowerCase() === ADMIN_EMAIL.toLowerCase();
+    await setDoc(doc(db, 'users', cred.user.uid), {
+      name, email,
+      approved: isAdmin,
+      role: isAdmin ? 'admin' : 'pending',
+      createdAt: serverTimestamp()
+    });
+    if (isAdmin) {
+      window.location.href = 'app.html';
+    } else {
+      await auth.signOut();
+      setLoading('btn-register', false);
+      document.getElementById('reg-msg').style.display = 'none';
+      document.getElementById('pending-notice').style.display = 'block';
+    }
+  } catch(e) {
+    setLoading('btn-register', false);
+    const errs = {
+      'auth/email-already-in-use': 'An account with this email already exists. Try logging in.',
+      'auth/invalid-email': 'Please enter a valid email address.',
+      'auth/weak-password': 'Password is too weak. Use at least 8 characters.'
+    };
+    showMsg('reg-msg', 'error', errs[e.code] || 'Registration failed. Please try again.');
+  }
+};
+
+function showMsg(id, type, text) {
+  const el = document.getElementById(id);
+  el.className = 'msg ' + type;
+  el.textContent = text;
+  el.style.display = 'block';
+}
+
+function setLoading(btnId, on) {
+  const btn = document.getElementById(btnId);
+  btn.disabled = on;
+  btn.innerHTML = on
+    ? '<span class="spinner"></span> Please wait…'
+    : (btnId === 'btn-login' ? 'Sign In →' : 'Request Access →');
+}
+
+// Allow Enter key to submit
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    const active = document.querySelector('.form-section.active').id;
+    if (active === 'tab-login')    window.doLogin();
+    if (active === 'tab-register') window.doRegister();
+  }
+});
+</script>
+</body>
+</html>

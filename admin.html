@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel — SA Deal Analyser</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0d1b3e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0d1b3e;--navy-mid:#142248;--navy-card:#1a2f5e;--navy-light:#243870;
+  --gold:#C9A84C;--gold-light:#e8c96a;--gold-dim:rgba(201,168,76,0.18);
+  --white:#fff;--text-muted:#7a93c0;--green:#2ECC71;--green-bg:rgba(46,204,113,0.12);
+  --amber:#F39C12;--amber-bg:rgba(243,156,18,0.12);
+  --red:#E74C3C;--red-bg:rgba(231,76,60,0.12);--transition:0.3s cubic-bezier(0.4,0,0.2,1);
+}
+body{font-family:'Inter',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;padding-bottom:3rem;}
+#auth-gate{display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:2rem;}
+#auth-gate .msg{color:var(--text-muted);font-size:0.9rem;margin-top:0.5rem;}
+header{background:rgba(13,27,62,0.97);border-bottom:1px solid rgba(201,168,76,0.15);padding:0.75rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.logo{display:flex;align-items:center;gap:0.75rem;}
+.logo-icon{width:36px;height:36px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:900;color:var(--navy);}
+.logo-text{font-size:0.95rem;font-weight:700;}
+.logo-sub{font-size:0.7rem;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;}
+.admin-tag{background:var(--red-bg);color:var(--red);border:1px solid rgba(231,76,60,0.3);padding:0.3rem 0.8rem;border-radius:50px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;}
+.nav-actions{display:flex;gap:0.75rem;align-items:center;}
+.btn-sm{background:transparent;border:1.5px solid rgba(201,168,76,0.3);color:var(--gold);border-radius:8px;padding:0.4rem 0.9rem;font-size:0.8rem;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;transition:var(--transition);text-decoration:none;display:inline-block;}
+.btn-sm:hover{background:var(--gold-dim);}
+main{max-width:1100px;margin:0 auto;padding:2rem 1rem;}
+h1{font-size:1.5rem;font-weight:800;margin-bottom:0.3rem;}
+.page-sub{color:var(--text-muted);font-size:0.85rem;margin-bottom:2rem;}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.75rem;margin-bottom:2rem;}
+.stat{background:var(--navy-mid);border:1px solid rgba(201,168,76,0.12);border-radius:14px;padding:1.1rem 1.2rem;}
+.stat .s-label{font-size:0.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem;}
+.stat .s-value{font-size:1.8rem;font-weight:800;color:var(--gold);}
+.card{background:var(--navy-mid);border:1px solid rgba(201,168,76,0.12);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;padding-bottom:0.9rem;border-bottom:1px solid rgba(255,255,255,0.06);}
+.card-title{font-size:1rem;font-weight:700;}
+.btn-primary{background:var(--gold);color:var(--navy);border:none;border-radius:9px;padding:0.6rem 1.2rem;font-size:0.85rem;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;transition:var(--transition);}
+.btn-primary:hover{background:var(--gold-light);}
+table{width:100%;border-collapse:collapse;}
+th{text-align:left;font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;padding:0.6rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.07);}
+td{padding:0.85rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.04);font-size:0.85rem;vertical-align:middle;}
+tr:hover td{background:rgba(255,255,255,0.02);}
+.badge{display:inline-flex;align-items:center;gap:0.3rem;padding:0.25rem 0.7rem;border-radius:50px;font-size:0.72rem;font-weight:700;}
+.badge-pending{background:var(--amber-bg);color:var(--amber);border:1px solid rgba(243,156,18,0.25);}
+.badge-approved{background:var(--green-bg);color:var(--green);border:1px solid rgba(46,204,113,0.25);}
+.badge-admin{background:var(--gold-dim);color:var(--gold);border:1px solid rgba(201,168,76,0.3);}
+.badge-disabled{background:var(--red-bg);color:var(--red);border:1px solid rgba(231,76,60,0.25);}
+.actions{display:flex;gap:0.4rem;flex-wrap:wrap;}
+.btn-approve{background:var(--green-bg);color:var(--green);border:1px solid rgba(46,204,113,0.3);border-radius:7px;padding:0.3rem 0.7rem;font-size:0.75rem;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;transition:var(--transition);}
+.btn-approve:hover{background:rgba(46,204,113,0.2);}
+.btn-revoke{background:var(--red-bg);color:var(--red);border:1px solid rgba(231,76,60,0.3);border-radius:7px;padding:0.3rem 0.7rem;font-size:0.75rem;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer;transition:var(--transition);}
+.btn-revoke:hover{background:rgba(231,76,60,0.2);}
+.empty-row td{color:var(--text-muted);text-align:center;padding:2rem;font-size:0.85rem;}
+.invite-form{display:flex;gap:0.75rem;flex-wrap:wrap;}
+.invite-form input{flex:1;min-width:200px;background:rgba(255,255,255,0.05);border:1.5px solid rgba(201,168,76,0.25);border-radius:9px;color:var(--white);padding:0.65rem 1rem;font-size:0.9rem;font-family:'Inter',sans-serif;}
+.invite-form input:focus{outline:none;border-color:var(--gold);}
+.notice{border-radius:10px;padding:0.75rem 1rem;font-size:0.82rem;margin-top:0.75rem;}
+.notice.success{background:var(--green-bg);border:1px solid rgba(46,204,113,0.3);color:var(--green);}
+.notice.error{background:var(--red-bg);border:1px solid rgba(231,76,60,0.3);color:var(--red);}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(201,168,76,0.3);border-top-color:var(--gold);border-radius:50%;animation:spin 0.7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-row td{text-align:center;color:var(--text-muted);padding:2rem;}
+@media(max-width:640px){table{font-size:0.78rem;}th,td{padding:0.6rem 0.5rem;}.actions{flex-direction:column;}}
+</style>
+</head>
+<body>
+
+<div id="auth-gate" style="display:none;">
+  <div>
+    <div style="font-size:2rem;margin-bottom:0.5rem;">🔒</div>
+    <div style="font-size:1.1rem;font-weight:700;">Admin Access Only</div>
+    <div class="msg">You must be logged in as admin to view this page.</div>
+    <a href="index.html" class="btn-sm" style="margin-top:1rem;display:inline-block;">Go to Login</a>
+  </div>
+</div>
+
+<div id="admin-app" style="display:none;">
+  <header>
+    <div class="logo">
+      <div class="logo-icon">SA</div>
+      <div>
+        <div class="logo-text">SA Deal Analyser</div>
+        <div class="logo-sub">Admin Panel</div>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <span class="admin-tag">Admin</span>
+      <a href="app.html" class="btn-sm">Open Tool</a>
+      <button class="btn-sm" id="btn-logout">Logout</button>
+    </div>
+  </header>
+
+  <main>
+    <h1>User Management</h1>
+    <p class="page-sub">Grant, revoke, and manage access for SA Deal Analyser members.</p>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat"><div class="s-label">Total Users</div><div class="s-value" id="stat-total">—</div></div>
+      <div class="stat"><div class="s-label">Approved</div><div class="s-value" id="stat-approved" style="color:var(--green)">—</div></div>
+      <div class="stat"><div class="s-label">Pending</div><div class="s-value" id="stat-pending" style="color:var(--amber)">—</div></div>
+      <div class="stat"><div class="s-label">Deals Saved</div><div class="s-value" id="stat-deals">—</div></div>
+    </div>
+
+    <!-- Invite a user directly -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Directly Approve an Email</div>
+      </div>
+      <p style="font-size:0.83rem;color:var(--text-muted);margin-bottom:1rem;">Pre-approve an email address so the user can register and immediately get access (no waiting for your approval).</p>
+      <div class="invite-form">
+        <input type="email" id="approve-email" placeholder="client@email.com">
+        <button class="btn-primary" id="btn-approve-email" onclick="preApproveEmail()">Pre-Approve Email</button>
+      </div>
+      <div id="invite-notice" class="notice" style="display:none;"></div>
+    </div>
+
+    <!-- User list -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Registered Users</div>
+        <button class="btn-primary" onclick="loadUsers()">Refresh</button>
+      </div>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Registered</th>
+              <th>Last Login</th>
+              <th>Deals</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="users-table">
+            <tr class="loading-row"><td colspan="7"><span class="spinner"></span> Loading users…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="firebase-config.js"></script>
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getAuth, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+import { getFirestore, collection, doc, getDoc, getDocs, setDoc, updateDoc, query, collectionGroup, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+const isConfigured = FIREBASE_CONFIG.apiKey && FIREBASE_CONFIG.apiKey !== 'PASTE_YOUR_API_KEY_HERE';
+let auth, db, currentUser;
+
+if (!isConfigured) {
+  document.getElementById('auth-gate').style.display = 'flex';
+  document.getElementById('auth-gate').querySelector('.msg').textContent = 'Firebase is not configured. Open firebase-config.js first.';
+} else {
+  const app = initializeApp(FIREBASE_CONFIG);
+  auth = getAuth(app);
+  db   = getFirestore(app);
+
+  onAuthStateChanged(auth, async user => {
+    if (!user) { showAuthGate('You must be logged in to access this page.'); return; }
+    const userDoc = await getDoc(doc(db, 'users', user.uid));
+    if (!userDoc.exists() || userDoc.data().role !== 'admin') {
+      showAuthGate('You do not have admin access.');
+      return;
+    }
+    currentUser = user;
+    document.getElementById('admin-app').style.display = 'block';
+    loadUsers();
+  });
+}
+
+function showAuthGate(msg) {
+  document.getElementById('auth-gate').style.display = 'flex';
+  document.getElementById('auth-gate').querySelector('.msg').textContent = msg;
+}
+
+window.loadUsers = async function() {
+  const tbody = document.getElementById('users-table');
+  tbody.innerHTML = '<tr class="loading-row"><td colspan="7"><span class="spinner"></span> Loading…</td></tr>';
+
+  try {
+    const snap = await getDocs(collection(db, 'users'));
+    const users = [];
+    let approvedCount = 0, pendingCount = 0;
+
+    // Get deal counts per user
+    let dealsTotal = 0;
+    const dealCounts = {};
+    try {
+      const dealsSnap = await getDocs(collectionGroup(db, 'deals'));
+      dealsSnap.forEach(d => {
+        const uid = d.ref.parent.parent.id;
+        dealCounts[uid] = (dealCounts[uid] || 0) + 1;
+        dealsTotal++;
+      });
+    } catch(e) { /* Firestore rules may prevent collectionGroup in some configs */ }
+
+    snap.forEach(d => {
+      const data = { id: d.id, ...d.data() };
+      users.push(data);
+      if (data.approved) approvedCount++; else pendingCount++;
+    });
+
+    document.getElementById('stat-total').textContent    = users.length;
+    document.getElementById('stat-approved').textContent = approvedCount;
+    document.getElementById('stat-pending').textContent  = pendingCount;
+    document.getElementById('stat-deals').textContent    = dealsTotal || '—';
+
+    if (users.length === 0) {
+      tbody.innerHTML = '<tr class="empty-row"><td colspan="7">No users registered yet.</td></tr>';
+      return;
+    }
+
+    users.sort((a,b) => (b.createdAt?.seconds||0) - (a.createdAt?.seconds||0));
+
+    tbody.innerHTML = users.map(u => {
+      const created   = u.createdAt    ? new Date(u.createdAt.seconds*1000).toLocaleDateString('en-GB') : '—';
+      const lastLogin = u.lastLogin    ? new Date(u.lastLogin.seconds*1000).toLocaleDateString('en-GB') : 'Never';
+      const deals     = dealCounts[u.id] || 0;
+      const role      = u.role || 'pending';
+      let badge;
+      if (role === 'admin')        badge = '<span class="badge badge-admin">Admin</span>';
+      else if (u.approved)         badge = '<span class="badge badge-approved">Approved</span>';
+      else                         badge = '<span class="badge badge-pending">Pending</span>';
+
+      const isAdmin = role === 'admin';
+      const actions = isAdmin ? '<span style="color:var(--text-muted);font-size:0.75rem;">Admin account</span>' : `
+        <div class="actions">
+          ${u.approved
+            ? `<button class="btn-revoke" onclick="setApproval('${u.id}', false)">Revoke</button>`
+            : `<button class="btn-approve" onclick="setApproval('${u.id}', true)">Approve</button>`}
+        </div>`;
+
+      return `<tr>
+        <td><strong>${u.name||'—'}</strong></td>
+        <td style="color:var(--text-muted)">${u.email||'—'}</td>
+        <td>${badge}</td>
+        <td style="color:var(--text-muted)">${created}</td>
+        <td style="color:var(--text-muted)">${lastLogin}</td>
+        <td><span style="color:var(--gold);font-weight:700">${deals}</span></td>
+        <td>${actions}</td>
+      </tr>`;
+    }).join('');
+
+  } catch(e) {
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="7" style="color:var(--red)">Error loading users: ${e.message}</td></tr>`;
+  }
+};
+
+window.setApproval = async function(uid, approve) {
+  try {
+    await updateDoc(doc(db, 'users', uid), {
+      approved: approve,
+      role: approve ? 'user' : 'pending',
+      approvedAt: approve ? serverTimestamp() : null,
+      approvedBy: currentUser?.uid || null
+    });
+    loadUsers();
+  } catch(e) {
+    alert('Error: ' + e.message);
+  }
+};
+
+window.preApproveEmail = async function() {
+  const email = document.getElementById('approve-email').value.trim().toLowerCase();
+  const noticeEl = document.getElementById('invite-notice');
+  if (!email || !email.includes('@')) {
+    showNotice('error', 'Please enter a valid email address.'); return;
+  }
+  document.getElementById('btn-approve-email').disabled = true;
+  try {
+    await setDoc(doc(db, 'preApproved', email), {
+      preApprovedAt: serverTimestamp(),
+      preApprovedBy: currentUser?.uid || null
+    });
+    showNotice('success', `✅ ${email} is now pre-approved. When they register with this email, they'll get immediate access.`);
+    document.getElementById('approve-email').value = '';
+  } catch(e) {
+    showNotice('error', 'Error: ' + e.message);
+  }
+  document.getElementById('btn-approve-email').disabled = false;
+
+  function showNotice(type, text) {
+    noticeEl.className = 'notice ' + type;
+    noticeEl.textContent = text;
+    noticeEl.style.display = 'block';
+  }
+};
+
+document.getElementById('btn-logout')?.addEventListener('click', async () => {
+  await signOut(auth);
+  window.location.href = 'index.html';
+});
+</script>
+</body>
+</html>

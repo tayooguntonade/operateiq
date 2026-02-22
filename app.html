@@ -1,0 +1,3163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OperateIQ | Deal Intelligence Platform</title>
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="OperateIQ">
+<meta name="theme-color" content="#0d1b3e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+/* ─── VARIABLES ───────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f1f4f9;
+  --surface:#ffffff;
+  --surface-alt:#f8fafc;
+  --sidebar-bg:#0d1b3e;
+  --sidebar-hover:rgba(255,255,255,0.07);
+  --sidebar-active-bg:rgba(201,168,76,0.15);
+  --sidebar-active-border:#C9A84C;
+  --gold:#C9A84C;
+  --gold-light:#e8c96a;
+  --gold-pale:rgba(201,168,76,0.12);
+  --gold-dim:rgba(201,168,76,0.18);
+  --navy:#0d1b3e;
+  --text:#1e293b;
+  --text-sec:#475569;
+  --text-muted:#94a3b8;
+  --border:#e2e8f0;
+  --border-strong:#cbd5e1;
+  --green:#059669;
+  --green-bg:rgba(5,150,105,0.09);
+  --amber:#d97706;
+  --amber-bg:rgba(217,119,6,0.09);
+  --red:#dc2626;
+  --red-bg:rgba(220,38,38,0.09);
+  --blue:#2563eb;
+  --blue-bg:rgba(37,99,235,0.09);
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+  --shadow:0 4px 6px rgba(0,0,0,0.06),0 2px 4px rgba(0,0,0,0.04);
+  --shadow-lg:0 10px 25px rgba(0,0,0,0.08),0 4px 6px rgba(0,0,0,0.03);
+  --radius:12px;
+  --radius-sm:8px;
+  --radius-lg:16px;
+  --sidebar-w:240px;
+  --transition:0.2s ease;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;line-height:1.6}
+h1,h2,h3,.logo-name,.page-title,.card-title{font-family:'Plus Jakarta Sans',sans-serif}
+
+/* ─── AUTH LOADING ────────────────────────────────────────── */
+#auth-loading{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--navy);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;
+}
+.auth-logo-lg{
+  width:64px;height:64px;border-radius:16px;
+  background:var(--gold);color:var(--navy);
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:1.5rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+}
+#auth-loading p{color:#94a3b8;font-size:0.9rem}
+.spin{display:inline-block;width:28px;height:28px;border:3px solid rgba(201,168,76,0.25);border-top-color:var(--gold);border-radius:50%;animation:spin 0.7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#app-shell{display:none;width:100%;min-height:100vh}
+#app-shell.ready{display:flex}
+
+/* ─── SIDEBAR ─────────────────────────────────────────────── */
+#sidebar{
+  width:var(--sidebar-w);height:100vh;
+  background:var(--sidebar-bg);
+  position:fixed;left:0;top:0;
+  display:flex;flex-direction:column;
+  z-index:200;
+  border-right:1px solid rgba(255,255,255,0.06);
+  transition:transform var(--transition);
+}
+.sidebar-logo{
+  padding:1.25rem 1.25rem 1rem;
+  border-bottom:1px solid rgba(255,255,255,0.07);
+  display:flex;align-items:center;gap:0.75rem;
+}
+.logo-icon{
+  width:36px;height:36px;border-radius:9px;
+  background:var(--gold);color:var(--navy);
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:0.9rem;font-weight:800;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.logo-name{font-size:1rem;font-weight:700;color:#fff;letter-spacing:-0.01em}
+.logo-sub{font-size:0.65rem;color:#64748b;letter-spacing:0.06em;text-transform:uppercase;margin-top:1px}
+.sidebar-nav{flex:1;padding:0.75rem 0.625rem;display:flex;flex-direction:column;gap:0.2rem;overflow-y:auto}
+.nav-item{
+  display:flex;align-items:center;gap:0.75rem;
+  padding:0.65rem 0.75rem;border-radius:var(--radius-sm);
+  color:#94a3b8;font-size:0.85rem;font-weight:500;
+  cursor:pointer;transition:var(--transition);
+  border:none;background:transparent;width:100%;text-align:left;
+  font-family:'Inter',sans-serif;
+  border-left:3px solid transparent;
+}
+.nav-item:hover{background:var(--sidebar-hover);color:#e2e8f0}
+.nav-item.active{
+  background:var(--sidebar-active-bg);
+  color:var(--gold);font-weight:600;
+  border-left-color:var(--gold);
+}
+.nav-item .nav-icon{font-size:1rem;flex-shrink:0;width:18px;text-align:center}
+.nav-section-label{
+  font-size:0.65rem;font-weight:600;color:#475569;
+  text-transform:uppercase;letter-spacing:0.1em;
+  padding:0.75rem 0.75rem 0.25rem;
+}
+.sidebar-footer{
+  padding:1rem 1.25rem;
+  border-top:1px solid rgba(255,255,255,0.07);
+}
+.user-info{margin-bottom:0.75rem}
+.user-name{font-size:0.82rem;font-weight:600;color:#e2e8f0;display:block}
+.user-email{font-size:0.72rem;color:#64748b}
+.btn-signout{
+  width:100%;padding:0.5rem;border-radius:var(--radius-sm);
+  background:transparent;border:1px solid rgba(255,255,255,0.1);
+  color:#64748b;font-size:0.78rem;font-weight:600;
+  font-family:'Inter',sans-serif;cursor:pointer;
+  transition:var(--transition);
+}
+.btn-signout:hover{border-color:rgba(220,38,38,0.4);color:#ef4444}
+#sidebar-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,0.5);z-index:199;
+}
+
+/* ─── MAIN CONTENT ────────────────────────────────────────── */
+#main-content{
+  margin-left:var(--sidebar-w);
+  flex:1;min-height:100vh;
+  display:flex;flex-direction:column;
+}
+#mobile-header{
+  display:none;
+  align-items:center;justify-content:space-between;
+  padding:0.875rem 1.25rem;
+  background:var(--surface);
+  border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:100;
+}
+.hamburger{
+  background:none;border:none;cursor:pointer;
+  display:flex;flex-direction:column;gap:4px;padding:4px;
+}
+.hamburger span{width:22px;height:2px;background:var(--text);border-radius:2px;display:block}
+.mobile-logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:700;color:var(--navy)}
+.mobile-user{width:32px;height:32px;border-radius:50%;background:var(--gold-pale);border:1.5px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:var(--gold)}
+
+/* ─── PAGES ───────────────────────────────────────────────── */
+.page{display:none;padding:2rem;max-width:980px;margin:0 auto;width:100%}
+.page.active{display:block}
+.page-header{margin-bottom:2rem}
+.page-title{font-size:1.75rem;font-weight:800;color:var(--navy);line-height:1.2;margin-bottom:0.35rem}
+.page-title span{color:var(--gold)}
+.page-subtitle{font-size:0.9rem;color:var(--text-muted)}
+.page-actions{display:flex;align-items:center;gap:0.75rem;margin-top:1rem;flex-wrap:wrap}
+
+/* ─── CARDS ───────────────────────────────────────────────── */
+.card{
+  background:var(--surface);
+  border-radius:var(--radius);
+  padding:1.5rem;
+  margin-bottom:1.25rem;
+  box-shadow:var(--shadow-sm);
+  border:1px solid var(--border);
+  transition:box-shadow var(--transition);
+}
+.card.hidden{display:none}
+.card-header{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;
+  margin-bottom:1.25rem;padding-bottom:1rem;
+  border-bottom:1px solid var(--border);
+}
+.card-title-wrap{}
+.card-title{font-size:1rem;font-weight:700;color:var(--navy)}
+.card-subtitle{font-size:0.78rem;color:var(--text-muted);margin-top:2px}
+.card-badge{
+  display:inline-flex;align-items:center;
+  background:var(--gold-pale);color:var(--gold);
+  border:1px solid rgba(201,168,76,0.3);
+  padding:0.2rem 0.65rem;border-radius:50px;
+  font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;
+  white-space:nowrap;flex-shrink:0;
+}
+.card-num{
+  width:28px;height:28px;border-radius:7px;
+  background:var(--navy);color:var(--gold);
+  font-weight:800;font-size:0.78rem;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  margin-right:0.75rem;
+}
+
+/* ─── FORMS ───────────────────────────────────────────────── */
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem}
+.field-group{display:flex;flex-direction:column;gap:0.35rem}
+.field-group label{font-size:0.72rem;font-weight:600;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.06em}
+.field-group input,.field-group select{
+  background:var(--surface-alt);
+  border:1.5px solid var(--border);
+  border-radius:var(--radius-sm);color:var(--text);
+  padding:0.65rem 0.875rem;font-size:0.9rem;
+  font-family:'Inter',sans-serif;font-weight:500;width:100%;
+  transition:border-color var(--transition),box-shadow var(--transition);
+}
+.field-group input:focus,.field-group select:focus{
+  outline:none;border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(201,168,76,0.12);
+  background:#fff;
+}
+.field-group input::placeholder{color:var(--text-muted);font-weight:400}
+.field-group select option{background:#fff;color:var(--text)}
+.field-group textarea{
+  background:var(--surface-alt);border:1.5px solid var(--border);
+  border-radius:var(--radius-sm);color:var(--text);
+  padding:0.75rem 0.875rem;font-size:0.88rem;
+  font-family:'Inter',sans-serif;width:100%;resize:vertical;min-height:120px;
+  transition:border-color var(--transition);
+}
+.field-group textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,0.12)}
+.input-prefix{position:relative}
+.input-prefix .pfx{position:absolute;left:0.875rem;top:50%;transform:translateY(-50%);color:var(--gold);font-weight:700;font-size:0.9rem;pointer-events:none}
+.input-prefix input{padding-left:1.75rem}
+
+/* ─── BUTTONS ─────────────────────────────────────────────── */
+.btn{
+  display:inline-flex;align-items:center;gap:0.45rem;
+  border-radius:var(--radius-sm);font-family:'Inter',sans-serif;
+  font-weight:600;cursor:pointer;transition:var(--transition);
+  border:none;white-space:nowrap;
+}
+.btn-primary{
+  background:var(--gold);color:var(--navy);
+  padding:0.75rem 1.75rem;font-size:0.9rem;
+}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-1px);box-shadow:0 4px 12px rgba(201,168,76,0.3)}
+.btn-primary:active{transform:translateY(0)}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.btn-secondary{
+  background:transparent;color:var(--gold);
+  border:1.5px solid rgba(201,168,76,0.5);
+  padding:0.65rem 1.35rem;font-size:0.85rem;
+}
+.btn-secondary:hover{background:var(--gold-pale);border-color:var(--gold)}
+.btn-secondary:disabled{opacity:0.5;cursor:not-allowed}
+.btn-outline{
+  background:transparent;color:var(--text-sec);
+  border:1.5px solid var(--border);
+  padding:0.6rem 1.2rem;font-size:0.82rem;
+}
+.btn-outline:hover{border-color:var(--border-strong);color:var(--text)}
+.btn-danger{
+  background:var(--red-bg);color:var(--red);
+  border:1px solid rgba(220,38,38,0.25);
+  padding:0.4rem 0.85rem;font-size:0.78rem;
+}
+.btn-danger:hover{background:rgba(220,38,38,0.15)}
+.btn-success{
+  background:var(--green-bg);color:var(--green);
+  border:1.5px solid rgba(5,150,105,0.35);
+  padding:0.75rem 1.75rem;font-size:0.9rem;font-weight:700;
+}
+.btn-success:hover{background:rgba(5,150,105,0.15);transform:translateY(-1px)}
+.btn-sm{padding:0.4rem 0.875rem;font-size:0.78rem;border-radius:6px}
+.btn-icon{padding:0.5rem;border-radius:6px}
+.loading-spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(201,168,76,0.25);border-top-color:currentColor;border-radius:50%;animation:spin 0.7s linear infinite}
+
+/* ─── LOCATION BADGE ──────────────────────────────────────── */
+#location-badge{
+  display:none;align-items:center;gap:0.5rem;
+  background:rgba(5,150,105,0.08);border:1px solid rgba(5,150,105,0.2);
+  border-radius:var(--radius-sm);padding:0.6rem 0.875rem;
+  margin-top:1rem;font-size:0.82rem;color:var(--green);font-weight:500;
+}
+#location-badge.show{display:flex}
+
+/* ─── STAT CARDS ──────────────────────────────────────────── */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.75rem;margin-bottom:1.25rem}
+.stat-card{
+  background:var(--surface-alt);
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:1rem;text-align:center;
+}
+.stat-label{font-size:0.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem;font-weight:600}
+.stat-value{font-size:1.4rem;font-weight:800;color:var(--text);line-height:1;font-family:'Plus Jakarta Sans',sans-serif}
+.stat-sub{font-size:0.68rem;color:var(--text-muted);margin-top:0.25rem}
+.positive{color:var(--green)}
+.negative{color:var(--red)}
+.neutral{color:var(--amber)}
+.gold-val{color:var(--gold)}
+
+/* ─── RENT GAUGE ──────────────────────────────────────────── */
+.rent-gauge{display:flex;gap:0.5rem;margin:1rem 0}
+.gauge-seg{flex:1;padding:0.7rem 0.5rem;border-radius:var(--radius-sm);text-align:center;font-size:0.78rem;font-weight:600;opacity:0.35;transition:var(--transition);border:1.5px solid transparent}
+.gauge-seg.active{opacity:1;transform:scale(1.03)}
+.gauge-cheap{background:var(--green-bg);color:var(--green);border-color:rgba(5,150,105,0.3)}
+.gauge-avg{background:var(--amber-bg);color:var(--amber);border-color:rgba(217,119,6,0.3)}
+.gauge-exp{background:var(--red-bg);color:var(--red);border-color:rgba(220,38,38,0.3)}
+.gauge-label{font-size:0.95rem;font-weight:800;margin-bottom:0.15rem}
+
+/* ─── INSIGHT GRID ────────────────────────────────────────── */
+.insight-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0.65rem;margin-top:1rem}
+.insight-box{background:var(--surface-alt);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.75rem 0.875rem}
+.insight-box .ib-label{font-size:0.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;font-weight:600}
+.insight-box .ib-value{font-size:1rem;font-weight:700;color:var(--text)}
+.ib-value.good{color:var(--green)}.ib-value.warn{color:var(--amber)}.ib-value.bad{color:var(--red)}
+
+/* ─── BILLS GRID ──────────────────────────────────────────── */
+.bills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.65rem;margin-bottom:1rem}
+.bill-row{background:var(--surface-alt);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.75rem 0.875rem;display:flex;align-items:center;justify-content:space-between;gap:0.75rem}
+.bill-info{flex:1}
+.bill-name{font-size:0.82rem;font-weight:600;color:var(--text)}
+.bill-desc{font-size:0.7rem;color:var(--text-muted);margin-top:1px}
+.auto-tag{font-size:0.58rem;background:var(--gold-pale);color:var(--gold);padding:2px 5px;border-radius:4px;text-transform:uppercase;letter-spacing:0.05em;font-weight:700;margin-top:2px;display:inline-block}
+.bill-input-wrap{display:flex;align-items:center;gap:0.25rem}
+.bill-input-wrap .bpfx{font-size:0.82rem;color:var(--gold);font-weight:700}
+.bill-field{width:72px;background:#fff;border:1.5px solid var(--border);border-radius:6px;color:var(--text);padding:0.35rem 0.4rem;font-size:0.88rem;font-weight:600;font-family:'Inter',sans-serif;text-align:right}
+.bill-field:focus{outline:none;border-color:var(--gold)}
+
+/* ─── SLIDER ──────────────────────────────────────────────── */
+.slider-row{display:flex;align-items:center;gap:1rem;margin:0.75rem 0}
+.slider-label{font-size:0.72rem;font-weight:600;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.06em;white-space:nowrap;min-width:100px}
+input[type="range"]{-webkit-appearance:none;flex:1;height:5px;border-radius:3px;background:var(--border);cursor:pointer;outline:none}
+input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--gold);border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.15);transition:transform 0.1s}
+input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
+.slider-val{min-width:50px;text-align:right;font-size:1rem;font-weight:700;color:var(--gold);font-family:'Plus Jakarta Sans',sans-serif}
+
+/* ─── UPFRONT ─────────────────────────────────────────────── */
+.upfront-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:0.75rem;margin-bottom:1rem}
+.upfront-total{background:var(--gold-pale);border:1.5px solid rgba(201,168,76,0.3);border-radius:var(--radius-sm);padding:1rem 1.25rem;display:flex;justify-content:space-between;align-items:center}
+.upfront-total .ut-label{font-size:0.82rem;font-weight:600;color:var(--text-sec)}
+.upfront-total .ut-amount{font-size:1.6rem;font-weight:800;color:var(--gold);font-family:'Plus Jakarta Sans',sans-serif}
+.costs-total-bar{background:rgba(220,38,38,0.06);border:1px solid rgba(220,38,38,0.18);border-radius:var(--radius-sm);padding:0.75rem 1rem;display:flex;justify-content:space-between;align-items:center;margin-top:0.75rem}
+.costs-total-bar .ctl{font-size:0.82rem;font-weight:600;color:var(--text-sec)}
+.costs-total-bar .cta{font-size:1.4rem;font-weight:800;color:var(--red);font-family:'Plus Jakarta Sans',sans-serif}
+
+/* ─── SA RULES ────────────────────────────────────────────── */
+.rules-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.6rem;margin:1rem 0}
+.rule-box{border-radius:var(--radius-sm);padding:0.75rem 0.875rem;display:flex;align-items:flex-start;gap:0.55rem;font-size:0.8rem}
+.rule-pass{background:var(--green-bg);border:1px solid rgba(5,150,105,0.2)}.rule-fail{background:var(--red-bg);border:1px solid rgba(220,38,38,0.2)}.rule-warn{background:var(--amber-bg);border:1px solid rgba(217,119,6,0.2)}
+.rule-icon{font-size:1rem;flex-shrink:0}
+.rule-title{font-weight:700;margin-bottom:0.15rem;font-size:0.8rem}
+.rule-desc{color:var(--text-sec);font-size:0.74rem}
+
+/* ─── CHARTS ──────────────────────────────────────────────── */
+.charts-row{display:grid;grid-template-columns:1fr 2fr;gap:1rem;margin-top:1.25rem}
+@media(max-width:640px){.charts-row{grid-template-columns:1fr}}
+.chart-box{background:var(--surface-alt);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem}
+.chart-box h4{font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.75rem;font-weight:600}
+.chart-container{position:relative;height:220px}
+
+/* ─── SAVE DEAL BAR ───────────────────────────────────────── */
+.save-bar{
+  background:linear-gradient(135deg,#f0fdf4,#ecfdf5);
+  border:1.5px solid rgba(5,150,105,0.25);
+  border-radius:var(--radius);padding:1.25rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;flex-wrap:wrap;margin-bottom:1.25rem;
+}
+.save-bar-text{font-size:0.88rem;font-weight:600;color:var(--green)}
+.save-bar-sub{font-size:0.75rem;color:var(--text-muted);margin-top:2px}
+#save-status{font-size:0.8rem;color:var(--text-muted)}
+
+/* ─── NOTICE BOXES ────────────────────────────────────────── */
+.notice{border-radius:var(--radius-sm);padding:0.75rem 0.875rem;font-size:0.82rem;display:flex;align-items:flex-start;gap:0.6rem;margin-bottom:0.875rem}
+.notice-info{background:var(--blue-bg);border:1px solid rgba(37,99,235,0.18);color:#1d4ed8}
+.notice-success{background:var(--green-bg);border:1px solid rgba(5,150,105,0.2);color:var(--green)}
+.notice-warn{background:var(--amber-bg);border:1px solid rgba(217,119,6,0.2);color:var(--amber)}
+.notice-error{background:var(--red-bg);border:1px solid rgba(220,38,38,0.2);color:var(--red)}
+.section-divider{height:1px;background:var(--border);margin:1.25rem 0}
+
+/* ─── AIRBNB LISTINGS ─────────────────────────────────────── */
+.listings-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:0.75rem;margin-top:1rem}
+.listing-card{background:var(--surface-alt);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.875rem;position:relative;transition:border-color var(--transition);cursor:pointer}
+.listing-card:hover{border-color:var(--gold-dim);box-shadow:var(--shadow-sm)}
+.listing-card a{text-decoration:none;color:inherit}
+.listing-name{font-size:0.82rem;font-weight:600;color:var(--text);margin-bottom:0.4rem;line-height:1.35}
+.listing-meta{font-size:0.72rem;color:var(--text-muted);margin-bottom:0.6rem}
+.listing-price{font-size:1.25rem;font-weight:800;color:var(--gold);font-family:'Plus Jakarta Sans',sans-serif}
+.listing-price span{font-size:0.72rem;color:var(--text-muted);font-weight:400}
+.listing-reviews{display:flex;align-items:center;gap:0.25rem;font-size:0.72rem;color:var(--text-muted);margin-top:0.35rem}
+.listing-reviews .star{color:#f59e0b}
+.listing-link{font-size:0.72rem;color:var(--gold);font-weight:600;display:block;margin-top:0.5rem}
+.listing-link:hover{text-decoration:underline}
+.sample-badge{position:absolute;top:0.5rem;right:0.5rem;background:var(--blue-bg);color:var(--blue);font-size:0.58rem;font-weight:700;padding:2px 6px;border-radius:4px;text-transform:uppercase;letter-spacing:0.05em;border:1px solid rgba(37,99,235,0.2)}
+.market-summary{display:grid;grid-template-columns:repeat(2,1fr);gap:0.65rem;margin-bottom:1rem}
+.market-stat{background:var(--surface-alt);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.75rem;text-align:center}
+.ms-label{font-size:0.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;font-weight:600}
+.ms-value{font-size:1.2rem;font-weight:800;color:var(--gold);font-family:'Plus Jakarta Sans',sans-serif}
+
+/* ─── CONTRACTOR SCORE ────────────────────────────────────── */
+.score-display{display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.score-badge{display:inline-flex;align-items:center;gap:0.5rem;padding:0.55rem 1.35rem;border-radius:50px;font-weight:700;font-size:1rem;letter-spacing:0.01em;font-family:'Plus Jakarta Sans',sans-serif}
+.score-high{background:var(--green-bg);color:var(--green);border:1.5px solid rgba(5,150,105,0.3)}
+.score-medium{background:var(--amber-bg);color:var(--amber);border:1.5px solid rgba(217,119,6,0.3)}
+.score-low{background:var(--red-bg);color:var(--red);border:1.5px solid rgba(220,38,38,0.3)}
+.score-bar-wrap{margin:0.875rem 0}
+.score-bar-track{height:8px;background:var(--border);border-radius:4px;overflow:hidden}
+.score-bar-fill{height:100%;border-radius:4px;transition:width 0.6s ease}
+.evidence-list{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.75rem}
+.evidence-tag{background:var(--surface-alt);border:1px solid var(--border);border-radius:5px;padding:0.25rem 0.6rem;font-size:0.72rem;font-weight:600;display:flex;align-items:center;gap:0.25rem;color:var(--text-sec)}
+.evidence-tag .w{color:var(--gold);font-size:0.65rem}
+.infra-list{display:flex;flex-direction:column;gap:0.4rem;margin-top:0.75rem}
+.infra-item{background:var(--green-bg);border:1px solid rgba(5,150,105,0.18);border-radius:var(--radius-sm);padding:0.55rem 0.875rem;font-size:0.8rem;display:flex;justify-content:space-between;align-items:center}
+.infra-dist{color:var(--green);font-weight:700;font-size:0.75rem}
+
+/* ─── LINKS GRID ──────────────────────────────────────────── */
+.links-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:0.6rem;margin-top:0.75rem}
+.deep-link{display:flex;align-items:center;gap:0.55rem;padding:0.65rem 0.875rem;background:var(--surface-alt);border:1px solid var(--border);border-radius:var(--radius-sm);text-decoration:none;color:var(--text);font-size:0.8rem;font-weight:600;transition:var(--transition)}
+.deep-link:hover{background:var(--gold-pale);border-color:rgba(201,168,76,0.3);color:var(--gold)}
+.deep-link .dl-icon{font-size:1rem;flex-shrink:0}
+.deep-link .dl-sub{font-size:0.65rem;color:var(--text-muted);font-weight:400;margin-top:1px}
+.news-item{padding:0.6rem 0;border-bottom:1px solid var(--border)}
+.news-item:last-child{border-bottom:none}
+.news-title{font-size:0.82rem;font-weight:600;margin-bottom:0.15rem}
+.news-title a{color:var(--text);text-decoration:none}
+.news-title a:hover{color:var(--gold)}
+.news-meta-text{font-size:0.7rem;color:var(--text-muted)}
+
+/* ─── COMPANY LET SCORE ───────────────────────────────────── */
+.cl-score-row{display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;margin-bottom:1.25rem}
+.cl-score-circle{width:68px;height:68px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.9rem;font-weight:800;flex-shrink:0;font-family:'Plus Jakarta Sans',sans-serif}
+.cl-high{background:var(--green-bg);color:var(--green);border:2.5px solid rgba(5,150,105,0.35)}
+.cl-medium{background:var(--amber-bg);color:var(--amber);border:2.5px solid rgba(217,119,6,0.35)}
+.cl-low{background:var(--red-bg);color:var(--red);border:2.5px solid rgba(220,38,38,0.35)}
+.cl-label{font-size:1.3rem;font-weight:800;color:var(--navy);font-family:'Plus Jakarta Sans',sans-serif}
+.cl-sub{font-size:0.82rem;color:var(--text-muted);margin-top:3px}
+.signals-wrap{display:flex;flex-wrap:wrap;gap:0.4rem;margin:0.75rem 0}
+.sig-pos{background:var(--green-bg);color:var(--green);border:1px solid rgba(5,150,105,0.25);border-radius:5px;padding:0.2rem 0.6rem;font-size:0.72rem;font-weight:600}
+.sig-neg{background:var(--red-bg);color:var(--red);border:1px solid rgba(220,38,38,0.25);border-radius:5px;padding:0.2rem 0.6rem;font-size:0.72rem;font-weight:600}
+.script-box{background:var(--gold-pale);border:1px solid rgba(201,168,76,0.3);border-left:4px solid var(--gold);border-radius:var(--radius-sm);padding:1rem 1.125rem;margin-top:1rem;font-size:0.85rem;line-height:1.7}
+.script-box strong{color:var(--gold);display:block;margin-bottom:0.4rem;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.07em}
+
+/* ─── RISK ASSESSMENT ─────────────────────────────────────── */
+.risk-section{margin-bottom:1.125rem}
+.risk-section h4{font-size:0.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:0.6rem;padding-bottom:0.4rem;border-bottom:1px solid var(--border)}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:0.5rem 0;border-bottom:1px solid rgba(226,232,240,0.6);flex-wrap:wrap}
+.toggle-row:last-child{border-bottom:none}
+.toggle-label{font-size:0.82rem;font-weight:500;flex:1;min-width:180px}
+.toggle-ctrl{display:flex;gap:0.35rem}
+.toggle-btn{padding:0.3rem 0.75rem;border-radius:5px;font-size:0.75rem;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;border:1.5px solid var(--border);background:var(--surface-alt);color:var(--text-muted);transition:var(--transition)}
+.toggle-btn.active-yes{background:var(--green-bg);color:var(--green);border-color:rgba(5,150,105,0.35)}
+.toggle-btn.active-no{background:var(--red-bg);color:var(--red);border-color:rgba(220,38,38,0.35)}
+.risk-score-row{display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;margin:1.125rem 0}
+.risk-badge{padding:0.55rem 1.35rem;border-radius:50px;font-weight:800;font-size:1.05rem;font-family:'Plus Jakarta Sans',sans-serif}
+.risk-low{background:var(--green-bg);color:var(--green);border:1.5px solid rgba(5,150,105,0.35)}
+.risk-moderate{background:var(--amber-bg);color:var(--amber);border:1.5px solid rgba(217,119,6,0.35)}
+.risk-high{background:var(--red-bg);color:var(--red);border:1.5px solid rgba(220,38,38,0.35)}
+.risk-subscores{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.6rem;margin:0.75rem 0}
+.risk-sub{background:var(--surface-alt);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.7rem;text-align:center}
+.risk-sub .rs-l{font-size:0.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.25rem;font-weight:600}
+.risk-sub .rs-v{font-size:1.3rem;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif}
+
+/* ─── COMPARISON TABLE ────────────────────────────────────── */
+.compare-wrap{overflow-x:auto;margin-top:1rem}
+.compare-table{width:100%;border-collapse:collapse;font-size:0.8rem}
+.compare-table th{background:var(--surface-alt);color:var(--text-muted);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;padding:0.55rem 0.75rem;text-align:left;border-bottom:2px solid var(--border);font-weight:600}
+.compare-table td{padding:0.55rem 0.75rem;border-bottom:1px solid var(--border);vertical-align:middle}
+.compare-table tr:last-child td{border-bottom:none}
+.compare-table tr:hover td{background:var(--surface-alt)}
+.best-col{border:2px solid var(--gold)!important;background:var(--gold-pale)!important}
+
+/* ─── PORTFOLIO / SAVED DEALS ─────────────────────────────── */
+.deals-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-top:1rem}
+.deal-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem;transition:var(--transition)}
+.deal-card:hover{box-shadow:var(--shadow);border-color:var(--border-strong)}
+.deal-card.live{border-color:rgba(5,150,105,0.35);background:linear-gradient(135deg,#fff,#f0fdf4)}
+.deal-card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:0.875rem}
+.deal-name{font-size:0.95rem;font-weight:700;color:var(--navy);font-family:'Plus Jakarta Sans',sans-serif}
+.deal-postcode{font-size:0.72rem;color:var(--text-muted);margin-top:2px}
+.deal-live-tag{background:var(--green-bg);color:var(--green);border:1px solid rgba(5,150,105,0.25);border-radius:50px;padding:0.15rem 0.55rem;font-size:0.65rem;font-weight:700;text-transform:uppercase;white-space:nowrap}
+.deal-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;margin-bottom:1rem}
+.deal-stat{text-align:center}
+.deal-stat .ds-val{font-size:1.1rem;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif}
+.deal-stat .ds-lbl{font-size:0.62rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;font-weight:600}
+.deal-actions{display:flex;gap:0.4rem;flex-wrap:wrap}
+.btn-deal{padding:0.35rem 0.7rem;border-radius:5px;font-size:0.72rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--surface-alt);color:var(--text-sec);font-family:'Inter',sans-serif;transition:var(--transition)}
+.btn-deal:hover{border-color:var(--border-strong);color:var(--text)}
+.btn-deal.live-btn{border-color:rgba(5,150,105,0.3);color:var(--green);background:var(--green-bg)}
+.btn-deal.coach-btn{border-color:rgba(201,168,76,0.3);color:var(--gold);background:var(--gold-pale)}
+.deal-filters{display:flex;gap:0.5rem;margin-bottom:1.25rem;flex-wrap:wrap}
+.filter-btn{padding:0.4rem 0.875rem;border-radius:50px;font-size:0.78rem;font-weight:600;cursor:pointer;border:1.5px solid var(--border);background:transparent;color:var(--text-muted);font-family:'Inter',sans-serif;transition:var(--transition)}
+.filter-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.portfolio-totals{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:0.75rem;margin-bottom:1.5rem}
+.port-stat{background:var(--surface-alt);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;text-align:center}
+.port-stat .ps-val{font-size:1.75rem;font-weight:800;color:var(--gold);font-family:'Plus Jakarta Sans',sans-serif;line-height:1}
+.port-stat .ps-lbl{font-size:0.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-top:0.35rem;font-weight:600}
+
+/* ─── PORTFOLIO PROJECTOR ─────────────────────────────────── */
+.year-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin:1rem 0}
+@media(max-width:480px){.year-cards{grid-template-columns:1fr}}
+.year-card{background:var(--surface-alt);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;text-align:center}
+.yc-year{font-size:0.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.35rem;font-weight:600}
+.yc-val{font-size:1.35rem;font-weight:800;color:var(--green);font-family:'Plus Jakarta Sans',sans-serif}
+.yc-sub{font-size:0.68rem;color:var(--text-muted);margin-top:0.2rem}
+.progress-bar-wrap{margin:1rem 0}
+.pb-label{font-size:0.8rem;font-weight:600;margin-bottom:0.4rem;display:flex;justify-content:space-between;align-items:center}
+.pb-track{height:8px;background:var(--border);border-radius:4px;overflow:hidden}
+.pb-fill{height:100%;background:var(--gold);border-radius:4px;transition:width 0.6s ease}
+.motivational{background:var(--gold-pale);border:1px solid rgba(201,168,76,0.25);border-radius:var(--radius-sm);padding:0.875rem 1rem;font-size:0.875rem;font-weight:600;color:var(--gold);text-align:center;margin-top:1rem}
+
+/* ─── STRATEGY / AI COACH ─────────────────────────────────── */
+.strategy-card{border-radius:var(--radius-sm);padding:1rem 1.125rem 1rem 1.375rem;margin-bottom:0.6rem;background:var(--surface-alt);border:1px solid var(--border);border-left:4px solid}
+.strategy-card.market{border-left-color:var(--blue)}.strategy-card.pricing{border-left-color:var(--gold)}.strategy-card.guest{border-left-color:var(--green)}.strategy-card.risk{border-left-color:var(--red)}.strategy-card.nextsteps{border-left-color:var(--amber)}
+.sc-type{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.4rem;color:var(--text-muted)}
+.sc-body{font-size:0.85rem;line-height:1.7;color:var(--text)}
+.coach-deal-selector{display:flex;gap:0.75rem;align-items:flex-end;margin-bottom:1.25rem;flex-wrap:wrap}
+.coach-deal-selector .field-group{flex:1;min-width:200px}
+
+/* ─── CRM ─────────────────────────────────────────────────── */
+.crm-views{display:flex;gap:0.4rem;margin-bottom:1.125rem}
+.view-btn{padding:0.4rem 1rem;border-radius:6px;font-size:0.8rem;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer;border:1.5px solid var(--border);background:transparent;color:var(--text-muted);transition:var(--transition)}
+.view-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.kanban-board{display:flex;gap:0.65rem;overflow-x:auto;padding-bottom:0.5rem}
+.kanban-col{min-width:165px;flex:1;background:var(--surface-alt);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.65rem}
+.kanban-col-title{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-muted);margin-bottom:0.6rem;padding-bottom:0.4rem;border-bottom:1px solid var(--border)}
+.lead-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.6rem;margin-bottom:0.4rem;font-size:0.75rem;transition:var(--transition)}
+.lead-card:hover{border-color:var(--border-strong)}
+.lc-name{font-weight:700;margin-bottom:0.15rem;font-size:0.78rem}
+.lc-meta{color:var(--text-muted);font-size:0.68rem;line-height:1.5}
+.lc-actions{display:flex;gap:0.25rem;margin-top:0.4rem}
+.lc-btn{padding:0.15rem 0.45rem;border-radius:4px;font-size:0.65rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;border:1px solid transparent;transition:var(--transition)}
+.lc-edit{background:var(--gold-pale);color:var(--gold);border-color:rgba(201,168,76,0.25)}
+.lc-delete{background:var(--red-bg);color:var(--red);border-color:rgba(220,38,38,0.2)}
+.crm-table{width:100%;border-collapse:collapse;font-size:0.8rem}
+.crm-table th{background:var(--surface-alt);color:var(--text-muted);font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;padding:0.55rem 0.75rem;text-align:left;border-bottom:2px solid var(--border);font-weight:600}
+.crm-table td{padding:0.55rem 0.75rem;border-bottom:1px solid var(--border);vertical-align:middle}
+.status-pill{display:inline-block;padding:0.15rem 0.55rem;border-radius:50px;font-size:0.65rem;font-weight:700;text-transform:uppercase}
+.s-Prospecting{background:var(--blue-bg);color:var(--blue)}
+.s-Called{background:var(--amber-bg);color:var(--amber)}
+.s-MeetingBooked{background:rgba(124,58,237,0.09);color:#7c3aed}
+.s-OfferMade{background:var(--gold-pale);color:var(--gold)}
+.s-Agreed{background:var(--green-bg);color:var(--green)}
+.s-Lost{background:var(--red-bg);color:var(--red)}
+.lead-form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:0.75rem;margin-bottom:1rem}
+.ch-card{background:var(--surface-alt);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.875rem 1rem;margin-bottom:0.5rem}
+.ch-name{font-size:0.88rem;font-weight:700;margin-bottom:0.2rem}
+.ch-meta{font-size:0.72rem;color:var(--text-muted);margin-bottom:0.4rem;line-height:1.5}
+.ch-card a{font-size:0.75rem;color:var(--gold);text-decoration:none}
+.ch-card a:hover{text-decoration:underline}
+.job-links{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.5rem}
+.job-link{display:inline-flex;align-items:center;gap:0.35rem;padding:0.4rem 0.875rem;background:var(--surface-alt);border:1px solid var(--border);border-radius:6px;text-decoration:none;color:var(--text);font-size:0.78rem;font-weight:600;transition:var(--transition)}
+.job-link:hover{background:var(--gold-pale);border-color:rgba(201,168,76,0.3);color:var(--gold)}
+.pro-tip{background:var(--gold-pale);border:1px solid rgba(201,168,76,0.22);border-left:3px solid var(--gold);border-radius:var(--radius-sm);padding:0.75rem 0.875rem;font-size:0.8rem;margin-top:0.875rem}
+.infra-signal-card{background:var(--surface-alt);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.75rem 0.875rem;margin-bottom:0.5rem}
+.isc-name{font-size:0.85rem;font-weight:700;margin-bottom:0.2rem}
+.isc-meta{font-size:0.72rem;color:var(--text-muted)}
+.isc-action{font-size:0.75rem;color:var(--gold);margin-top:0.35rem;font-weight:600}
+.airdna-key-row{display:flex;gap:0.75rem;align-items:flex-end;margin-bottom:1rem;flex-wrap:wrap}
+.airdna-key-row .field-group{flex:1;min-width:200px}
+
+/* ─── TOAST ───────────────────────────────────────────────── */
+#toast{
+  position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--navy);color:#fff;
+  padding:0.75rem 1.5rem;border-radius:50px;
+  font-size:0.875rem;font-weight:600;
+  z-index:9000;opacity:0;transition:opacity 0.3s,transform 0.3s;
+  pointer-events:none;white-space:nowrap;
+  box-shadow:var(--shadow-lg);
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ─── SAVED DEALS DROPDOWN ────────────────────────────────── */
+.deal-selector{display:flex;gap:0.75rem;align-items:flex-end;margin-bottom:1.25rem;flex-wrap:wrap}
+.deal-selector .field-group{flex:1;min-width:220px}
+
+/* ─── RESPONSIVE ──────────────────────────────────────────── */
+@media(max-width:768px){
+  #sidebar{transform:translateX(-100%)}
+  #sidebar.open{transform:translateX(0)}
+  #sidebar-overlay.show{display:block}
+  #main-content{margin-left:0}
+  #mobile-header{display:flex}
+  .page{padding:1.25rem}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .market-summary{grid-template-columns:repeat(2,1fr)}
+  .deals-grid{grid-template-columns:1fr}
+  .kanban-board{flex-direction:column}
+  .kanban-col{min-width:unset}
+  .year-cards{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:480px){
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .form-grid{grid-template-columns:1fr}
+  .charts-row{grid-template-columns:1fr}
+}
+@media print{
+  body{background:#fff;color:#000}
+  #sidebar,#mobile-header,#toast,#auth-loading{display:none!important}
+  #main-content{margin-left:0}
+  .page.active{padding:0}
+  .card{border:1px solid #ddd;box-shadow:none;background:#fff}
+  .card.hidden{display:none!important}
+  .btn-primary,.btn-secondary,.btn-success,.save-bar{display:none!important}
+  .positive{color:#065f46}.negative{color:#991b1b}.neutral{color:#92400e}.gold-val{color:#92400e}
+}
+
+/* ─── OPERATOR PROFILE ────────────────────────────────────── */
+.profile-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1.25rem}
+.profile-save-bar{background:var(--gold-pale);border:1.5px solid rgba(201,168,76,0.3);border-radius:var(--radius);padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-top:1rem}
+.profile-save-bar .ps-text{font-size:0.88rem;font-weight:600;color:var(--amber)}
+
+/* ─── PORTAL TILES ────────────────────────────────────────── */
+.portal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem;margin-bottom:1rem}
+@media(max-width:640px){.portal-grid{grid-template-columns:repeat(2,1fr)}}
+.portal-tile{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.35rem;padding:1.1rem 0.75rem;border:1.5px solid var(--border);border-radius:var(--radius);background:var(--surface-alt);text-decoration:none;color:var(--text);font-weight:700;font-size:0.88rem;font-family:'Plus Jakarta Sans',sans-serif;transition:var(--transition);cursor:pointer;text-align:center}
+.portal-tile:hover{border-color:var(--gold);background:var(--gold-pale);color:var(--navy);transform:translateY(-2px);box-shadow:var(--shadow)}
+.portal-tile .pt-icon{font-size:1.8rem;line-height:1}
+.portal-tile .pt-sub{font-size:0.68rem;color:var(--text-muted);font-weight:400;margin-top:2px}
+
+/* ─── LISTING SCORER ──────────────────────────────────────── */
+.scorer-form-row{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:0.75rem;align-items:end;margin-bottom:0.5rem}
+@media(max-width:640px){.scorer-form-row{grid-template-columns:1fr 1fr}}
+.scored-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:0.75rem;margin-top:1rem}
+.scored-card{background:var(--surface-alt);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:1rem;position:relative}
+.scored-card.score-high{border-color:rgba(5,150,105,0.45);background:rgba(5,150,105,0.03)}
+.scored-card.score-medium{border-color:rgba(217,119,6,0.4);background:rgba(217,119,6,0.03)}
+.scored-card.score-low{border-color:rgba(220,38,38,0.35);background:rgba(220,38,38,0.03)}
+.sc-address{font-size:0.85rem;font-weight:600;color:var(--text);margin-bottom:0.25rem;padding-right:1.5rem}
+.sc-meta{font-size:0.72rem;color:var(--text-muted);margin-bottom:0.75rem}
+.sc-score-row{display:flex;align-items:center;gap:0.75rem}
+.sc-circle{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1rem;font-family:'Plus Jakarta Sans',sans-serif;flex-shrink:0}
+.sc-circle.h{background:var(--green-bg);color:var(--green);border:2px solid rgba(5,150,105,0.3)}
+.sc-circle.m{background:var(--amber-bg);color:var(--amber);border:2px solid rgba(217,119,6,0.3)}
+.sc-circle.l{background:var(--red-bg);color:var(--red);border:2px solid rgba(220,38,38,0.25)}
+.sc-verdict{font-size:0.82rem;font-weight:700;color:var(--text)}
+.sc-sub{font-size:0.7rem;color:var(--text-muted);margin-top:1px}
+.sc-delete{position:absolute;top:0.5rem;right:0.5rem;background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:0.85rem;padding:2px 5px;border-radius:4px}
+.sc-delete:hover{color:var(--red);background:var(--red-bg)}
+
+/* ─── CONTRACTOR SCORE BULLETS ────────────────────────────── */
+.score-bullets{display:flex;flex-direction:column;gap:0.45rem;margin:1rem 0}
+.score-bullet{display:flex;align-items:center;gap:0.65rem;font-size:0.82rem;padding:0.5rem 0.875rem;border-radius:var(--radius-sm);background:var(--surface-alt);border:1px solid var(--border)}
+.score-bullet .sb-icon{font-size:1rem;flex-shrink:0}
+.score-bullet .sb-text{flex:1;color:var(--text)}
+.score-bullet .sb-pts{font-size:0.72rem;font-weight:700;color:var(--gold);white-space:nowrap;background:var(--gold-pale);padding:2px 7px;border-radius:4px}
+.score-bullet .sb-zero{font-size:0.72rem;color:var(--text-muted);white-space:nowrap}
+.infra-tick-list{display:flex;flex-direction:column;gap:0.4rem;margin-top:0.875rem}
+.infra-tick-item{display:flex;align-items:center;gap:0.65rem;font-size:0.8rem;padding:0.5rem 0.875rem;border-radius:var(--radius-sm);background:var(--green-bg);border:1px solid rgba(5,150,105,0.2)}
+.tick-icon{color:var(--green);font-weight:700;font-size:1rem;flex-shrink:0}
+
+/* ─── TOOLKIT DEAL SELECTOR ───────────────────────────────── */
+.toolkit-selector{display:flex;gap:0.75rem;align-items:flex-end;flex-wrap:wrap}
+.toolkit-current-label{font-size:0.8rem;color:var(--text-muted);margin-top:0.75rem;padding:0.5rem 0.75rem;background:var(--blue-bg);border-radius:var(--radius-sm);border:1px solid rgba(37,99,235,0.15);color:#1d4ed8}
+</style>
+</head>
+<body>
+
+<!-- ═══ AUTH LOADING ══════════════════════════════════════════ -->
+<div id="auth-loading">
+  <div class="auth-logo-lg">OQ</div>
+  <div class="spin"></div>
+  <p>Verifying your access...</p>
+</div>
+
+<!-- ═══ APP SHELL ════════════════════════════════════════════ -->
+<div id="app-shell">
+
+<!-- ─── SIDEBAR ───────────────────────────────────────────── -->
+<nav id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">OQ</div>
+    <div>
+      <div class="logo-name">OperateIQ</div>
+      <div class="logo-sub">Deal Intelligence</div>
+    </div>
+  </div>
+  <div class="sidebar-nav">
+    <button class="nav-item" id="nav-operator" onclick="showPage('operator')">
+      <span class="nav-icon">👤</span>Operator Profile
+    </button>
+    <button class="nav-item active" id="nav-analyse" onclick="showPage('analyse')">
+      <span class="nav-icon">🏠</span>Deal Analyser
+    </button>
+    <button class="nav-item" id="nav-market" onclick="showPage('market')">
+      <span class="nav-icon">📊</span>Market Analysis
+    </button>
+    <button class="nav-item" id="nav-toolkit" onclick="showPage('toolkit')">
+      <span class="nav-icon">🔨</span>Long Term Toolkit
+    </button>
+    <button class="nav-item" id="nav-finder" onclick="showPage('finder')">
+      <span class="nav-icon">🔍</span>Deal Finder IQ
+    </button>
+    <button class="nav-item" id="nav-portfolio" onclick="showPage('portfolio')">
+      <span class="nav-icon">💼</span>My Portfolio
+    </button>
+  </div>
+  <div class="sidebar-footer">
+    <div class="user-info">
+      <span class="user-name" id="sidebar-user-name">Loading...</span>
+      <span class="user-email" id="sidebar-user-email"></span>
+    </div>
+    <button class="btn-signout" id="btn-logout">Sign Out</button>
+  </div>
+</nav>
+<div id="sidebar-overlay" onclick="closeSidebar()"></div>
+
+<!-- ─── MAIN CONTENT ──────────────────────────────────────── -->
+<div id="main-content">
+
+<!-- Mobile Header -->
+<header id="mobile-header">
+  <button class="hamburger" onclick="openSidebar()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <span class="mobile-logo">OperateIQ</span>
+  <div class="mobile-user" id="mobile-user-avatar">U</div>
+</header>
+
+<!-- ═══ PAGE: OPERATOR PROFILE ═══════════════════════════════ -->
+<div id="page-operator" class="page">
+  <div class="page-header">
+    <h1 class="page-title">Operator <span>Profile</span></h1>
+    <p class="page-subtitle">Your personal details, goals, and path to financial freedom — all in one place.</p>
+  </div>
+
+  <!-- Personal Details -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Personal Details</div>
+        <div class="card-subtitle">Stored securely on your account</div>
+      </div>
+    </div>
+    <div class="profile-grid">
+      <div class="field-group"><label>Full Name</label><input type="text" id="op-name" placeholder="Your full name"></div>
+      <div class="field-group"><label>Email</label><input type="email" id="op-email" placeholder="your@email.com"></div>
+      <div class="field-group"><label>Date of Birth</label><input type="date" id="op-dob"></div>
+      <div class="field-group"><label>Phone</label><input type="tel" id="op-phone" placeholder="07700 000000"></div>
+      <div class="field-group"><label>City / Area</label><input type="text" id="op-city" placeholder="e.g. Manchester"></div>
+      <div class="field-group">
+        <label>SA Experience Level</label>
+        <select id="op-experience">
+          <option value="new">Just starting out</option>
+          <option value="learning">Learning — 0–6 months in</option>
+          <option value="active">Active — 1–3 properties</option>
+          <option value="scaling">Scaling — 4+ properties</option>
+        </select>
+      </div>
+    </div>
+    <div class="field-group" style="margin-bottom:1.25rem;">
+      <label>Motivation — Why I'm doing this</label>
+      <textarea id="op-motivation" placeholder="e.g. I want financial freedom within 3 years to spend more time with my family..."></textarea>
+    </div>
+    <div class="profile-save-bar">
+      <div>
+        <div class="ps-text">Save your profile</div>
+        <div style="font-size:0.72rem;color:var(--text-muted);margin-top:2px;">Auto-loaded each time you log in</div>
+      </div>
+      <button class="btn btn-primary" id="btn-save-profile">
+        <span id="profile-spinner" style="display:none;" class="loading-spinner"></span>
+        Save Profile →
+      </button>
+    </div>
+  </div>
+
+  <!-- My Goals -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">My Goals</div>
+        <div class="card-subtitle">Define your freedom number and growth plan</div>
+      </div>
+    </div>
+    <div class="profile-grid">
+      <div class="field-group">
+        <label>Monthly Freedom Number (£)</label>
+        <div class="input-prefix"><span class="pfx">£</span><input type="number" id="pf-freedom" placeholder="3000" min="0"></div>
+      </div>
+      <div class="field-group">
+        <label>Current Monthly Income (£)</label>
+        <div class="input-prefix"><span class="pfx">£</span><input type="number" id="op-current-income" placeholder="2500" min="0"></div>
+      </div>
+      <div class="field-group">
+        <label>Avg Profit / Property (£/mo)</label>
+        <div class="input-prefix"><span class="pfx">£</span><input type="number" id="pf-avg-profit" placeholder="500" min="0"></div>
+      </div>
+      <div class="field-group">
+        <label>Current Live Properties</label>
+        <select id="pf-current">
+          <option value="0" selected>0</option><option value="1">1</option><option value="2">2</option>
+          <option value="3">3</option><option value="4">4</option><option value="5">5</option>
+          <option value="6">6</option><option value="7">7</option><option value="8">8</option>
+          <option value="9">9</option><option value="10">10</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Properties to Add Per Year</label>
+        <select id="pf-growth">
+          <option value="1">1 per year</option>
+          <option value="2" selected>2 per year</option>
+          <option value="3">3 per year</option>
+          <option value="4">4 per year</option>
+          <option value="6">6 per year</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Portfolio Freedom Projector -->
+  <div class="card" id="card-projector">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Portfolio Freedom Projector</div>
+        <div class="card-subtitle">Project your path to financial freedom with SA</div>
+      </div>
+    </div>
+    <button class="btn btn-primary" id="btn-calc-portfolio">Project My Freedom →</button>
+    <div id="portfolio-result" style="display:none;margin-top:1.25rem;">
+      <div class="year-cards" id="year-cards"></div>
+      <div class="progress-bar-wrap" id="freedom-progress"></div>
+      <div class="motivational" id="motivational-msg"></div>
+    </div>
+  </div>
+</div><!-- end page-operator -->
+
+<!-- ═══ PAGE: DEAL ANALYSER ══════════════════════════════════ -->
+<div id="page-analyse" class="page active">
+  <div class="page-header">
+    <h1 class="page-title">Deal <span>Analyser</span></h1>
+    <p class="page-subtitle">Enter a property to model returns, assess risk, and save your deal.</p>
+  </div>
+
+  <!-- Property Input -->
+  <div class="card" id="card-property">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Property Details</div>
+        <div class="card-subtitle">Enter the basics of the deal you are analysing</div>
+      </div>
+    </div>
+    <div class="form-grid">
+      <div class="field-group">
+        <label>UK Postcode</label>
+        <input type="text" id="postcode" placeholder="e.g. M1 1AE" maxlength="8" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="field-group">
+        <label>Monthly Rent (£)</label>
+        <div class="input-prefix"><span class="pfx">£</span><input type="number" id="monthly-rent" placeholder="0" min="0"></div>
+      </div>
+      <div class="field-group">
+        <label>Bedrooms</label>
+        <select id="bedrooms">
+          <option value="1">1 Bedroom</option>
+          <option value="2" selected>2 Bedrooms</option>
+          <option value="3">3 Bedrooms</option>
+          <option value="4">4 Bedrooms</option>
+          <option value="5">5 Bedrooms</option>
+          <option value="6">6 Bedrooms</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Bathrooms</label>
+        <select id="bathrooms">
+          <option value="1" selected>1 Bathroom</option>
+          <option value="2">2 Bathrooms</option>
+          <option value="3">3+ Bathrooms</option>
+        </select>
+      </div>
+    </div>
+    <div id="location-badge"><span>📍</span><span id="location-text"></span></div>
+    <div style="margin-top:1.25rem;display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;">
+      <button class="btn btn-primary" id="btn-analyse">
+        <span id="analyse-spinner" style="display:none;" class="loading-spinner"></span>
+        Analyse This Deal →
+      </button>
+      <span id="analyse-error" style="color:var(--red);font-size:0.82rem;display:none;"></span>
+    </div>
+  </div>
+
+  <!-- Rent Benchmark -->
+  <div class="card hidden" id="card-rent">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Rent Competitiveness</div>
+        <div class="card-subtitle">How your rent compares to local market rates</div>
+      </div>
+    </div>
+    <div class="rent-gauge">
+      <div class="gauge-seg gauge-cheap" id="gauge-cheap"><div class="gauge-label">Cheap</div>Below Market</div>
+      <div class="gauge-seg gauge-avg" id="gauge-avg"><div class="gauge-label">Average</div>Market Rate</div>
+      <div class="gauge-seg gauge-exp" id="gauge-exp"><div class="gauge-label">Expensive</div>Above Market</div>
+    </div>
+    <div class="insight-grid">
+      <div class="insight-box"><div class="ib-label">Your Rent</div><div class="ib-value gold-val" id="rent-your">—</div></div>
+      <div class="insight-box"><div class="ib-label">Local Range</div><div class="ib-value" id="rent-range">—</div></div>
+      <div class="insight-box"><div class="ib-label">Market Median</div><div class="ib-value" id="rent-median">—</div></div>
+      <div class="insight-box"><div class="ib-label">Verdict</div><div class="ib-value" id="rent-verdict">—</div></div>
+    </div>
+    <div class="notice notice-info" id="rent-advice" style="display:none;margin-top:0.875rem;">
+      <span>💡</span><span id="rent-advice-text"></span>
+    </div>
+  </div>
+
+  <!-- Monthly Costs -->
+  <div class="card hidden" id="card-costs">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Monthly Costs</div>
+        <div class="card-subtitle">Auto-estimated bills — adjust to match your actual quotes</div>
+      </div>
+    </div>
+    <div class="bills-grid" id="bills-grid"></div>
+    <div class="slider-row">
+      <span class="slider-label">Maintenance</span>
+      <input type="range" id="maintenance-pct" min="1" max="8" step="0.5" value="3">
+      <span class="slider-val" id="maintenance-pct-display">3%</span>
+      <span style="font-size:0.72rem;color:var(--text-muted);white-space:nowrap;">of revenue</span>
+    </div>
+    <div class="costs-total-bar">
+      <div class="ctl">Total Monthly Costs (incl. rent)</div>
+      <div class="cta" id="total-costs-display">£—</div>
+    </div>
+    <div class="section-divider"></div>
+    <div style="margin-bottom:0.75rem;">
+      <div style="font-size:0.95rem;font-weight:700;color:var(--navy);font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:0.25rem;">Upfront Capital Required</div>
+      <div style="font-size:0.78rem;color:var(--text-muted);">What you need to get started</div>
+    </div>
+    <div class="upfront-grid">
+      <div class="field-group">
+        <label>Upfront Rent (months)</label>
+        <select id="upfront-months"><option value="1" selected>1 month</option><option value="2">2 months</option><option value="3">3 months</option></select>
+      </div>
+      <div class="field-group">
+        <label>Deposit (months)</label>
+        <select id="deposit-months"><option value="1" selected>1 month</option><option value="2">2 months</option></select>
+      </div>
+      <div class="field-group">
+        <label>Furnishing Cost (£)</label>
+        <div class="input-prefix"><span class="pfx">£</span><input type="number" id="furnishing-cost" placeholder="3000" min="0"></div>
+      </div>
+    </div>
+    <div class="upfront-total">
+      <div>
+        <div class="ut-label">Total Upfront Capital</div>
+        <div style="font-size:0.72rem;color:var(--text-muted);margin-top:2px;">Rent advance + deposit + furnishing</div>
+      </div>
+      <div class="ut-amount" id="upfront-total-display">£—</div>
+    </div>
+  </div>
+
+  <!-- Revenue & Profit -->
+  <div class="card hidden" id="card-revenue">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Revenue &amp; Profit</div>
+        <div class="card-subtitle">Adjust occupancy and nightly rate to model your returns</div>
+      </div>
+      <span class="card-badge" id="airdna-rate-badge" style="display:none;">AirDNA Rate</span>
+    </div>
+    <div class="form-grid" style="margin-bottom:1.25rem;">
+      <div class="field-group">
+        <label>Nightly Rate (£)</label>
+        <div class="input-prefix"><span class="pfx">£</span><input type="number" id="nightly-rate" placeholder="85" min="0" max="9999" step="5"></div>
+      </div>
+      <div class="field-group">
+        <label>Occupancy Rate</label>
+        <div class="slider-row" style="margin:0;">
+          <input type="range" id="occupancy-slider" min="30" max="100" step="5" value="75">
+          <span class="slider-val" id="occupancy-display">75%</span>
+        </div>
+      </div>
+    </div>
+    <div class="stats-grid" id="revenue-stats">
+      <div class="stat-card"><div class="stat-label">Monthly Revenue</div><div class="stat-value gold-val" id="stat-monthly-revenue">£—</div><div class="stat-sub" id="stat-nights">—</div></div>
+      <div class="stat-card"><div class="stat-label">Monthly Profit</div><div class="stat-value" id="stat-monthly-profit">£—</div><div class="stat-sub">after all costs</div></div>
+      <div class="stat-card"><div class="stat-label">Annual Revenue</div><div class="stat-value gold-val" id="stat-annual-revenue">£—</div><div class="stat-sub">projected</div></div>
+      <div class="stat-card"><div class="stat-label">Annual Profit</div><div class="stat-value" id="stat-annual-profit">£—</div><div class="stat-sub">after all costs</div></div>
+      <div class="stat-card"><div class="stat-label">ROI on Capital</div><div class="stat-value gold-val" id="stat-roi">—%</div><div class="stat-sub">annual return</div></div>
+      <div class="stat-card"><div class="stat-label">Break-even Occ.</div><div class="stat-value" id="stat-breakeven">—%</div><div class="stat-sub">minimum needed</div></div>
+      <div class="stat-card"><div class="stat-label">Months to Recoup</div><div class="stat-value" id="stat-recoup">—</div><div class="stat-sub">upfront capital</div></div>
+      <div class="stat-card"><div class="stat-label">Net Margin</div><div class="stat-value" id="stat-margin">—%</div><div class="stat-sub">profit / revenue</div></div>
+    </div>
+    <div class="rules-grid" id="rules-grid"></div>
+    <div class="charts-row">
+      <div class="chart-box"><h4>Revenue Breakdown</h4><div class="chart-container"><canvas id="revenue-chart"></canvas></div></div>
+      <div class="chart-box"><h4>12-Month P&amp;L Projection</h4><div class="chart-container"><canvas id="pnl-chart"></canvas></div></div>
+    </div>
+  </div>
+
+  <!-- Deal Risk Assessment -->
+  <div class="card hidden" id="card-risk">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Deal Risk Assessment</div>
+        <div class="card-subtitle">Assess regulatory, financial and landlord risk before committing</div>
+      </div>
+    </div>
+    <div class="risk-section">
+      <h4>Regulatory Risk</h4>
+      <div class="toggle-row"><span class="toggle-label">Is the property in an Article 4 direction area?</span><div class="toggle-ctrl"><button class="toggle-btn" data-risk="art4" data-val="yes">Yes</button><button class="toggle-btn" data-risk="art4" data-val="no">No</button></div></div>
+      <div class="toggle-row"><span class="toggle-label">Does the council require SA/STL licensing?</span><div class="toggle-ctrl"><button class="toggle-btn" data-risk="stl-lic" data-val="yes">Yes</button><button class="toggle-btn" data-risk="stl-lic" data-val="no">No</button></div></div>
+      <div class="toggle-row"><span class="toggle-label">Has the local authority restricted short-term lets?</span><div class="toggle-ctrl"><button class="toggle-btn" data-risk="stl-restrict" data-val="yes">Yes</button><button class="toggle-btn" data-risk="stl-restrict" data-val="no">No</button></div></div>
+    </div>
+    <div class="risk-section">
+      <h4>Financial Risk</h4>
+      <div class="toggle-row">
+        <span class="toggle-label">Lease length risk</span>
+        <div class="toggle-ctrl">
+          <select id="risk-lease-length" style="padding:0.3rem 0.6rem;border:1.5px solid var(--border);border-radius:5px;font-family:'Inter',sans-serif;font-size:0.78rem;background:var(--surface-alt);">
+            <option value="0">12+ months (low)</option><option value="1">6-11 months (medium)</option><option value="3">Under 6 months (high)</option>
+          </select>
+        </div>
+      </div>
+      <div class="toggle-row"><span class="toggle-label">Does the lease include a break clause?</span><div class="toggle-ctrl"><button class="toggle-btn" data-risk="break-clause" data-val="yes">Yes</button><button class="toggle-btn" data-risk="break-clause" data-val="no">No</button></div></div>
+      <div class="toggle-row"><span class="toggle-label">Rent vs local market</span><div style="font-size:0.82rem;color:var(--text-muted);" id="risk-rent-auto">Run analysis first</div></div>
+    </div>
+    <div class="risk-section">
+      <h4>Landlord Risk</h4>
+      <div class="toggle-row"><span class="toggle-label">Is the property managed by a letting agent?</span><div class="toggle-ctrl"><button class="toggle-btn" data-risk="letting-agent" data-val="yes">Yes</button><button class="toggle-btn" data-risk="letting-agent" data-val="no">No</button></div></div>
+      <div class="toggle-row"><span class="toggle-label">Is the landlord new to company lets?</span><div class="toggle-ctrl"><button class="toggle-btn" data-risk="new-to-cl" data-val="yes">Yes</button><button class="toggle-btn" data-risk="new-to-cl" data-val="no">No</button></div></div>
+      <div class="toggle-row"><span class="toggle-label">Does landlord have a residential mortgage?</span><div class="toggle-ctrl"><button class="toggle-btn" data-risk="mortgage" data-val="yes">Yes</button><button class="toggle-btn" data-risk="mortgage" data-val="no">No</button></div></div>
+    </div>
+    <button class="btn btn-primary" id="btn-calc-risk">Calculate Risk Score →</button>
+    <div id="risk-result" style="display:none;margin-top:1.25rem;">
+      <div class="risk-score-row">
+        <div class="risk-badge" id="risk-badge">—</div>
+        <div style="font-size:0.82rem;color:var(--text-muted);" id="risk-total-text"></div>
+      </div>
+      <div class="risk-subscores">
+        <div class="risk-sub"><div class="rs-l">Regulatory</div><div class="rs-v" id="risk-reg-score">—</div></div>
+        <div class="risk-sub"><div class="rs-l">Financial</div><div class="rs-v" id="risk-fin-score">—</div></div>
+        <div class="risk-sub"><div class="rs-l">Landlord</div><div class="rs-v" id="risk-ll-score">—</div></div>
+      </div>
+      <div class="notice" id="risk-mitigation"></div>
+    </div>
+  </div>
+
+  <!-- Save Deal Bar -->
+  <div class="save-bar hidden" id="save-bar">
+    <div>
+      <div class="save-bar-text">Ready to save this deal?</div>
+      <div class="save-bar-sub">Saved deals appear in Market Analysis, Portfolio, and AI Coach.</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+      <button class="btn btn-success" id="btn-save-deal">
+        <span id="save-spinner" style="display:none;" class="loading-spinner"></span>
+        Save This Deal
+      </button>
+      <span id="save-status"></span>
+    </div>
+  </div>
+</div><!-- end page-analyse -->
+
+<!-- ═══ PAGE: MARKET ANALYSIS ════════════════════════════════ -->
+<div id="page-market" class="page">
+  <div class="page-header">
+    <h1 class="page-title">Market <span>Analysis</span></h1>
+    <p class="page-subtitle">Load a saved deal and pull live Airbnb comparables with real nightly rates.</p>
+  </div>
+
+  <!-- AirDNA Key Setup -->
+  <div class="card" id="card-airdna-setup">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Data Source</div>
+        <div class="card-subtitle">AirDNA provides professional-grade comparable data</div>
+      </div>
+      <span class="card-badge">AirDNA</span>
+    </div>
+    <div class="airdna-key-row">
+      <div class="field-group">
+        <label>AirDNA Bearer Token</label>
+        <input type="password" id="airdna-key" placeholder="Paste your AirDNA key here" autocomplete="off">
+      </div>
+      <button class="btn btn-secondary" id="btn-save-airdna-key">Save Key</button>
+    </div>
+    <div class="notice notice-info">
+      <span>ℹ️</span>
+      <span>AirDNA gives you real nightly rates, comparable listings with links, and seasonal trends. Get your key at <strong>airdna.co</strong>. No key yet? We use market benchmarks as a fallback.</span>
+    </div>
+  </div>
+
+  <!-- Deal Selector -->
+  <div class="card" id="card-market-selector">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Select a Deal to Analyse</div>
+        <div class="card-subtitle">Load a saved deal or enter a postcode manually</div>
+      </div>
+    </div>
+    <div class="deal-selector">
+      <div class="field-group">
+        <label>Saved Deal</label>
+        <select id="market-deal-select"><option value="">— Select a saved deal —</option></select>
+      </div>
+      <button class="btn btn-secondary" id="btn-load-market-deal">Load Deal Data</button>
+    </div>
+    <div class="section-divider"></div>
+    <div class="form-grid" style="margin-bottom:1rem;">
+      <div class="field-group">
+        <label>Or enter postcode manually</label>
+        <input type="text" id="market-postcode" placeholder="e.g. LS1 1AA">
+      </div>
+      <div class="field-group">
+        <label>Bedrooms</label>
+        <select id="market-beds">
+          <option value="1">1 Bed</option><option value="2" selected>2 Bed</option>
+          <option value="3">3 Bed</option><option value="4">4 Bed</option><option value="5">5 Bed</option><option value="6">6 Bed</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-primary" id="btn-run-market">
+      <span id="market-spinner" style="display:none;" class="loading-spinner"></span>
+      Pull Comparable Listings →
+    </button>
+  </div>
+
+  <!-- Market Results -->
+  <div class="card hidden" id="card-market-results">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Comparable Listings</div>
+        <div class="card-subtitle" id="market-results-subtitle">—</div>
+      </div>
+    </div>
+    <div class="market-summary" id="market-summary">
+      <div class="market-stat"><div class="ms-label">Avg Nightly Rate</div><div class="ms-value" id="mkt-avg-rate">—</div></div>
+      <div class="market-stat"><div class="ms-label">Rate Range</div><div class="ms-value" id="mkt-range" style="font-size:0.95rem;">—</div></div>
+    </div>
+    <div id="market-listings-grid"></div>
+    <div class="notice notice-info" style="margin-top:1rem;">
+      <span>ℹ️</span>
+      <span>Review counts and ratings indicate proven demand. A listing with 50+ reviews at a strong nightly rate is the strongest signal. Click listings to open on Airbnb.</span>
+    </div>
+  </div>
+</div><!-- end page-market -->
+
+<!-- ═══ PAGE: LONG TERM TOOLKIT ══════════════════════════════ -->
+<div id="page-toolkit" class="page">
+  <div class="page-header">
+    <h1 class="page-title">Long Term Booking <span>Toolkit</span></h1>
+    <p class="page-subtitle">Identify contractor demand, development activity, and long-term booking sources in any area.</p>
+  </div>
+
+  <!-- Deal Selector -->
+  <div class="card" id="card-toolkit-selector">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Select a Deal to Analyse</div>
+        <div class="card-subtitle">Load a saved deal or use your current Deal Analyser postcode</div>
+      </div>
+    </div>
+    <div class="toolkit-selector">
+      <div class="field-group" style="flex:1;min-width:220px;">
+        <label>Saved Deal</label>
+        <select id="toolkit-deal-select"><option value="">— Select a saved deal —</option></select>
+      </div>
+      <button class="btn btn-secondary" id="btn-load-toolkit-deal">
+        <span id="toolkit-deal-spinner" style="display:none;" class="loading-spinner"></span>
+        Load Deal →
+      </button>
+    </div>
+    <div id="toolkit-current-label" class="toolkit-current-label" style="display:none;"></div>
+  </div>
+
+  <!-- Contractor Demand Score -->
+  <div class="card" id="card-contractor">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Contractor Booking Potential</div>
+        <div class="card-subtitle">Signals that this area generates long-term contractor bookings</div>
+      </div>
+    </div>
+    <div class="notice notice-info" id="contractor-no-deal" style="margin-bottom:1rem;">
+      <span>💡</span><span>Analyse a deal first to see contractor demand scoring for that postcode.</span>
+    </div>
+    <div id="contractor-results" style="display:none;">
+      <div class="score-display">
+        <div class="score-badge" id="contractor-score-badge">Calculating...</div>
+        <div class="score-meta" id="contractor-score-meta"></div>
+      </div>
+      <div class="score-bar-wrap">
+        <div class="score-bar-track"><div class="score-bar-fill" id="contractor-score-bar" style="width:0%;background:var(--amber)"></div></div>
+      </div>
+      <div id="contractor-evidence-wrap" style="display:none;">
+        <div style="font-size:0.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem;">Demand Signals Detected</div>
+        <div class="evidence-list" id="evidence-list"></div>
+      </div>
+      <div id="infra-wrap" style="display:none;margin-top:1.125rem;">
+        <div style="font-size:0.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem;">Nearby Major Projects &amp; Facilities</div>
+        <div class="infra-list" id="infra-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Development Intelligence -->
+  <div class="card" id="card-intelligence">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Development Intelligence</div>
+        <div class="card-subtitle">Local construction activity, planning approvals, and infrastructure news</div>
+      </div>
+    </div>
+    <div class="notice notice-info" id="intel-no-deal">
+      <span>💡</span><span>Analyse a deal first to see local development intelligence for that area.</span>
+    </div>
+    <div id="intel-results" style="display:none;">
+      <div class="links-grid" id="local-links-grid"></div>
+      <div class="section-divider"></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;margin-bottom:0.875rem;">
+        <div>
+          <div style="font-size:0.88rem;font-weight:600;color:var(--navy);">Local Development News</div>
+          <div style="font-size:0.72rem;color:var(--text-muted);">Recent planning and construction activity in your area</div>
+        </div>
+        <button class="btn btn-secondary btn-sm" id="btn-fetch-news">Load Latest News</button>
+      </div>
+      <div id="intel-key-row" style="display:none;margin-bottom:0.875rem;">
+        <div class="field-group" style="max-width:360px;">
+          <label>Development intelligence key</label>
+          <input type="text" id="newsapi-key" placeholder="Paste your key here" autocomplete="off">
+        </div>
+      </div>
+      <div id="news-container"></div>
+    </div>
+  </div>
+
+  <!-- Contractor & Relocation Finder -->
+  <div class="card" id="card-contractor-finder">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Contractor &amp; Relocation Finder</div>
+        <div class="card-subtitle">Find active construction companies and corporate accommodation demand</div>
+      </div>
+    </div>
+    <div class="notice notice-info" id="finder-no-deal" style="margin-bottom:1rem;">
+      <span>💡</span><span>Analyse a deal first to search contractors near that postcode.</span>
+    </div>
+    <div id="finder-results" style="display:none;">
+      <div style="margin-bottom:1rem;">
+        <div style="font-size:0.82rem;font-weight:600;color:var(--navy);margin-bottom:0.5rem;">Contractor Job Boards</div>
+        <div class="job-links" id="job-links-grid"></div>
+      </div>
+      <div style="margin-bottom:1rem;">
+        <div style="font-size:0.82rem;font-weight:600;color:var(--navy);margin-bottom:0.5rem;">Corporate Relocation Sources</div>
+        <div class="job-links" id="relocation-links-grid"></div>
+      </div>
+      <div class="section-divider"></div>
+      <div style="font-size:0.88rem;font-weight:600;color:var(--navy);margin-bottom:0.875rem;">Active Construction Companies Near <span id="ch-postcode-label">—</span></div>
+      <div style="display:flex;gap:0.75rem;align-items:flex-end;flex-wrap:wrap;margin-bottom:0.875rem;">
+        <div class="field-group" style="flex:1;min-width:220px;">
+          <label>Companies House Key</label>
+          <input type="text" id="ch-api-key" placeholder="Get free key at developer.company-information.service.gov.uk">
+        </div>
+        <button class="btn btn-secondary" id="btn-search-companies">
+          <span id="ch-spinner" style="display:none;" class="loading-spinner"></span>
+          Search Companies
+        </button>
+      </div>
+      <div id="ch-results"></div>
+    </div>
+  </div>
+
+  <!-- Planning Alerts -->
+  <div class="card" id="card-planning">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Planning &amp; Development Alerts</div>
+        <div class="card-subtitle">Monitor planning activity and upcoming infrastructure near your deals</div>
+      </div>
+    </div>
+    <div id="planning-no-deal" class="notice notice-info"><span>💡</span><span>Analyse a deal first to see planning alerts for that area.</span></div>
+    <div id="planning-results" style="display:none;">
+      <button class="btn btn-secondary" id="btn-check-planning">
+        <span id="planning-spinner" style="display:none;" class="loading-spinner"></span>
+        Load Planning Intelligence
+      </button>
+      <div id="planning-links-section" style="display:none;margin-top:1rem;">
+        <div style="font-size:0.8rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem;">Planning Resources</div>
+        <div class="links-grid" id="planning-links-grid"></div>
+      </div>
+      <div id="planning-infra-section" style="display:none;margin-top:1.125rem;">
+        <div style="font-size:0.8rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem;">Infrastructure Signals</div>
+        <div id="planning-infra-list"></div>
+      </div>
+      <div id="planning-news-section" style="display:none;margin-top:1.125rem;">
+        <div style="font-size:0.8rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem;">Planning News</div>
+        <div id="planning-news-container"></div>
+      </div>
+    </div>
+  </div>
+</div><!-- end page-toolkit -->
+
+<!-- ═══ PAGE: DEAL FINDER IQ ════════════════════════════════ -->
+<div id="page-finder" class="page">
+  <div class="page-header">
+    <h1 class="page-title">Deal Finder <span>IQ</span></h1>
+    <p class="page-subtitle">Search portals, score listings for company let acceptance, and manage your leads.</p>
+  </div>
+
+  <!-- Property Search -->
+  <div class="card" id="card-auto-finder">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Property Search</div>
+        <div class="card-subtitle">Set your criteria and open any portal with search pre-applied</div>
+      </div>
+    </div>
+    <div class="form-grid" style="margin-bottom:1.25rem;">
+      <div class="field-group">
+        <label>Target Postcode / Area</label>
+        <input type="text" id="finder-postcode" placeholder="e.g. M1 or LS1">
+      </div>
+      <div class="field-group">
+        <label>Bedrooms</label>
+        <select id="finder-beds">
+          <option value="1">1 Bed</option><option value="2" selected>2 Bed</option>
+          <option value="3">3 Bed</option><option value="4">4 Bed</option><option value="5">5 Bed</option><option value="6">6 Bed</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Max Rent (£/mo)</label>
+        <div class="input-prefix"><span class="pfx">£</span><input type="number" id="finder-max-rent" placeholder="1200" min="0"></div>
+      </div>
+    </div>
+    <div class="portal-grid" id="finder-search-links"></div>
+    <div class="notice notice-info">
+      <span>💡</span><span>Click a portal to open it with your criteria pre-applied. Find listings you like, then use the Listing Scorer below to check each one's company let acceptance before going to Deal Analyser.</span>
+    </div>
+  </div>
+
+  <!-- Listing Scorer -->
+  <div class="card" id="card-listing-scorer">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Listing Scorer</div>
+        <div class="card-subtitle">Add listings you find and score each for company let acceptance</div>
+      </div>
+    </div>
+    <div class="scorer-form-row">
+      <div class="field-group">
+        <label>Property Address / Description</label>
+        <input type="text" id="scorer-address" placeholder="e.g. 2 bed flat, City Centre Manchester">
+      </div>
+      <div class="field-group">
+        <label>Postcode</label>
+        <input type="text" id="scorer-postcode" placeholder="M1 1AE">
+      </div>
+      <div class="field-group">
+        <label>Monthly Rent (£)</label>
+        <div class="input-prefix"><span class="pfx">£</span><input type="number" id="scorer-rent" placeholder="1000" min="0"></div>
+      </div>
+      <div class="field-group">
+        <label>Beds</label>
+        <select id="scorer-beds">
+          <option value="1">1</option><option value="2" selected>2</option>
+          <option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-secondary btn-sm" id="btn-add-listing">+ Add &amp; Score Listing</button>
+    <div id="scored-listings-wrap" style="display:none;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:1.25rem;margin-bottom:0.5rem;">
+        <div style="font-size:0.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;">Scored Listings</div>
+        <button class="btn btn-outline btn-sm" id="btn-clear-listings">Clear All</button>
+      </div>
+      <div class="scored-grid" id="scored-grid"></div>
+    </div>
+  </div>
+
+  <!-- Lead CRM -->
+  <div class="card" id="card-crm">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Lead CRM</div>
+        <div class="card-subtitle">Track landlords and property leads through your pipeline</div>
+      </div>
+    </div>
+    <div class="lead-form-grid">
+      <div class="field-group"><label>Landlord / Agent Name</label><input type="text" id="crm-name" placeholder="John Smith"></div>
+      <div class="field-group"><label>Phone</label><input type="tel" id="crm-phone" placeholder="07700 000000"></div>
+      <div class="field-group"><label>Email</label><input type="email" id="crm-email" placeholder="john@email.com"></div>
+      <div class="field-group"><label>Property Postcode</label><input type="text" id="crm-postcode" placeholder="M1 1AE"></div>
+      <div class="field-group">
+        <label>Source</label>
+        <select id="crm-source">
+          <option>Rightmove</option><option>Zoopla</option><option>OpenRent</option>
+          <option>Facebook</option><option>Cold Call</option><option>Referral</option><option>Other</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Status</label>
+        <select id="crm-status">
+          <option>Prospecting</option><option>Called</option><option>Meeting Booked</option>
+          <option>Offer Made</option><option>Agreed</option><option>Lost</option>
+        </select>
+      </div>
+      <div class="field-group"><label>Follow-up Date</label><input type="date" id="crm-followup"></div>
+      <div class="field-group"><label>Notes</label><input type="text" id="crm-notes" placeholder="Any notes..."></div>
+    </div>
+    <input type="hidden" id="crm-edit-id">
+    <div style="display:flex;gap:0.5rem;margin-bottom:1.25rem;">
+      <button class="btn btn-primary btn-sm" id="btn-save-lead">Save Lead</button>
+      <button class="btn btn-outline btn-sm" id="btn-cancel-edit" style="display:none;">Cancel Edit</button>
+    </div>
+    <div class="crm-views">
+      <button class="view-btn active" id="toggle-kanban">Board View</button>
+      <button class="view-btn" id="toggle-list">List View</button>
+    </div>
+    <div id="crm-kanban"><div class="kanban-board" id="kanban-board"></div></div>
+    <div id="crm-list" style="display:none;">
+      <div class="compare-wrap"><table class="crm-table"><thead><tr><th>Name</th><th>Postcode</th><th>Phone</th><th>Status</th><th>Source</th><th>Follow-up</th><th></th></tr></thead><tbody id="crm-table-body"></tbody></table></div>
+    </div>
+  </div>
+</div><!-- end page-finder -->
+
+<!-- ═══ PAGE: MY PORTFOLIO ════════════════════════════════════ -->
+<div id="page-portfolio" class="page">
+  <div class="page-header">
+    <h1 class="page-title">My <span>Portfolio</span></h1>
+    <p class="page-subtitle">Manage your saved deals and live properties, compare deals, and project your freedom number.</p>
+  </div>
+
+  <!-- Saved Deals -->
+  <div class="card" id="card-saved-deals">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Saved Deals</div>
+        <div class="card-subtitle">Research pipeline and live portfolio in one view</div>
+      </div>
+      <button class="btn btn-outline btn-sm" id="btn-refresh-deals">Refresh</button>
+    </div>
+    <div class="deal-filters">
+      <button class="filter-btn active" data-filter="all" onclick="filterDeals('all')">All Deals</button>
+      <button class="filter-btn" data-filter="saved" onclick="filterDeals('saved')">Researching</button>
+      <button class="filter-btn" data-filter="live" onclick="filterDeals('live')">Live Portfolio</button>
+    </div>
+    <div class="deals-grid" id="deals-grid">
+      <div class="notice notice-info"><span>💡</span><span>Save a deal from Deal Analyser to see it here.</span></div>
+    </div>
+  </div>
+
+  <!-- Portfolio Totals (live properties only) -->
+  <div class="card hidden" id="card-portfolio-totals">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Live Portfolio Summary</div>
+        <div class="card-subtitle">Combined figures for all live properties</div>
+      </div>
+    </div>
+    <div class="portfolio-totals" id="portfolio-totals-grid"></div>
+  </div>
+
+  <!-- Deal Comparison -->
+  <div class="card" id="card-comparison">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Deal Comparison</div>
+        <div class="card-subtitle">Compare up to 4 saved deals side by side</div>
+      </div>
+      <button class="btn btn-secondary btn-sm" id="btn-load-deals">Load Deals →</button>
+    </div>
+    <div class="notice notice-info" id="compare-placeholder"><span>📊</span><span>Click "Load Deals" to compare your saved deals side by side.</span></div>
+    <div id="compare-results" style="display:none;">
+      <div class="compare-wrap"><table class="compare-table" id="compare-table"></table></div>
+    </div>
+  </div>
+
+  <!-- AI Deal Coach -->
+  <div class="card" id="card-coach">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">AI Deal Coach</div>
+        <div class="card-subtitle">Deal-specific strategy and recommendations</div>
+      </div>
+    </div>
+    <div class="coach-deal-selector">
+      <div class="field-group">
+        <label>Select Deal to Coach</label>
+        <select id="coach-deal-select"><option value="">— Select a saved deal or use current —</option><option value="current">Use current Deal Analyser data</option></select>
+      </div>
+      <button class="btn btn-primary" id="btn-generate-strategy">
+        Generate Strategy →
+      </button>
+    </div>
+    <div id="strategy-output" style="display:none;"></div>
+    <div id="ai-note" style="display:none;" class="notice notice-info" style="margin-top:1rem;">
+      <span>🤖</span><span>Strategy is generated by an intelligent rule engine trained on UK SA deal patterns. Always conduct your own due diligence before entering any property agreement.</span>
+    </div>
+  </div>
+</div><!-- end page-portfolio -->
+
+</div><!-- end main-content -->
+</div><!-- end app-shell -->
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- ═══ FIREBASE AUTH MODULE ═══════════════════════════════ -->
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+import { getFirestore, doc, setDoc, getDoc, getDocs, addDoc, deleteDoc, collection, serverTimestamp, updateDoc } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+const firebaseConfig = {
+  apiKey:            "AIzaSyATufm2z-ybNmmQqqnRdy1A6LG_gNeTYfI",
+  authDomain:        "operateiq-570ee.firebaseapp.com",
+  projectId:         "operateiq-570ee",
+  storageBucket:     "operateiq-570ee.firebasestorage.app",
+  messagingSenderId: "65971367171",
+  appId:             "1:65971367171:web:ce4fdac1964245a77a0d36"
+};
+const ADMIN_EMAIL = "info@servicedaccommodationsuccess.com";
+
+let app, auth, db, currentUser, userProfile;
+try {
+  app  = initializeApp(firebaseConfig);
+  auth = getAuth(app);
+  db   = getFirestore(app);
+} catch(e) { console.warn('Firebase init failed', e); }
+
+function showApp() {
+  document.getElementById('auth-loading').style.display = 'none';
+  document.getElementById('app-shell').classList.add('ready');
+}
+function goLogin() { window.location.href = 'index.html'; }
+
+if (auth) {
+  onAuthStateChanged(auth, async user => {
+    if (!user) { goLogin(); return; }
+    try {
+      const snap = await getDoc(doc(db, 'users', user.uid));
+      if (!snap.exists() || snap.data().approved !== true) {
+        await signOut(auth); goLogin(); return;
+      }
+      currentUser = user;
+      userProfile = snap.data();
+      window.__currentUser = currentUser;
+      window.__userProfile  = userProfile;
+      window.__db           = db;
+      const name = userProfile.displayName || userProfile.name || user.displayName || user.email || 'User';
+      document.getElementById('sidebar-user-name').textContent = name;
+      document.getElementById('sidebar-user-email').textContent = user.email || '';
+      document.getElementById('mobile-user-avatar').textContent = name.charAt(0).toUpperCase();
+      if (userProfile.role === 'admin') {
+        const al = document.getElementById('admin-link-sidebar');
+        if (al) al.style.display = 'block';
+      }
+      showApp();
+      if (typeof window.__appInit === 'function') window.__appInit();
+    } catch(e) {
+      console.error('Auth check error', e);
+      currentUser = user;
+      window.__currentUser = user;
+      window.__db = db;
+      document.getElementById('sidebar-user-name').textContent = user.displayName || user.email || 'User';
+      document.getElementById('sidebar-user-email').textContent = user.email || '';
+      document.getElementById('mobile-user-avatar').textContent = (user.email||'U').charAt(0).toUpperCase();
+      showApp();
+      if (typeof window.__appInit === 'function') window.__appInit();
+    }
+  });
+} else {
+  showApp();
+  if (typeof window.__appInit === 'function') window.__appInit();
+}
+
+document.getElementById('btn-logout').addEventListener('click', async () => {
+  if (auth) { try { await signOut(auth); } catch(e){} }
+  goLogin();
+});
+
+/* ── FIRESTORE CRUD ─────────────────────────────────────────── */
+window.__saveDeal = async function(dealData) {
+  if (!db || !window.__currentUser) throw new Error('Not signed in');
+  const uid = window.__currentUser.uid;
+  const ref = doc(collection(db, 'users', uid, 'deals'));
+  await setDoc(ref, { ...dealData, isLive: false, savedAt: serverTimestamp() });
+  return ref.id;
+};
+
+window.__loadDeals = async function() {
+  if (!db || !window.__currentUser) return [];
+  const uid  = window.__currentUser.uid;
+  const snap = await getDocs(collection(db, 'users', uid, 'deals'));
+  return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+};
+
+window.__updateDeal = async function(dealId, data) {
+  if (!db || !window.__currentUser) return;
+  const uid = window.__currentUser.uid;
+  await setDoc(doc(db, 'users', uid, 'deals', dealId), data, { merge: true });
+};
+
+window.__deleteDeal = async function(dealId) {
+  if (!db || !window.__currentUser) return;
+  const uid = window.__currentUser.uid;
+  await deleteDoc(doc(db, 'users', uid, 'deals', dealId));
+};
+
+window.__saveLead = async function(leadData, existingId) {
+  if (!db || !window.__currentUser) throw new Error('Not signed in');
+  const uid = window.__currentUser.uid;
+  if (existingId) {
+    await setDoc(doc(db, 'users', uid, 'leads', existingId), { ...leadData, updatedAt: serverTimestamp() }, { merge: true });
+    return existingId;
+  } else {
+    const ref = doc(collection(db, 'users', uid, 'leads'));
+    await setDoc(ref, { ...leadData, createdAt: serverTimestamp() });
+    return ref.id;
+  }
+};
+
+window.__loadLeads = async function() {
+  if (!db || !window.__currentUser) return [];
+  const uid  = window.__currentUser.uid;
+  const snap = await getDocs(collection(db, 'users', uid, 'leads'));
+  return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+};
+
+window.__deleteLead = async function(leadId) {
+  if (!db || !window.__currentUser) return;
+  const uid = window.__currentUser.uid;
+  await deleteDoc(doc(db, 'users', uid, 'leads', leadId));
+};
+
+window.__saveProfile = async function(data) {
+  if (!db || !window.__currentUser) throw new Error('Not signed in');
+  const uid = window.__currentUser.uid;
+  await setDoc(doc(db, 'users', uid), { ...data, updatedAt: serverTimestamp() }, { merge: true });
+};
+
+window.__loadProfile = async function() {
+  if (!db || !window.__currentUser) return {};
+  const uid = window.__currentUser.uid;
+  const snap = await getDoc(doc(db, 'users', uid));
+  return snap.exists() ? snap.data() : {};
+};
+</script>
+
+<!-- ═══ MAIN APPLICATION ════════════════════════════════════ -->
+<script>
+(function(){
+'use strict';
+
+/* ════ EMBEDDED DATA ════════════════════════════════════════ */
+const REGIONAL_RENTAL = {
+  'London':                   {1:{lo:1400,hi:2200,med:1800,adr:110},2:{lo:1800,hi:3000,med:2400,adr:145},3:{lo:2400,hi:4000,med:3100,adr:185},4:{lo:3000,hi:5500,med:4000,adr:240},5:{lo:3500,hi:6500,med:4800,adr:280}},
+  'South East':               {1:{lo:900,hi:1500,med:1150,adr:80}, 2:{lo:1100,hi:1900,med:1450,adr:105},3:{lo:1400,hi:2500,med:1850,adr:130},4:{lo:1800,hi:3200,med:2400,adr:165},5:{lo:2200,hi:4000,med:2900,adr:195}},
+  'East of England':          {1:{lo:800,hi:1300,med:1000,adr:75}, 2:{lo:1000,hi:1600,med:1250,adr:95}, 3:{lo:1200,hi:2000,med:1550,adr:115},4:{lo:1500,hi:2600,med:2000,adr:145},5:{lo:1800,hi:3100,med:2400,adr:170}},
+  'South West':               {1:{lo:750,hi:1200,med:950,adr:80},  2:{lo:950,hi:1550,med:1200,adr:100},3:{lo:1150,hi:1900,med:1500,adr:125},4:{lo:1400,hi:2400,med:1850,adr:155},5:{lo:1700,hi:2900,med:2200,adr:180}},
+  'West Midlands':            {1:{lo:550,hi:900,med:720,adr:65},   2:{lo:700,hi:1100,med:900,adr:85},  3:{lo:850,hi:1400,med:1100,adr:105},4:{lo:1050,hi:1800,med:1400,adr:130},5:{lo:1300,hi:2200,med:1700,adr:155}},
+  'East Midlands':            {1:{lo:500,hi:850,med:675,adr:60},   2:{lo:650,hi:1050,med:850,adr:80},  3:{lo:800,hi:1300,med:1050,adr:98}, 4:{lo:1000,hi:1650,med:1300,adr:120},5:{lo:1200,hi:2000,med:1550,adr:142}},
+  'Yorkshire and The Humber': {1:{lo:450,hi:800,med:620,adr:58},   2:{lo:600,hi:1000,med:780,adr:78},  3:{lo:750,hi:1250,med:980,adr:95},  4:{lo:950,hi:1600,med:1250,adr:120},5:{lo:1150,hi:1950,med:1500,adr:142}},
+  'North West':               {1:{lo:500,hi:850,med:660,adr:65},   2:{lo:650,hi:1050,med:840,adr:85},  3:{lo:800,hi:1300,med:1050,adr:105},4:{lo:1000,hi:1650,med:1300,adr:130},5:{lo:1200,hi:2000,med:1550,adr:152}},
+  'North East':               {1:{lo:380,hi:650,med:500,adr:50},   2:{lo:480,hi:800,med:630,adr:65},   3:{lo:580,hi:1000,med:770,adr:80},  4:{lo:700,hi:1250,med:950,adr:100},5:{lo:860,hi:1500,med:1150,adr:118}},
+  'Scotland':                 {1:{lo:600,hi:1100,med:800,adr:75},  2:{lo:800,hi:1400,med:1050,adr:100},3:{lo:1000,hi:1800,med:1350,adr:130},4:{lo:1300,hi:2400,med:1750,adr:165},5:{lo:1600,hi:2900,med:2100,adr:195}},
+  'Wales':                    {1:{lo:450,hi:750,med:580,adr:55},   2:{lo:600,hi:950,med:760,adr:72},   3:{lo:750,hi:1200,med:950,adr:90},  4:{lo:950,hi:1600,med:1200,adr:115},5:{lo:1150,hi:1950,med:1450,adr:135}},
+  'England':                  {1:{lo:700,hi:1200,med:900,adr:70},  2:{lo:900,hi:1500,med:1150,adr:90}, 3:{lo:1100,hi:1900,med:1400,adr:115},4:{lo:1400,hi:2500,med:1800,adr:145},5:{lo:1700,hi:3000,med:2200,adr:172}}
+};
+
+const COUNCIL_TAX = {
+  'Westminster':84,'City of London':88,'Wandsworth':79,'Kensington and Chelsea':109,
+  'Tower Hamlets':125,'Southwark':127,'Hackney':131,'Islington':131,'Lambeth':129,'Camden':133,
+  'Brent':128,'Ealing':134,'Barnet':146,'Haringey':154,'Newham':150,'Lewisham':150,
+  'Greenwich':153,'Croydon':168,'Manchester':164,'Birmingham':173,'Leeds':163,
+  'Sheffield':164,'Bristol, City of':183,'Bristol':183,'Liverpool':181,'Newcastle upon Tyne':174,
+  'Nottingham':194,'Leicester':171,'Coventry':167,'Edinburgh':127,'Glasgow City':117,
+  'Kingston upon Hull':158,'Salford':166,'Bolton':161,'Oldham':171,'Rochdale':170,
+  'Stockport':153,'Bury':161,'Wigan':163,'Trafford':155,'Tameside':168,'Derby':164,
+  'Wolverhampton':171,'Walsall':165,'Dudley':161,'Sandwell':171,'Bradford':168,
+  'Kirklees':157,'Wakefield':163,'Calderdale':158,'Sunderland':175,'Gateshead':180,
+  '__London':158,'__Scotland':121,'__Wales':146,
+  '__North West':165,'__Yorkshire and The Humber':163,'__West Midlands':168,
+  '__East Midlands':164,'__North East':174,'__South East':153,
+  '__East of England':152,'__South West':163,'__England':167
+};
+
+const ENERGY_BY_BEDS = {1:130,2:175,3:220,4:280,5:340,6:400};
+const AIRBNB_BENCHMARKS = {
+  'Edinburgh':{adr:179,lo:95,hi:280},'Bristol':{adr:117,lo:70,hi:200},
+  'Manchester':{adr:105,lo:60,hi:175},'Leeds':{adr:105,lo:58,hi:165},
+  'Birmingham':{adr:104,lo:55,hi:170},'Liverpool':{adr:98,lo:55,hi:160},
+  'London':{adr:145,lo:80,hi:350},'Brighton':{adr:125,lo:70,hi:220},
+  'Bath':{adr:130,lo:75,hi:230},'Oxford':{adr:120,lo:68,hi:210},
+  'Cambridge':{adr:118,lo:65,hi:200},'York':{adr:112,lo:62,hi:190},
+  'Sheffield':{adr:88,lo:48,hi:145},'Nottingham':{adr:90,lo:50,hi:148},
+  'Newcastle':{adr:88,lo:50,hi:148},'Coventry':{adr:82,lo:45,hi:135},
+  'Leicester':{adr:85,lo:48,hi:140},'Cardiff':{adr:92,lo:52,hi:155},
+  'Glasgow':{adr:95,lo:55,hi:160},'__default':{adr:90,lo:50,hi:150}
+};
+const SEASONAL = [0.75,0.78,0.85,0.90,0.95,1.05,1.15,1.20,1.05,0.95,0.85,0.80];
+const INFRASTRUCTURE_PROJECTS = [
+  {name:'HS2 Phase 1 — Birmingham Hub',lat:52.48,lng:-1.90,r:25},
+  {name:'HS2 Phase 1 — London Euston',lat:51.53,lng:-0.13,r:12},
+  {name:'HS2 Old Oak Common',lat:51.52,lng:-0.24,r:10},
+  {name:'Lower Thames Crossing',lat:51.47,lng:0.38,r:20},
+  {name:'Hinkley Point C — Nuclear',lat:51.21,lng:-3.13,r:30},
+  {name:'Sizewell C (Proposed)',lat:52.21,lng:1.62,r:25},
+  {name:'A66 Northern Trans-Pennine',lat:54.60,lng:-1.80,r:30},
+  {name:'East Midlands Freeport',lat:52.83,lng:-1.32,r:25},
+  {name:'Edinburgh Waterfront (Leith)',lat:55.97,lng:-3.18,r:15},
+  {name:'Teesworks / South Tees Freeport',lat:54.58,lng:-1.22,r:25},
+  {name:'Hornsea Offshore Wind (port)',lat:53.92,lng:0.18,r:40},
+  {name:'Manchester Airport Expansion',lat:53.36,lng:-2.27,r:20},
+  {name:'Bristol Temple Quarter',lat:51.45,lng:-2.58,r:15},
+  {name:'Battersea Power Station Phase',lat:51.48,lng:-0.14,r:10},
+  {name:'East Bank Queen Elizabeth Park',lat:51.55,lng:-0.01,r:8},
+  {name:'Transpennine Route Upgrade',lat:53.80,lng:-1.55,r:40},
+  {name:'HS2 Curzon St Birmingham',lat:52.48,lng:-1.88,r:15},
+  {name:'Freeport East Felixstowe',lat:51.96,lng:1.35,r:25},
+  {name:'Plymouth Freeport',lat:50.37,lng:-4.14,r:20},
+  {name:'Thames Tideway Tunnel',lat:51.50,lng:-0.10,r:15},
+  {name:'Devonport Dockyard Upgrade',lat:50.37,lng:-4.17,r:15},
+  {name:'Bradwell Nuclear (Proposed)',lat:51.74,lng:0.90,r:20},
+  {name:'Liverpool Waters Regeneration',lat:53.45,lng:-2.99,r:12},
+  {name:'Salford Quays Expansion',lat:53.47,lng:-2.29,r:10},
+  {name:'Leeds South Bank Regeneration',lat:53.79,lng:-1.54,r:12},
+  {name:'Dogger Bank Offshore Wind',lat:54.50,lng:-0.80,r:50},
+  {name:'East Yorkshire Freeport',lat:53.74,lng:-0.33,r:25},
+  {name:'Wylfa Nuclear Site Wales',lat:53.42,lng:-4.46,r:30},
+  {name:'Birmingham HSQEB Development',lat:52.48,lng:-1.89,r:12},
+  {name:'Sheffield Olympic Legacy Park',lat:53.38,lng:-1.47,r:8},
+  {name:'Newcastle Gateshead Quayside',lat:54.97,lng:-1.61,r:10},
+  {name:'Derby Becketwell Regeneration',lat:52.92,lng:-1.48,r:8},
+  {name:'Nottingham Island Quarter',lat:52.95,lng:-1.15,r:8},
+  {name:'Leicester Waterside Development',lat:52.64,lng:-1.14,r:8},
+  {name:'Cardiff Bay Regeneration',lat:51.46,lng:-3.17,r:12}
+];
+
+const MAJOR_NHS = [
+  {name:'St Thomas Hospital London',lat:51.499,lng:-0.119,r:5},
+  {name:'Kings College Hospital',lat:51.468,lng:-0.094,r:5},
+  {name:'The Royal London Hospital',lat:51.519,lng:-0.060,r:5},
+  {name:'University College Hospital',lat:51.524,lng:-0.134,r:5},
+  {name:'Royal Free Hospital',lat:51.553,lng:-0.165,r:6},
+  {name:'Queen Elizabeth Birmingham',lat:52.453,lng:-1.939,r:8},
+  {name:'Coventry University Hospital',lat:52.410,lng:-1.500,r:8},
+  {name:'Nottingham University Hospitals',lat:52.951,lng:-1.178,r:8},
+  {name:'Leicester Royal Infirmary',lat:52.632,lng:-1.127,r:8},
+  {name:'Derby Royal Hospital',lat:52.919,lng:-1.479,r:8},
+  {name:'Manchester Royal Infirmary',lat:53.463,lng:-2.224,r:8},
+  {name:'Salford Royal Hospital',lat:53.484,lng:-2.348,r:8},
+  {name:'Leeds General Infirmary',lat:53.802,lng:-1.553,r:8},
+  {name:'Sheffield Northern General',lat:53.404,lng:-1.464,r:8},
+  {name:'Newcastle RVI Hospital',lat:54.980,lng:-1.621,r:8},
+  {name:'Sunderland Royal Hospital',lat:54.908,lng:-1.390,r:8},
+  {name:'James Cook Middlesbrough',lat:54.567,lng:-1.208,r:8},
+  {name:'Bristol Royal Infirmary',lat:51.458,lng:-2.598,r:8},
+  {name:'Southampton General Hospital',lat:50.934,lng:-1.434,r:8},
+  {name:'Portsmouth QA Hospital',lat:50.843,lng:-1.075,r:8},
+  {name:'Oxford John Radcliffe Hospital',lat:51.762,lng:-1.219,r:8},
+  {name:'Brighton Royal Sussex County',lat:50.823,lng:-0.142,r:8},
+  {name:'Plymouth Derriford Hospital',lat:50.429,lng:-4.112,r:8},
+  {name:'Exeter RD&E Hospital',lat:50.722,lng:-3.517,r:8},
+  {name:'Liverpool Royal Hospital',lat:53.406,lng:-2.966,r:8},
+  {name:'Hull Royal Infirmary',lat:53.745,lng:-0.345,r:8},
+  {name:'Sheffield Hallamshire Hospital',lat:53.381,lng:-1.489,r:6},
+  {name:'Glasgow Royal Infirmary',lat:55.864,lng:-4.238,r:8},
+  {name:'Edinburgh Royal Infirmary',lat:55.921,lng:-3.135,r:8},
+  {name:'Cardiff UHW Hospital',lat:51.504,lng:-3.193,r:8}
+];
+
+const MAJOR_UNIS = [
+  {name:'University of Manchester',lat:53.467,lng:-2.234,r:4},
+  {name:'University of Leeds',lat:53.806,lng:-1.554,r:4},
+  {name:'University of Birmingham',lat:52.451,lng:-1.930,r:5},
+  {name:'University of Sheffield',lat:53.381,lng:-1.489,r:4},
+  {name:'University of Nottingham',lat:52.938,lng:-1.198,r:5},
+  {name:'University of Leicester',lat:52.621,lng:-1.126,r:4},
+  {name:'University of Warwick',lat:52.380,lng:-1.561,r:5},
+  {name:'UCL London',lat:51.525,lng:-0.133,r:4},
+  {name:'Imperial College London',lat:51.499,lng:-0.175,r:4},
+  {name:'Kings College London',lat:51.512,lng:-0.116,r:4},
+  {name:'University of Bristol',lat:51.458,lng:-2.603,r:4},
+  {name:'University of Southampton',lat:50.934,lng:-1.396,r:5},
+  {name:'University of Newcastle',lat:54.979,lng:-1.616,r:4},
+  {name:'University of Liverpool',lat:53.406,lng:-2.966,r:4},
+  {name:'University of Edinburgh',lat:55.945,lng:-3.186,r:5},
+  {name:'University of Glasgow',lat:55.872,lng:-4.289,r:5},
+  {name:'University of York',lat:53.948,lng:-1.051,r:5},
+  {name:'University of Bath',lat:51.380,lng:-2.327,r:4},
+  {name:'University of Exeter',lat:50.736,lng:-3.534,r:5},
+  {name:'Loughborough University',lat:52.766,lng:-1.237,r:4},
+  {name:'Coventry University',lat:52.406,lng:-1.506,r:4},
+  {name:'Manchester Metropolitan',lat:53.470,lng:-2.238,r:3},
+  {name:'Sheffield Hallam',lat:53.377,lng:-1.466,r:3},
+  {name:'Northumbria University',lat:54.977,lng:-1.611,r:4},
+  {name:'De Montfort Leicester',lat:52.627,lng:-1.136,r:3},
+  {name:'Cardiff University',lat:51.489,lng:-3.178,r:4},
+  {name:'Bradford University',lat:53.792,lng:-1.757,r:4},
+  {name:'Huddersfield University',lat:53.643,lng:-1.782,r:4},
+  {name:'Derby University',lat:52.920,lng:-1.488,r:4},
+  {name:'Hull University',lat:53.770,lng:-0.367,r:4}
+];
+
+const REGION_BASELINE = {
+  'London':8,'South East':4,'East of England':3,'South West':5,
+  'West Midlands':7,'East Midlands':5,'Yorkshire and The Humber':7,
+  'North West':8,'North East':7,'Scotland':5,'Wales':4,'England':4
+};
+
+const CONTRACTOR_KEYWORDS = [
+  {kw:'contractor',w:3},{kw:'worker',w:3},{kw:'engineer',w:3},
+  {kw:'builder',w:3},{kw:'tradesman',w:3},{kw:'trades',w:2},
+  {kw:'workforce',w:3},{kw:'shift',w:2},{kw:'site',w:2},
+  {kw:'weekday',w:2},{kw:'mon-fri',w:2},{kw:'long stay',w:2},
+  {kw:'weekly',w:1},{kw:'monthly',w:1},{kw:'hospital',w:2},
+  {kw:'nhs',w:2},{kw:'industrial',w:2},{kw:'depot',w:2},
+  {kw:'warehouse',w:2},{kw:'factory',w:2},{kw:'rail',w:3},
+  {kw:'hs2',w:3},{kw:'construction',w:2},{kw:'infrastructure',w:2},
+  {kw:'project',w:1},{kw:'the lads',w:2},{kw:'the crew',w:2}
+];
+
+const SAMPLE_NAMES = [
+  'Modern City Apartment — Great Location','Cosy Home with Fast WiFi',
+  'Spacious Property Near Transport','Contemporary Flat — Town Centre',
+  'Comfortable Stay Near Amenities','Stylish Property with Parking'
+];
+
+/* ════ STATE ════════════════════════════════════════════════ */
+const S = {
+  postcode:null, pcData:null, rent:0, beds:2, baths:1,
+  bills:{energy:175,councilTax:167,channelMgr:75,internet:40,insurance:30,cleaning:40},
+  maintPct:3, upfrontRent:0, upfrontDeposit:0, furnishing:3000,
+  occupancy:75, nightlyRate:85, charts:{},
+  contractorScore:0, infraNearby:[],
+  revenue:0, profit:0, beOcc:0, margin:0, roi:0, upfrontTotal:0,
+  rentRanking:'average', companyLetScore:0, companyLetLevel:'low',
+  savedDealId:null, crmLeads:[], crmEditId:null,
+  allDeals:[], dealFilter:'all'
+};
+const riskState = {};
+
+/* ════ HELPERS ══════════════════════════════════════════════ */
+const gbp   = n => '£' + Math.round(n).toLocaleString('en-GB');
+const clamp = (v,lo,hi) => Math.min(hi, Math.max(lo,v));
+function haversineKm(la1,ln1,la2,ln2) {
+  const R=6371, dL=(la2-la1)*Math.PI/180, dG=(ln2-ln1)*Math.PI/180;
+  const a=Math.sin(dL/2)**2+Math.cos(la1*Math.PI/180)*Math.cos(la2*Math.PI/180)*Math.sin(dG/2)**2;
+  return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+}
+function showToast(msg) {
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+function setLoading(id,on) {
+  const el=document.getElementById(id);
+  if(el) el.style.display=on?'inline-block':'none';
+}
+function qs(id) { return document.getElementById(id); }
+
+/* ════ NAVIGATION ═══════════════════════════════════════════ */
+const PAGES = ['operator','analyse','market','toolkit','finder','portfolio'];
+function showPage(id) {
+  PAGES.forEach(p => {
+    const pg = qs('page-'+p);
+    const nb = qs('nav-'+p);
+    if(pg) pg.classList.toggle('active', p===id);
+    if(nb) nb.classList.toggle('active', p===id);
+  });
+  window.scrollTo(0,0);
+  closeSidebar();
+  if(id==='portfolio') { loadSavedDealsPage(); loadDealsForCoachDropdown(); }
+  if(id==='market')    { loadDealsForMarketDropdown(); }
+  if(id==='toolkit')   { loadDealsForToolkitDropdown(); renderToolkitIfReady(); }
+  if(id==='operator')  { loadOperatorProfile(); }
+}
+window.showPage = showPage;
+
+function openSidebar() {
+  qs('sidebar').classList.add('open');
+  qs('sidebar-overlay').classList.add('show');
+}
+function closeSidebar() {
+  qs('sidebar').classList.remove('open');
+  qs('sidebar-overlay').classList.remove('show');
+}
+window.openSidebar = openSidebar;
+window.closeSidebar = closeSidebar;
+
+/* ════ LOCAL STORAGE ════════════════════════════════════════ */
+const STORE='operateiq-v1';
+function saveState() {
+  try {
+    localStorage.setItem(STORE, JSON.stringify({
+      postcode:S.postcode, rent:S.rent, beds:S.beds, baths:S.baths,
+      occupancy:S.occupancy, nightlyRate:S.nightlyRate, maintPct:S.maintPct,
+      upfrontMonths: (qs('upfront-months')||{}).value,
+      depositMonths: (qs('deposit-months')||{}).value,
+      furnishing:S.furnishing,
+      airdnaKey: (qs('airdna-key')||{}).value || '',
+      newsKey:   (qs('newsapi-key')||{}).value || '',
+      chKey:     (qs('ch-api-key')||{}).value  || ''
+    }));
+  } catch(e){}
+}
+function loadSavedState() {
+  try {
+    const d = JSON.parse(localStorage.getItem(STORE)||'{}');
+    if(d.postcode)     qs('postcode').value        = d.postcode;
+    if(d.rent)         qs('monthly-rent').value    = d.rent;
+    if(d.beds)         qs('bedrooms').value        = d.beds;
+    if(d.baths)        qs('bathrooms').value       = d.baths;
+    if(d.occupancy)  { qs('occupancy-slider').value=d.occupancy; qs('occupancy-display').textContent=d.occupancy+'%'; }
+    if(d.nightlyRate)  qs('nightly-rate').value    = d.nightlyRate;
+    if(d.upfrontMonths) qs('upfront-months').value = d.upfrontMonths;
+    if(d.depositMonths) qs('deposit-months').value = d.depositMonths;
+    if(d.airdnaKey)   { qs('airdna-key').value=d.airdnaKey; }
+    if(d.newsKey)     qs('newsapi-key').value      = d.newsKey;
+    if(d.chKey)       qs('ch-api-key').value       = d.chKey;
+  } catch(e){}
+}
+
+/* ════ POSTCODES.IO ══════════════════════════════════════════ */
+async function fetchPostcode(raw) {
+  const pc = raw.replace(/\s/g,'').toUpperCase();
+  const r  = await fetch('https://api.postcodes.io/postcodes/'+encodeURIComponent(pc));
+  const j  = await r.json();
+  return j.status===200 ? j.result : null;
+}
+
+/* ════ ANALYSE ═══════════════════════════════════════════════ */
+async function doAnalyse() {
+  const rawPC = qs('postcode').value.trim();
+  const rent  = parseFloat(qs('monthly-rent').value);
+  const beds  = parseInt(qs('bedrooms').value);
+  const baths = parseInt(qs('bathrooms').value);
+  const errEl = qs('analyse-error');
+  errEl.style.display='none';
+  if(!rawPC) { errEl.textContent='Please enter a postcode.'; errEl.style.display='inline'; return; }
+  if(!rent||rent<=0) { errEl.textContent='Please enter a monthly rent.'; errEl.style.display='inline'; return; }
+
+  setLoading('analyse-spinner',true);
+  qs('btn-analyse').disabled=true;
+  let pcData;
+  try { pcData=await fetchPostcode(rawPC); } catch(e){ pcData=null; }
+  setLoading('analyse-spinner',false);
+  qs('btn-analyse').disabled=false;
+
+  if(!pcData) { errEl.textContent='Postcode not found. Try e.g. M1 1AE'; errEl.style.display='inline'; return; }
+
+  // Reset save state so new deal can be saved fresh
+  S.savedDealId=null;
+  const _sb=qs('btn-save-deal');
+  if(_sb){_sb.disabled=false;_sb.innerHTML='<span id="save-spinner" style="display:none;" class="loading-spinner"></span>Save This Deal';_sb.className='btn btn-success';_sb.style.color='';}
+  const _ss=qs('save-status'); if(_ss) _ss.textContent='';
+
+  S.postcode=rawPC.replace(/\s/g,'').toUpperCase();
+  S.pcData=pcData; S.rent=rent;
+  S.beds=clamp(beds,1,6); S.baths=baths;
+
+  const loc=[pcData.admin_district,pcData.region||pcData.country].filter(Boolean).join(', ');
+  qs('location-text').textContent='📍 '+loc+' — '+S.postcode;
+  qs('location-badge').classList.add('show');
+
+  stepRentRanking();
+  stepBills();
+  stepUpfront();
+
+  ['card-rent','card-costs','card-revenue','card-risk','save-bar'].forEach(id => {
+    const el=qs(id); if(el){ el.classList.remove('hidden'); }
+  });
+
+  initCharts();
+  calcRevenue();
+  initInfraProximity();
+  initContractorScore();
+  autoCompanyLetScore();
+  updateRiskAutoRent();
+  renderToolkitIfReady();
+  renderFinderSearchLinks();
+
+  // Auto-populate nightly rate from AirDNA if key exists
+  const airdnaKey = qs('airdna-key').value.trim() || localStorage.getItem('operateiq-airdna-key') || '';
+  if(airdnaKey) {
+    qs('airdna-key').value = airdnaKey;
+    autoFetchAirDNA(airdnaKey);
+  } else {
+    useBenchmarkRate();
+  }
+
+  loadCRMLeads();
+  saveState();
+  showToast('Analysis complete for '+S.postcode);
+}
+
+/* ════ RENT RANKING ══════════════════════════════════════════ */
+function getRentalData() {
+  const region = S.pcData.region||S.pcData.country||'England';
+  const data   = REGIONAL_RENTAL[region]||REGIONAL_RENTAL['England'];
+  return data[S.beds]||data[5]||data[4];
+}
+function stepRentRanking() {
+  const d=getRentalData(), rent=S.rent;
+  const range=d.hi-d.lo;
+  const pos=range>0?(rent-d.lo)/range:0.5;
+  let verdict,cls;
+  if(pos<0.35){verdict='Cheap';cls='good';S.rentRanking='cheap';}
+  else if(pos<0.65){verdict='Average';cls='warn';S.rentRanking='average';}
+  else{verdict='Expensive';cls='bad';S.rentRanking='expensive';}
+  qs('rent-your').textContent=gbp(rent)+'/mo';
+  qs('rent-range').textContent=gbp(d.lo)+' – '+gbp(d.hi);
+  qs('rent-median').textContent=gbp(d.med)+'/mo';
+  qs('rent-verdict').textContent=verdict;
+  qs('rent-verdict').className='ib-value '+cls;
+  ['gauge-cheap','gauge-avg','gauge-exp'].forEach(id=>qs(id).classList.remove('active'));
+  if(pos<0.35) qs('gauge-cheap').classList.add('active');
+  else if(pos<0.65) qs('gauge-avg').classList.add('active');
+  else qs('gauge-exp').classList.add('active');
+  const advEl=qs('rent-advice'), advTxt=qs('rent-advice-text');
+  advEl.style.display='flex';
+  if(cls==='good'){advTxt.textContent='Below market rate — great for rent-to-rent margins. Your costs are competitive.';advEl.className='notice notice-success';}
+  else if(cls==='warn'){advTxt.textContent='Around market rate. Viable if nightly rates and occupancy are strong.';advEl.className='notice notice-warn';}
+  else{advTxt.textContent='Above market rate. Margins will be tighter — ensure Airbnb rates support this.';advEl.className='notice notice-warn';}
+  updateRiskAutoRent();
+}
+
+/* ════ BILLS ════════════════════════════════════════════════ */
+function getCouncilTax() {
+  const dist=S.pcData.admin_district;
+  if(dist&&COUNCIL_TAX[dist]) return COUNCIL_TAX[dist];
+  const region=S.pcData.region||S.pcData.country||'';
+  return COUNCIL_TAX['__'+(region||'England')]||COUNCIL_TAX['__England']||167;
+}
+function stepBills() {
+  const energy=ENERGY_BY_BEDS[S.beds]||175;
+  const ct=getCouncilTax();
+  S.bills={energy,councilTax:Math.round(ct),channelMgr:75,internet:40,insurance:30,cleaning:40};
+  renderBills();
+}
+function renderBills() {
+  const defs=[
+    {id:'bill-energy',name:'Energy',desc:'Gas & electric (auto)',key:'energy',auto:true},
+    {id:'bill-ct',name:'Council Tax',desc:'Band D estimate (auto)',key:'councilTax',auto:true},
+    {id:'bill-channel',name:'Channel Manager',desc:'e.g. Uplisting, Guesty',key:'channelMgr',auto:false},
+    {id:'bill-internet',name:'Internet',desc:'Broadband',key:'internet',auto:false},
+    {id:'bill-insurance',name:'Insurance',desc:'SA / landlord policy',key:'insurance',auto:false},
+    {id:'bill-cleaning',name:'Cleaning',desc:'Per-turnover (fixed)',key:'cleaning',auto:false}
+  ];
+  const grid=qs('bills-grid');
+  grid.innerHTML=defs.map(d=>`
+    <div class="bill-row">
+      <div class="bill-info">
+        <div class="bill-name">${d.name}</div>
+        <div class="bill-desc">${d.desc}</div>
+        ${d.auto?'<span class="auto-tag">Auto</span>':''}
+      </div>
+      <div class="bill-input-wrap">
+        <span class="bpfx">£</span>
+        <input class="bill-field" id="${d.id}" type="number" value="${Math.round(S.bills[d.key])}" min="0">
+      </div>
+    </div>`).join('');
+  defs.forEach(d=>{
+    qs(d.id).addEventListener('input',()=>{readBills();calcRevenue();});
+  });
+}
+function readBills() {
+  S.bills.energy    = +qs('bill-energy').value||0;
+  S.bills.councilTax= +qs('bill-ct').value||0;
+  S.bills.channelMgr= +qs('bill-channel').value||0;
+  S.bills.internet  = +qs('bill-internet').value||0;
+  S.bills.insurance = +qs('bill-insurance').value||0;
+  S.bills.cleaning  = +qs('bill-cleaning').value||0;
+}
+function totalBills() { return Object.values(S.bills).reduce((a,b)=>a+b,0); }
+
+function stepUpfront() {
+  S.furnishing=3000; qs('furnishing-cost').value=3000; calcUpfront();
+}
+function calcUpfront() {
+  const upMo=+qs('upfront-months').value||1;
+  const depMo=+qs('deposit-months').value||1;
+  const furn=+qs('furnishing-cost').value||0;
+  S.upfrontRent=S.rent*upMo; S.upfrontDeposit=S.rent*depMo; S.furnishing=furn;
+  S.upfrontTotal=S.upfrontRent+S.upfrontDeposit+furn;
+  qs('upfront-total-display').textContent=gbp(S.upfrontTotal);
+  return S.upfrontTotal;
+}
+
+/* ════ REVENUE ══════════════════════════════════════════════ */
+function calcRevenue() {
+  if(!S.rent) return;
+  readBills();
+  const occ=S.occupancy/100, nights=occ*30;
+  const rate=S.nightlyRate, maint=rate*nights*(S.maintPct/100);
+  const rev=rate*nights, bills=totalBills();
+  const up=calcUpfront(), totalCost=S.rent+bills+maint;
+  const profit=rev-totalCost, annRev=rev*12, annPro=profit*12;
+  const roi=up>0?(annPro/up)*100:0;
+  const fixedCosts=S.rent+bills;
+  const beOcc=rate>0?(fixedCosts/(rate*30))*100:0;
+  const recoup=profit>0?up/profit:Infinity;
+  const margin=rev>0?(profit/rev)*100:0;
+  S.revenue=rev; S.profit=profit; S.beOcc=beOcc;
+  S.margin=margin; S.roi=roi;
+
+  const set=(id,val,cls)=>{const el=qs(id);if(!el)return;el.textContent=val;el.className='stat-value '+(cls||'');};
+  const pc=profit>=0?'positive':'negative';
+  set('stat-monthly-revenue',gbp(rev),'gold-val');
+  set('stat-monthly-profit',gbp(profit),pc);
+  set('stat-annual-revenue',gbp(annRev),'gold-val');
+  set('stat-annual-profit',gbp(annPro),pc);
+  set('stat-roi',(roi>=0?'+':'')+Math.round(roi)+'%',roi>=50?'positive':roi>=20?'neutral':'negative');
+  set('stat-breakeven',Math.round(beOcc)+'%',beOcc<50?'positive':beOcc<65?'neutral':'negative');
+  set('stat-recoup',recoup===Infinity?'∞':Math.ceil(recoup)+' mo',recoup<=12?'positive':recoup<=24?'neutral':'negative');
+  set('stat-margin',Math.round(margin)+'%',margin>=20?'positive':margin>=10?'neutral':'negative');
+  qs('stat-nights').textContent=Math.round(nights)+' nights/mo';
+  qs('total-costs-display').textContent=gbp(totalCost);
+  renderRules(rev,profit,beOcc,margin);
+  updateCharts(rev,profit,bills,maint);
+  // Auto-fill projector
+  const pfEl=qs('pf-avg-profit');
+  if(pfEl&&(!pfEl.value||pfEl.dataset.auto==='true')){pfEl.value=Math.max(0,Math.round(profit));pfEl.dataset.auto='true';}
+  const pfCur=qs('pf-current');
+  if(pfCur&&!pfCur.value) pfCur.value=S.allDeals.filter(d=>d.isLive).length||0;
+  saveState();
+}
+
+function renderRules(rev,profit,beOcc,margin) {
+  const rent=S.rent;
+  const rules=[
+    {title:'75% Rule',desc:`Rent (${gbp(rent)}) ≤ 75% of revenue (${gbp(rev*0.75)})`,pass:rent<=rev*0.75,warn:rent<=rev*0.85},
+    {title:'20% Net Margin',desc:`Your margin: ${Math.round(margin)}% (target: 20%+)`,pass:margin>=20,warn:margin>=10},
+    {title:'Break-even <50%',desc:`Break-even: ${Math.round(beOcc)}% (target: below 50%)`,pass:beOcc<50,warn:beOcc<65},
+    {title:'Profitable Deal',desc:profit>=0?`Monthly profit: ${gbp(profit)} ✓`:`Monthly loss: ${gbp(profit)} ✗`,pass:profit>=500,warn:profit>0}
+  ];
+  qs('rules-grid').innerHTML=rules.map(r=>{
+    const cls=r.pass?'rule-pass':r.warn?'rule-warn':'rule-fail';
+    const icon=r.pass?'✅':r.warn?'⚡':'❌';
+    return `<div class="rule-box ${cls}"><span class="rule-icon">${icon}</span><div><div class="rule-title">${r.title}</div><div class="rule-desc">${r.desc}</div></div></div>`;
+  }).join('');
+}
+
+/* ════ CHARTS ═══════════════════════════════════════════════ */
+function initCharts() {
+  if(S.charts.doughnut) { S.charts.doughnut.destroy(); }
+  if(S.charts.bar)      { S.charts.bar.destroy(); }
+  Chart.defaults.font.family='Inter'; Chart.defaults.color='#94a3b8';
+  const ctx1=qs('revenue-chart');
+  S.charts.doughnut=new Chart(ctx1,{type:'doughnut',data:{
+    labels:['Net Profit','Monthly Rent','Bills','Maintenance'],
+    datasets:[{data:[0,0,0,0],backgroundColor:['#059669','#ef4444','#3b82f6','#C9A84C'],borderWidth:2,borderColor:'#fff',hoverOffset:4}]
+  },options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{position:'bottom',labels:{padding:10,font:{size:11},color:'#64748b'}}}}});
+  const ctx2=qs('pnl-chart');
+  S.charts.bar=new Chart(ctx2,{type:'bar',data:{
+    labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+    datasets:[
+      {label:'Revenue',data:Array(12).fill(0),backgroundColor:'rgba(37,99,235,0.55)',borderRadius:4},
+      {label:'Profit',data:Array(12).fill(0),backgroundColor:'rgba(5,150,105,0.65)',borderRadius:4}
+    ]
+  },options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#64748b',font:{size:11}}}},
+    scales:{x:{ticks:{color:'#94a3b8'},grid:{color:'rgba(0,0,0,0.04)'}},y:{ticks:{color:'#94a3b8',callback:v=>'£'+v.toLocaleString()},grid:{color:'rgba(0,0,0,0.04)'}}}}});
+}
+function updateCharts(rev,profit,bills,maint) {
+  if(!S.charts.doughnut) return;
+  S.charts.doughnut.data.datasets[0].data=[Math.max(0,profit),S.rent,bills,Math.round(maint)];
+  S.charts.doughnut.update();
+  S.charts.bar.data.datasets[0].data=SEASONAL.map(f=>Math.round(rev*f));
+  S.charts.bar.data.datasets[1].data=SEASONAL.map(f=>Math.round(profit*f));
+  S.charts.bar.update();
+}
+
+/* ════ SAVE DEAL ════════════════════════════════════════════ */
+async function doSaveDeal() {
+  if(!S.pcData){showToast('Analyse a deal first.');return;}
+  const btn=qs('btn-save-deal'), st=qs('save-status');
+  btn.disabled=true; setLoading('save-spinner',true); st.textContent='Saving...';
+  const dealData={
+    dealName:`${S.postcode} — ${S.beds} bed`,
+    postcode:S.postcode, rent:S.rent, beds:S.beds, baths:S.baths,
+    nightlyRate:S.nightlyRate, occupancy:S.occupancy,
+    monthlyProfit:Math.round(S.profit), annualProfit:Math.round(S.profit*12),
+    roi:Math.round(S.roi), breakEvenOcc:Math.round(S.beOcc),
+    contractorScore:S.contractorScore, upfrontTotal:Math.round(S.upfrontTotal),
+    region:S.pcData.region||S.pcData.country||'',
+    adminDistrict:S.pcData.admin_district||'',
+    isLive:false
+  };
+  try {
+    if(typeof window.__saveDeal==='function') {
+      const id=await window.__saveDeal(dealData);
+      S.savedDealId=id;
+      showToast('Deal saved to your portfolio!');
+      st.textContent='Saved as "'+dealData.dealName+'"';
+      btn.textContent='✓ Saved';
+      btn.classList.add('btn-outline');
+      btn.style.color='var(--green)';
+    } else {
+      showToast('Save unavailable — please sign in.');
+      st.textContent='';
+      btn.disabled=false;
+    }
+  } catch(e) {
+    console.error('Save deal error:',e);
+    st.textContent='Save failed: '+e.message;
+    btn.disabled=false;
+  }
+  setLoading('save-spinner',false);
+}
+
+/* ════ AIRDNA AUTO-POPULATE ═════════════════════════════════ */
+async function autoFetchAirDNA(key) {
+  if(!S.pcData||!key) { useBenchmarkRate(); return; }
+  try {
+    const {latitude:lat,longitude:lng}=S.pcData;
+    const marketRes=await fetch('https://api.airdna.co/api/enterprise/v2/market/search',{
+      method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},
+      body:JSON.stringify({lat,lng,limit:1})
+    });
+    if(!marketRes.ok) { useBenchmarkRate(); return; }
+    const marketData=await marketRes.json();
+    const marketId=marketData?.payload?.results?.[0]?.id;
+    if(!marketId) { useBenchmarkRate(); return; }
+    const listingsRes=await fetch('https://api.airdna.co/api/enterprise/v2/listings/comps',{
+      method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},
+      body:JSON.stringify({market_id:marketId,filters:[{field:'bedrooms',type:'range',value:[Math.max(1,S.beds-1),S.beds+1]}],limit:12,currency:'GBP'})
+    });
+    if(!listingsRes.ok) { useBenchmarkRate(); return; }
+    const listingsData=await listingsRes.json();
+    const raw=listingsData?.payload?.results||[];
+    if(!raw.length) { useBenchmarkRate(); return; }
+    const rates=raw.map(l=>l.adr||l.price||0).filter(p=>p>0);
+    const avgRate=rates.length?Math.round(rates.reduce((a,b)=>a+b)/rates.length):0;
+    if(avgRate>0) {
+      S.nightlyRate=avgRate;
+      qs('nightly-rate').value=avgRate;
+      const badge=qs('airdna-rate-badge');
+      if(badge) badge.style.display='inline-flex';
+      calcRevenue();
+      localStorage.setItem('operateiq-airdna-key',key);
+    }
+  } catch(e) { useBenchmarkRate(); }
+}
+
+function useBenchmarkRate() {
+  const dist=(S.pcData?.admin_district||'').toLowerCase();
+  const region=(S.pcData?.region||S.pcData?.country||'').toLowerCase();
+  const match=Object.keys(AIRBNB_BENCHMARKS).find(k=>k!=='__default'&&(dist.includes(k.toLowerCase())||region.includes(k.toLowerCase())));
+  const bm=AIRBNB_BENCHMARKS[match]||AIRBNB_BENCHMARKS['__default'];
+  if(!qs('nightly-rate').value||+qs('nightly-rate').value===0) {
+    S.nightlyRate=bm.adr; qs('nightly-rate').value=bm.adr; calcRevenue();
+  }
+}
+
+/* ════ CONTRACTOR SCORING (IMPROVED) ═══════════════════════ */
+function initInfraProximity() {
+  if(!S.pcData) return;
+  const {latitude:lat,longitude:lng}=S.pcData;
+  // Infrastructure projects
+  const infraNearby=INFRASTRUCTURE_PROJECTS
+    .filter(p=>haversineKm(lat,lng,p.lat,p.lng)<=p.r)
+    .map(p=>({...p,dist:Math.round(haversineKm(lat,lng,p.lat,p.lng)),type:'infra'}))
+    .sort((a,b)=>a.dist-b.dist);
+  // NHS hospitals
+  const nhsNearby=MAJOR_NHS
+    .filter(p=>haversineKm(lat,lng,p.lat,p.lng)<=p.r)
+    .map(p=>({...p,dist:Math.round(haversineKm(lat,lng,p.lat,p.lng)),type:'nhs'}))
+    .sort((a,b)=>a.dist-b.dist).slice(0,3);
+  // Universities
+  const uniNearby=MAJOR_UNIS
+    .filter(p=>haversineKm(lat,lng,p.lat,p.lng)<=p.r)
+    .map(p=>({...p,dist:Math.round(haversineKm(lat,lng,p.lat,p.lng)),type:'uni'}))
+    .sort((a,b)=>a.dist-b.dist).slice(0,3);
+  S.infraNearby=[...infraNearby,...nhsNearby,...uniNearby];
+}
+
+function scoreText(text) {
+  text=text.toLowerCase(); let score=0; const found=[];
+  CONTRACTOR_KEYWORDS.forEach(({kw,w})=>{ if(text.includes(kw)){score+=w;found.push({kw,w});} });
+  return {score,found};
+}
+
+function initContractorScore(listings=[]) {
+  if(!S.pcData) return;
+  const regionBonus = REGION_BASELINE[S.pcData.region||S.pcData.country||'England']||4;
+  const infra = S.infraNearby.filter(p=>p.type==='infra');
+  const nhs   = S.infraNearby.filter(p=>p.type==='nhs');
+  const uni   = S.infraNearby.filter(p=>p.type==='uni');
+  const infraBonus = Math.min(30, infra.length*8);
+  const nhsBonus   = Math.min(20, nhs.length*12);
+  const uniBonus   = Math.min(15, uni.length*8);
+  let textScore=0, evidence=[];
+  listings.forEach(l=>{
+    const {score,found}=scoreText([l.name||'',l.title||''].join(' '));
+    textScore+=score; evidence.push(...found);
+  });
+  const seen=new Set();
+  evidence=evidence.filter(e=>{if(seen.has(e.kw))return false;seen.add(e.kw);return true;});
+  const raw=textScore+regionBonus+infraBonus+nhsBonus+uniBonus;
+  const score=Math.min(100,Math.round((raw/60)*100));
+  S.contractorScore=score;
+
+  const level=score>=60?'High':score>=35?'Medium':'Low';
+  const levelCls=level==='High'?'score-high':level==='Medium'?'score-medium':'score-low';
+  const icon=level==='High'?'🔥':level==='Medium'?'⚡':'📉';
+  qs('contractor-score-badge').textContent=icon+' '+level+' Contractor Potential';
+  qs('contractor-score-badge').className='score-badge '+levelCls;
+  const barEl=qs('contractor-score-bar');
+  if(barEl){barEl.style.width=score+'%';barEl.style.background=level==='High'?'var(--green)':level==='Medium'?'var(--amber)':'var(--red)';}
+  qs('contractor-score-meta').textContent=`Overall score: ${score}/100`;
+  qs('contractor-no-deal').style.display='none';
+  qs('contractor-results').style.display='block';
+
+  // Build score explanation bullets (no universities shown)
+  const region2=S.pcData.region||S.pcData.country||'England';
+  const infraItems=S.infraNearby.filter(p=>p.type==='infra');
+  const nhsItems=S.infraNearby.filter(p=>p.type==='nhs');
+  const bullets=[
+    {icon:'🗺',text:`Regional demand (${region2})`,pts:regionBonus,show:true},
+    {icon:'🏗',text:infraItems.length?`${infraItems.length} major infrastructure project${infraItems.length>1?'s':''} within range`:'No major infrastructure projects within range',pts:infraBonus,show:true},
+    {icon:'🏥',text:nhsItems.length?`${nhsItems.length} NHS hospital${nhsItems.length>1?'s':''} / trust${nhsItems.length>1?'s':''} within range`:'No major NHS hospitals within range',pts:nhsBonus,show:true},
+    {icon:'📋',text:textScore>0?'Keyword demand signals detected in listing descriptions':'No keyword demand signals detected',pts:textScore,show:true}
+  ];
+  const bulletsEl=qs('contractor-evidence-wrap');
+  if(bulletsEl){
+    bulletsEl.style.display='block';
+    qs('evidence-list').innerHTML=`<div class="score-bullets">${bullets.map(b=>`
+      <div class="score-bullet">
+        <span class="sb-icon">${b.icon}</span>
+        <span class="sb-text">${b.text}</span>
+        ${b.pts>0?`<span class="sb-pts">+${b.pts} pts</span>`:`<span class="sb-zero">0 pts</span>`}
+      </div>`).join('')}</div>`;
+  }
+
+  // Infrastructure nearby with tick marks (infra + NHS only, no universities)
+  const showNearby=S.infraNearby.filter(p=>p.type!=='uni');
+  const infraWrap=qs('infra-wrap'), infraList=qs('infra-list');
+  if(showNearby.length&&infraWrap&&infraList){
+    infraWrap.style.display='block';
+    infraList.innerHTML=`<div class="infra-tick-list">`+showNearby.map(p=>{
+      const lbl=p.type==='nhs'?'🏥 NHS Hospital':'🏗 Infrastructure Project';
+      return `<div class="infra-tick-item tick"><span class="tick-icon">✓</span><span><strong>${p.name}</strong> — ${lbl} &middot; ${p.dist} km away</span></div>`;
+    }).join('')+`</div>`;
+  } else if(infraWrap) {
+    infraWrap.style.display='none';
+  }
+}
+
+/* ════ DEVELOPMENT INTELLIGENCE (NEWS) ═════════════════════ */
+function renderToolkitIfReady() {
+  if(!S.pcData) return;
+  qs('intel-no-deal').style.display='none'; qs('intel-results').style.display='block';
+  qs('contractor-no-deal').style.display='none'; qs('contractor-results').style.display='block';
+  qs('finder-no-deal').style.display='none'; qs('finder-results').style.display='block';
+  qs('planning-no-deal').style.display='none'; qs('planning-results').style.display='block';
+  // Show current postcode label in toolkit
+  const lbl=qs('toolkit-current-label');
+  if(lbl){lbl.style.display='block';lbl.textContent='Currently analysing: '+S.postcode+(S.pcData.admin_district?' — '+S.pcData.admin_district:'');}
+  renderLocalLinks(); renderFinderLinks(); renderPlanningLinks();
+  const key=qs('newsapi-key').value.trim()||localStorage.getItem('operateiq-intel-key')||'';
+  if(key) { qs('newsapi-key').value=key; }
+}
+
+/* ════ TOOLKIT DEAL SELECTOR ════════════════════════════════ */
+async function loadDealsForToolkitDropdown() {
+  const sel=qs('toolkit-deal-select'); if(!sel) return;
+  try {
+    if(typeof window.__loadDeals==='function') S.allDeals=await window.__loadDeals();
+  } catch(e){ S.allDeals=[]; }
+  const current=sel.value;
+  sel.innerHTML='<option value="">— Select a saved deal —</option>';
+  S.allDeals.forEach(d=>{
+    const opt=document.createElement('option');
+    opt.value=d.id; opt.textContent=d.dealName||(d.postcode+' '+d.beds+'bed');
+    opt.dataset.postcode=d.postcode||''; opt.dataset.beds=d.beds||2;
+    sel.appendChild(opt);
+  });
+  if(current) sel.value=current;
+}
+
+async function loadToolkitDeal() {
+  const sel=qs('toolkit-deal-select');
+  if(!sel||!sel.value) { showToast('Select a saved deal first.'); return; }
+  const deal=S.allDeals.find(d=>d.id===sel.value);
+  if(!deal) return;
+  setLoading('toolkit-deal-spinner',true);
+  qs('btn-load-toolkit-deal').disabled=true;
+  let pcData;
+  try { pcData=await fetchPostcode(deal.postcode); } catch(e){ pcData=null; }
+  setLoading('toolkit-deal-spinner',false);
+  qs('btn-load-toolkit-deal').disabled=false;
+  if(!pcData){ showToast('Postcode lookup failed for '+deal.postcode); return; }
+  // Update shared state with this deal's data
+  S.postcode=deal.postcode;
+  S.pcData=pcData;
+  S.beds=deal.beds||2;
+  S.baths=deal.baths||1;
+  S.contractorScore=0;
+  S.infraNearby=[];
+  initInfraProximity();
+  initContractorScore();
+  renderToolkitIfReady();
+  showToast('Loaded: '+deal.postcode);
+}
+
+function renderLocalLinks() {
+  if(!S.pcData) return;
+  const pc=encodeURIComponent(S.postcode||'');
+  const la=encodeURIComponent(S.pcData.admin_district||'');
+  const links=[
+    {icon:'🏗',label:'Construction Projects',sub:'Google search',href:`https://www.google.com/search?q=${pc}+construction+projects+2025+2026`},
+    {icon:'📋',label:'Planning Applications',sub:'Planning Portal',href:`https://www.planningportal.co.uk/planning`},
+    {icon:'📰',label:'Local News',sub:'Google News',href:`https://news.google.com/search?q=${la}+development+construction&hl=en-GB`},
+    {icon:'🏛',label:'Council Planning Portal',sub:S.pcData.admin_district||'Local authority',href:`https://www.google.com/search?q=${la}+council+planning+applications+2025`},
+    {icon:'🔨',label:'Contractor Job Ads',sub:'Reed.co.uk',href:`https://www.reed.co.uk/jobs?keywords=contractor&where=${pc}`},
+    {icon:'🏭',label:'Industrial Estates Nearby',sub:'Google Maps',href:`https://www.google.com/maps/search/industrial+estate+near+${pc}`},
+    {icon:'🏥',label:'NHS Trusts & Hospitals',sub:'NHS Choices',href:`https://www.google.com/search?q=NHS+trust+hospital+near+${la}`},
+    {icon:'📊',label:'Area Employment Stats',sub:'ONS Nomis',href:`https://www.nomisweb.co.uk/reports/lmp/gor/contents.aspx`}
+  ];
+  const grid=qs('local-links-grid');
+  if(grid) grid.innerHTML=links.map(l=>`<a class="deep-link" href="${l.href}" target="_blank" rel="noopener"><span class="dl-icon">${l.icon}</span><div><div>${l.label}</div><div class="dl-sub">${l.sub}</div></div></a>`).join('');
+}
+
+async function doFetchNews() {
+  const key=qs('newsapi-key').value.trim();
+  const la=S.pcData?.admin_district||'';
+  if(!key) {
+    qs('intel-key-row').style.display='block';
+    qs('news-container').innerHTML='<div class="notice notice-info"><span>💡</span><span>Enter your development intelligence key above and click Load Latest News again.</span></div>';
+    return;
+  }
+  if(!la) { showToast('Analyse a deal first.'); return; }
+  localStorage.setItem('operateiq-intel-key',key);
+  qs('btn-fetch-news').textContent='Loading...';
+  qs('btn-fetch-news').disabled=true;
+  const q=encodeURIComponent(`"${la}" construction OR planning OR development OR infrastructure`);
+  try {
+    const r=await fetch(`https://newsapi.org/v2/everything?q=${q}&language=en&sortBy=publishedAt&pageSize=8&apiKey=${key}`);
+    const j=await r.json();
+    const articles=j.articles||[];
+    const nc=qs('news-container');
+    if(articles.length){
+      nc.innerHTML=`<div style="font-size:0.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.75rem;">Recent Activity — ${la}</div>`+
+        articles.map(a=>`<div class="news-item"><div class="news-title"><a href="${a.url}" target="_blank" rel="noopener">${a.title}</a></div><div class="news-meta-text">${a.source?.name||''} · ${a.publishedAt?.slice(0,10)||''}</div></div>`).join('');
+    } else {
+      nc.innerHTML='<div class="notice notice-warn"><span>⚠️</span><span>No recent articles found for '+la+'. Try a different area.</span></div>';
+    }
+  } catch(e) {
+    qs('news-container').innerHTML='<div class="notice notice-warn"><span>⚠️</span><span>Could not fetch intelligence. Check your key is valid.</span></div>';
+  }
+  qs('btn-fetch-news').textContent='Load Latest News';
+  qs('btn-fetch-news').disabled=false;
+}
+
+/* ════ COMPANY LET SCORE (AUTO) ══════════════════════════════ */
+function autoCompanyLetScore() {
+  if(!S.pcData) return;
+  let score=4;
+  if(S.beds===2||S.beds===3) score+=2; else if(S.beds===1) score+=0; else score-=1;
+  if(S.rentRanking==='cheap') score+=2; else if(S.rentRanking==='average') score+=1; else score-=1;
+  if(S.baths>=2) score+=1;
+  const regionBonus=REGION_BASELINE[S.pcData.region||S.pcData.country||'England']||4;
+  if(regionBonus>=7) score+=1;
+  if(S.contractorScore>=60) score+=1; else if(S.contractorScore<30) score-=1;
+  score=clamp(score,1,10);
+  S.companyLetScore=score;
+  let level,circleCls,labelText,labelSub;
+  if(score<=4){level='low';circleCls='cl-low';labelText='Low Acceptance';labelSub='This deal may need a warm pitch focused on guaranteed income and zero voids.';}
+  else if(score<=7){level='medium';circleCls='cl-medium';labelText='Moderate Acceptance';labelSub='Some positive signals. Approach with a professional proposal and focus on guarantees.';}
+  else{level='high';circleCls='cl-high';labelText='High Acceptance';labelSub='Strong signals — this looks like an SA-friendly landlord. Lead with confidence.';}
+  S.companyLetLevel=level;
+  const factors=[];
+  if(S.beds===2||S.beds===3) factors.push({text:`${S.beds} bed (SA sweet spot)`,pos:true});
+  else factors.push({text:`${S.beds} bed (less common for SA)`,pos:S.beds===1});
+  if(S.rentRanking==='cheap') factors.push({text:'Below market rent (flexible landlord signal)',pos:true});
+  else if(S.rentRanking==='expensive') factors.push({text:'Above market rent (tighter margins)',pos:false});
+  if(S.baths>=2) factors.push({text:'2+ bathrooms (professional accommodation)',pos:true});
+  if(regionBonus>=7) factors.push({text:'High SA demand region',pos:true});
+  if(S.contractorScore>=60) factors.push({text:'Strong contractor demand nearby',pos:true});
+  const scripts={'low':'"I can offer you guaranteed rent, zero void periods, and I handle all management. Would you be open to a short call to discuss?"','medium':'"I specialise in professional company lets — I can offer guaranteed rent with minimal hassle. Can we discuss the details?"','high':'"I saw this is open to company lets — I work with contractors and corporate clients and can offer a guaranteed rent arrangement. Can we arrange a viewing?"'};
+  qs('cl-no-deal').style.display='none';
+  qs('cl-result').style.display='block';
+  qs('cl-score-circle').textContent=score;
+  qs('cl-score-circle').className='cl-score-circle '+circleCls;
+  qs('cl-score-label').textContent=labelText;
+  qs('cl-score-sub').textContent=labelSub;
+  qs('cl-signals').innerHTML=factors.map(f=>`<span class="${f.pos?'sig-pos':'sig-neg'}">${f.text}</span>`).join('');
+  qs('cl-script').innerHTML=`<strong>Suggested Approach</strong>${scripts[level]}`;
+}
+
+/* ════ RISK ASSESSMENT ══════════════════════════════════════ */
+function initRiskToggles() {
+  document.querySelectorAll('.toggle-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const risk=btn.dataset.risk, val=btn.dataset.val;
+      riskState[risk]=val;
+      document.querySelectorAll(`.toggle-btn[data-risk="${risk}"]`).forEach(s=>{s.classList.remove('active-yes','active-no');});
+      btn.classList.add(val==='yes'?'active-yes':'active-no');
+    });
+  });
+}
+function updateRiskAutoRent() {
+  const el=qs('risk-rent-auto'); if(!el) return;
+  if(S.rentRanking==='expensive'){el.textContent='⚠️ Expensive for area (+2 risk)';el.style.color='var(--red)';riskState['rent-expensive']=true;}
+  else{el.textContent=S.rentRanking==='cheap'?'✅ Below market (no extra risk)':'⚡ Market rate (no extra risk)';el.style.color='var(--text-muted)';riskState['rent-expensive']=false;}
+}
+function calcRiskScore() {
+  let reg=0,fin=0,ll=0;
+  if(riskState['art4']==='yes') reg+=3;
+  if(riskState['stl-lic']==='yes') reg+=2;
+  if(riskState['stl-restrict']==='yes') reg+=3;
+  fin+=parseInt(qs('risk-lease-length').value)||0;
+  if(riskState['break-clause']==='no') fin+=2; else if(riskState['break-clause']==='yes') fin-=1;
+  if(riskState['rent-expensive']===true) fin+=2;
+  if(riskState['letting-agent']==='yes') ll+=2;
+  if(riskState['new-to-cl']==='yes') ll+=2;
+  if(riskState['mortgage']==='yes') ll+=1;
+  const total=reg+fin+ll;
+  let level,cls;
+  if(total<=4){level='LOW';cls='risk-low';}
+  else if(total<=9){level='MODERATE';cls='risk-moderate';}
+  else{level='HIGH';cls='risk-high';}
+  qs('risk-badge').textContent=level; qs('risk-badge').className='risk-badge '+cls;
+  qs('risk-total-text').textContent='Total risk score: '+total+' / 15+';
+  qs('risk-reg-score').textContent=reg; qs('risk-fin-score').textContent=fin; qs('risk-ll-score').textContent=ll;
+  const mit=qs('risk-mitigation');
+  if(level==='LOW'){mit.className='notice notice-success';mit.textContent='✅ Favourable risk profile. Proceed with confidence and standard SA contract.';}
+  else if(level==='MODERATE'){mit.className='notice notice-warn';mit.textContent='⚡ Manageable risks. Ensure your contract includes SA consent clause, break clause, and personal guarantees.';}
+  else{mit.className='notice notice-error';mit.textContent='⚠️ High risk. Seek legal advice before proceeding. Renegotiate terms or walk away if landlord won\'t provide written SA consent.';}
+  qs('risk-result').style.display='block';
+}
+
+/* ════ FINDER LINKS ═════════════════════════════════════════ */
+function renderFinderSearchLinks() {
+  const pc=qs('finder-postcode').value.trim()||S.postcode||'';
+  const beds=qs('finder-beds').value||S.beds||2;
+  const maxRent=qs('finder-max-rent').value||'';
+  const grid=qs('finder-search-links');
+  if(!grid) return;
+  if(!pc){
+    grid.innerHTML=`<div class="notice notice-info" style="grid-column:1/-1;"><span>💡</span><span>Enter a postcode above to activate the search portals.</span></div>`;
+    return;
+  }
+  const enc=encodeURIComponent(pc);
+  const portals=[
+    {icon:'🏠',label:'Rightmove',sub:'UK\'s largest portal',href:`https://www.rightmove.co.uk/property-to-rent/find.html?searchLocation=${enc}&useLocationIdentifier=false&radius=1.0&minBedrooms=${beds}&maxBedrooms=${beds}${maxRent?'&maxPrice='+maxRent:''}`},
+    {icon:'🏡',label:'Zoopla',sub:'Comprehensive listings',href:`https://www.zoopla.co.uk/to-rent/property/${enc}/?beds_min=${beds}&beds_max=${beds}&price_frequency=per_month${maxRent?'&price_max='+maxRent:''}`},
+    {icon:'🔑',label:'OpenRent',sub:'Direct from landlords',href:`https://www.openrent.co.uk/properties-to-rent/?term=${enc}&bedrooms=${beds}${maxRent?'&maximumPrice='+maxRent:''}`},
+    {icon:'📱',label:'SpareRoom',sub:'Rooms & whole lets',href:`https://www.spareroom.co.uk/flatshare/${enc.toLowerCase().replace(/\s/g,'-')}`}
+  ];
+  grid.innerHTML=portals.map(p=>`<a class="portal-tile" href="${p.href}" target="_blank" rel="noopener"><span class="pt-icon">${p.icon}</span><span>${p.label}</span><span class="pt-sub">${p.sub}</span></a>`).join('');
+}
+function renderFinderLinks() {
+  if(!S.pcData) return;
+  const pc=encodeURIComponent(S.postcode||'');
+  const la=encodeURIComponent(S.pcData.admin_district||'');
+  const laR=S.pcData.admin_district||'your area';
+  const jl=[
+    {icon:'💼',label:'Reed — Contractor Jobs',href:`https://www.reed.co.uk/jobs?keywords=contractor+engineer&where=${pc}`,sub:'Near '+S.postcode},
+    {icon:'🔍',label:'Indeed — Site Manager',href:`https://uk.indeed.com/jobs?q=site+manager&l=${pc}`,sub:'Near '+S.postcode},
+    {icon:'🔗',label:'LinkedIn — Construction',href:`https://www.linkedin.com/search/results/companies/?keywords=construction+${laR}`,sub:laR},
+    {icon:'⚙️',label:'Totaljobs — Infrastructure',href:`https://www.totaljobs.com/jobs/infrastructure-contractor/in-${pc}`,sub:'Near '+S.postcode}
+  ];
+  const jg=qs('job-links-grid');
+  if(jg) jg.innerHTML=jl.map(l=>`<a class="job-link" href="${l.href}" target="_blank" rel="noopener"><span>${l.icon}</span><div><div>${l.label}</div><div style="font-size:0.68rem;color:var(--text-muted)">${l.sub}</div></div></a>`).join('');
+  const rl=[
+    {icon:'🏢',label:'Insurance relocation — '+laR,href:`https://www.google.com/search?q=insurance+relocation+companies+${la}`},
+    {icon:'🏙',label:'Corporate housing — '+laR,href:`https://www.google.com/search?q=corporate+housing+${la}`},
+    {icon:'🏗',label:'Infrastructure project accommodation',href:`https://www.google.com/search?q=${la}+infrastructure+project+accommodation`},
+    {icon:'🏥',label:'NHS staff accommodation — '+laR,href:`https://www.google.com/search?q=NHS+staff+accommodation+${la}`}
+  ];
+  const rlg=qs('relocation-links-grid');
+  if(rlg) rlg.innerHTML=rl.map(l=>`<a class="job-link" href="${l.href}" target="_blank" rel="noopener"><span>${l.icon}</span><span>${l.label}</span></a>`).join('');
+  const cpLabel=qs('ch-postcode-label'); if(cpLabel) cpLabel.textContent=S.postcode;
+}
+function renderPlanningLinks() {
+  if(!S.pcData) return;
+  const pc=encodeURIComponent(S.postcode||'');
+  const la=encodeURIComponent(S.pcData.admin_district||'');
+  const laR=S.pcData.admin_district||'your area';
+  const links=[
+    {icon:'🏛',label:'Planning Portal',sub:'planningportal.co.uk',href:'https://www.planningportal.co.uk/planning'},
+    {icon:'🔍',label:S.postcode+' planning 2025',sub:'Google search',href:`https://www.google.com/search?q=${pc}+planning+applications+2025+2026`},
+    {icon:'🏢',label:laR+' council planning',sub:'Local authority',href:`https://www.google.com/search?q=${la}+council+planning+portal`},
+    {icon:'🏗',label:'Regeneration/development corp',sub:'Google search',href:`https://www.google.com/search?q=${la}+development+corporation+regeneration`}
+  ];
+  const pg=qs('planning-links-grid');
+  if(pg) {
+    pg.innerHTML=links.map(l=>`<a class="deep-link" href="${l.href}" target="_blank" rel="noopener"><span class="dl-icon">${l.icon}</span><div><div>${l.label}</div><div class="dl-sub">${l.sub}</div></div></a>`).join('');
+    qs('planning-links-section').style.display='block';
+  }
+  const infraList=qs('planning-infra-list');
+  if(S.infraNearby.length&&infraList){
+    infraList.innerHTML=S.infraNearby.map(p=>`<div class="infra-signal-card"><div class="isc-name">${p.type==='nhs'?'🏥':p.type==='uni'?'🎓':'🏗'} ${p.name}</div><div class="isc-meta">${p.dist} km away</div><div class="isc-action">💡 Target workers/staff needing accommodation near this site</div></div>`).join('');
+    qs('planning-infra-section').style.display='block';
+  }
+}
+async function checkPlanningActivity() {
+  setLoading('planning-spinner',true); qs('btn-check-planning').disabled=true;
+  renderPlanningLinks();
+  const key=qs('newsapi-key').value.trim()||localStorage.getItem('operateiq-intel-key')||'';
+  if(key) {
+    qs('planning-news-section').style.display='block';
+    const nc=qs('planning-news-container');
+    const la=S.pcData?.admin_district||'';
+    const q=encodeURIComponent(`"${la}" planning OR construction OR development`);
+    try {
+      const r=await fetch(`https://newsapi.org/v2/everything?q=${q}&language=en&sortBy=publishedAt&pageSize=6&apiKey=${key}`);
+      const j=await r.json();
+      const articles=j.articles||[];
+      if(articles.length){
+        nc.innerHTML=articles.map(a=>`<div class="news-item"><div class="news-title"><a href="${a.url}" target="_blank" rel="noopener">${a.title}</a></div><div class="news-meta-text">${a.source?.name||''} · ${a.publishedAt?.slice(0,10)||''}</div></div>`).join('');
+      } else {
+        nc.innerHTML='<div class="notice notice-warn"><span>⚠️</span><span>No recent planning news found for this area.</span></div>';
+      }
+    } catch(e){}
+  }
+  setLoading('planning-spinner',false); qs('btn-check-planning').disabled=false;
+  showToast('Planning intelligence loaded');
+}
+async function searchCompaniesHouse() {
+  const key=qs('ch-api-key').value.trim();
+  if(!key){qs('ch-results').innerHTML='<div class="notice notice-info"><span>🔑</span><span>Get your free key at <a href="https://developer.company-information.service.gov.uk" target="_blank" style="color:var(--gold);">developer.company-information.service.gov.uk</a></span></div>';return;}
+  if(!S.postcode){showToast('Analyse a deal first.');return;}
+  localStorage.setItem('ch-api-key',key);
+  setLoading('ch-spinner',true); qs('btn-search-companies').disabled=true;
+  const outward=S.postcode.replace(/[^A-Z0-9]/g,'').slice(0,-3);
+  const sic='41100,41202,42110,42120,42210,42220,42910,42990,43110,43120,43130,43210,43220,43290,43310,43320,43330,43341,43342,43390,43910,43999';
+  const url=`https://api.company-information.service.gov.uk/advanced-search/companies?location=${encodeURIComponent(outward)}&sic_codes=${sic}&company_status=active&size=20`;
+  try {
+    const r=await fetch(url,{headers:{'Authorization':'Basic '+btoa(key+':')}});
+    if(!r.ok) throw new Error('API error '+r.status);
+    const j=await r.json();
+    const companies=(j.items||[]).slice(0,10);
+    if(!companies.length){qs('ch-results').innerHTML='<div class="notice notice-warn"><span>⚠️</span><span>No active construction companies found near '+S.postcode+'.</span></div>';}
+    else{qs('ch-results').innerHTML=companies.map(c=>{const addr=[c.registered_office_address?.address_line_1,c.registered_office_address?.locality].filter(Boolean).join(', ');return`<div class="ch-card"><div class="ch-name">${c.company_name}</div><div class="ch-meta">SIC: ${(c.sic_codes||[]).join(', ')} · ${addr}<br>Incorporated: ${c.date_of_creation||'Unknown'}</div><a href="https://www.google.com/search?q=${encodeURIComponent('"'+c.company_name+'" projects contracts 2025')}" target="_blank" rel="noopener">🔍 Find their projects on Google</a></div>`;}).join('');}
+  } catch(e){qs('ch-results').innerHTML='<div class="notice notice-warn"><span>⚠️</span><span>Error: '+e.message+'</span></div>';}
+  setLoading('ch-spinner',false); qs('btn-search-companies').disabled=false;
+}
+
+/* ════ MARKET ANALYSIS PAGE ═════════════════════════════════ */
+async function loadDealsForMarketDropdown() {
+  const sel=qs('market-deal-select'); if(!sel) return;
+  if(typeof window.__loadDeals!=='function'){sel.innerHTML='<option value="">— Sign in to load saved deals —</option>';return;}
+  try {
+    const deals=await window.__loadDeals();
+    sel.innerHTML='<option value="">— Select a saved deal —</option>'+deals.map(d=>`<option value="${d.id}" data-postcode="${d.postcode||''}" data-beds="${d.beds||2}">${d.dealName||d.postcode}</option>`).join('');
+  } catch(e){ sel.innerHTML='<option value="">— Error loading deals —</option>'; }
+}
+
+async function runMarketAnalysis() {
+  const sel=qs('market-deal-select');
+  let postcode=qs('market-postcode').value.trim();
+  let beds=parseInt(qs('market-beds').value)||2;
+  if(sel.value) {
+    const opt=sel.options[sel.selectedIndex];
+    postcode=opt.dataset.postcode||postcode;
+    beds=parseInt(opt.dataset.beds)||beds;
+  }
+  if(!postcode){showToast('Enter a postcode or select a saved deal.');return;}
+  setLoading('market-spinner',true); qs('btn-run-market').disabled=true;
+  let pcData;
+  try { pcData=await fetchPostcode(postcode); } catch(e){}
+  if(!pcData){showToast('Postcode not found.');setLoading('market-spinner',false);qs('btn-run-market').disabled=false;return;}
+  qs('market-results-subtitle').textContent=`Comparable listings near ${postcode.toUpperCase()} for ${beds} bed SA`;
+  const key=qs('airdna-key').value.trim()||localStorage.getItem('operateiq-airdna-key')||'';
+  let listings=[];
+  if(key) {
+    try {
+      const {latitude:lat,longitude:lng}=pcData;
+      const mRes=await fetch('https://api.airdna.co/api/enterprise/v2/market/search',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({lat,lng,limit:1})});
+      if(mRes.ok){
+        const md=await mRes.json(); const mId=md?.payload?.results?.[0]?.id;
+        if(mId){
+          const lRes=await fetch('https://api.airdna.co/api/enterprise/v2/listings/comps',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({market_id:mId,filters:[{field:'bedrooms',type:'range',value:[Math.max(1,beds-1),beds+1]}],limit:12,currency:'GBP'})});
+          if(lRes.ok){const ld=await lRes.json();listings=(ld?.payload?.results||[]).map(l=>({name:l.title||'Listing',bedrooms:l.bedrooms||beds,price:{rate:l.adr||0},reviews:{count:l.review_count||0,guestSatisfactionOverall:Math.round((l.rating||0)*20)},url:l.airbnb_listing_url||l.url||null,isAirDNA:true}));}
+        }
+      }
+    } catch(e){}
+  }
+  if(!listings.length) {
+    const dist=(pcData.admin_district||'').toLowerCase();
+    const region=(pcData.region||pcData.country||'').toLowerCase();
+    const match=Object.keys(AIRBNB_BENCHMARKS).find(k=>k!=='__default'&&(dist.includes(k.toLowerCase())||region.includes(k.toLowerCase())));
+    const bm=AIRBNB_BENCHMARKS[match]||AIRBNB_BENCHMARKS['__default'];
+    listings=SAMPLE_NAMES.map((name,i)=>({name,isSample:true,bedrooms:beds,price:{rate:Math.round(bm.lo+Math.random()*(bm.hi-bm.lo))},reviews:{count:Math.round(15+Math.random()*120),guestSatisfactionOverall:Math.round(85+Math.random()*13)}}));
+  }
+  const prices=listings.map(l=>l.price?.rate||0).filter(p=>p>0);
+  const avg=prices.length?Math.round(prices.reduce((a,b)=>a+b)/prices.length):0;
+  qs('mkt-avg-rate').textContent=gbp(avg)+'/night';
+  qs('mkt-range').textContent=gbp(Math.min(...prices))+' – '+gbp(Math.max(...prices));
+  qs('market-listings-grid').innerHTML=`<div class="listings-grid">${listings.map(l=>{const p=l.price?.rate||0;const rev=l.reviews?.count||0;const rat=l.reviews?.guestSatisfactionOverall||0;const link=l.url?`<a class="listing-link" href="${l.url}" target="_blank" rel="noopener">View on Airbnb ↗</a>`:'';return`<div class="listing-card">${l.isSample?'<span class="sample-badge">Sample</span>':''}<div class="listing-name">${l.name}</div><div class="listing-meta">${l.bedrooms||beds} bed</div><div class="listing-price">${p?gbp(p):'—'}<span>/night</span></div>${rev>0?`<div class="listing-reviews"><span class="star">★</span> ${rat} · ${rev} reviews</div>`:''} ${link}</div>`;}).join('')}</div>`;
+  qs('card-market-results').classList.remove('hidden');
+  setLoading('market-spinner',false); qs('btn-run-market').disabled=false;
+}
+
+/* ════ PORTFOLIO / SAVED DEALS PAGE ════════════════════════ */
+async function loadSavedDealsPage() {
+  const grid=qs('deals-grid'); if(!grid) return;
+  grid.innerHTML='<div class="notice notice-info"><span>⏳</span><span>Loading your deals...</span></div>';
+  if(typeof window.__loadDeals!=='function'){grid.innerHTML='<div class="notice notice-info"><span>💡</span><span>Save a deal from Deal Analyser to see it here.</span></div>';return;}
+  try {
+    const deals=await window.__loadDeals();
+    S.allDeals=deals;
+    renderDealsGrid();
+    updatePortfolioTotals();
+    // Auto-fill projector with live count
+    const pfCur=qs('pf-current');
+    if(pfCur) pfCur.value=deals.filter(d=>d.isLive).length||0;
+  } catch(e) {
+    grid.innerHTML='<div class="notice notice-warn"><span>⚠️</span><span>Error loading deals: '+e.message+'</span></div>';
+  }
+}
+
+function renderDealsGrid() {
+  const grid=qs('deals-grid'); if(!grid) return;
+  const filter=S.dealFilter||'all';
+  let deals=S.allDeals||[];
+  if(filter==='live') deals=deals.filter(d=>d.isLive);
+  else if(filter==='saved') deals=deals.filter(d=>!d.isLive);
+  if(!deals.length){
+    grid.innerHTML='<div class="notice notice-info"><span>💡</span><span>'+(S.allDeals.length?'No deals match this filter.':'Save a deal from Deal Analyser to see it here.')+'</span></div>';
+    return;
+  }
+  grid.innerHTML=deals.map(d=>`
+    <div class="deal-card ${d.isLive?'live':''}" id="deal-card-${d.id}">
+      <div class="deal-card-header">
+        <div>
+          <div class="deal-name">${d.dealName||d.postcode||'Deal'}</div>
+          <div class="deal-postcode">${d.adminDistrict||''} · ${d.beds||'?'} bed · £${d.rent||0}/mo rent</div>
+        </div>
+        ${d.isLive?'<span class="deal-live-tag">Live</span>':''}
+      </div>
+      <div class="deal-stats">
+        <div class="deal-stat"><div class="ds-val ${(d.monthlyProfit||0)>=0?'positive':'negative'}">${gbp(d.monthlyProfit||0)}</div><div class="ds-lbl">Monthly</div></div>
+        <div class="deal-stat"><div class="ds-val gold-val">${(d.roi||0)>=0?'+':''}${d.roi||0}%</div><div class="ds-lbl">ROI</div></div>
+        <div class="deal-stat"><div class="ds-val">${d.breakEvenOcc||'—'}%</div><div class="ds-lbl">Break-even</div></div>
+      </div>
+      <div class="deal-actions">
+        <button class="btn-deal ${d.isLive?'':'live-btn'}" onclick="toggleDealLive('${d.id}',${!d.isLive})">${d.isLive?'Mark as Saved':'Mark as Live'}</button>
+        <button class="btn-deal coach-btn" onclick="openCoachForDeal('${d.id}')">AI Coach</button>
+        <button class="btn-deal" onclick="deleteSavedDeal('${d.id}')" style="border-color:rgba(220,38,38,0.25);color:var(--red);">Delete</button>
+      </div>
+    </div>`).join('');
+}
+
+function updatePortfolioTotals() {
+  const live=S.allDeals.filter(d=>d.isLive);
+  const card=qs('card-portfolio-totals'), grid=qs('portfolio-totals-grid');
+  if(!live.length){if(card) card.classList.add('hidden');return;}
+  if(card) card.classList.remove('hidden');
+  const totalMonthly=live.reduce((a,d)=>a+(d.monthlyProfit||0),0);
+  const totalAnnual=totalMonthly*12;
+  const avgRoi=live.length?Math.round(live.reduce((a,d)=>a+(d.roi||0),0)/live.length):0;
+  if(grid) grid.innerHTML=[
+    {val:live.length,lbl:'Live Properties'},{val:gbp(totalMonthly)+'/mo',lbl:'Total Monthly Profit'},
+    {val:gbp(totalAnnual),lbl:'Annual Profit'},{val:avgRoi+'%',lbl:'Average ROI'}
+  ].map(s=>`<div class="port-stat"><div class="ps-val">${s.val}</div><div class="ps-lbl">${s.lbl}</div></div>`).join('');
+}
+
+window.filterDeals=function(filter){
+  S.dealFilter=filter;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.toggle('active',b.dataset.filter===filter));
+  renderDealsGrid();
+};
+
+window.toggleDealLive=async function(dealId,makeLive){
+  try {
+    if(typeof window.__updateDeal==='function') await window.__updateDeal(dealId,{isLive:makeLive});
+    const deal=S.allDeals.find(d=>d.id===dealId);
+    if(deal) deal.isLive=makeLive;
+    renderDealsGrid(); updatePortfolioTotals();
+    showToast(makeLive?'Moved to Live Portfolio!':'Moved to Saved Deals');
+  } catch(e){ showToast('Error: '+e.message); }
+};
+
+window.deleteSavedDeal=async function(dealId){
+  if(!confirm('Delete this saved deal?')) return;
+  try {
+    if(typeof window.__deleteDeal==='function') await window.__deleteDeal(dealId);
+    S.allDeals=S.allDeals.filter(d=>d.id!==dealId);
+    renderDealsGrid(); updatePortfolioTotals();
+    showToast('Deal deleted.');
+  } catch(e){ showToast('Delete failed.'); }
+};
+
+window.openCoachForDeal=function(dealId){
+  const deal=S.allDeals.find(d=>d.id===dealId);
+  if(!deal) return;
+  qs('coach-deal-select').value='current'; // just use current for now, or set to deal id
+  // Load deal into coach state temporarily
+  const coachS={...deal,pcData:{region:deal.region||'England',admin_district:deal.adminDistrict||'',country:'England'},rentRanking:'average'};
+  renderStrategyForState(coachS);
+  // Scroll to coach
+  qs('card-coach').scrollIntoView({behavior:'smooth',block:'start'});
+  showToast('AI Coach loaded for '+deal.dealName);
+};
+
+async function loadDealsForCoachDropdown() {
+  const sel=qs('coach-deal-select'); if(!sel) return;
+  if(!S.allDeals.length && typeof window.__loadDeals==='function') {
+    try { S.allDeals=await window.__loadDeals(); } catch(e){}
+  }
+  const extra=S.allDeals.map(d=>`<option value="${d.id}">${d.dealName||d.postcode}</option>`).join('');
+  sel.innerHTML='<option value="">— Select a saved deal or use current —</option><option value="current">Use current Deal Analyser data</option>'+extra;
+}
+
+/* ════ DEAL COMPARISON ══════════════════════════════════════ */
+async function loadDealsForComparison() {
+  const res=qs('compare-results'), ph=qs('compare-placeholder');
+  if(typeof window.__loadDeals!=='function'){ph.innerHTML='<div class="notice notice-warn"><span>⚠️</span><span>Please sign in to compare deals.</span></div>';return;}
+  try {
+    const deals=(S.allDeals.length?S.allDeals:await window.__loadDeals()).slice(0,4);
+    S.allDeals=deals;
+    if(!deals.length){ph.innerHTML='<div class="notice notice-info"><span>💡</span><span>Save at least 2 deals to compare them.</span></div>';return;}
+    ph.style.display='none'; res.style.display='block';
+    const fields=[['Monthly Profit','monthlyProfit',v=>gbp(v)],['Annual Profit','annualProfit',v=>gbp(v)],['ROI','roi',v=>v+'%'],['Break-even','breakEvenOcc',v=>v+'%'],['Beds','beds',v=>v+' bed'],['Rent','rent',v=>gbp(v)+'/mo'],['Nightly Rate','nightlyRate',v=>gbp(v)],['Upfront','upfrontTotal',v=>gbp(v)],['Contractor Score','contractorScore',v=>v||'N/A']];
+    const bestProfit=Math.max(...deals.map(d=>d.monthlyProfit||0));
+    const tbl=qs('compare-table');
+    tbl.innerHTML=`<thead><tr><th>Metric</th>${deals.map(d=>`<th>${d.dealName||d.postcode||'Deal'}</th>`).join('')}</tr></thead>
+      <tbody>${fields.map(([label,key,fmt])=>`<tr><td><strong>${label}</strong></td>${deals.map(d=>{const v=d[key]||0;const best=key==='monthlyProfit'&&v===bestProfit&&v>0;return`<td class="${best?'best-col':''}">${fmt(v)}</td>`;}).join('')}</tr>`).join('')}</tbody>`;
+  } catch(e){ ph.innerHTML='<div class="notice notice-warn"><span>⚠️</span><span>Error loading deals: '+e.message+'</span></div>'; }
+}
+
+/* ════ PORTFOLIO PROJECTOR ══════════════════════════════════ */
+function calcPortfolio() {
+  const avgProfit=parseFloat(qs('pf-avg-profit').value)||0;
+  const freedom=parseFloat(qs('pf-freedom').value)||3000;
+  const current=parseInt(qs('pf-current').value)||0;
+  const growth=parseInt(qs('pf-growth').value)||2;
+  if(!avgProfit){showToast('Enter average monthly profit per property.');return;}
+  const years=[1,2,3];
+  const yearData=years.map(y=>({y,props:current+growth*y,profit:(current+growth*y)*avgProfit}));
+  qs('year-cards').innerHTML=yearData.map(yd=>`<div class="year-card"><div class="yc-year">Year ${yd.y}</div><div class="yc-val">${gbp(yd.profit)}/mo</div><div class="yc-sub">${yd.props} properties</div></div>`).join('');
+  const best=yearData[yearData.length-1];
+  const pct=Math.min(100,Math.round((best.profit/freedom)*100));
+  const propsNeeded=Math.max(0,Math.ceil((freedom-current*avgProfit)/avgProfit));
+  qs('freedom-progress').innerHTML=`<div class="pb-label"><span>Freedom Progress</span><span>${pct}%</span></div><div class="pb-track"><div class="pb-fill" style="width:${pct}%"></div></div>`;
+  const msg=pct>=100?`You reach financial freedom in Year ${yearData.findIndex(y=>y.profit>=freedom)+1}!`:
+    `You need ${propsNeeded} more ${propsNeeded===1?'property':'properties'} to reach your £${freedom.toLocaleString()}/mo freedom number.`;
+  qs('motivational-msg').textContent=msg;
+  qs('portfolio-result').style.display='block';
+}
+
+/* ════ AI DEAL COACH / STRATEGY ════════════════════════════ */
+function generateStrategy() {
+  const sel=qs('coach-deal-select').value;
+  let coachS;
+  if(sel==='current'||!sel){
+    coachS=S;
+    if(!S.pcData){showToast('Analyse a deal first, or select a saved deal.');return;}
+  } else {
+    const deal=S.allDeals.find(d=>d.id===sel);
+    if(!deal){showToast('Deal not found.');return;}
+    coachS={...deal, pcData:{region:deal.region||'England',admin_district:deal.adminDistrict||'',country:'England'}, rentRanking:'average',nightlyRate:deal.nightlyRate||90,beds:deal.beds||2,baths:deal.baths||1,contractorScore:deal.contractorScore||0};
+  }
+  renderStrategyForState(coachS);
+}
+
+function renderStrategyForState(coachS) {
+  const prof=coachS.profit||coachS.monthlyProfit||0;
+  const roi=coachS.roi||0;
+  const beOcc=coachS.beOcc||coachS.breakEvenOcc||0;
+  const region=coachS.pcData?.region||coachS.region||'England';
+  const contractorScore=coachS.contractorScore||0;
+  const cards=[
+    {type:'market',title:'Market Position',body:generateMarketInsight(coachS,region)},
+    {type:'pricing',title:'Pricing Strategy',body:generatePricingInsight(coachS)},
+    {type:'guest',title:'Guest Mix Strategy',body:generateGuestInsight(coachS,contractorScore)},
+    {type:'risk',title:'Risk Management',body:generateRiskInsight(coachS)},
+    {type:'nextsteps',title:'Immediate Next Steps',body:generateNextSteps(coachS)}
+  ];
+  qs('strategy-output').innerHTML=cards.map(c=>`<div class="strategy-card ${c.type}"><div class="sc-type">${c.title}</div><div class="sc-body">${c.body}</div></div>`).join('');
+  qs('strategy-output').style.display='block';
+  qs('ai-note').style.display='flex';
+}
+
+function generateMarketInsight(s,region){
+  const prof=s.profit||s.monthlyProfit||0;
+  const beOcc=s.beOcc||s.breakEvenOcc||0;
+  if(prof>=500) return `This deal shows strong fundamentals for ${region||'this area'}. Your profit margin positions you well above the SA minimum. Focus on building occupancy quickly through Airbnb optimisation in the first 90 days.`;
+  if(prof>0) return `This deal is viable but thin for ${region||'this area'}. Your break-even occupancy of ${Math.round(beOcc)}% leaves limited buffer. Prioritise nightly rate optimisation and consider contractor long-stay bookings to boost yield.`;
+  return `This deal is currently loss-making at the modelled rates. Renegotiate rent, increase nightly rate, or find a different property. Do not proceed without improving these numbers.`;
+}
+function generatePricingInsight(s){
+  const rate=s.nightlyRate||s.nightlyRate||90;
+  const occ=s.occupancy||75;
+  if(occ>=85) return `You're running at ${occ}% occupancy — consider testing higher nightly rates. A 10-15% rate increase at ${occ}% occupancy would significantly improve margins without reducing bookings at peak demand.`;
+  if(occ>=70) return `Good occupancy foundation at ${occ}%. Use dynamic pricing tools (Pricelabs, Wheelhouse) to push rates 20-30% higher on peak weekends. Target contractors for weekday stability.`;
+  return `At ${occ}% occupancy, focus first on reviews and Airbnb ranking before pushing rates up. Aim for 20+ reviews in your first 3 months. Use competitive pricing to build review velocity.`;
+}
+function generateGuestInsight(s,contractorScore){
+  if(contractorScore>=60) return `Excellent contractor demand signals in this area. Actively target site managers, infrastructure workers and NHS staff for 4-12 week bookings. Contact local construction companies directly with your accommodation details.`;
+  if(contractorScore>=35) return `Moderate contractor demand nearby. Split your guest strategy: 60% short leisure breaks (weekends), 40% contractor/corporate weekday stays. Register with corporate housing platforms like Chroma Life and Hotelpads.`;
+  return `Lower contractor demand in this immediate area. Focus on leisure travellers, families, and weekend city breaks. Optimise your Airbnb profile for the nearby attractions and improve photo quality as your primary conversion driver.`;
+}
+function generateRiskInsight(s){
+  const beOcc=s.beOcc||s.breakEvenOcc||50;
+  const upfront=s.upfrontTotal||s.upfrontTotal||0;
+  return `Your break-even occupancy of ${Math.round(beOcc)}% means you need ${Math.round(beOcc)}% occupancy just to cover costs. ${beOcc<50?'This is a solid safety buffer.':'Ensure you have 3 months expenses in reserve as a safety net.'} ${upfront>5000?'With '+gbp(upfront)+' upfront capital, protect this investment with a proper SA consent clause and insurance policy.':''}`;
+}
+function generateNextSteps(s){
+  const prof=s.profit||s.monthlyProfit||0;
+  if(prof<=0) return '1. Renegotiate the rent or walk away. 2. Check comparable rents in the area to strengthen your position. 3. If the landlord won\'t move, this is not the right deal.';
+  return `1. Confirm written SA consent in the lease before signing. 2. Set up your Airbnb listing with professional photos within 48 hours of keys. 3. Register with 2-3 contractor booking platforms this week. 4. Set up your channel manager to avoid double bookings.`;
+}
+
+/* ════ CRM ══════════════════════════════════════════════════ */
+async function loadCRMLeads() {
+  try { if(typeof window.__loadLeads==='function') S.crmLeads=await window.__loadLeads(); } catch(e){ S.crmLeads=[]; }
+  renderCRM();
+}
+function renderCRM() { renderKanban(); renderListView(); }
+const STATUSES=['Prospecting','Called','Meeting Booked','Offer Made','Agreed','Lost'];
+function renderKanban() {
+  const board=qs('kanban-board'); if(!board) return;
+  board.innerHTML=STATUSES.map(status=>{
+    const leads=S.crmLeads.filter(l=>l.status===status);
+    return`<div class="kanban-col"><div class="kanban-col-title">${status} (${leads.length})</div>${leads.map(l=>renderLeadCard(l)).join('')}</div>`;
+  }).join('');
+}
+function renderLeadCard(l){
+  return`<div class="lead-card" data-id="${l.id}"><div class="lc-name">${l.name||'Unnamed'}</div><div class="lc-meta">${l.postcode?'📍 '+l.postcode+'<br>':''}${l.phone?'<a href="tel:'+l.phone+'" style="color:var(--gold)">'+l.phone+'</a><br>':''}${l.followupDate?'📅 '+l.followupDate:''}</div><div class="lc-actions"><button class="lc-btn lc-edit" onclick="editLead('${l.id}')">Edit</button><button class="lc-btn lc-delete" onclick="deleteLead('${l.id}')">Delete</button></div></div>`;
+}
+function renderListView() {
+  const tbody=qs('crm-table-body'); if(!tbody) return;
+  if(!S.crmLeads.length){tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:1.25rem;">No leads yet. Add your first lead above.</td></tr>';return;}
+  tbody.innerHTML=S.crmLeads.map(l=>`<tr><td><strong>${l.name||'—'}</strong></td><td>${l.postcode||'—'}</td><td>${l.phone?'<a href="tel:'+l.phone+'" style="color:var(--gold)">'+l.phone+'</a>':'—'}</td><td><span class="status-pill s-${(l.status||'Prospecting').replace(/\s/g,'')}">${l.status||'Prospecting'}</span></td><td>${l.source||'—'}</td><td>${l.followupDate||'—'}</td><td style="display:flex;gap:0.35rem"><button class="lc-btn lc-edit" onclick="editLead('${l.id}')">Edit</button><button class="lc-btn lc-delete" onclick="deleteLead('${l.id}')">Delete</button></td></tr>`).join('');
+}
+window.editLead=function(id){
+  const l=S.crmLeads.find(l=>l.id===id); if(!l) return;
+  S.crmEditId=id;
+  ['name','phone','email','postcode','notes'].forEach(f=>{const el=qs('crm-'+f);if(el)el.value=l[f]||'';});
+  qs('crm-source').value=l.source||'Rightmove';
+  qs('crm-status').value=l.status||'Prospecting';
+  qs('crm-followup').value=l.followupDate||'';
+  qs('crm-edit-id').value=id;
+  qs('btn-cancel-edit').style.display='inline-flex';
+  showPage('finder');
+};
+window.deleteLead=async function(id){
+  if(!confirm('Delete this lead?')) return;
+  try { if(typeof window.__deleteLead==='function') await window.__deleteLead(id); S.crmLeads=S.crmLeads.filter(l=>l.id!==id); renderCRM(); showToast('Lead deleted.'); } catch(e){ showToast('Delete failed.'); }
+};
+async function saveLead(){
+  const name=qs('crm-name').value.trim(), phone=qs('crm-phone').value.trim(), email=qs('crm-email').value.trim();
+  const postcode=qs('crm-postcode').value.trim(), source=qs('crm-source').value, status=qs('crm-status').value;
+  const notes=qs('crm-notes').value.trim(), followupDate=qs('crm-followup').value;
+  const editId=S.crmEditId;
+  if(!name&&!phone&&!email){showToast('Enter at least a name, phone, or email.');return;}
+  const leadData={name,phone,email,postcode,source,status,notes,followupDate};
+  try {
+    let savedId;
+    if(typeof window.__saveLead==='function') { savedId=await window.__saveLead(leadData,editId||null); }
+    else { savedId=editId||('local-'+Date.now()); }
+    if(editId){ const idx=S.crmLeads.findIndex(l=>l.id===editId); if(idx>=0) S.crmLeads[idx]={id:editId,...leadData}; else S.crmLeads.push({id:savedId,...leadData}); }
+    else { S.crmLeads.push({id:savedId,...leadData}); }
+    ['name','phone','email','postcode','notes'].forEach(f=>{const el=qs('crm-'+f);if(el)el.value='';});
+    qs('crm-source').value='Rightmove'; qs('crm-status').value='Prospecting';
+    qs('crm-followup').value=''; qs('crm-edit-id').value='';
+    qs('btn-cancel-edit').style.display='none'; S.crmEditId=null;
+    renderCRM(); showToast(editId?'Lead updated!':'Lead saved!');
+  } catch(e){ showToast('Save failed: '+e.message); }
+}
+
+/* ════ OPERATOR PROFILE ═════════════════════════════════════ */
+async function loadOperatorProfile() {
+  try {
+    const profile = typeof window.__loadProfile==='function' ? await window.__loadProfile() : (window.__userProfile||{});
+    if(profile.opName)        { const el=qs('op-name');       if(el) el.value=profile.opName; }
+    if(profile.opEmail)       { const el=qs('op-email');      if(el) el.value=profile.opEmail; }
+    if(profile.opDob)         { const el=qs('op-dob');        if(el) el.value=profile.opDob; }
+    if(profile.opPhone)       { const el=qs('op-phone');      if(el) el.value=profile.opPhone; }
+    if(profile.opCity)        { const el=qs('op-city');       if(el) el.value=profile.opCity; }
+    if(profile.opExperience)  { const el=qs('op-experience'); if(el) el.value=profile.opExperience; }
+    if(profile.opMotivation)  { const el=qs('op-motivation'); if(el) el.value=profile.opMotivation; }
+    if(profile.pfFreedom)     { const el=qs('pf-freedom');    if(el) el.value=profile.pfFreedom; }
+    if(profile.opIncome)      { const el=qs('op-current-income'); if(el) el.value=profile.opIncome; }
+    if(profile.pfAvgProfit)   { const el=qs('pf-avg-profit'); if(el) el.value=profile.pfAvgProfit; }
+    if(profile.pfCurrent)     { const el=qs('pf-current');    if(el) el.value=profile.pfCurrent; }
+    if(profile.pfGrowth)      { const el=qs('pf-growth');     if(el) el.value=profile.pfGrowth; }
+  } catch(e){ console.warn('loadOperatorProfile error',e); }
+}
+
+async function saveProfile() {
+  const btn=qs('btn-save-profile'), sp=qs('profile-spinner');
+  if(btn) btn.disabled=true;
+  setLoading('profile-spinner',true);
+  const data={
+    opName:       (qs('op-name')||{}).value||'',
+    opEmail:      (qs('op-email')||{}).value||'',
+    opDob:        (qs('op-dob')||{}).value||'',
+    opPhone:      (qs('op-phone')||{}).value||'',
+    opCity:       (qs('op-city')||{}).value||'',
+    opExperience: (qs('op-experience')||{}).value||'',
+    opMotivation: (qs('op-motivation')||{}).value||'',
+    pfFreedom:    (qs('pf-freedom')||{}).value||'',
+    opIncome:     (qs('op-current-income')||{}).value||'',
+    pfAvgProfit:  (qs('pf-avg-profit')||{}).value||'',
+    pfCurrent:    (qs('pf-current')||{}).value||'',
+    pfGrowth:     (qs('pf-growth')||{}).value||''
+  };
+  // Auto-fill sidebar name if provided
+  if(data.opName){ const el=qs('sidebar-user-name'); if(el) el.textContent=data.opName; }
+  try {
+    if(typeof window.__saveProfile==='function') await window.__saveProfile(data);
+    showToast('Profile saved!');
+    if(btn){ btn.textContent='✓ Saved'; setTimeout(()=>{btn.textContent='Save Profile →';btn.disabled=false;},2000); }
+  } catch(e){
+    showToast('Save failed: '+e.message);
+    if(btn) btn.disabled=false;
+  }
+  setLoading('profile-spinner',false);
+}
+
+/* ════ LISTING SCORER ═══════════════════════════════════════ */
+const S_LISTINGS=[];
+
+window.removeListingScore=function(idx){
+  S_LISTINGS.splice(idx,1);
+  renderScoredListings();
+};
+
+async function addScoredListing() {
+  const addr=(qs('scorer-address')||{}).value.trim();
+  const pc=(qs('scorer-postcode')||{}).value.trim();
+  const rent=parseFloat((qs('scorer-rent')||{}).value)||0;
+  const beds=parseInt((qs('scorer-beds')||{}).value)||2;
+  if(!pc&&!addr){ showToast('Enter an address or postcode.'); return; }
+
+  let clScore=5;
+  let pcData=null;
+  if(pc){
+    try { pcData=await fetchPostcode(pc); } catch(e){}
+    if(pcData){
+      // Use region baseline
+      const region3=pcData.region||pcData.country||'England';
+      const regBonus=REGION_BASELINE[region3]||4;
+      clScore=4;
+      if(beds===2||beds===3) clScore+=2; else if(beds>=4) clScore-=1;
+      if(regBonus>=7) clScore+=1;
+      // Rent check vs regional data
+      const rd=REGIONAL_RENTAL[region3]||REGIONAL_RENTAL['England'];
+      const b=rd[beds]||rd[2];
+      if(b&&rent>0){
+        const pos=b.hi>b.lo?(rent-b.lo)/(b.hi-b.lo):0.5;
+        if(pos<0.35) clScore+=2; else if(pos<0.65) clScore+=1; else clScore-=1;
+      }
+      clScore=clamp(clScore,1,10);
+    }
+  }
+
+  S_LISTINGS.push({addr:addr||pc,pc,rent,beds,score:clScore,region:pcData?.region||pcData?.country||'Unknown'});
+  // Clear form
+  if(qs('scorer-address')) qs('scorer-address').value='';
+  if(qs('scorer-postcode')) qs('scorer-postcode').value='';
+  if(qs('scorer-rent')) qs('scorer-rent').value='';
+  renderScoredListings();
+}
+
+function renderScoredListings() {
+  const wrap=qs('scored-listings-wrap');
+  const grid=qs('scored-grid');
+  if(!wrap||!grid) return;
+  if(!S_LISTINGS.length){ wrap.style.display='none'; return; }
+  wrap.style.display='block';
+  grid.innerHTML=S_LISTINGS.map((l,i)=>{
+    const level=l.score>=7?'High':l.score>=5?'Medium':'Low';
+    const cls=level==='High'?'score-high':level==='Medium'?'score-medium':'score-low';
+    const cirCls=level==='High'?'h':level==='Medium'?'m':'l';
+    const verdict=level==='High'?'Good company let prospect':level==='Medium'?'Moderate acceptance chance':'Lower acceptance likelihood';
+    return `<div class="scored-card ${cls}">
+      <button class="sc-delete" onclick="removeListingScore(${i})" title="Remove">✕</button>
+      <div class="sc-address">${l.addr}</div>
+      <div class="sc-meta">${l.beds} bed · ${l.rent?'£'+Math.round(l.rent)+'/mo':''} · ${l.region}</div>
+      <div class="sc-score-row">
+        <div class="sc-circle ${cirCls}">${l.score}</div>
+        <div>
+          <div class="sc-verdict">${verdict}</div>
+          <div class="sc-sub">Company Let Score: ${l.score}/10 — ${level}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ════ AIRDNA KEY SAVE BUTTON ═══════════════════════════════ */
+function saveAirdnaKey() {
+  const key=qs('airdna-key').value.trim();
+  if(key) { localStorage.setItem('operateiq-airdna-key',key); showToast('AirDNA key saved!'); }
+  else showToast('Please enter a key first.');
+}
+
+/* ════ EVENT BINDING ════════════════════════════════════════ */
+function bindEvents() {
+  qs('btn-analyse').addEventListener('click',doAnalyse);
+  qs('postcode').addEventListener('keydown',e=>{if(e.key==='Enter') doAnalyse();});
+  qs('occupancy-slider').addEventListener('input',e=>{S.occupancy=+e.target.value;qs('occupancy-display').textContent=e.target.value+'%';calcRevenue();});
+  qs('nightly-rate').addEventListener('input',e=>{S.nightlyRate=+e.target.value;calcRevenue();});
+  qs('maintenance-pct').addEventListener('input',e=>{S.maintPct=+e.target.value;qs('maintenance-pct-display').textContent=e.target.value+'%';calcRevenue();});
+  ['upfront-months','deposit-months'].forEach(id=>{qs(id).addEventListener('change',()=>{calcUpfront();calcRevenue();});});
+  qs('furnishing-cost').addEventListener('input',()=>{calcUpfront();calcRevenue();});
+  qs('btn-save-deal').addEventListener('click',doSaveDeal);
+  qs('btn-calc-risk').addEventListener('click',calcRiskScore);
+  initRiskToggles();
+  // Finder page search links
+  ['finder-postcode','finder-beds','finder-max-rent'].forEach(id=>{qs(id).addEventListener('input',renderFinderSearchLinks);});
+  qs('btn-save-lead').addEventListener('click',saveLead);
+  qs('btn-cancel-edit').addEventListener('click',()=>{
+    ['name','phone','email','postcode','notes'].forEach(f=>{const el=qs('crm-'+f);if(el)el.value='';});
+    qs('crm-source').value='Rightmove'; qs('crm-status').value='Prospecting';
+    qs('crm-followup').value=''; qs('crm-edit-id').value='';
+    qs('btn-cancel-edit').style.display='none'; S.crmEditId=null;
+  });
+  qs('toggle-kanban').addEventListener('click',()=>{qs('toggle-kanban').classList.add('active');qs('toggle-list').classList.remove('active');qs('crm-kanban').style.display='block';qs('crm-list').style.display='none';});
+  qs('toggle-list').addEventListener('click',()=>{qs('toggle-list').classList.add('active');qs('toggle-kanban').classList.remove('active');qs('crm-list').style.display='block';qs('crm-kanban').style.display='none';});
+  qs('btn-load-deals').addEventListener('click',loadDealsForComparison);
+  qs('btn-calc-portfolio').addEventListener('click',calcPortfolio);
+  qs('pf-avg-profit').addEventListener('input',()=>{qs('pf-avg-profit').dataset.auto='false';});
+  qs('btn-generate-strategy').addEventListener('click',generateStrategy);
+  qs('btn-fetch-news').addEventListener('click',doFetchNews);
+  qs('btn-search-companies').addEventListener('click',searchCompaniesHouse);
+  qs('btn-check-planning').addEventListener('click',checkPlanningActivity);
+  qs('btn-run-market').addEventListener('click',runMarketAnalysis);
+  qs('btn-load-market-deal').addEventListener('click',()=>{
+    const sel=qs('market-deal-select');
+    if(sel.value){const opt=sel.options[sel.selectedIndex];qs('market-postcode').value=opt.dataset.postcode||'';qs('market-beds').value=opt.dataset.beds||2;}
+  });
+  qs('btn-save-airdna-key').addEventListener('click',saveAirdnaKey);
+  qs('btn-refresh-deals').addEventListener('click',loadSavedDealsPage);
+  qs('btn-save-profile').addEventListener('click',saveProfile);
+  qs('btn-load-toolkit-deal').addEventListener('click',loadToolkitDeal);
+  qs('btn-add-listing').addEventListener('click',addScoredListing);
+  qs('btn-clear-listings').addEventListener('click',()=>{S_LISTINGS.length=0;renderScoredListings();});
+  qs('scorer-address').addEventListener('keydown',e=>{if(e.key==='Enter') addScoredListing();});
+  // Restore saved keys
+  const chKey=localStorage.getItem('ch-api-key'); if(chKey) qs('ch-api-key').value=chKey;
+  const airdnaKey=localStorage.getItem('operateiq-airdna-key'); if(airdnaKey) qs('airdna-key').value=airdnaKey;
+  const intelKey=localStorage.getItem('operateiq-intel-key'); if(intelKey) qs('newsapi-key').value=intelKey;
+}
+
+/* ════ INIT ═════════════════════════════════════════════════ */
+function init() {
+  loadSavedState();
+  bindEvents();
+  renderFinderSearchLinks();
+}
+window.__appInit = init;
+document.addEventListener('DOMContentLoaded',()=>{
+  setTimeout(()=>{
+    const loading=qs('auth-loading');
+    if(loading&&loading.style.display!=='none'&&document.getElementById('app-shell').style.display==='none'){
+      loading.style.display='none';
+      document.getElementById('app-shell').classList.add('ready');
+      init();
+    }
+  },4500);
+});
+
+})();
+</script>
+
+<script>
+if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
+</script>
+</body>
+</html>

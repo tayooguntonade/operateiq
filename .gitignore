@@ -1,0 +1,17 @@
+# Firebase
+.firebase/
+firebase-debug.log
+firestore-debug.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Misc old files
+Jobs Scraper/
+REAL ESTATE SALES/
+sa-calculator.html
