@@ -656,6 +656,54 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
 /* ─── TOOLKIT DEAL SELECTOR ───────────────────────────────── */
 .toolkit-selector{display:flex;gap:0.75rem;align-items:flex-end;flex-wrap:wrap}
 .toolkit-current-label{font-size:0.8rem;color:var(--text-muted);margin-top:0.75rem;padding:0.5rem 0.75rem;background:var(--blue-bg);border-radius:var(--radius-sm);border:1px solid rgba(37,99,235,0.15);color:#1d4ed8}
+
+/* ─── P&L TRACKER ─────────────────────────────────────────── */
+.pnl-entries{margin-bottom:0.5rem}
+.pnl-entry-row{display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:0.35rem;align-items:center;padding:0.3rem 0;border-bottom:1px solid var(--border);font-size:0.72rem}
+.pnl-entry-row:last-child{border-bottom:none}
+.pnl-entry-month{font-weight:600;color:var(--text)}
+.pnl-entry-val{text-align:right;color:var(--text-sec)}
+.pnl-diff-pos{color:var(--green);font-weight:700;text-align:right}
+.pnl-diff-neg{color:var(--red);font-weight:700;text-align:right}
+.pnl-add-row{display:flex;gap:0.35rem;align-items:center;flex-wrap:wrap;padding-top:0.5rem;border-top:1px solid var(--border);margin-top:0.35rem}
+.pnl-mini-input{padding:0.3rem 0.5rem;border:1.5px solid var(--border);border-radius:5px;font-size:0.72rem;background:var(--surface-alt);color:var(--text);font-family:'Inter',sans-serif;width:82px}
+.pnl-mini-input:focus{outline:none;border-color:var(--gold)}
+.pnl-mini-input[type="month"]{width:122px}
+.pnl-toggle-btn{font-size:0.68rem;font-weight:600;color:var(--blue);background:var(--blue-bg);border:1px solid rgba(37,99,235,0.2);border-radius:4px;padding:2px 7px;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap}
+.pnl-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem}
+.pnl-label{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-muted)}
+
+/* ─── LEASE DATES ─────────────────────────────────────────── */
+.lease-fields{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid var(--border)}
+.lease-badge{display:inline-flex;align-items:center;padding:0.15rem 0.55rem;border-radius:50px;font-size:0.65rem;font-weight:700;white-space:nowrap}
+.lease-badge.warn{background:var(--amber-bg);color:var(--amber);border:1px solid rgba(217,119,6,0.2)}
+.lease-badge.ok{background:var(--green-bg);color:var(--green);border:1px solid rgba(5,150,105,0.2)}
+.deal-lease-meta{margin-top:0.4rem;font-size:0.7rem;color:var(--text-muted);display:flex;gap:0.5rem;flex-wrap:wrap;align-items:center}
+
+/* ─── RENEWAL ALERT BANNER ─────────────────────────────────── */
+.renewal-banner{background:rgba(217,119,6,0.07);border:1px solid rgba(217,119,6,0.3);border-radius:var(--radius);padding:1rem 1.25rem;margin-bottom:1.25rem;display:none}
+.renewal-banner.show{display:block}
+.renewal-banner-title{font-size:0.88rem;font-weight:700;color:var(--amber);margin-bottom:0.5rem}
+.renewal-item{font-size:0.8rem;color:var(--text);padding:0.3rem 0;border-bottom:1px solid rgba(217,119,6,0.1);display:flex;justify-content:space-between;align-items:center}
+.renewal-item:last-child{border-bottom:none}
+.renewal-days{font-weight:700;color:var(--amber);font-size:0.75rem}
+
+/* ─── MENTOR MODE ──────────────────────────────────────────── */
+.mentor-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:0.875rem;margin-bottom:1.5rem}
+.mentor-stat-box{background:var(--surface-alt);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem 1rem;text-align:center}
+.msb-val{font-size:2rem;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif;line-height:1;color:var(--navy)}
+.msb-val.gold{color:var(--gold)}.msb-val.green{color:var(--green)}.msb-val.blue{color:var(--blue)}
+.msb-lbl{font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-muted);margin-top:0.35rem}
+.mentor-deal-list{display:flex;flex-direction:column}
+.mentor-deal-row{display:flex;align-items:center;justify-content:space-between;gap:0.5rem;padding:0.75rem 0;border-bottom:1px solid var(--border)}
+.mentor-deal-row:last-child{border-bottom:none}
+.mentor-deal-name{font-size:0.88rem;font-weight:700;color:var(--navy)}
+.mentor-deal-meta{font-size:0.72rem;color:var(--text-muted);margin-top:2px}
+.mentor-deal-right{text-align:right;flex-shrink:0}
+.mentor-deal-profit{font-size:0.9rem;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif}
+.mentor-tag{display:inline-flex;align-items:center;padding:0.18rem 0.55rem;border-radius:50px;font-size:0.62rem;font-weight:700;text-transform:uppercase;margin-top:3px}
+.mentor-tag.live{background:var(--green-bg);color:var(--green);border:1px solid rgba(5,150,105,0.25)}
+.mentor-tag.pipeline{background:var(--blue-bg);color:var(--blue);border:1px solid rgba(37,99,235,0.2)}
 </style>
 </head>
 <body>
@@ -697,6 +745,9 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
     </button>
     <button class="nav-item" id="nav-portfolio" onclick="showPage('portfolio')">
       <span class="nav-icon">💼</span>My Portfolio
+    </button>
+    <button class="nav-item" id="nav-mentor" onclick="showPage('mentor')">
+      <span class="nav-icon">🎓</span>Mentor Mode
     </button>
   </div>
   <div class="sidebar-footer">
@@ -1422,37 +1473,51 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
 <div id="page-portfolio" class="page">
   <div class="page-header">
     <h1 class="page-title">My <span>Portfolio</span></h1>
-    <p class="page-subtitle">Manage your saved deals and live properties, compare deals, and project your freedom number.</p>
+    <p class="page-subtitle">Track your pipeline, live properties, lease renewals, and monthly P&amp;L.</p>
   </div>
 
-  <!-- Saved Deals -->
-  <div class="card" id="card-saved-deals">
-    <div class="card-header">
-      <div class="card-title-wrap">
-        <div class="card-title">Saved Deals</div>
-        <div class="card-subtitle">Research pipeline and live portfolio in one view</div>
-      </div>
-      <button class="btn btn-outline btn-sm" id="btn-refresh-deals">Refresh</button>
-    </div>
-    <div class="deal-filters">
-      <button class="filter-btn active" data-filter="all" onclick="filterDeals('all')">All Deals</button>
-      <button class="filter-btn" data-filter="saved" onclick="filterDeals('saved')">Researching</button>
-      <button class="filter-btn" data-filter="live" onclick="filterDeals('live')">Live Portfolio</button>
-    </div>
-    <div class="deals-grid" id="deals-grid">
-      <div class="notice notice-info"><span>💡</span><span>Save a deal from Deal Analyser to see it here.</span></div>
-    </div>
+  <!-- Lease Renewal Alert Banner -->
+  <div id="renewal-banner" class="renewal-banner">
+    <div class="renewal-banner-title">⚠️ Upcoming Lease Renewals</div>
+    <div id="renewal-list"></div>
   </div>
 
-  <!-- Portfolio Totals (live properties only) -->
+  <!-- Live Portfolio Summary -->
   <div class="card hidden" id="card-portfolio-totals">
     <div class="card-header">
       <div class="card-title-wrap">
         <div class="card-title">Live Portfolio Summary</div>
-        <div class="card-subtitle">Combined figures for all live properties</div>
+        <div class="card-subtitle">Combined figures for all active properties</div>
       </div>
     </div>
     <div class="portfolio-totals" id="portfolio-totals-grid"></div>
+  </div>
+
+  <!-- Potential Deals (Pipeline) -->
+  <div class="card" id="card-pipeline">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Potential Deals</div>
+        <div class="card-subtitle">Research pipeline — deals not yet live</div>
+      </div>
+      <button class="btn btn-outline btn-sm" id="btn-refresh-deals">Refresh</button>
+    </div>
+    <div class="deals-grid" id="pipeline-grid">
+      <div class="notice notice-info"><span>💡</span><span>Save a deal from Deal Analyser to see it here.</span></div>
+    </div>
+  </div>
+
+  <!-- My Live Portfolio -->
+  <div class="card" id="card-live-portfolio">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">My Portfolio</div>
+        <div class="card-subtitle">Active live properties — log actuals and track leases</div>
+      </div>
+    </div>
+    <div class="deals-grid" id="live-grid">
+      <div class="notice notice-info"><span>📋</span><span>Mark a deal as Live to see it here.</span></div>
+    </div>
   </div>
 
   <!-- Deal Comparison -->
@@ -1488,11 +1553,59 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
       </button>
     </div>
     <div id="strategy-output" style="display:none;"></div>
-    <div id="ai-note" style="display:none;" class="notice notice-info" style="margin-top:1rem;">
+    <div id="ai-note" style="display:none;" class="notice notice-info">
       <span>🤖</span><span>Strategy is generated by an intelligent rule engine trained on UK SA deal patterns. Always conduct your own due diligence before entering any property agreement.</span>
     </div>
   </div>
 </div><!-- end page-portfolio -->
+
+<!-- ═══ PAGE: MENTOR MODE ═════════════════════════════════════ -->
+<div id="page-mentor" class="page">
+  <div class="page-header">
+    <h1 class="page-title">Mentor <span>Mode</span></h1>
+    <p class="page-subtitle">A clean snapshot of your portfolio and progress — for sharing with your mentor.</p>
+  </div>
+
+  <!-- Key Stats -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Portfolio Snapshot</div>
+        <div class="card-subtitle">Key metrics at a glance</div>
+      </div>
+      <button class="btn btn-outline btn-sm" id="btn-refresh-mentor">Refresh</button>
+    </div>
+    <div class="mentor-grid" id="mentor-stats-grid">
+      <div class="mentor-stat-box"><div class="msb-val">—</div><div class="msb-lbl">Loading...</div></div>
+    </div>
+  </div>
+
+  <!-- Freedom Progress -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Freedom Progress</div>
+        <div class="card-subtitle">Journey to your monthly income target</div>
+      </div>
+    </div>
+    <div id="mentor-freedom-wrap">
+      <div class="notice notice-info"><span>💡</span><span>Set your freedom number in Operator Profile to see progress here.</span></div>
+    </div>
+  </div>
+
+  <!-- Deal Summary -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Deal Summary</div>
+        <div class="card-subtitle">All pipeline and live deals</div>
+      </div>
+    </div>
+    <div id="mentor-deal-list" class="mentor-deal-list">
+      <div class="notice notice-info"><span>💡</span><span>No deals saved yet. Analyse and save deals from Deal Analyser.</span></div>
+    </div>
+  </div>
+</div><!-- end page-mentor -->
 
 </div><!-- end main-content -->
 </div><!-- end app-shell -->
@@ -1639,6 +1752,27 @@ window.__loadProfile = async function() {
   const uid = window.__currentUser.uid;
   const snap = await getDoc(doc(db, 'users', uid));
   return snap.exists() ? snap.data() : {};
+};
+
+window.__savePnl = async function(dealId, monthKey, data) {
+  if (!db || !window.__currentUser) throw new Error('Not signed in');
+  const uid = window.__currentUser.uid;
+  await setDoc(doc(db, 'users', uid, 'deals', dealId, 'pnl', monthKey),
+    { ...data, updatedAt: serverTimestamp() });
+};
+
+window.__loadPnl = async function(dealId) {
+  if (!db || !window.__currentUser) return [];
+  const uid = window.__currentUser.uid;
+  const snap = await getDocs(collection(db, 'users', uid, 'deals', dealId, 'pnl'));
+  return snap.docs.map(d => ({ id: d.id, ...d.data() }))
+    .sort((a, b) => a.id.localeCompare(b.id));
+};
+
+window.__deletePnl = async function(dealId, monthKey) {
+  if (!db || !window.__currentUser) return;
+  const uid = window.__currentUser.uid;
+  await deleteDoc(doc(db, 'users', uid, 'deals', dealId, 'pnl', monthKey));
 };
 </script>
 
@@ -1856,7 +1990,7 @@ function setLoading(id,on) {
 function qs(id) { return document.getElementById(id); }
 
 /* ════ NAVIGATION ═══════════════════════════════════════════ */
-const PAGES = ['operator','analyse','market','toolkit','finder','portfolio'];
+const PAGES = ['operator','analyse','market','toolkit','finder','portfolio','mentor'];
 function showPage(id) {
   PAGES.forEach(p => {
     const pg = qs('page-'+p);
@@ -1870,6 +2004,7 @@ function showPage(id) {
   if(id==='market')    { loadDealsForMarketDropdown(); }
   if(id==='toolkit')   { loadDealsForToolkitDropdown(); renderToolkitIfReady(); }
   if(id==='operator')  { loadOperatorProfile(); }
+  if(id==='mentor')    { loadMentorPage(); }
 }
 window.showPage = showPage;
 
@@ -2690,42 +2825,66 @@ async function runMarketAnalysis() {
   setLoading('market-spinner',false); qs('btn-run-market').disabled=false;
 }
 
+/* ════ DATE HELPERS ═════════════════════════════════════════ */
+function getDaysUntil(dateStr) {
+  if(!dateStr) return null;
+  const target=new Date(dateStr);
+  const today=new Date(); today.setHours(0,0,0,0);
+  return Math.round((target-today)/(1000*60*60*24));
+}
+function formatDateShort(dateStr) {
+  if(!dateStr) return '';
+  const d=new Date(dateStr);
+  return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+}
+
 /* ════ PORTFOLIO / SAVED DEALS PAGE ════════════════════════ */
 async function loadSavedDealsPage() {
-  const grid=qs('deals-grid'); if(!grid) return;
-  grid.innerHTML='<div class="notice notice-info"><span>⏳</span><span>Loading your deals...</span></div>';
-  if(typeof window.__loadDeals!=='function'){grid.innerHTML='<div class="notice notice-info"><span>💡</span><span>Save a deal from Deal Analyser to see it here.</span></div>';return;}
+  const pg=qs('pipeline-grid'), lg=qs('live-grid');
+  if(!pg||!lg) return;
+  pg.innerHTML='<div class="notice notice-info"><span>⏳</span><span>Loading...</span></div>';
+  lg.innerHTML='';
+  if(typeof window.__loadDeals!=='function'){
+    pg.innerHTML='<div class="notice notice-info"><span>💡</span><span>Save a deal from Deal Analyser to see it here.</span></div>';
+    return;
+  }
   try {
     const deals=await window.__loadDeals();
     S.allDeals=deals;
     renderDealsGrid();
     updatePortfolioTotals();
-    // Auto-fill projector with live count
+    checkLeaseRenewals(deals);
     const pfCur=qs('pf-current');
     if(pfCur) pfCur.value=deals.filter(d=>d.isLive).length||0;
   } catch(e) {
-    grid.innerHTML='<div class="notice notice-warn"><span>⚠️</span><span>Error loading deals: '+e.message+'</span></div>';
+    pg.innerHTML='<div class="notice notice-warn"><span>⚠️</span><span>Error loading deals: '+e.message+'</span></div>';
   }
 }
 
 function renderDealsGrid() {
-  const grid=qs('deals-grid'); if(!grid) return;
-  const filter=S.dealFilter||'all';
-  let deals=S.allDeals||[];
-  if(filter==='live') deals=deals.filter(d=>d.isLive);
-  else if(filter==='saved') deals=deals.filter(d=>!d.isLive);
-  if(!deals.length){
-    grid.innerHTML='<div class="notice notice-info"><span>💡</span><span>'+(S.allDeals.length?'No deals match this filter.':'Save a deal from Deal Analyser to see it here.')+'</span></div>';
-    return;
-  }
-  grid.innerHTML=deals.map(d=>`
-    <div class="deal-card ${d.isLive?'live':''}" id="deal-card-${d.id}">
+  const pg=qs('pipeline-grid'), lg=qs('live-grid');
+  if(!pg||!lg) return;
+  const all=S.allDeals||[];
+  const pipeline=all.filter(d=>!d.isLive);
+  const live=all.filter(d=>d.isLive);
+
+  pg.innerHTML=pipeline.length
+    ? pipeline.map(d=>renderPipelineCard(d)).join('')
+    : '<div class="notice notice-info"><span>💡</span><span>Save a deal from Deal Analyser to see it here.</span></div>';
+
+  lg.innerHTML=live.length
+    ? live.map(d=>renderLiveCard(d)).join('')
+    : '<div class="notice notice-info"><span>📋</span><span>Mark a deal as Live to see it here.</span></div>';
+}
+
+function renderPipelineCard(d) {
+  return `
+    <div class="deal-card" id="deal-card-${d.id}">
       <div class="deal-card-header">
         <div>
           <div class="deal-name">${d.dealName||d.postcode||'Deal'}</div>
-          <div class="deal-postcode">${d.adminDistrict||''} · ${d.beds||'?'} bed · £${d.rent||0}/mo rent</div>
+          <div class="deal-postcode">${d.adminDistrict||''} · ${d.beds||'?'} bed · £${(d.rent||0).toLocaleString()}/mo</div>
         </div>
-        ${d.isLive?'<span class="deal-live-tag">Live</span>':''}
       </div>
       <div class="deal-stats">
         <div class="deal-stat"><div class="ds-val ${(d.monthlyProfit||0)>=0?'positive':'negative'}">${gbp(d.monthlyProfit||0)}</div><div class="ds-lbl">Monthly</div></div>
@@ -2733,11 +2892,70 @@ function renderDealsGrid() {
         <div class="deal-stat"><div class="ds-val">${d.breakEvenOcc||'—'}%</div><div class="ds-lbl">Break-even</div></div>
       </div>
       <div class="deal-actions">
-        <button class="btn-deal ${d.isLive?'':'live-btn'}" onclick="toggleDealLive('${d.id}',${!d.isLive})">${d.isLive?'Mark as Saved':'Mark as Live'}</button>
+        <button class="btn-deal live-btn" onclick="toggleDealLive('${d.id}',true)">Mark as Live</button>
         <button class="btn-deal coach-btn" onclick="openCoachForDeal('${d.id}')">AI Coach</button>
         <button class="btn-deal" onclick="deleteSavedDeal('${d.id}')" style="border-color:rgba(220,38,38,0.25);color:var(--red);">Delete</button>
       </div>
-    </div>`).join('');
+    </div>`;
+}
+
+function renderLiveCard(d) {
+  const leaseEnd=d.leaseEnd||'';
+  const breakClause=d.breakClause||'';
+  const days=leaseEnd?getDaysUntil(leaseEnd):null;
+  const renewalBadge=leaseEnd
+    ? `<span class="lease-badge ${days!==null&&days<60?'warn':'ok'}">${days===null?'':days<0?'Expired':days===0?'Today':days+' days'}</span>`
+    : '';
+  return `
+    <div class="deal-card live" id="deal-card-${d.id}">
+      <div class="deal-card-header">
+        <div>
+          <div class="deal-name">${d.dealName||d.postcode||'Deal'}</div>
+          <div class="deal-postcode">${d.adminDistrict||''} · ${d.beds||'?'} bed · £${(d.rent||0).toLocaleString()}/mo</div>
+        </div>
+        <span class="deal-live-tag">Live</span>
+      </div>
+      <div class="deal-stats">
+        <div class="deal-stat"><div class="ds-val ${(d.monthlyProfit||0)>=0?'positive':'negative'}">${gbp(d.monthlyProfit||0)}</div><div class="ds-lbl">Projected</div></div>
+        <div class="deal-stat"><div class="ds-val gold-val">${(d.roi||0)>=0?'+':''}${d.roi||0}%</div><div class="ds-lbl">ROI</div></div>
+        <div class="deal-stat"><div class="ds-val">${d.breakEvenOcc||'—'}%</div><div class="ds-lbl">Break-even</div></div>
+      </div>
+      <!-- Lease Dates -->
+      <div class="lease-fields">
+        <div class="field-group">
+          <label>Lease End Date</label>
+          <input type="date" id="lease-end-${d.id}" value="${leaseEnd}" style="padding:0.35rem 0.5rem;font-size:0.78rem">
+        </div>
+        <div class="field-group">
+          <label>Break Clause</label>
+          <input type="date" id="lease-break-${d.id}" value="${breakClause}" style="padding:0.35rem 0.5rem;font-size:0.78rem">
+        </div>
+      </div>
+      ${leaseEnd?`<div class="deal-lease-meta">${renewalBadge}<span>Lease ends ${formatDateShort(leaseEnd)}</span></div>`:''}
+      <!-- P&L Log -->
+      <div style="margin-top:0.875rem;padding-top:0.875rem;border-top:1px solid var(--border)">
+        <div class="pnl-hd">
+          <span class="pnl-label">P&amp;L Log</span>
+          <button class="pnl-toggle-btn" onclick="togglePnlPanel('${d.id}',${d.monthlyProfit||0})">Track Actuals ▼</button>
+        </div>
+        <div id="pnl-panel-${d.id}" style="display:none">
+          <div id="pnl-entries-${d.id}" class="pnl-entries"></div>
+          <div class="pnl-add-row">
+            <input type="month" id="pnl-month-${d.id}" class="pnl-mini-input" title="Month">
+            <input type="number" id="pnl-income-${d.id}" class="pnl-mini-input" placeholder="Income £">
+            <input type="number" id="pnl-costs-${d.id}" class="pnl-mini-input" placeholder="Costs £">
+            <button class="btn btn-outline btn-sm" onclick="addPnlEntry('${d.id}',${d.monthlyProfit||0})">+ Add</button>
+          </div>
+        </div>
+      </div>
+      <!-- Actions -->
+      <div class="deal-actions" style="margin-top:0.875rem">
+        <button class="btn-deal" onclick="saveLeaseDates('${d.id}')" style="border-color:rgba(5,150,105,0.3);color:var(--green);background:var(--green-bg)">Save Dates</button>
+        <button class="btn-deal" onclick="toggleDealLive('${d.id}',false)">Move to Pipeline</button>
+        <button class="btn-deal coach-btn" onclick="openCoachForDeal('${d.id}')">AI Coach</button>
+        <button class="btn-deal" onclick="deleteSavedDeal('${d.id}')" style="border-color:rgba(220,38,38,0.25);color:var(--red);">Delete</button>
+      </div>
+    </div>`;
 }
 
 function updatePortfolioTotals() {
@@ -2765,8 +2983,8 @@ window.toggleDealLive=async function(dealId,makeLive){
     if(typeof window.__updateDeal==='function') await window.__updateDeal(dealId,{isLive:makeLive});
     const deal=S.allDeals.find(d=>d.id===dealId);
     if(deal) deal.isLive=makeLive;
-    renderDealsGrid(); updatePortfolioTotals();
-    showToast(makeLive?'Moved to Live Portfolio!':'Moved to Saved Deals');
+    renderDealsGrid(); updatePortfolioTotals(); checkLeaseRenewals(S.allDeals);
+    showToast(makeLive?'Moved to Live Portfolio!':'Moved to Pipeline');
   } catch(e){ showToast('Error: '+e.message); }
 };
 
@@ -2775,10 +2993,174 @@ window.deleteSavedDeal=async function(dealId){
   try {
     if(typeof window.__deleteDeal==='function') await window.__deleteDeal(dealId);
     S.allDeals=S.allDeals.filter(d=>d.id!==dealId);
-    renderDealsGrid(); updatePortfolioTotals();
+    renderDealsGrid(); updatePortfolioTotals(); checkLeaseRenewals(S.allDeals);
     showToast('Deal deleted.');
   } catch(e){ showToast('Delete failed.'); }
 };
+
+/* ════ LEASE RENEWALS ═══════════════════════════════════════ */
+function checkLeaseRenewals(deals) {
+  const banner=qs('renewal-banner'), list=qs('renewal-list');
+  if(!banner||!list) return;
+  const live=(deals||[]).filter(d=>d.isLive&&d.leaseEnd);
+  const upcoming=live.filter(d=>{
+    const days=getDaysUntil(d.leaseEnd);
+    return days!==null&&days<60;
+  }).sort((a,b)=>getDaysUntil(a.leaseEnd)-getDaysUntil(b.leaseEnd));
+  if(!upcoming.length){banner.classList.remove('show');return;}
+  banner.classList.add('show');
+  list.innerHTML=upcoming.map(d=>{
+    const days=getDaysUntil(d.leaseEnd);
+    const label=days<0?'Expired':days===0?'Today':days+' days left';
+    return `<div class="renewal-item"><span><strong>${d.dealName||d.postcode||'Deal'}</strong> — lease ends ${formatDateShort(d.leaseEnd)}</span><span class="renewal-days">${label}</span></div>`;
+  }).join('');
+}
+
+window.saveLeaseDates=async function(dealId){
+  const endEl=qs('lease-end-'+dealId), breakEl=qs('lease-break-'+dealId);
+  if(!endEl) return;
+  const data={};
+  if(endEl.value) data.leaseEnd=endEl.value;
+  if(breakEl&&breakEl.value) data.breakClause=breakEl.value;
+  try {
+    if(typeof window.__updateDeal==='function') await window.__updateDeal(dealId,data);
+    const deal=S.allDeals.find(d=>d.id===dealId);
+    if(deal){deal.leaseEnd=data.leaseEnd;deal.breakClause=data.breakClause;}
+    checkLeaseRenewals(S.allDeals);
+    showToast('Lease dates saved!');
+  } catch(e){showToast('Error saving dates.');}
+};
+
+/* ════ P&L TRACKER ═════════════════════════════════════════ */
+window.togglePnlPanel=async function(dealId,projectedProfit){
+  const panel=qs('pnl-panel-'+dealId); if(!panel) return;
+  if(panel.style.display==='none'){
+    panel.style.display='block';
+    if(typeof window.__loadPnl==='function'){
+      try{
+        const entries=await window.__loadPnl(dealId);
+        renderPnlEntries(dealId,entries,projectedProfit||0);
+      }catch(e){console.warn('P&L load error',e);}
+    }
+  } else {
+    panel.style.display='none';
+  }
+};
+
+window.addPnlEntry=async function(dealId,projectedProfit){
+  const monthEl=qs('pnl-month-'+dealId);
+  const incomeEl=qs('pnl-income-'+dealId);
+  const costsEl=qs('pnl-costs-'+dealId);
+  if(!monthEl||!incomeEl||!costsEl) return;
+  const month=monthEl.value;
+  if(!month){showToast('Select a month first.');return;}
+  const income=parseFloat(incomeEl.value)||0;
+  const costs=parseFloat(costsEl.value)||0;
+  if(!income&&!costs){showToast('Enter income or costs.');return;}
+  const data={month,income,costs,profit:income-costs};
+  try {
+    if(typeof window.__savePnl==='function') await window.__savePnl(dealId,month,data);
+    incomeEl.value=''; costsEl.value='';
+    const entries=await window.__loadPnl(dealId);
+    renderPnlEntries(dealId,entries,projectedProfit||0);
+    showToast('P&L entry saved!');
+  }catch(e){showToast('Error: '+e.message);}
+};
+
+window.deletePnlEntry=async function(dealId,monthKey,projectedProfit){
+  if(!confirm('Remove this entry?')) return;
+  try {
+    if(typeof window.__deletePnl==='function') await window.__deletePnl(dealId,monthKey);
+    const entries=await window.__loadPnl(dealId);
+    renderPnlEntries(dealId,entries,projectedProfit||0);
+  }catch(e){showToast('Error removing entry.');}
+};
+
+function renderPnlEntries(dealId,entries,projectedProfit){
+  const container=qs('pnl-entries-'+dealId); if(!container) return;
+  if(!entries||!entries.length){
+    container.innerHTML='<div style="font-size:0.72rem;color:var(--text-muted);padding:0.3rem 0">No entries yet. Add a month below.</div>';
+    return;
+  }
+  const hdr=`<div class="pnl-entry-row" style="font-weight:700;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);border-bottom:2px solid var(--border-strong)"><span>Month</span><span style="text-align:right">Income</span><span style="text-align:right">Profit</span><span style="text-align:right">vs Projected</span></div>`;
+  const rows=entries.map(e=>{
+    const profit=(e.profit!==undefined)?e.profit:(e.income-e.costs);
+    const diff=profit-(projectedProfit||0);
+    const diffCls=diff>=0?'pnl-diff-pos':'pnl-diff-neg';
+    const diffStr=(diff>=0?'+':'')+gbp(diff);
+    const mk=e.month||e.id||'';
+    const [yr,mo]=mk.split('-');
+    const label=(yr&&mo)?new Date(yr,parseInt(mo)-1).toLocaleDateString('en-GB',{month:'short',year:'numeric'}):mk;
+    return `<div class="pnl-entry-row">
+      <span class="pnl-entry-month">${label} <button onclick="deletePnlEntry('${dealId}','${mk}',${projectedProfit||0})" style="font-size:0.6rem;border:none;background:none;color:var(--text-muted);cursor:pointer;padding:0 2px" title="Remove">✕</button></span>
+      <span class="pnl-entry-val">${gbp(e.income||0)}</span>
+      <span class="pnl-entry-val">${gbp(profit)}</span>
+      <span class="${diffCls}">${diffStr}</span>
+    </div>`;
+  }).join('');
+  container.innerHTML=hdr+rows;
+}
+
+/* ════ MENTOR MODE ══════════════════════════════════════════ */
+async function loadMentorPage() {
+  if(!S.allDeals.length&&typeof window.__loadDeals==='function'){
+    try{S.allDeals=await window.__loadDeals();}catch(e){}
+  }
+  renderMentorPage();
+}
+
+function renderMentorPage() {
+  const all=S.allDeals||[];
+  const live=all.filter(d=>d.isLive);
+  const pipeline=all.filter(d=>!d.isLive);
+  const totalMonthly=live.reduce((a,d)=>a+(d.monthlyProfit||0),0);
+  const avgROI=live.length?Math.round(live.reduce((a,d)=>a+(d.roi||0),0)/live.length):0;
+  const freedomTarget=parseFloat((qs('pf-freedom')||{}).value)||3000;
+  const freedomPct=Math.min(100,Math.round((totalMonthly/freedomTarget)*100));
+
+  const statsGrid=qs('mentor-stats-grid');
+  if(statsGrid) statsGrid.innerHTML=[
+    {val:live.length,lbl:'Live Properties',cls:''},
+    {val:pipeline.length,lbl:'Pipeline Deals',cls:'blue'},
+    {val:gbp(totalMonthly)+'/mo',lbl:'Monthly Profit',cls:'green'},
+    {val:(avgROI>0?'+':'')+avgROI+'%',lbl:'Avg ROI',cls:'gold'},
+    {val:freedomPct+'%',lbl:'Freedom Progress',cls:''}
+  ].map(s=>`<div class="mentor-stat-box"><div class="msb-val ${s.cls}">${s.val}</div><div class="msb-lbl">${s.lbl}</div></div>`).join('');
+
+  const list=qs('mentor-deal-list');
+  if(list){
+    if(!all.length){
+      list.innerHTML='<div class="notice notice-info"><span>💡</span><span>No deals saved yet. Analyse and save deals from Deal Analyser.</span></div>';
+    } else {
+      list.innerHTML=all.map(d=>`
+        <div class="mentor-deal-row">
+          <div>
+            <div class="mentor-deal-name">${d.dealName||d.postcode||'Deal'}</div>
+            <div class="mentor-deal-meta">${d.adminDistrict||d.region||''} · ${d.beds||'?'} bed · £${(d.rent||0).toLocaleString()}/mo rent</div>
+          </div>
+          <div class="mentor-deal-right">
+            <div class="mentor-deal-profit ${(d.monthlyProfit||0)>=0?'positive':'negative'}">${gbp(d.monthlyProfit||0)}/mo</div>
+            <span class="mentor-tag ${d.isLive?'live':'pipeline'}">${d.isLive?'Live':'Pipeline'}</span>
+          </div>
+        </div>`).join('');
+    }
+  }
+
+  const fw=qs('mentor-freedom-wrap');
+  if(fw&&freedomTarget>0){
+    const remaining=Math.max(0,freedomTarget-totalMonthly);
+    fw.innerHTML=`
+      <div style="margin-bottom:1rem">
+        <div class="pb-label"><span>Journey to ${gbp(freedomTarget)}/mo</span><span>${freedomPct}%</span></div>
+        <div class="pb-track"><div class="pb-fill" style="width:${freedomPct}%"></div></div>
+      </div>
+      <div style="font-size:0.85rem;color:var(--text-sec);display:flex;gap:1.5rem;flex-wrap:wrap">
+        <span>Current: <strong>${gbp(totalMonthly)}/mo</strong></span>
+        <span>Target: <strong>${gbp(freedomTarget)}/mo</strong></span>
+        <span>Remaining: <strong>${gbp(remaining)}</strong></span>
+      </div>`;
+  }
+}
 
 window.openCoachForDeal=function(dealId){
   const deal=S.allDeals.find(d=>d.id===dealId);
@@ -3124,6 +3506,7 @@ function bindEvents() {
   });
   qs('btn-save-airdna-key').addEventListener('click',saveAirdnaKey);
   qs('btn-refresh-deals').addEventListener('click',loadSavedDealsPage);
+  qs('btn-refresh-mentor').addEventListener('click',loadMentorPage);
   qs('btn-save-profile').addEventListener('click',saveProfile);
   qs('btn-load-toolkit-deal').addEventListener('click',loadToolkitDeal);
   qs('btn-add-listing').addEventListener('click',addScoredListing);
