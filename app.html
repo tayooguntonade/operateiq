@@ -554,6 +554,21 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
 .job-links{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:0.5rem}
 .job-link{display:inline-flex;align-items:center;gap:0.35rem;padding:0.4rem 0.875rem;background:var(--surface-alt);border:1px solid var(--border);border-radius:6px;text-decoration:none;color:var(--text);font-size:0.78rem;font-weight:600;transition:var(--transition)}
 .job-link:hover{background:var(--gold-pale);border-color:rgba(201,168,76,0.3);color:var(--gold)}
+/* ─── KEYWORD FINDER ────────────────────────────────────────── */
+.keyword-chips{display:flex;flex-direction:column;gap:0.5rem}
+.keyword-chip{display:flex;align-items:center;gap:0.75rem;padding:0.7rem 1rem;background:var(--surface-alt);border:1px solid var(--border);border-radius:var(--radius-sm);text-decoration:none;color:var(--text);font-size:0.82rem;font-weight:500;transition:var(--transition);cursor:pointer}
+.keyword-chip:hover{background:var(--gold-pale);border-color:rgba(201,168,76,0.35);color:var(--navy)}
+.keyword-chip-icon{font-size:0.8rem;flex-shrink:0;opacity:0.6}
+.keyword-chip-text{flex:1;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;font-size:0.8rem}
+.keyword-chip-arrow{font-size:0.8rem;color:var(--text-muted);flex-shrink:0;transition:var(--transition)}
+.keyword-chip:hover .keyword-chip-arrow{color:var(--gold);transform:translate(2px,-2px)}
+.keyword-type-list{display:flex;flex-direction:column;gap:0.5rem}
+.keyword-type-row{display:flex;align-items:flex-start;gap:0.75rem;font-size:0.78rem}
+.keyword-type-tag{display:inline-block;padding:0.2rem 0.65rem;border-radius:20px;font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;flex-shrink:0;margin-top:1px}
+.keyword-tag-insurance{background:rgba(59,130,246,0.1);color:#2563eb}
+.keyword-tag-corporate{background:rgba(201,168,76,0.15);color:var(--amber)}
+.keyword-tag-nhs{background:rgba(5,150,105,0.1);color:var(--green)}
+.keyword-type-desc{color:var(--text-muted);line-height:1.5}
 .pro-tip{background:var(--gold-pale);border:1px solid rgba(201,168,76,0.22);border-left:3px solid var(--gold);border-radius:var(--radius-sm);padding:0.75rem 0.875rem;font-size:0.8rem;margin-top:0.875rem}
 .infra-signal-card{background:var(--surface-alt);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.75rem 0.875rem;margin-bottom:0.5rem}
 .isc-name{font-size:0.85rem;font-weight:700;margin-bottom:0.2rem}
@@ -1359,6 +1374,53 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
       </div>
     </div>
   </div>
+
+  <!-- Rehousing Keyword Finder -->
+  <div class="card" id="card-keyword-finder">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Rehousing &amp; Accommodation Company Finder</div>
+        <div class="card-subtitle">Search terms to find companies that rehouse people on a long-term basis — insurance, corporate, and workforce</div>
+      </div>
+    </div>
+    <div style="font-size:0.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.875rem;">Click any term to search Google</div>
+    <div class="keyword-chips" id="keyword-chips-grid">
+      <a class="keyword-chip" href="https://www.google.com/search?q=%22insurance+alternative+accommodation+provider+UK%22" target="_blank" rel="noopener">
+        <span class="keyword-chip-icon">🔍</span>
+        <span class="keyword-chip-text">"insurance alternative accommodation provider UK"</span>
+        <span class="keyword-chip-arrow">↗</span>
+      </a>
+      <a class="keyword-chip" href="https://www.google.com/search?q=%22loss+adjuster+rehousing+contractor%22" target="_blank" rel="noopener">
+        <span class="keyword-chip-icon">🔍</span>
+        <span class="keyword-chip-text">"loss adjuster rehousing contractor"</span>
+        <span class="keyword-chip-arrow">↗</span>
+      </a>
+      <a class="keyword-chip" href="https://www.google.com/search?q=%22corporate+housing+agent+UK%22" target="_blank" rel="noopener">
+        <span class="keyword-chip-icon">🔍</span>
+        <span class="keyword-chip-text">"corporate housing agent UK"</span>
+        <span class="keyword-chip-arrow">↗</span>
+      </a>
+      <a class="keyword-chip" href="https://www.google.com/search?q=%22furnished+accommodation+for+insurance+claimants%22" target="_blank" rel="noopener">
+        <span class="keyword-chip-icon">🔍</span>
+        <span class="keyword-chip-text">"furnished accommodation for insurance claimants"</span>
+        <span class="keyword-chip-arrow">↗</span>
+      </a>
+      <a class="keyword-chip" href="https://www.google.com/search?q=%22temporary+housing+provider+insurance%22" target="_blank" rel="noopener">
+        <span class="keyword-chip-icon">🔍</span>
+        <span class="keyword-chip-text">"temporary housing provider insurance"</span>
+        <span class="keyword-chip-arrow">↗</span>
+      </a>
+    </div>
+    <div style="margin-top:1.125rem;padding-top:1rem;border-top:1px solid var(--border);">
+      <div style="font-size:0.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.625rem;">Key Company Types to Target</div>
+      <div class="keyword-type-list">
+        <div class="keyword-type-row"><span class="keyword-type-tag keyword-tag-insurance">Insurance</span><span class="keyword-type-desc">Loss adjusters · Alternative accommodation managers · Claims handlers · Home emergency providers</span></div>
+        <div class="keyword-type-row"><span class="keyword-type-tag keyword-tag-corporate">Corporate</span><span class="keyword-type-desc">Corporate relocation agents · Global mobility companies · Destination services providers · Workforce housing</span></div>
+        <div class="keyword-type-row"><span class="keyword-type-tag keyword-tag-nhs">NHS / Keyworker</span><span class="keyword-type-desc">Medical locum housing · NHS staff accommodation · Healthcare workforce providers</span></div>
+      </div>
+    </div>
+  </div>
+
 </div><!-- end page-toolkit -->
 
 <!-- ═══ PAGE: DEAL FINDER IQ ════════════════════════════════ -->
