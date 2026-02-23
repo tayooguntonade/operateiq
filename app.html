@@ -657,21 +657,33 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
 .toolkit-selector{display:flex;gap:0.75rem;align-items:flex-end;flex-wrap:wrap}
 .toolkit-current-label{font-size:0.8rem;color:var(--text-muted);margin-top:0.75rem;padding:0.5rem 0.75rem;background:var(--blue-bg);border-radius:var(--radius-sm);border:1px solid rgba(37,99,235,0.15);color:#1d4ed8}
 
-/* ─── P&L TRACKER ─────────────────────────────────────────── */
-.pnl-entries{margin-bottom:0.5rem}
-.pnl-entry-row{display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:0.35rem;align-items:center;padding:0.3rem 0;border-bottom:1px solid var(--border);font-size:0.72rem}
-.pnl-entry-row:last-child{border-bottom:none}
-.pnl-entry-month{font-weight:600;color:var(--text)}
-.pnl-entry-val{text-align:right;color:var(--text-sec)}
-.pnl-diff-pos{color:var(--green);font-weight:700;text-align:right}
-.pnl-diff-neg{color:var(--red);font-weight:700;text-align:right}
-.pnl-add-row{display:flex;gap:0.35rem;align-items:center;flex-wrap:wrap;padding-top:0.5rem;border-top:1px solid var(--border);margin-top:0.35rem}
-.pnl-mini-input{padding:0.3rem 0.5rem;border:1.5px solid var(--border);border-radius:5px;font-size:0.72rem;background:var(--surface-alt);color:var(--text);font-family:'Inter',sans-serif;width:82px}
-.pnl-mini-input:focus{outline:none;border-color:var(--gold)}
-.pnl-mini-input[type="month"]{width:122px}
-.pnl-toggle-btn{font-size:0.68rem;font-weight:600;color:var(--blue);background:var(--blue-bg);border:1px solid rgba(37,99,235,0.2);border-radius:4px;padding:2px 7px;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap}
-.pnl-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem}
-.pnl-label{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-muted)}
+/* ─── P&L DASHBOARD ────────────────────────────────────────── */
+.pnl-mini-input{padding:0.5rem 0.65rem;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-size:0.85rem;background:var(--surface-alt);color:var(--text);font-family:'Inter',sans-serif;width:100%}
+.pnl-mini-input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,0.1)}
+.pnl-property-row{display:flex;gap:0.75rem;align-items:flex-end;margin-bottom:1.25rem;flex-wrap:wrap}
+.pnl-property-row .field-group{flex:1;min-width:200px}
+.pnl-summary-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.75rem;margin-bottom:1.25rem}
+.pnl-summary-box{background:var(--surface-alt);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;text-align:center}
+.pnl-summary-val{font-size:1.35rem;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif;color:var(--navy);line-height:1}
+.pnl-summary-lbl{font-size:0.65rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);margin-top:0.3rem}
+.pnl-charts-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem}
+@media(max-width:640px){.pnl-charts-row{grid-template-columns:1fr}}
+.pnl-chart-box{background:var(--surface-alt);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1.125rem}
+.pnl-chart-title{font-size:0.72rem;font-weight:700;color:var(--text-sec);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.875rem}
+.pnl-chart-box canvas{display:block;width:100%!important;height:190px!important}
+.pnl-add-form{background:var(--gold-pale);border:1.5px solid rgba(201,168,76,0.25);border-radius:var(--radius-sm);padding:1.125rem 1.25rem;margin-bottom:1.25rem}
+.pnl-add-form-title{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--amber);margin-bottom:0.875rem}
+.pnl-add-form-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr auto;gap:0.75rem;align-items:flex-end}
+@media(max-width:640px){.pnl-add-form-grid{grid-template-columns:1fr 1fr}}
+.pnl-table{width:100%;border-collapse:collapse;font-size:0.8rem}
+.pnl-table th{background:var(--surface-alt);color:var(--text-muted);font-size:0.65rem;text-transform:uppercase;letter-spacing:0.06em;padding:0.55rem 0.75rem;text-align:left;border-bottom:2px solid var(--border);font-weight:600}
+.pnl-table td{padding:0.6rem 0.75rem;border-bottom:1px solid var(--border);vertical-align:middle}
+.pnl-table tr:last-child td{border-bottom:none}
+.pnl-table tr:hover td{background:var(--surface-alt)}
+.pnl-delta-pos{color:var(--green);font-weight:700}
+.pnl-delta-neg{color:var(--red);font-weight:700}
+.pnl-del-btn{border:none;background:none;color:var(--text-muted);cursor:pointer;font-size:0.78rem;padding:2px 6px;border-radius:4px}
+.pnl-del-btn:hover{color:var(--red);background:var(--red-bg)}
 
 /* ─── LEASE DATES ─────────────────────────────────────────── */
 .lease-fields{display:grid;grid-template-columns:1fr 1fr;gap:0.5rem;margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid var(--border)}
@@ -1523,12 +1535,119 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
     <div class="card-header">
       <div class="card-title-wrap">
         <div class="card-title">Live Properties</div>
-        <div class="card-subtitle">Log actual P&amp;L, save lease dates, and track each property's performance</div>
+        <div class="card-subtitle">Your active SA properties — save lease dates and manage renewals</div>
       </div>
       <button class="btn btn-outline btn-sm" id="btn-refresh-portfolio">Refresh</button>
     </div>
     <div class="deals-grid" id="live-grid">
       <div class="notice notice-info"><span>📋</span><span>Mark a deal as Live from My Deals to see it here.</span></div>
+    </div>
+  </div>
+
+  <!-- P&L Performance Tracker -->
+  <div class="card" id="card-pnl-tracker">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">P&amp;L Performance Tracker</div>
+        <div class="card-subtitle">Log actual monthly income and costs — see how each property performs vs projection</div>
+      </div>
+      <span class="card-badge">Actuals</span>
+    </div>
+
+    <div id="pnl-no-live" class="notice notice-info">
+      <span>📋</span><span>Mark a deal as Live above to start tracking P&amp;L actuals here.</span>
+    </div>
+
+    <div id="pnl-tracker-body" style="display:none">
+      <!-- Property selector -->
+      <div class="pnl-property-row">
+        <div class="field-group" style="flex:1;min-width:200px">
+          <label>Select Property</label>
+          <select id="pnl-property-sel">
+            <option value="">Choose a live property...</option>
+          </select>
+        </div>
+        <button class="btn btn-secondary" id="btn-load-pnl">Load P&amp;L →</button>
+      </div>
+
+      <!-- Summary stats -->
+      <div id="pnl-summary-row" class="pnl-summary-row" style="display:none">
+        <div class="pnl-summary-box">
+          <div class="pnl-summary-val" id="pnl-tot-income">—</div>
+          <div class="pnl-summary-lbl">Total Income</div>
+        </div>
+        <div class="pnl-summary-box">
+          <div class="pnl-summary-val" id="pnl-tot-profit">—</div>
+          <div class="pnl-summary-lbl">Net Profit</div>
+        </div>
+        <div class="pnl-summary-box">
+          <div class="pnl-summary-val" id="pnl-avg-monthly">—</div>
+          <div class="pnl-summary-lbl">Avg Monthly</div>
+        </div>
+        <div class="pnl-summary-box">
+          <div class="pnl-summary-val" id="pnl-vs-proj">—</div>
+          <div class="pnl-summary-lbl">vs Projected</div>
+        </div>
+      </div>
+
+      <!-- Charts -->
+      <div id="pnl-charts-section" class="pnl-charts-row" style="display:none">
+        <div class="pnl-chart-box">
+          <div class="pnl-chart-title">Actual vs Projected Profit (Monthly)</div>
+          <canvas id="pnl-bar-chart"></canvas>
+        </div>
+        <div class="pnl-chart-box">
+          <div class="pnl-chart-title">Cumulative Income</div>
+          <canvas id="pnl-line-chart"></canvas>
+        </div>
+      </div>
+
+      <!-- Add entry form -->
+      <div id="pnl-add-section" style="display:none">
+        <div class="pnl-add-form">
+          <div class="pnl-add-form-title">Log a Month</div>
+          <div class="pnl-add-form-grid">
+            <div class="field-group">
+              <label>Month</label>
+              <input type="month" id="pnl-month-input" class="pnl-mini-input">
+            </div>
+            <div class="field-group">
+              <label>Actual Income (£)</label>
+              <input type="number" id="pnl-income-input" class="pnl-mini-input" placeholder="0" min="0">
+            </div>
+            <div class="field-group">
+              <label>Actual Costs (£)</label>
+              <input type="number" id="pnl-costs-input" class="pnl-mini-input" placeholder="0" min="0">
+            </div>
+            <div class="field-group" style="align-self:flex-end">
+              <button class="btn btn-primary" id="btn-add-pnl-entry">+ Log Month</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- P&L Table -->
+        <div id="pnl-table-wrap" style="display:none">
+          <div class="compare-wrap">
+            <table class="pnl-table">
+              <thead>
+                <tr>
+                  <th>Month</th>
+                  <th>Income</th>
+                  <th>Costs</th>
+                  <th>Net Profit</th>
+                  <th>Projected</th>
+                  <th>Delta</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="pnl-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+        <div id="pnl-empty-msg" class="notice notice-info" style="display:none">
+          <span>📊</span><span>No entries yet. Log your first month above to start tracking.</span>
+        </div>
+      </div>
     </div>
   </div>
 </div><!-- end page-portfolio -->
@@ -2846,6 +2965,7 @@ async function loadPortfolioPage() {
   checkLeaseRenewals(S.allDeals||[]);
   const pfCur=qs('pf-current');
   if(pfCur) pfCur.value=(S.allDeals||[]).filter(d=>d.isLive).length||0;
+  populatePnlSelector();
 }
 
 function renderDealsGrid() {
@@ -2919,22 +3039,6 @@ function renderLiveCard(d) {
         </div>
       </div>
       ${leaseEnd?`<div class="deal-lease-meta">${renewalBadge}<span>Lease ends ${formatDateShort(leaseEnd)}</span></div>`:''}
-      <!-- P&L Log -->
-      <div style="margin-top:0.875rem;padding-top:0.875rem;border-top:1px solid var(--border)">
-        <div class="pnl-hd">
-          <span class="pnl-label">P&amp;L Log</span>
-          <button class="pnl-toggle-btn" onclick="togglePnlPanel('${d.id}',${d.monthlyProfit||0})">Track Actuals ▼</button>
-        </div>
-        <div id="pnl-panel-${d.id}" style="display:none">
-          <div id="pnl-entries-${d.id}" class="pnl-entries"></div>
-          <div class="pnl-add-row">
-            <input type="month" id="pnl-month-${d.id}" class="pnl-mini-input" title="Month">
-            <input type="number" id="pnl-income-${d.id}" class="pnl-mini-input" placeholder="Income £">
-            <input type="number" id="pnl-costs-${d.id}" class="pnl-mini-input" placeholder="Costs £">
-            <button class="btn btn-outline btn-sm" onclick="addPnlEntry('${d.id}',${d.monthlyProfit||0})">+ Add</button>
-          </div>
-        </div>
-      </div>
       <!-- Actions -->
       <div class="deal-actions" style="margin-top:0.875rem">
         <button class="btn-deal" onclick="saveLeaseDates('${d.id}')" style="border-color:rgba(5,150,105,0.3);color:var(--green);background:var(--green-bg)">Save Dates</button>
@@ -3020,26 +3124,131 @@ window.saveLeaseDates=async function(dealId){
   } catch(e){showToast('Error saving dates.');}
 };
 
-/* ════ P&L TRACKER ═════════════════════════════════════════ */
-window.togglePnlPanel=async function(dealId,projectedProfit){
-  const panel=qs('pnl-panel-'+dealId); if(!panel) return;
-  if(panel.style.display==='none'){
-    panel.style.display='block';
-    if(typeof window.__loadPnl==='function'){
-      try{
-        const entries=await window.__loadPnl(dealId);
-        renderPnlEntries(dealId,entries,projectedProfit||0);
-      }catch(e){console.warn('P&L load error',e);}
-    }
-  } else {
-    panel.style.display='none';
+/* ════ P&L DASHBOARD ════════════════════════════════════════ */
+let PNL_CHART_BAR=null, PNL_CHART_LINE=null, PNL_ACTIVE_DEAL=null;
+
+function populatePnlSelector(){
+  const sel=qs('pnl-property-sel');
+  const body=qs('pnl-tracker-body');
+  const noLive=qs('pnl-no-live');
+  if(!sel) return;
+  const live=(S.allDeals||[]).filter(d=>d.isLive);
+  if(!live.length){
+    if(body) body.style.display='none';
+    if(noLive) noLive.style.display='flex';
+    return;
   }
+  if(noLive) noLive.style.display='none';
+  if(body) body.style.display='block';
+  const prev=sel.value;
+  sel.innerHTML=live.map(d=>`<option value="${d.id}" data-profit="${d.monthlyProfit||0}" data-name="${(d.dealName||d.postcode||'Deal').replace(/"/g,'')}">${d.dealName||d.postcode||'Deal'}</option>`).join('');
+  if(prev&&live.find(d=>d.id===prev)) sel.value=prev;
+}
+
+async function loadPnlDashboard(){
+  const sel=qs('pnl-property-sel'); if(!sel||!sel.value) return;
+  const opt=sel.options[sel.selectedIndex];
+  PNL_ACTIVE_DEAL={id:sel.value, monthlyProfit:parseFloat(opt.dataset.profit)||0, name:opt.dataset.name||sel.value};
+  const btn=qs('btn-load-pnl');
+  if(btn){btn.textContent='Loading…';btn.disabled=true;}
+  try{
+    let entries=[];
+    if(typeof window.__loadPnl==='function') entries=await window.__loadPnl(PNL_ACTIVE_DEAL.id);
+    renderPnlDashboard(entries, PNL_ACTIVE_DEAL.monthlyProfit);
+  }catch(e){showToast('Error loading P&L: '+e.message);}
+  finally{if(btn){btn.textContent='Load P&L →';btn.disabled=false;}}
+}
+
+function renderPnlDashboard(entries, projected){
+  const sorted=(entries||[]).slice().sort((a,b)=>(a.month||a.id||'').localeCompare(b.month||b.id||''));
+  // ── summary stats ──
+  const totIncome=sorted.reduce((s,e)=>s+(e.income||0),0);
+  const totProfit=sorted.reduce((s,e)=>s+((e.profit!==undefined)?e.profit:(e.income-e.costs)),0);
+  const avgMonthly=sorted.length?Math.round(totProfit/sorted.length):0;
+  const projTotal=(projected||0)*sorted.length;
+  const vsProj=sorted.length?Math.round(((totProfit-projTotal)/Math.max(1,Math.abs(projTotal)))*100):0;
+  const sumRow=qs('pnl-summary-row');
+  if(sumRow){
+    sumRow.style.display='grid';
+    qs('pnl-tot-income').textContent=gbp(totIncome);
+    qs('pnl-tot-profit').textContent=gbp(totProfit);
+    qs('pnl-avg-monthly').textContent=gbp(avgMonthly);
+    const vEl=qs('pnl-vs-proj');
+    if(vEl){vEl.textContent=(vsProj>=0?'+':'')+vsProj+'%'; vEl.style.color=vsProj>=0?'var(--green)':'var(--red)';}
+  }
+  // ── charts ──
+  const chartsSection=qs('pnl-charts-section');
+  if(chartsSection) chartsSection.style.display=sorted.length?'grid':'none';
+  if(sorted.length){
+    const labels=sorted.map(e=>{const mk=e.month||e.id||'';const[yr,mo]=mk.split('-');return(yr&&mo)?new Date(yr,parseInt(mo)-1).toLocaleDateString('en-GB',{month:'short',year:'2-digit'}):mk;});
+    const actuals=sorted.map(e=>(e.profit!==undefined)?e.profit:(e.income-e.costs));
+    const projArr=sorted.map(()=>projected||0);
+    // bar chart
+    const barCtx=document.getElementById('pnl-bar-chart');
+    if(barCtx){
+      if(PNL_CHART_BAR){PNL_CHART_BAR.destroy();PNL_CHART_BAR=null;}
+      PNL_CHART_BAR=new Chart(barCtx,{type:'bar',data:{labels,datasets:[
+        {label:'Actual Profit',data:actuals,backgroundColor:'rgba(5,150,105,0.75)',borderRadius:4},
+        {label:'Projected',data:projArr,backgroundColor:'rgba(201,168,76,0.35)',borderRadius:4}
+      ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10},color:'#6b7280'}}},scales:{x:{ticks:{font:{size:9},color:'#9ca3af'}},y:{ticks:{font:{size:9},color:'#9ca3af'},grid:{color:'rgba(0,0,0,0.05)'}}}}});
+    }
+    // line chart — cumulative
+    let cum=0;
+    const cumData=actuals.map(v=>{cum+=v;return cum;});
+    let cumProj=0;
+    const cumProjData=projArr.map(v=>{cumProj+=v;return cumProj;});
+    const lineCtx=document.getElementById('pnl-line-chart');
+    if(lineCtx){
+      if(PNL_CHART_LINE){PNL_CHART_LINE.destroy();PNL_CHART_LINE=null;}
+      PNL_CHART_LINE=new Chart(lineCtx,{type:'line',data:{labels,datasets:[
+        {label:'Cumulative Actual',data:cumData,borderColor:'#059669',backgroundColor:'rgba(5,150,105,0.08)',fill:true,tension:0.3,pointRadius:3},
+        {label:'Cumulative Projected',data:cumProjData,borderColor:'rgba(201,168,76,0.7)',borderDash:[5,4],fill:false,tension:0.3,pointRadius:2}
+      ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{size:10},color:'#6b7280'}}},scales:{x:{ticks:{font:{size:9},color:'#9ca3af'}},y:{ticks:{font:{size:9},color:'#9ca3af'},grid:{color:'rgba(0,0,0,0.05)'}}}}});
+    }
+  }
+  // ── add form + table ──
+  const addSec=qs('pnl-add-section'); if(addSec) addSec.style.display='block';
+  const tbody=qs('pnl-table-body'), empty=qs('pnl-empty-msg');
+  if(!tbody) return;
+  if(!sorted.length){
+    tbody.innerHTML='';
+    if(empty) empty.style.display='block';
+    return;
+  }
+  if(empty) empty.style.display='none';
+  tbody.innerHTML=sorted.map(e=>{
+    const mk=e.month||e.id||'';
+    const[yr,mo]=mk.split('-');
+    const label=(yr&&mo)?new Date(yr,parseInt(mo)-1).toLocaleDateString('en-GB',{month:'short',year:'numeric'}):mk;
+    const profit=(e.profit!==undefined)?e.profit:(e.income-e.costs);
+    const diff=profit-(projected||0);
+    const cls=diff>=0?'pnl-delta-pos':'pnl-delta-neg';
+    const diffStr=(diff>=0?'+':'')+gbp(diff);
+    return `<tr>
+      <td>${label}</td>
+      <td>${gbp(e.income||0)}</td>
+      <td>${gbp(e.costs||0)}</td>
+      <td><strong>${gbp(profit)}</strong></td>
+      <td class="${cls}">${diffStr}</td>
+      <td><button class="pnl-del-btn" onclick="deletePnlDashEntry('${mk}')">✕</button></td>
+    </tr>`;
+  }).join('');
+}
+
+window.deletePnlDashEntry=async function(monthKey){
+  if(!PNL_ACTIVE_DEAL){showToast('No property selected.');return;}
+  if(!confirm('Remove this entry?')) return;
+  try{
+    if(typeof window.__deletePnl==='function') await window.__deletePnl(PNL_ACTIVE_DEAL.id,monthKey);
+    const entries=await window.__loadPnl(PNL_ACTIVE_DEAL.id);
+    renderPnlDashboard(entries,PNL_ACTIVE_DEAL.monthlyProfit);
+    showToast('Entry removed.');
+  }catch(e){showToast('Error: '+e.message);}
 };
 
-window.addPnlEntry=async function(dealId,projectedProfit){
-  const monthEl=qs('pnl-month-'+dealId);
-  const incomeEl=qs('pnl-income-'+dealId);
-  const costsEl=qs('pnl-costs-'+dealId);
+window.addPnlDashEntry=async function(){
+  if(!PNL_ACTIVE_DEAL){showToast('Load a property first.');return;}
+  const monthEl=qs('pnl-month-input'), incomeEl=qs('pnl-income-input'), costsEl=qs('pnl-costs-input');
   if(!monthEl||!incomeEl||!costsEl) return;
   const month=monthEl.value;
   if(!month){showToast('Select a month first.');return;}
@@ -3047,48 +3256,14 @@ window.addPnlEntry=async function(dealId,projectedProfit){
   const costs=parseFloat(costsEl.value)||0;
   if(!income&&!costs){showToast('Enter income or costs.');return;}
   const data={month,income,costs,profit:income-costs};
-  try {
-    if(typeof window.__savePnl==='function') await window.__savePnl(dealId,month,data);
-    incomeEl.value=''; costsEl.value='';
-    const entries=await window.__loadPnl(dealId);
-    renderPnlEntries(dealId,entries,projectedProfit||0);
-    showToast('P&L entry saved!');
+  try{
+    if(typeof window.__savePnl==='function') await window.__savePnl(PNL_ACTIVE_DEAL.id,month,data);
+    monthEl.value=''; incomeEl.value=''; costsEl.value='';
+    const entries=await window.__loadPnl(PNL_ACTIVE_DEAL.id);
+    renderPnlDashboard(entries,PNL_ACTIVE_DEAL.monthlyProfit);
+    showToast('Month logged!');
   }catch(e){showToast('Error: '+e.message);}
 };
-
-window.deletePnlEntry=async function(dealId,monthKey,projectedProfit){
-  if(!confirm('Remove this entry?')) return;
-  try {
-    if(typeof window.__deletePnl==='function') await window.__deletePnl(dealId,monthKey);
-    const entries=await window.__loadPnl(dealId);
-    renderPnlEntries(dealId,entries,projectedProfit||0);
-  }catch(e){showToast('Error removing entry.');}
-};
-
-function renderPnlEntries(dealId,entries,projectedProfit){
-  const container=qs('pnl-entries-'+dealId); if(!container) return;
-  if(!entries||!entries.length){
-    container.innerHTML='<div style="font-size:0.72rem;color:var(--text-muted);padding:0.3rem 0">No entries yet. Add a month below.</div>';
-    return;
-  }
-  const hdr=`<div class="pnl-entry-row" style="font-weight:700;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);border-bottom:2px solid var(--border-strong)"><span>Month</span><span style="text-align:right">Income</span><span style="text-align:right">Profit</span><span style="text-align:right">vs Projected</span></div>`;
-  const rows=entries.map(e=>{
-    const profit=(e.profit!==undefined)?e.profit:(e.income-e.costs);
-    const diff=profit-(projectedProfit||0);
-    const diffCls=diff>=0?'pnl-diff-pos':'pnl-diff-neg';
-    const diffStr=(diff>=0?'+':'')+gbp(diff);
-    const mk=e.month||e.id||'';
-    const [yr,mo]=mk.split('-');
-    const label=(yr&&mo)?new Date(yr,parseInt(mo)-1).toLocaleDateString('en-GB',{month:'short',year:'numeric'}):mk;
-    return `<div class="pnl-entry-row">
-      <span class="pnl-entry-month">${label} <button onclick="deletePnlEntry('${dealId}','${mk}',${projectedProfit||0})" style="font-size:0.6rem;border:none;background:none;color:var(--text-muted);cursor:pointer;padding:0 2px" title="Remove">✕</button></span>
-      <span class="pnl-entry-val">${gbp(e.income||0)}</span>
-      <span class="pnl-entry-val">${gbp(profit)}</span>
-      <span class="${diffCls}">${diffStr}</span>
-    </div>`;
-  }).join('');
-  container.innerHTML=hdr+rows;
-}
 
 /* ════ MENTOR MODE ══════════════════════════════════════════ */
 async function loadMentorPage() {
@@ -3426,6 +3601,8 @@ function bindEvents() {
   qs('btn-refresh-deals').addEventListener('click',()=>{ S.allDeals=[]; loadDealsPage(); loadDealsForCoachDropdown(); });
   qs('btn-refresh-portfolio').addEventListener('click',()=>{ S.allDeals=[]; loadPortfolioPage(); });
   qs('btn-refresh-mentor').addEventListener('click',loadMentorPage);
+  qs('btn-load-pnl').addEventListener('click',loadPnlDashboard);
+  qs('btn-add-pnl-entry').addEventListener('click',addPnlDashEntry);
   qs('btn-save-profile').addEventListener('click',saveProfile);
   qs('btn-load-toolkit-deal').addEventListener('click',loadToolkitDeal);
   // Restore saved keys
