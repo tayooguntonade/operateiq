@@ -1180,17 +1180,8 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
       </div>
       <span class="card-badge">AirDNA</span>
     </div>
-    <div class="airdna-key-row">
-      <div class="field-group">
-        <label>AirDNA Bearer Token</label>
-        <input type="password" id="airdna-key" placeholder="Paste your AirDNA key here" autocomplete="off">
-      </div>
-      <button class="btn btn-secondary" id="btn-save-airdna-key">Save Key</button>
-    </div>
-    <div class="notice notice-info">
-      <span>ℹ️</span>
-      <span>AirDNA gives you real nightly rates, comparable listings with links, and seasonal trends. Get your key at <strong>airdna.co</strong>. No key yet? We use market benchmarks as a fallback.</span>
-    </div>
+    <input type="hidden" id="airdna-key">
+    <button class="btn btn-secondary" id="btn-save-airdna-key" style="display:none">Save Key</button>
   </div>
 
   <!-- Deal Selector -->
@@ -1359,11 +1350,8 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
       </div>
       <div class="section-divider"></div>
       <div style="font-size:0.88rem;font-weight:600;color:var(--navy);margin-bottom:0.875rem;">Active Construction Companies Near <span id="ch-postcode-label">—</span></div>
-      <div style="display:flex;gap:0.75rem;align-items:flex-end;flex-wrap:wrap;margin-bottom:0.875rem;">
-        <div class="field-group" style="flex:1;min-width:220px;">
-          <label>Companies House Key</label>
-          <input type="text" id="ch-api-key" placeholder="Get free key at developer.company-information.service.gov.uk">
-        </div>
+      <input type="hidden" id="ch-api-key">
+      <div style="margin-bottom:0.875rem;">
         <button class="btn btn-secondary" id="btn-search-companies">
           <span id="ch-spinner" style="display:none;" class="loading-spinner"></span>
           Search Companies
@@ -2226,6 +2214,9 @@ window.closeSidebar = closeSidebar;
 
 /* ════ LOCAL STORAGE ════════════════════════════════════════ */
 const STORE='operateiq-v1';
+const GNEWS_KEY    = '5f478b850e6481e142a33c4abf595498';
+const RAPIDAPI_KEY = '2eb7680515msh748af52a1edadcap18ba81jsn81399ef3dd1c';
+const CH_KEY       = '2c62ebce-954a-4050-9e48-58d3207b5a01';
 function saveState() {
   try {
     localStorage.setItem(STORE, JSON.stringify({
@@ -2233,10 +2224,7 @@ function saveState() {
       occupancy:S.occupancy, nightlyRate:S.nightlyRate, maintPct:S.maintPct,
       upfrontMonths: (qs('upfront-months')||{}).value,
       depositMonths: (qs('deposit-months')||{}).value,
-      furnishing:S.furnishing,
-      airdnaKey: (qs('airdna-key')||{}).value || '',
-      newsKey:   (qs('newsapi-key')||{}).value || '',
-      chKey:     (qs('ch-api-key')||{}).value  || ''
+      furnishing:S.furnishing
     }));
   } catch(e){}
 }
@@ -2251,9 +2239,6 @@ function loadSavedState() {
     if(d.nightlyRate)  qs('nightly-rate').value    = d.nightlyRate;
     if(d.upfrontMonths) qs('upfront-months').value = d.upfrontMonths;
     if(d.depositMonths) qs('deposit-months').value = d.depositMonths;
-    if(d.airdnaKey)   { qs('airdna-key').value=d.airdnaKey; }
-    if(d.newsKey)     qs('newsapi-key').value      = d.newsKey;
-    if(d.chKey)       qs('ch-api-key').value       = d.chKey;
   } catch(e){}
 }
 
@@ -2316,14 +2301,8 @@ async function doAnalyse() {
   renderToolkitIfReady();
   renderFinderSearchLinks();
 
-  // Auto-populate nightly rate from AirDNA if key exists
-  const airdnaKey = qs('airdna-key').value.trim() || localStorage.getItem('operateiq-airdna-key') || '';
-  if(airdnaKey) {
-    qs('airdna-key').value = airdnaKey;
-    autoFetchAirDNA(airdnaKey);
-  } else {
-    useBenchmarkRate();
-  }
+  // Auto-populate nightly rate from live Airbnb data
+  autoFetchAirDNA();
 
   loadCRMLeads();
   saveState();
@@ -2548,37 +2527,27 @@ async function doSaveDeal() {
 }
 
 /* ════ AIRDNA AUTO-POPULATE ═════════════════════════════════ */
-async function autoFetchAirDNA(key) {
-  if(!S.pcData||!key) { useBenchmarkRate(); return; }
+async function autoFetchAirDNA() {
+  if(!S.pcData){ useBenchmarkRate(); return; }
   try {
     const {latitude:lat,longitude:lng}=S.pcData;
-    const marketRes=await fetch('https://api.airdna.co/api/enterprise/v2/market/search',{
-      method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},
-      body:JSON.stringify({lat,lng,limit:1})
-    });
-    if(!marketRes.ok) { useBenchmarkRate(); return; }
-    const marketData=await marketRes.json();
-    const marketId=marketData?.payload?.results?.[0]?.id;
-    if(!marketId) { useBenchmarkRate(); return; }
-    const listingsRes=await fetch('https://api.airdna.co/api/enterprise/v2/listings/comps',{
-      method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},
-      body:JSON.stringify({market_id:marketId,filters:[{field:'bedrooms',type:'range',value:[Math.max(1,S.beds-1),S.beds+1]}],limit:12,currency:'GBP'})
-    });
-    if(!listingsRes.ok) { useBenchmarkRate(); return; }
-    const listingsData=await listingsRes.json();
-    const raw=listingsData?.payload?.results||[];
-    if(!raw.length) { useBenchmarkRate(); return; }
-    const rates=raw.map(l=>l.adr||l.price||0).filter(p=>p>0);
-    const avgRate=rates.length?Math.round(rates.reduce((a,b)=>a+b)/rates.length):0;
-    if(avgRate>0) {
-      S.nightlyRate=avgRate;
-      qs('nightly-rate').value=avgRate;
-      const badge=qs('airdna-rate-badge');
-      if(badge) badge.style.display='inline-flex';
-      calcRevenue();
-      localStorage.setItem('operateiq-airdna-key',key);
-    }
-  } catch(e) { useBenchmarkRate(); }
+    const r=await fetch(
+      `https://airbnb13.p.rapidapi.com/search-geo?lat=${lat}&lng=${lng}&adults=2&children=0&infants=0&pets=0&page=1&currency=GBP`,
+      {headers:{'X-RapidAPI-Key':RAPIDAPI_KEY,'X-RapidAPI-Host':'airbnb13.p.rapidapi.com'}}
+    );
+    if(!r.ok){ useBenchmarkRate(); return; }
+    const j=await r.json();
+    const raw=(j.results||[]).filter(l=>Math.abs((l.beds||2)-S.beds)<=1);
+    const rates=raw.map(l=>l.price?.rate||0).filter(p=>p>0&&p<1000);
+    if(!rates.length){ useBenchmarkRate(); return; }
+    const avg=Math.round(rates.reduce((a,b)=>a+b)/rates.length);
+    S.nightlyRate=avg; qs('nightly-rate').value=avg;
+    const badge=qs('airdna-rate-badge');
+    if(badge){ badge.textContent='Live Rate'; badge.style.display='inline-flex'; }
+    const src=qs('nightly-rate-source');
+    if(src){ src.textContent='Live Airbnb data'; src.style.display='inline'; }
+    calcRevenue();
+  } catch(e){ useBenchmarkRate(); }
 }
 
 function useBenchmarkRate() {
@@ -2767,31 +2736,24 @@ function renderLocalLinks() {
 }
 
 async function doFetchNews() {
-  const key=qs('newsapi-key').value.trim();
   const la=S.pcData?.admin_district||'';
-  if(!key) {
-    qs('intel-key-row').style.display='block';
-    qs('news-container').innerHTML='<div class="notice notice-info"><span>💡</span><span>Enter your development intelligence key above and click Load Latest News again.</span></div>';
-    return;
-  }
-  if(!la) { showToast('Analyse a deal first.'); return; }
-  localStorage.setItem('operateiq-intel-key',key);
+  if(!la){showToast('Analyse a deal first.');return;}
   qs('btn-fetch-news').textContent='Loading...';
   qs('btn-fetch-news').disabled=true;
-  const q=encodeURIComponent(`"${la}" construction OR planning OR development OR infrastructure`);
+  const q=encodeURIComponent('"'+la+'" construction OR planning OR development OR infrastructure');
   try {
-    const r=await fetch(`https://newsapi.org/v2/everything?q=${q}&language=en&sortBy=publishedAt&pageSize=8&apiKey=${key}`);
+    const r=await fetch(`https://gnews.io/api/v4/search?q=${q}&lang=en&max=8&sortby=publishedAt&token=${GNEWS_KEY}`);
     const j=await r.json();
     const articles=j.articles||[];
     const nc=qs('news-container');
     if(articles.length){
       nc.innerHTML=`<div style="font-size:0.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.75rem;">Recent Activity — ${la}</div>`+
-        articles.map(a=>`<div class="news-item"><div class="news-title"><a href="${a.url}" target="_blank" rel="noopener">${a.title}</a></div><div class="news-meta-text">${a.source?.name||''} · ${a.publishedAt?.slice(0,10)||''}</div></div>`).join('');
+        articles.map(a=>`<div class="news-item"><div class="news-title"><a href="${a.url}" target="_blank" rel="noopener">${a.title}</a></div><div class="news-meta-text">${a.source?.name||''} · ${(a.publishedAt||'').slice(0,10)}</div></div>`).join('');
     } else {
       nc.innerHTML='<div class="notice notice-warn"><span>⚠️</span><span>No recent articles found for '+la+'. Try a different area.</span></div>';
     }
-  } catch(e) {
-    qs('news-container').innerHTML='<div class="notice notice-warn"><span>⚠️</span><span>Could not fetch intelligence. Check your key is valid.</span></div>';
+  } catch(e){
+    qs('news-container').innerHTML='<div class="notice notice-warn"><span>⚠️</span><span>Could not load intelligence feed. Please try again.</span></div>';
   }
   qs('btn-fetch-news').textContent='Load Latest News';
   qs('btn-fetch-news').disabled=false;
@@ -3043,16 +3005,13 @@ async function checkPlanningActivity() {
   showToast('Planning intelligence loaded');
 }
 async function searchCompaniesHouse() {
-  const key=qs('ch-api-key').value.trim();
-  if(!key){qs('ch-results').innerHTML='<div class="notice notice-info"><span>🔑</span><span>Get your free key at <a href="https://developer.company-information.service.gov.uk" target="_blank" style="color:var(--gold);">developer.company-information.service.gov.uk</a></span></div>';return;}
   if(!S.postcode){showToast('Analyse a deal first.');return;}
-  localStorage.setItem('ch-api-key',key);
   setLoading('ch-spinner',true); qs('btn-search-companies').disabled=true;
   const outward=S.postcode.replace(/[^A-Z0-9]/g,'').slice(0,-3);
   const sic='41100,41202,42110,42120,42210,42220,42910,42990,43110,43120,43130,43210,43220,43290,43310,43320,43330,43341,43342,43390,43910,43999';
   const url=`https://api.company-information.service.gov.uk/advanced-search/companies?location=${encodeURIComponent(outward)}&sic_codes=${sic}&company_status=active&size=20`;
   try {
-    const r=await fetch(url,{headers:{'Authorization':'Basic '+btoa(key+':')}});
+    const r=await fetch(url,{headers:{'Authorization':'Basic '+btoa(CH_KEY+':')}});
     if(!r.ok) throw new Error('API error '+r.status);
     const j=await r.json();
     const companies=(j.items||[]).slice(0,10);
@@ -3087,23 +3046,27 @@ async function runMarketAnalysis() {
   try { pcData=await fetchPostcode(postcode); } catch(e){}
   if(!pcData){showToast('Postcode not found.');setLoading('market-spinner',false);qs('btn-run-market').disabled=false;return;}
   qs('market-results-subtitle').textContent=`Comparable listings near ${postcode.toUpperCase()} for ${beds} bed SA`;
-  const key=qs('airdna-key').value.trim()||localStorage.getItem('operateiq-airdna-key')||'';
   let listings=[];
-  if(key) {
-    try {
-      const {latitude:lat,longitude:lng}=pcData;
-      const mRes=await fetch('https://api.airdna.co/api/enterprise/v2/market/search',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({lat,lng,limit:1})});
-      if(mRes.ok){
-        const md=await mRes.json(); const mId=md?.payload?.results?.[0]?.id;
-        if(mId){
-          const lRes=await fetch('https://api.airdna.co/api/enterprise/v2/listings/comps',{method:'POST',headers:{'Authorization':'Bearer '+key,'Content-Type':'application/json'},body:JSON.stringify({market_id:mId,filters:[{field:'bedrooms',type:'range',value:[Math.max(1,beds-1),beds+1]}],limit:12,currency:'GBP'})});
-          if(lRes.ok){const ld=await lRes.json();listings=(ld?.payload?.results||[]).map(l=>({name:l.title||'Listing',bedrooms:l.bedrooms||beds,price:{rate:l.adr||0},reviews:{count:l.review_count||0,guestSatisfactionOverall:Math.round((l.rating||0)*20)},url:l.airbnb_listing_url||l.url||null,isAirDNA:true}));}
-        }
-      }
-    } catch(e){}
-  }
+  try {
+    const {latitude:lat,longitude:lng}=pcData;
+    const r=await fetch(
+      `https://airbnb13.p.rapidapi.com/search-geo?lat=${lat}&lng=${lng}&adults=2&children=0&infants=0&pets=0&page=1&currency=GBP`,
+      {headers:{'X-RapidAPI-Key':RAPIDAPI_KEY,'X-RapidAPI-Host':'airbnb13.p.rapidapi.com'}}
+    );
+    if(r.ok){
+      const j=await r.json();
+      const raw=(j.results||[]).filter(l=>Math.abs((l.beds||2)-beds)<=1);
+      listings=raw.slice(0,12).map(l=>({
+        name:l.name||l.title||'Airbnb Listing',
+        bedrooms:l.beds||beds,
+        price:{rate:l.price?.rate||0},
+        reviews:{count:l.reviewsCount||0,guestSatisfactionOverall:Math.round((l.rating||0)*20)},
+        url:l.url||null
+      }));
+    }
+  } catch(e){}
   if(!listings.length) {
-    // No AirDNA key — show real benchmark data instead of fake samples
+    // RapidAPI failed — show real benchmark data as fallback
     const region2=pcData.region||pcData.country||'England';
     const rd=REGIONAL_RENTAL[region2]||REGIONAL_RENTAL['England'];
     const rb=rd[beds]||rd[2];
@@ -3114,7 +3077,7 @@ async function runMarketAnalysis() {
     qs('mkt-avg-rate').textContent=gbp(adr)+'/night';
     qs('mkt-range').textContent='Est. '+gbp(revLo)+' – '+gbp(revHi)+'/mo revenue';
     qs('market-listings-grid').innerHTML=`
-      <div class="notice notice-info" style="margin-bottom:1rem"><span>📊</span><span>No AirDNA key — showing regional benchmark estimates for <strong>${region2}</strong>. These are market averages, not live comparables. <a href="https://airdna.co" target="_blank" rel="noopener" style="color:var(--gold)">Add AirDNA key</a> for live comps.</span></div>
+      <div class="notice notice-info" style="margin-bottom:1rem"><span>📊</span><span>Showing regional benchmark estimates for <strong>${region2}</strong>. Live comps unavailable — these are market averages.</span></div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0.75rem;margin-bottom:1.25rem">
         ${[
           {lbl:`${beds}-Bed ADR`,val:gbp(adr)+'/night',sub:'Average nightly rate'},
@@ -3889,7 +3852,6 @@ function bindEvents() {
     const sel=qs('market-deal-select');
     if(sel.value){const opt=sel.options[sel.selectedIndex];qs('market-postcode').value=opt.dataset.postcode||'';qs('market-beds').value=opt.dataset.beds||2;}
   });
-  qs('btn-save-airdna-key').addEventListener('click',saveAirdnaKey);
   qs('btn-refresh-deals').addEventListener('click',()=>{ S.allDeals=[]; loadDealsPage(); loadDealsForCoachDropdown(); });
   qs('btn-refresh-portfolio').addEventListener('click',()=>{ S.allDeals=[]; loadPortfolioPage(); });
   qs('btn-refresh-mentor').addEventListener('click',loadMentorPage);
@@ -3897,10 +3859,6 @@ function bindEvents() {
   qs('btn-add-pnl-entry').addEventListener('click',addPnlDashEntry);
   qs('btn-save-profile').addEventListener('click',saveProfile);
   qs('btn-load-toolkit-deal').addEventListener('click',loadToolkitDeal);
-  // Restore saved keys
-  const chKey=localStorage.getItem('ch-api-key'); if(chKey) qs('ch-api-key').value=chKey;
-  const airdnaKey=localStorage.getItem('operateiq-airdna-key'); if(airdnaKey) qs('airdna-key').value=airdnaKey;
-  const intelKey=localStorage.getItem('operateiq-intel-key'); if(intelKey) qs('newsapi-key').value=intelKey;
 }
 
 /* ════ INIT ═════════════════════════════════════════════════ */
