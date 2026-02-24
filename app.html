@@ -636,6 +636,21 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
 .portal-tile:hover{border-color:var(--gold);background:var(--gold-pale);color:var(--navy);transform:translateY(-2px);box-shadow:var(--shadow)}
 .portal-tile .pt-icon{font-size:1.8rem;line-height:1}
 .portal-tile .pt-sub{font-size:0.68rem;color:var(--text-muted);font-weight:400;margin-top:2px}
+/* ─── OPENRENT IN-APP LISTINGS ───────────────────────────── */
+.openrent-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:0.75rem}
+.or-card{background:var(--surface-alt);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:1rem;display:flex;flex-direction:column;gap:0.4rem;transition:var(--transition)}
+.or-card:hover{border-color:var(--gold);box-shadow:var(--shadow)}
+.or-title{font-size:0.88rem;font-weight:700;color:var(--navy);font-family:'Plus Jakarta Sans',sans-serif;line-height:1.3}
+.or-meta{font-size:0.72rem;color:var(--text-muted)}
+.or-price{font-size:1.15rem;font-weight:800;color:var(--gold);font-family:'Plus Jakarta Sans',sans-serif}
+.or-price span{font-size:0.72rem;font-weight:500;color:var(--text-muted)}
+.or-features{display:flex;flex-wrap:wrap;gap:0.3rem;margin-top:0.2rem}
+.or-feat{font-size:0.65rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:2px 7px;color:var(--text-sec)}
+.or-actions{display:flex;gap:0.5rem;margin-top:0.5rem;align-items:center}
+.or-btn{font-size:0.72rem;font-weight:700;padding:0.35rem 0.75rem;border-radius:6px;border:1.5px solid var(--gold);background:none;color:var(--gold);cursor:pointer;text-decoration:none;transition:var(--transition)}
+.or-btn:hover{background:var(--gold);color:#fff}
+.or-btn-analyse{background:var(--navy);color:#fff;border-color:var(--navy)}
+.or-btn-analyse:hover{background:var(--navy-light)}
 
 /* ─── LISTING SCORER ──────────────────────────────────────── */
 .scorer-form-row{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:0.75rem;align-items:end;margin-bottom:0.5rem}
@@ -867,7 +882,7 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
         <div class="input-prefix"><span class="pfx">£</span><input type="number" id="op-current-income" placeholder="2500" min="0"></div>
       </div>
       <div class="field-group">
-        <label>Avg Profit / Property (£/mo)</label>
+        <label>Estimated Avg Profit / Property (£/mo)</label>
         <div class="input-prefix"><span class="pfx">£</span><input type="number" id="pf-avg-profit" placeholder="500" min="0"></div>
       </div>
       <div class="field-group">
@@ -886,7 +901,12 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
           <option value="2" selected>2 per year</option>
           <option value="3">3 per year</option>
           <option value="4">4 per year</option>
+          <option value="5">5 per year</option>
           <option value="6">6 per year</option>
+          <option value="7">7 per year</option>
+          <option value="8">8 per year</option>
+          <option value="9">9 per year</option>
+          <option value="10">10 per year</option>
         </select>
       </div>
     </div>
@@ -968,7 +988,7 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
     <div class="card-header">
       <div class="card-title-wrap">
         <div class="card-title">Rent Competitiveness</div>
-        <div class="card-subtitle">How your rent compares to local market rates</div>
+        <div class="card-subtitle">How your rent compares to local market rates — based on regional rental data compiled from ONS &amp; Rightmove market averages</div>
       </div>
     </div>
     <div class="rent-gauge">
@@ -1001,6 +1021,12 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
       <input type="range" id="maintenance-pct" min="1" max="8" step="0.5" value="3">
       <span class="slider-val" id="maintenance-pct-display">3%</span>
       <span style="font-size:0.72rem;color:var(--text-muted);white-space:nowrap;">of revenue</span>
+    </div>
+    <div class="slider-row">
+      <span class="slider-label">Platform Fees</span>
+      <input type="range" id="platform-fee-pct" min="0" max="20" step="0.5" value="3">
+      <span class="slider-val" id="platform-fee-pct-display">3%</span>
+      <span style="font-size:0.72rem;color:var(--text-muted);white-space:nowrap;">of revenue &nbsp;<span id="platform-fee-amount" style="color:var(--navy);font-weight:600"></span></span>
     </div>
     <div class="costs-total-bar">
       <div class="ctl">Total Monthly Costs (incl. rent)</div>
@@ -1045,8 +1071,9 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
     </div>
     <div class="form-grid" style="margin-bottom:1.25rem;">
       <div class="field-group">
-        <label>Nightly Rate (£)</label>
+        <label>Nightly Rate (£) <span id="nightly-rate-source" style="font-size:0.65rem;font-weight:600;background:rgba(201,168,76,0.15);color:var(--amber);padding:1px 6px;border-radius:10px;margin-left:4px;display:none">Regional estimate</span></label>
         <div class="input-prefix"><span class="pfx">£</span><input type="number" id="nightly-rate" placeholder="85" min="0" max="9999" step="5"></div>
+        <div style="font-size:0.72rem;color:var(--text-muted);margin-top:0.4rem;line-height:1.5"><strong style="color:var(--navy)">Tip:</strong> Find similar Airbnbs nearby that get regular bookings — take their average nightly rate and use that here. Pre-filled from regional benchmarks until you adjust it.</div>
       </div>
       <div class="field-group">
         <label>Occupancy Rate</label>
@@ -1455,9 +1482,31 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
         <div class="input-prefix"><span class="pfx">£</span><input type="number" id="finder-max-rent" placeholder="1200" min="0"></div>
       </div>
     </div>
-    <div class="portal-grid" id="finder-search-links"></div>
-    <div class="notice notice-info">
-      <span>💡</span><span>Click a portal to open it with your criteria pre-applied. When you find a property you like, copy its postcode into Deal Analyser to run a full analysis.</span>
+    <button class="btn btn-primary" id="btn-search-openrent" style="margin-bottom:1rem">
+      <span id="openrent-spinner" style="display:none" class="loading-spinner"></span>
+      Search Listings →
+    </button>
+    <!-- In-app OpenRent results -->
+    <div id="openrent-results-wrap" style="display:none;margin-bottom:1.25rem">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.75rem">
+        <div style="font-size:0.82rem;font-weight:700;color:var(--navy)" id="openrent-results-title">Properties found</div>
+        <span style="font-size:0.68rem;color:var(--text-muted)">via OpenRent · direct-to-landlord listings</span>
+      </div>
+      <div id="openrent-listings-grid" class="openrent-grid"></div>
+    </div>
+    <div id="openrent-no-results" class="notice notice-warn" style="display:none">
+      <span>🔍</span><span>No OpenRent listings found for this search. Try a broader postcode or adjust the bedroom count.</span>
+    </div>
+    <!-- Secondary: other portals -->
+    <div id="finder-secondary-links" style="display:none;margin-top:0.75rem">
+      <div style="font-size:0.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem">Also search on</div>
+      <div class="portal-grid" id="finder-search-links" style="margin-top:0"></div>
+    </div>
+    <div id="finder-portal-placeholder">
+      <div class="portal-grid" id="finder-search-links-init"></div>
+      <div class="notice notice-info" style="margin-top:0.75rem">
+        <span>💡</span><span>Enter a postcode above and click Search — OpenRent listings will load directly here. Copy any property's postcode into Deal Analyser to run a full analysis.</span>
+      </div>
     </div>
   </div>
 
@@ -2115,7 +2164,7 @@ const SAMPLE_NAMES = [
 const S = {
   postcode:null, pcData:null, rent:0, beds:2, baths:1,
   bills:{energy:175,councilTax:167,channelMgr:75,internet:40,insurance:30,cleaning:40},
-  maintPct:3, upfrontRent:0, upfrontDeposit:0, furnishing:3000,
+  maintPct:3, platformFeePct:3, upfrontRent:0, upfrontDeposit:0, furnishing:3000,
   occupancy:75, nightlyRate:85, charts:{},
   contractorScore:0, infraNearby:[],
   revenue:0, profit:0, beOcc:0, margin:0, roi:0, upfrontTotal:0,
@@ -2381,7 +2430,10 @@ function calcRevenue() {
   const occ=S.occupancy/100, nights=occ*30;
   const rate=S.nightlyRate, maint=rate*nights*(S.maintPct/100);
   const rev=rate*nights, bills=totalBills();
-  const up=calcUpfront(), totalCost=S.rent+bills+maint;
+  const platformFee=rev*(S.platformFeePct/100);
+  const pfAmtEl=qs('platform-fee-amount');
+  if(pfAmtEl) pfAmtEl.textContent='('+gbp(platformFee)+'/mo)';
+  const up=calcUpfront(), totalCost=S.rent+bills+maint+platformFee;
   const profit=rev-totalCost, annRev=rev*12, annPro=profit*12;
   const roi=up>0?(annPro/up)*100:0;
   const fixedCosts=S.rent+bills;
@@ -2534,9 +2586,9 @@ function useBenchmarkRate() {
   const region=(S.pcData?.region||S.pcData?.country||'').toLowerCase();
   const match=Object.keys(AIRBNB_BENCHMARKS).find(k=>k!=='__default'&&(dist.includes(k.toLowerCase())||region.includes(k.toLowerCase())));
   const bm=AIRBNB_BENCHMARKS[match]||AIRBNB_BENCHMARKS['__default'];
-  if(!qs('nightly-rate').value||+qs('nightly-rate').value===0) {
-    S.nightlyRate=bm.adr; qs('nightly-rate').value=bm.adr; calcRevenue();
-  }
+  S.nightlyRate=bm.adr; qs('nightly-rate').value=bm.adr;
+  const badge=qs('nightly-rate-source'); if(badge) badge.style.display='inline';
+  calcRevenue();
 }
 
 /* ════ CONTRACTOR SCORING (IMPROVED) ═══════════════════════ */
@@ -2828,20 +2880,94 @@ function renderFinderSearchLinks() {
   const pc=qs('finder-postcode').value.trim()||S.postcode||'';
   const beds=qs('finder-beds').value||S.beds||2;
   const maxRent=qs('finder-max-rent').value||'';
-  const grid=qs('finder-search-links');
-  if(!grid) return;
-  if(!pc){
-    grid.innerHTML=`<div class="notice notice-info" style="grid-column:1/-1;"><span>💡</span><span>Enter a postcode above to activate the search portals.</span></div>`;
-    return;
-  }
-  const enc=encodeURIComponent(pc);
-  const portals=[
+  // Secondary portal links (shown after search)
+  const enc=pc?encodeURIComponent(pc):'';
+  const portals=enc?[
     {icon:'🏠',label:'Rightmove',sub:'UK\'s largest portal',href:`https://www.rightmove.co.uk/property-to-rent/search.html?searchLocation=${enc}&radius=1.0&minBedrooms=${beds}&maxBedrooms=${beds}${maxRent?'&maxPrice='+maxRent:''}&sortType=6`},
     {icon:'🏡',label:'Zoopla',sub:'Comprehensive listings',href:`https://www.zoopla.co.uk/to-rent/property/${enc.toLowerCase().replace(/%20/g,'-')}/?beds_min=${beds}&beds_max=${beds}&price_frequency=per_month${maxRent?'&price_max='+maxRent:''}`},
-    {icon:'🔑',label:'OpenRent',sub:'Direct from landlords',href:`https://www.openrent.co.uk/properties-to-rent/?term=${enc}&bedrooms=${beds}${maxRent?'&maximumPrice='+maxRent:''}`},
     {icon:'📱',label:'SpareRoom',sub:'Whole properties & rooms',href:`https://www.spareroom.co.uk/flatshare/?search_type=rooms&location_type=town&location=${enc}&rooms_for=professionals&per_page=20&min_rooms=${beds}&max_rooms=${beds}`}
-  ];
-  grid.innerHTML=portals.map(p=>`<a class="portal-tile" href="${p.href}" target="_blank" rel="noopener"><span class="pt-icon">${p.icon}</span><span>${p.label}</span><span class="pt-sub">${p.sub}</span></a>`).join('');
+  ]:[];
+  const sg=qs('finder-search-links');
+  if(sg&&portals.length) sg.innerHTML=portals.map(p=>`<a class="portal-tile" href="${p.href}" target="_blank" rel="noopener" style="font-size:0.78rem;padding:0.75rem"><span class="pt-icon" style="font-size:1.3rem">${p.icon}</span><span>${p.label}</span><span class="pt-sub">${p.sub}</span></a>`).join('');
+  // Also update init placeholder
+  const ig=qs('finder-search-links-init');
+  if(ig&&portals.length) ig.innerHTML=portals.map(p=>`<a class="portal-tile" href="${p.href}" target="_blank" rel="noopener"><span class="pt-icon">${p.icon}</span><span>${p.label}</span><span class="pt-sub">${p.sub}</span></a>`).join('');
+}
+
+/* ════ OPENRENT IN-APP LISTINGS ═════════════════════════════ */
+// Cloudflare Worker proxy URL — deploy worker then update this:
+const OPENRENT_PROXY = 'https://openrent-proxy.operateiq.workers.dev';
+
+async function fetchOpenRentListings() {
+  const pc=qs('finder-postcode').value.trim();
+  const beds=parseInt(qs('finder-beds').value)||2;
+  const maxRent=qs('finder-max-rent').value||'';
+  if(!pc){showToast('Enter a postcode first.');return;}
+  setLoading('openrent-spinner',true);
+  qs('btn-search-openrent').disabled=true;
+  qs('openrent-results-wrap').style.display='none';
+  qs('openrent-no-results').style.display='none';
+  qs('finder-portal-placeholder').style.display='none';
+  renderFinderSearchLinks();
+  qs('finder-secondary-links').style.display='block';
+  try {
+    const enc=encodeURIComponent(pc);
+    const url=`${OPENRENT_PROXY}/properties-to-rent/?term=${enc}&bedrooms=${beds}${maxRent?'&maximumPrice='+maxRent:''}&isLive=true`;
+    const res=await fetch(url,{signal:AbortSignal.timeout(8000)});
+    if(!res.ok) throw new Error('Proxy error '+res.status);
+    const html=await res.text();
+    const listings=parseOpenRentHtml(html,beds);
+    if(!listings.length){
+      qs('openrent-no-results').style.display='flex';
+    } else {
+      qs('openrent-results-title').textContent=listings.length+' propert'+(listings.length===1?'y':'ies')+' found on OpenRent';
+      qs('openrent-listings-grid').innerHTML=listings.map(renderOpenRentCard).join('');
+      qs('openrent-results-wrap').style.display='block';
+    }
+  } catch(e) {
+    // Worker not yet deployed — show portal links with explanation
+    qs('openrent-no-results').style.display='none';
+    qs('finder-portal-placeholder').style.display='block';
+    const ig=qs('finder-search-links-init');
+    if(ig) ig.innerHTML+='';
+    showToast('Live listings require the proxy setup — portal links updated below.');
+  }
+  setLoading('openrent-spinner',false);
+  qs('btn-search-openrent').disabled=false;
+}
+
+function parseOpenRentHtml(html,beds){
+  try {
+    const parser=new DOMParser();
+    const doc=parser.parseFromString(html,'text/html');
+    const items=doc.querySelectorAll('.property-list-item, [data-property-id], .listing-result');
+    const listings=[];
+    items.forEach(el=>{
+      const title=el.querySelector('.property-title, .listing-title, h2, h3')?.textContent?.trim()||'';
+      const priceEl=el.querySelector('.price, .rent, [class*="price"]');
+      const priceText=priceEl?.textContent?.trim()||'';
+      const priceMatch=priceText.match(/£?([\d,]+)/);
+      const price=priceMatch?parseInt(priceMatch[1].replace(/,/g,'')):0;
+      const addr=el.querySelector('.address, .location, [class*="address"]')?.textContent?.trim()||'';
+      const link=el.querySelector('a[href*="/property"]')?.href||el.querySelector('a')?.href||'';
+      const bedsEl=el.querySelector('[class*="bed"]')?.textContent?.trim()||beds+'';
+      if(title||addr) listings.push({title:title||addr,address:addr,price,beds:bedsEl,link});
+    });
+    return listings;
+  } catch(e){ return []; }
+}
+
+function renderOpenRentCard(l) {
+  const postcode=(l.address.match(/[A-Z]{1,2}\d{1,2}[A-Z]?\s?\d[A-Z]{2}/i)||[])[0]||'';
+  const analyseBtn=postcode?`<button class="or-btn or-btn-analyse" onclick="document.querySelector('#postcode').value='${postcode}';showPage('analyse');showToast('Postcode loaded — click Analyse Deal')">Analyse Deal</button>`:'';
+  const viewBtn=l.link?`<a class="or-btn" href="${l.link.startsWith('http')?l.link:'https://www.openrent.co.uk'+l.link}" target="_blank" rel="noopener">View →</a>`:'';
+  return`<div class="or-card">
+    <div class="or-title">${l.title||'Property listing'}</div>
+    ${l.address?`<div class="or-meta">${l.address}</div>`:''}
+    <div class="or-price">${l.price?'£'+l.price.toLocaleString():'£—'}<span>/mo</span></div>
+    <div class="or-features"><span class="or-feat">${l.beds||'?'} bed</span>${postcode?`<span class="or-feat">${postcode}</span>`:''}</div>
+    <div class="or-actions">${analyseBtn}${viewBtn}</div>
+  </div>`;
 }
 function renderFinderLinks() {
   if(!S.pcData) return;
@@ -2977,11 +3103,33 @@ async function runMarketAnalysis() {
     } catch(e){}
   }
   if(!listings.length) {
-    const dist=(pcData.admin_district||'').toLowerCase();
-    const region=(pcData.region||pcData.country||'').toLowerCase();
-    const match=Object.keys(AIRBNB_BENCHMARKS).find(k=>k!=='__default'&&(dist.includes(k.toLowerCase())||region.includes(k.toLowerCase())));
-    const bm=AIRBNB_BENCHMARKS[match]||AIRBNB_BENCHMARKS['__default'];
-    listings=SAMPLE_NAMES.map((name,i)=>({name,isSample:true,bedrooms:beds,price:{rate:Math.round(bm.lo+Math.random()*(bm.hi-bm.lo))},reviews:{count:Math.round(15+Math.random()*120),guestSatisfactionOverall:Math.round(85+Math.random()*13)}}));
+    // No AirDNA key — show real benchmark data instead of fake samples
+    const region2=pcData.region||pcData.country||'England';
+    const rd=REGIONAL_RENTAL[region2]||REGIONAL_RENTAL['England'];
+    const rb=rd[beds]||rd[2];
+    const adr=rb.adr||80;
+    const revLo=Math.round(adr*0.65*30), revHi=Math.round(adr*0.80*30);
+    const profLo=Math.round(revLo-rb.med), profHi=Math.round(revHi-rb.med);
+    const cityQ=encodeURIComponent((pcData.admin_district||pcData.region||postcode||'').toLowerCase().replace(/\s+/g,'-'));
+    qs('mkt-avg-rate').textContent=gbp(adr)+'/night';
+    qs('mkt-range').textContent='Est. '+gbp(revLo)+' – '+gbp(revHi)+'/mo revenue';
+    qs('market-listings-grid').innerHTML=`
+      <div class="notice notice-info" style="margin-bottom:1rem"><span>📊</span><span>No AirDNA key — showing regional benchmark estimates for <strong>${region2}</strong>. These are market averages, not live comparables. <a href="https://airdna.co" target="_blank" rel="noopener" style="color:var(--gold)">Add AirDNA key</a> for live comps.</span></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0.75rem;margin-bottom:1.25rem">
+        ${[
+          {lbl:`${beds}-Bed ADR`,val:gbp(adr)+'/night',sub:'Average nightly rate'},
+          {lbl:'Est. Monthly Revenue',val:gbp(revLo)+' – '+gbp(revHi),sub:'At 65–80% occupancy'},
+          {lbl:'Median Rent',val:gbp(rb.med)+'/mo',sub:region2+' average'},
+          {lbl:'Est. Monthly Profit',val:gbp(profLo)+' – '+gbp(profHi),sub:'Revenue minus rent only'}
+        ].map(s=>`<div class="pnl-summary-box"><div class="pnl-summary-val" style="font-size:1.1rem">${s.val}</div><div class="pnl-summary-lbl">${s.lbl}</div><div style="font-size:0.65rem;color:var(--text-muted);margin-top:2px">${s.sub}</div></div>`).join('')}
+      </div>
+      <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
+        <a class="portal-tile" href="https://www.insideairbnb.com/get-the-data/" target="_blank" rel="noopener" style="flex:1;min-width:200px"><span class="pt-icon">📈</span><span>Inside Airbnb</span><span class="pt-sub">Free UK city data — actual listings & pricing</span></a>
+        <a class="portal-tile" href="https://www.airbnb.co.uk/s/${cityQ}/homes?refinement_paths%5B%5D=%2Fhomes&flexible_trip_lengths%5B%5D=one_week&min_bedrooms=${beds}&max_bedrooms=${beds}" target="_blank" rel="noopener" style="flex:1;min-width:200px"><span class="pt-icon">🏠</span><span>Browse Airbnb</span><span class="pt-sub">See live listings in this area to check real rates</span></a>
+      </div>`;
+    qs('card-market-results').classList.remove('hidden');
+    setLoading('market-spinner',false); qs('btn-run-market').disabled=false;
+    return;
   }
   const prices=listings.map(l=>l.price?.rate||0).filter(p=>p>0);
   const avg=prices.length?Math.round(prices.reduce((a,b)=>a+b)/prices.length):0;
@@ -3039,7 +3187,7 @@ function renderDealsGrid() {
 
   pg.innerHTML=pipeline.length
     ? pipeline.map(d=>renderPipelineCard(d)).join('')
-    : '<div class="notice notice-info"><span>💡</span><span>Save a deal from Deal Analyser to see it here.</span></div>';
+    : `<div class="notice notice-info" style="flex-direction:column;align-items:flex-start;gap:0.5rem"><span style="font-weight:600">No deals saved yet.</span><span>Run an analysis in <button onclick="showPage('analyse')" style="border:none;background:none;color:var(--gold);font-weight:700;cursor:pointer;padding:0;text-decoration:underline">Deal Analyser</button> and click Save Deal — or check <button onclick="showPage('portfolio')" style="border:none;background:none;color:var(--gold);font-weight:700;cursor:pointer;padding:0;text-decoration:underline">My Portfolio</button> if you've already moved a deal to live.</span></div>`;
 
   lg.innerHTML=live.length
     ? live.map(d=>renderLiveCard(d)).join('')
@@ -3270,14 +3418,16 @@ function renderPnlDashboard(entries, projected){
   }
   // ── add form + table ──
   const addSec=qs('pnl-add-section'); if(addSec) addSec.style.display='block';
-  const tbody=qs('pnl-table-body'), empty=qs('pnl-empty-msg');
+  const tbody=qs('pnl-table-body'), empty=qs('pnl-empty-msg'), wrap=qs('pnl-table-wrap');
   if(!tbody) return;
   if(!sorted.length){
     tbody.innerHTML='';
+    if(wrap) wrap.style.display='none';
     if(empty) empty.style.display='block';
     return;
   }
   if(empty) empty.style.display='none';
+  if(wrap) wrap.style.display='block';
   tbody.innerHTML=sorted.map(e=>{
     const mk=e.month||e.id||'';
     const[yr,mo]=mk.split('-');
@@ -3291,6 +3441,7 @@ function renderPnlDashboard(entries, projected){
       <td>${gbp(e.income||0)}</td>
       <td>${gbp(e.costs||0)}</td>
       <td><strong>${gbp(profit)}</strong></td>
+      <td>${gbp(projected||0)}</td>
       <td class="${cls}">${diffStr}</td>
       <td><button class="pnl-del-btn" onclick="deletePnlDashEntry('${mk}')">✕</button></td>
     </tr>`;
@@ -3462,17 +3613,17 @@ function generateStrategy() {
 }
 
 function renderStrategyForState(coachS) {
-  const prof=coachS.profit||coachS.monthlyProfit||0;
-  const roi=coachS.roi||0;
-  const beOcc=coachS.beOcc||coachS.breakEvenOcc||0;
   const region=coachS.pcData?.region||coachS.region||'England';
   const contractorScore=coachS.contractorScore||0;
   const cards=[
-    {type:'market',title:'Market Position',body:generateMarketInsight(coachS,region)},
-    {type:'pricing',title:'Pricing Strategy',body:generatePricingInsight(coachS)},
-    {type:'guest',title:'Guest Mix Strategy',body:generateGuestInsight(coachS,contractorScore)},
-    {type:'risk',title:'Risk Management',body:generateRiskInsight(coachS)},
-    {type:'nextsteps',title:'Immediate Next Steps',body:generateNextSteps(coachS)}
+    {type:'market',   title:'1. Market Assessment',      body:generateMarketInsight(coachS,region)},
+    {type:'pricing',  title:'2. Pricing Strategy',       body:generatePricingInsight(coachS)},
+    {type:'guest',    title:'3. Guest Mix & Profile',    body:generateGuestInsight(coachS,contractorScore)},
+    {type:'breakeven',title:'4. Break-Even Deep Dive',   body:generateBreakevenInsight(coachS)},
+    {type:'risk',     title:'5. Risk Assessment',        body:generateRiskInsight(coachS)},
+    {type:'pitch',    title:'6. Landlord Pitch',         body:generateLandlordPitch(coachS)},
+    {type:'nextsteps',title:'7. 30-Day Action Plan',     body:generateNextSteps(coachS)},
+    {type:'milestones',title:'8. Financial Milestones',  body:generateMilestones(coachS)}
   ];
   qs('strategy-output').innerHTML=cards.map(c=>`<div class="strategy-card ${c.type}"><div class="sc-type">${c.title}</div><div class="sc-body">${c.body}</div></div>`).join('');
   qs('strategy-output').style.display='block';
@@ -3482,31 +3633,107 @@ function renderStrategyForState(coachS) {
 function generateMarketInsight(s,region){
   const prof=s.profit||s.monthlyProfit||0;
   const beOcc=s.beOcc||s.breakEvenOcc||0;
-  if(prof>=500) return `This deal shows strong fundamentals for ${region||'this area'}. Your profit margin positions you well above the SA minimum. Focus on building occupancy quickly through Airbnb optimisation in the first 90 days.`;
-  if(prof>0) return `This deal is viable but thin for ${region||'this area'}. Your break-even occupancy of ${Math.round(beOcc)}% leaves limited buffer. Prioritise nightly rate optimisation and consider contractor long-stay bookings to boost yield.`;
-  return `This deal is currently loss-making at the modelled rates. Renegotiate rent, increase nightly rate, or find a different property. Do not proceed without improving these numbers.`;
+  const rent=s.rent||0;
+  const rate=s.nightlyRate||90;
+  const rd=REGIONAL_RENTAL[region]||REGIONAL_RENTAL['England'];
+  const rb=rd[s.beds||2]||rd[2];
+  const benchmarkAdr=rb?.adr||80;
+  const adrVsBenchmark=rate>=benchmarkAdr?'above':'below';
+  const rentBand=rent<=rb?.lo?'below market':'at market rate';
+  if(prof>=600) return `<strong>Strong fundamentals</strong> — ${region} is a solid SA market. Your nightly rate of ${gbp(rate)} is ${adrVsBenchmark} the regional benchmark of ${gbp(benchmarkAdr)}/night. Rent at ${gbp(rent)}/mo is ${rentBand}. This deal passes the basic viability test. Priority: launch fast and build review velocity in month 1.`;
+  if(prof>=200) return `<strong>Viable but margin is thin</strong> in ${region}. Monthly profit of ${gbp(prof)} gives limited buffer against voids. Your rate of ${gbp(rate)}/night vs regional benchmark of ${gbp(benchmarkAdr)}/night suggests room to grow. Target rate increases of 10–15% after first 20 reviews. Rent at ${gbp(rent)}/mo is ${rentBand}.`;
+  if(prof>0) return `<strong>Marginal viability</strong> — this deal barely covers costs in the current model. ${region} benchmark ADR is ${gbp(benchmarkAdr)}/night; you're modelling ${gbp(rate)}. Either the rent is too high or the nightly rate is underestimated. Renegotiate or increase rate before proceeding.`;
+  return `<strong>Currently loss-making</strong> — do not sign a lease at these numbers. Monthly shortfall of ${gbp(Math.abs(prof))}. You need either rent reduced by at least ${gbp(Math.abs(prof))}/mo, or nightly rate increased to ${gbp(Math.round(rate*(1+Math.abs(prof)/(rate*(s.occupancy||75)/100*30+0.01))))}/night to break even.`;
 }
+
 function generatePricingInsight(s){
-  const rate=s.nightlyRate||s.nightlyRate||90;
+  const rate=s.nightlyRate||90;
   const occ=s.occupancy||75;
-  if(occ>=85) return `You're running at ${occ}% occupancy — consider testing higher nightly rates. A 10-15% rate increase at ${occ}% occupancy would significantly improve margins without reducing bookings at peak demand.`;
-  if(occ>=70) return `Good occupancy foundation at ${occ}%. Use dynamic pricing tools (Pricelabs, Wheelhouse) to push rates 20-30% higher on peak weekends. Target contractors for weekday stability.`;
-  return `At ${occ}% occupancy, focus first on reviews and Airbnb ranking before pushing rates up. Aim for 20+ reviews in your first 3 months. Use competitive pricing to build review velocity.`;
+  const rev=rate*(occ/100)*30;
+  const wkdRate=Math.round(rate*1.30);
+  const wkndRate=Math.round(rate*1.55);
+  const contractorRate=Math.round(rate*0.82);
+  if(occ>=85) return `At ${occ}% occupancy you have pricing power. Test raising your base rate by 15% — you can afford a small dip in bookings and still gain net revenue. <br><br><strong>Suggested rate structure:</strong><br>• Weekdays: ${gbp(rate)}/night (current)<br>• Weekends: ${gbp(wkndRate)}/night (+55%)<br>• Long-stay 7+ nights: ${gbp(contractorRate)}/night (discount to lock in contractor blocks)<br><br>Use Pricelabs or Wheelhouse to automate seasonal adjustments. At peak demand (school holidays, bank holidays), push rates 40–60% above base.`;
+  if(occ>=65) return `Solid occupancy at ${occ}% — now push rates strategically. <br><br><strong>Suggested rate structure:</strong><br>• Weekdays: ${gbp(wkdRate)}/night (+30%)<br>• Weekends: ${gbp(wkndRate)}/night (+55%)<br>• 7+ night stays: ${gbp(contractorRate)}/night<br><br>Current revenue model: ${gbp(Math.round(rev))}/mo. Optimised model at these rates: ${gbp(Math.round(wkdRate*0.72*(occ/100)*30))}/mo estimated. Set a minimum 2-night stay on weekends to block cheap single nights.`;
+  return `At ${occ}% occupancy, your priority is building reviews — not maximising rate yet. Price ${Math.round(Math.max(0,(1-(rate/(rate+10)))*100))}% below comparable listings for your first 8–10 bookings to attract quick reviews. Once you have 20+ reviews with a 4.8+ rating, increase rate by 20–25%. Estimated month-1 revenue at launch pricing: ${gbp(Math.round(rate*0.85*(occ/100)*30))}.`;
 }
+
 function generateGuestInsight(s,contractorScore){
-  if(contractorScore>=60) return `Excellent contractor demand signals in this area. Actively target site managers, infrastructure workers and NHS staff for 4-12 week bookings. Contact local construction companies directly with your accommodation details.`;
-  if(contractorScore>=35) return `Moderate contractor demand nearby. Split your guest strategy: 60% short leisure breaks (weekends), 40% contractor/corporate weekday stays. Register with corporate housing platforms like Chroma Life and Hotelpads.`;
-  return `Lower contractor demand in this immediate area. Focus on leisure travellers, families, and weekend city breaks. Optimise your Airbnb profile for the nearby attractions and improve photo quality as your primary conversion driver.`;
+  const infra=s.infraNearby||[];
+  const nhsNearby=infra.filter(p=>p.type==='nhs').length;
+  const uniNearby=infra.filter(p=>p.type==='uni').length;
+  const infraNearby=infra.filter(p=>p.type==='infra').length;
+  let guestMix, channels;
+  if(contractorScore>=62){
+    guestMix='<strong>60% Contractor / Corporate, 25% Leisure, 15% NHS/Keyworker</strong>';
+    channels='1. Direct outreach to site managers on LinkedIn and local construction firms<br>2. Register on Hotelpads, Chroma Life, and Serviced Apartment Network<br>3. Email local loss adjusters and corporate relocation agents<br>4. List on Airbnb for Work and Booking.com Business';
+  } else if(nhsNearby>0||uniNearby>0){
+    guestMix=nhsNearby>0?'<strong>40% NHS/Medical, 35% Leisure, 25% Corporate</strong>':'<strong>40% Student/Academic, 35% Leisure, 25% Corporate</strong>';
+    channels='1. Contact NHS accommodation offices directly with your nightly/weekly rates<br>2. Register with Key Workers Accommodation platform<br>3. List on booking.com with "professionals" targeting<br>4. University guest services often need visiting lecturer accommodation';
+  } else {
+    guestMix='<strong>55% Leisure/Tourism, 30% Corporate Short-Stay, 15% Relocating Professionals</strong>';
+    channels='1. Optimise Airbnb listing title for nearby attractions and transport links<br>2. List on VRBO for family and leisure bookings<br>3. Register on Booking.com for business travellers<br>4. Contact local businesses for employee accommodation during training periods';
+  }
+  return `<strong>Recommended guest mix:</strong> ${guestMix}<br><br><strong>Booking channels to activate:</strong><br>${channels}`;
 }
+
+function generateBreakevenInsight(s){
+  const beOcc=s.beOcc||s.breakEvenOcc||50;
+  const rate=s.nightlyRate||90;
+  const beNights=Math.ceil((beOcc/100)*30);
+  const costPerVoidNight=Math.round((s.rent||0)/30);
+  const scenarios=[
+    {occ:50,rev:Math.round(rate*0.5*30)},
+    {occ:65,rev:Math.round(rate*0.65*30)},
+    {occ:75,rev:Math.round(rate*0.75*30)},
+    {occ:85,rev:Math.round(rate*0.85*30)}
+  ];
+  const fixedCost=(s.rent||0)+(s.bills?Object.values(s.bills).reduce((a,b)=>a+b,0):430);
+  const table=scenarios.map(sc=>{const p=sc.rev-fixedCost;const cls=p>=0?'color:var(--green)':'color:var(--red)';return`<tr><td>${sc.occ}%</td><td>${gbp(sc.rev)}</td><td>${p>=0?'+':''}<span style="${cls}">${gbp(p)}</span></td></tr>`;}).join('');
+  return `<strong>Break-even: ${Math.round(beOcc)}% occupancy = ${beNights} nights/month</strong><br>Every void night costs you ${gbp(costPerVoidNight)} in unrecovered fixed costs.<br><br><strong>Profit sensitivity table:</strong><br><table style="width:100%;font-size:0.78rem;border-collapse:collapse;margin-top:0.5rem"><tr style="font-weight:600;color:var(--text-muted)"><td>Occupancy</td><td>Revenue</td><td>Profit</td></tr>${table}</table><br>Aim to hit break-even within 30 days of launch.`;
+}
+
 function generateRiskInsight(s){
   const beOcc=s.beOcc||s.breakEvenOcc||50;
-  const upfront=s.upfrontTotal||s.upfrontTotal||0;
-  return `Your break-even occupancy of ${Math.round(beOcc)}% means you need ${Math.round(beOcc)}% occupancy just to cover costs. ${beOcc<50?'This is a solid safety buffer.':'Ensure you have 3 months expenses in reserve as a safety net.'} ${upfront>5000?'With '+gbp(upfront)+' upfront capital, protect this investment with a proper SA consent clause and insurance policy.':''}`;
+  const upfront=s.upfrontTotal||0;
+  const prof=s.profit||s.monthlyProfit||0;
+  let riskLevel, actions;
+  if(beOcc<45&&prof>400){
+    riskLevel='<span style="color:var(--green);font-weight:700">LOW RISK</span>';
+    actions='1. Get SA consent clause in writing before signing<br>2. Set up SA-specific insurance (not standard landlord policy)<br>3. Consider a 6-month break clause for flexibility<br>4. Open a separate business bank account for this property';
+  } else if(beOcc<60){
+    riskLevel='<span style="color:var(--amber);font-weight:700">MODERATE RISK</span>';
+    actions='1. Negotiate rent down by 5–10% before proceeding<br>2. Ensure break-even occupancy is achievable within 45 days of launch<br>3. Keep 3 months of rent ('+gbp((s.rent||0)*3)+') in reserve before signing<br>4. Confirm SA consent explicitly in writing — verbal agreements are not enforceable';
+  } else {
+    riskLevel='<span style="color:var(--red);font-weight:700">HIGH RISK</span>';
+    actions='1. Do not sign until rent is reduced — current break-even is '+Math.round(beOcc)+'%, which is too high<br>2. Walk away if landlord won\'t negotiate<br>3. If proceeding, build 6-month cash reserve: '+gbp((s.rent||0)*6)+'<br>4. Consider a managed let arrangement to reduce void risk';
+  }
+  return `<strong>Risk Level: ${riskLevel}</strong><br>Break-even at ${Math.round(beOcc)}% — ${upfront>0?'upfront capital: '+gbp(upfront):''}<br><br><strong>Mitigation actions:</strong><br>${actions}`;
 }
+
+function generateLandlordPitch(s){
+  const rent=s.rent||0;
+  const beds=s.beds||2;
+  const district=s.pcData?.admin_district||s.adminDistrict||'your area';
+  const rentStr=gbp(rent)+'/mo';
+  return `<strong>Suggested pitch script:</strong><br><br><em>"I'm a professional property operator specialising in corporate and contractor accommodation in ${district}. I'd like to take your ${beds}-bed property on a long-term agreement at ${rentStr}, managed to a high standard with no voids, no tenant chasing, and the property returned in better condition than I received it."</em><br><br><strong>Key points to reinforce:</strong><br>1. You pay rent every month regardless of occupancy — guaranteed income for them<br>2. You carry out minor maintenance yourself, reducing their burden<br>3. You want 12–24 month term minimum — stability they rarely get from tenants<br>4. Professional management means better upkeep and faster issue resolution<br><br><strong>Objection handling:</strong><br>• <em>"What about parties?"</em> → Minimum 2-night stays, ID-verified guests on Airbnb, no parties policy on listing<br>• <em>"Is this legal?"</em> → SA operators need landlord consent, which is exactly what you're asking for<br>• <em>"Will my mortgage allow it?"</em> → Many BTL mortgages allow this — suggest they check with their lender`;
+}
+
 function generateNextSteps(s){
   const prof=s.profit||s.monthlyProfit||0;
-  if(prof<=0) return '1. Renegotiate the rent or walk away. 2. Check comparable rents in the area to strengthen your position. 3. If the landlord won\'t move, this is not the right deal.';
-  return `1. Confirm written SA consent in the lease before signing. 2. Set up your Airbnb listing with professional photos within 48 hours of keys. 3. Register with 2-3 contractor booking platforms this week. 4. Set up your channel manager to avoid double bookings.`;
+  const rent=s.rent||0;
+  const rate=s.nightlyRate||90;
+  if(prof<=0) return `<strong>Stop — do not proceed at current numbers.</strong><br><br>1. Identify the primary issue: rent is ${gbp(rent)}/mo vs estimated revenue of ${gbp(Math.round(rate*(s.occupancy||75)/100*30))}/mo<br>2. Return to the landlord and request a rent reduction of ${gbp(Math.abs(prof)+100)}/mo to create a ${gbp(100)} buffer<br>3. If refused, search for comparable properties at lower rent using Deal Finder IQ<br>4. Re-run the analysis with the revised numbers before making any commitment`;
+  return `<strong>Days 1–7:</strong><br>1. Confirm SA consent clause is included in the lease agreement — in writing<br>2. Obtain SA-specific insurance quote (Hamilton Fraser, CIA Insurance)<br>3. Draft your Airbnb listing title and description — don't wait for keys<br><br><strong>Days 8–14:</strong><br>4. Book professional photography (£150–250 investment, pays back in 2 weeks)<br>5. Set up channel manager account (Uplisting, Hostaway, or Guesty Lite)<br>6. Create Booking.com listing and connect to channel manager<br><br><strong>Days 15–30:</strong><br>7. Go live on Airbnb at 10–15% below market rate to attract first bookings<br>8. Target ${Math.ceil((s.beOcc||50)/100*30)} bookings in first month to hit break-even<br>9. Email 5 local construction companies with your accommodation details<br>10. Register on Hotelpads and Chroma Life for contractor bookings`;
+}
+
+function generateMilestones(s){
+  const prof=s.profit||s.monthlyProfit||0;
+  const upfront=s.upfrontTotal||0;
+  const recoup=prof>0?Math.ceil(upfront/prof):null;
+  const yr1=prof*12, yr2=prof*24, yr3=prof*36;
+  const recoupStr=recoup?`${recoup} months (${recoup>12?Math.round(recoup/12)+' years':recoup+' months'})`:'N/A — deal not profitable';
+  return `<strong>This property's financial trajectory:</strong><br><br><table style="width:100%;font-size:0.78rem;border-collapse:collapse"><tr style="font-weight:600;color:var(--text-muted)"><td>Milestone</td><td>Figure</td></tr><tr><td>Monthly profit</td><td><strong>${gbp(prof)}/mo</strong></td></tr><tr><td>Break-even upfront capital</td><td>${recoupStr}</td></tr><tr><td>Year 1 cumulative profit</td><td>${gbp(Math.round(yr1))}</td></tr><tr><td>Year 2 cumulative profit</td><td>${gbp(Math.round(yr2))}</td></tr><tr><td>Year 3 cumulative profit</td><td>${gbp(Math.round(yr3))}</td></tr></table><br>${prof>=500?`<strong>Portfolio note:</strong> At ${gbp(prof)}/mo per property, you'd need ${Math.ceil(3000/prof)} properties to reach a ${gbp(3000)}/mo income. With 2 properties/year that's ${Math.ceil(Math.ceil(3000/prof)/2)} years to financial freedom.`:'Focus on improving this deal\'s margins before scaling.'}`;
 }
 
 /* ════ CRM ══════════════════════════════════════════════════ */
@@ -3629,15 +3856,18 @@ function bindEvents() {
   qs('btn-analyse').addEventListener('click',doAnalyse);
   qs('postcode').addEventListener('keydown',e=>{if(e.key==='Enter') doAnalyse();});
   qs('occupancy-slider').addEventListener('input',e=>{S.occupancy=+e.target.value;qs('occupancy-display').textContent=e.target.value+'%';calcRevenue();});
-  qs('nightly-rate').addEventListener('input',e=>{S.nightlyRate=+e.target.value;calcRevenue();});
+  qs('nightly-rate').addEventListener('input',e=>{S.nightlyRate=+e.target.value;const b=qs('nightly-rate-source');if(b)b.style.display='none';calcRevenue();});
   qs('maintenance-pct').addEventListener('input',e=>{S.maintPct=+e.target.value;qs('maintenance-pct-display').textContent=e.target.value+'%';calcRevenue();});
+  qs('platform-fee-pct').addEventListener('input',e=>{S.platformFeePct=+e.target.value;qs('platform-fee-pct-display').textContent=e.target.value+'%';calcRevenue();});
   ['upfront-months','deposit-months'].forEach(id=>{qs(id).addEventListener('change',()=>{calcUpfront();calcRevenue();});});
   qs('furnishing-cost').addEventListener('input',()=>{calcUpfront();calcRevenue();});
   qs('btn-save-deal').addEventListener('click',doSaveDeal);
   qs('btn-calc-risk').addEventListener('click',calcRiskScore);
   initRiskToggles();
-  // Finder page search links
+  // Finder page
   ['finder-postcode','finder-beds','finder-max-rent'].forEach(id=>{qs(id).addEventListener('input',renderFinderSearchLinks);});
+  qs('finder-postcode').addEventListener('keydown',e=>{if(e.key==='Enter') fetchOpenRentListings();});
+  qs('btn-search-openrent').addEventListener('click',fetchOpenRentListings);
   qs('btn-save-lead').addEventListener('click',saveLead);
   qs('btn-cancel-edit').addEventListener('click',()=>{
     ['name','phone','email','postcode','notes'].forEach(f=>{const el=qs('crm-'+f);if(el)el.value='';});
