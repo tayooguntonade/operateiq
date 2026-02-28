@@ -750,16 +750,15 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
 /* ── TIER BADGE ── */
 .tier-badge{display:inline-block;font-size:0.6rem;font-weight:800;text-transform:uppercase;letter-spacing:0.07em;padding:0.18rem 0.55rem;border-radius:100px;margin-top:2px}
 .tier-free{background:rgba(148,163,184,0.15);color:var(--text-muted)}
-.tier-solo{background:var(--gold-pale);color:#a07a20}
+.tier-premium{background:var(--gold-pale);color:#a07a20}
 .tier-pro{background:rgba(124,58,237,0.1);color:#7c3aed}
-.tier-agency{background:rgba(5,150,105,0.1);color:var(--green)}
-.nav-item .nav-lock{font-size:0.7rem;margin-left:auto;opacity:0.5;display:none}
-.nav-item.premium-nav .nav-lock{display:inline}
+.nav-item .nav-lock{margin-left:auto;opacity:0.4;display:none;color:#94a3b8}
+.nav-item.premium-nav .nav-lock{display:inline-flex}
 
 /* ── PREMIUM GATE ── */
 .premium-gate{position:relative;min-height:200px}
 .gate-overlay{position:absolute;inset:0;background:rgba(241,244,249,0.92);backdrop-filter:blur(6px);display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:var(--radius);z-index:20;gap:0.75rem;text-align:center;padding:2rem}
-.gate-icon{font-size:2rem}
+.gate-icon{color:var(--navy);opacity:0.35}
 .gate-title{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:1.1rem;color:var(--navy)}
 .gate-desc{font-size:0.875rem;color:var(--text-sec);max-width:320px;line-height:1.5}
 .gate-price{font-size:0.78rem;color:var(--text-muted);margin-top:-0.25rem}
@@ -798,28 +797,28 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
   </div>
   <div class="sidebar-nav">
     <button class="nav-item" id="nav-operator" onclick="showPage('operator')">
-      <span class="nav-icon">👤</span>Operator Profile
+      <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></span>Operator Profile
     </button>
     <button class="nav-item active" id="nav-analyse" onclick="showPage('analyse')">
-      <span class="nav-icon">🏠</span>Deal Analyser
+      <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></span>Deal Analyser
     </button>
     <button class="nav-item premium-nav" id="nav-market" onclick="showPage('market')">
-      <span class="nav-icon">📊</span>Market Analysis<span class="nav-lock">🔒</span>
+      <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span>Market Analysis<span class="nav-lock"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
     </button>
     <button class="nav-item premium-nav" id="nav-toolkit" onclick="showPage('toolkit')">
-      <span class="nav-icon">🔨</span>Long Term Toolkit<span class="nav-lock">🔒</span>
+      <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>Long Term Toolkit<span class="nav-lock"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
     </button>
     <button class="nav-item" id="nav-finder" onclick="showPage('finder')">
-      <span class="nav-icon">🔍</span>Deal Finder IQ
+      <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>Deal Finder IQ
     </button>
     <button class="nav-item" id="nav-deals" onclick="showPage('deals')">
-      <span class="nav-icon">📁</span>My Deals
+      <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span>My Deals
     </button>
     <button class="nav-item premium-nav" id="nav-portfolio" onclick="showPage('portfolio')">
-      <span class="nav-icon">💼</span>My Portfolio<span class="nav-lock">🔒</span>
+      <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span>My Portfolio<span class="nav-lock"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
     </button>
     <button class="nav-item premium-nav" id="nav-mentor" onclick="showPage('mentor')">
-      <span class="nav-icon">🎓</span>Mentor Mode<span class="nav-lock">🔒</span>
+      <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>Mentor Mode<span class="nav-lock"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
     </button>
   </div>
   <div class="sidebar-footer">
@@ -2222,7 +2221,7 @@ function qs(id) { return document.getElementById(id); }
 
 /* ════ TIER / PREMIUM GATING ════════════════════════════════ */
 function isPremium() {
-  return ['solo','pro','agency'].includes(userProfile?.tier) || userProfile?.role === 'admin';
+  return ['premium','pro'].includes(userProfile?.tier) || userProfile?.role === 'admin';
 }
 function showGate(containerId, featureName, price) {
   const el = qs(containerId);
@@ -2234,11 +2233,11 @@ function showGate(containerId, featureName, price) {
   const overlay = document.createElement('div');
   overlay.className = 'gate-overlay';
   overlay.innerHTML = `
-    <div class="gate-icon">🔒</div>
+    <div class="gate-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
     <div class="gate-title">${featureName}</div>
     <div class="gate-desc">Upgrade to unlock live data, AI analysis and full portfolio tools.</div>
-    <div class="gate-price">From £29/month · Cancel anytime</div>
-    <button class="btn-upgrade" onclick="showPage('operator')">Upgrade to Pro →</button>`;
+    <div class="gate-price">From £69/month · Cancel anytime</div>
+    <button class="btn-upgrade" onclick="showPage('operator')">Upgrade to Premium →</button>`;
   el.appendChild(overlay);
 }
 function removeGate(containerId) {
@@ -2262,17 +2261,17 @@ function showPage(id) {
   closeSidebar();
   if(id==='deals')     { loadDealsPage(); loadDealsForCoachDropdown(); }
   if(id==='portfolio') {
-    if(!isPremium()) { showGate('page-portfolio','My Portfolio & P&L Tracker','£29/mo'); return; }
+    if(!isPremium()) { showGate('page-portfolio','My Portfolio & P&L Tracker','£69/mo'); return; }
     removeGate('page-portfolio'); loadPortfolioPage();
   }
   if(id==='market')    {
-    if(!isPremium()) { showGate('page-market','Live Market Analysis','£29/mo'); return; }
+    if(!isPremium()) { showGate('page-market','Live Market Analysis','£69/mo'); return; }
     removeGate('page-market'); loadDealsForMarketDropdown();
   }
   if(id==='toolkit')   { loadDealsForToolkitDropdown(); renderToolkitIfReady(); }
   if(id==='operator')  { loadOperatorProfile(); }
   if(id==='mentor')    {
-    if(!isPremium()) { showGate('page-mentor','Mentor Mode','£29/mo'); return; }
+    if(!isPremium()) { showGate('page-mentor','Mentor Mode','£69/mo'); return; }
     removeGate('page-mentor'); loadMentorPage();
   }
 }
@@ -3639,7 +3638,7 @@ function calcPortfolio() {
 
 /* ════ AI DEAL COACH / STRATEGY ════════════════════════════ */
 function generateStrategy() {
-  if (!isPremium()) { showGate('card-coach','AI Deal Coach','£29/mo'); return; }
+  if (!isPremium()) { showGate('card-coach','AI Deal Coach','£69/mo'); return; }
   const sel=qs('coach-deal-select').value;
   let coachS;
   if(sel==='current'||!sel){
