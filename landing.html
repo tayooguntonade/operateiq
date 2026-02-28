@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OperateIQ — Serviced Accommodation Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0d1b3e;
+  --navy-mid:#162144;
+  --navy-light:#1e2d5a;
+  --gold:#C9A84C;
+  --gold-light:#e8c96a;
+  --gold-pale:rgba(201,168,76,0.12);
+  --green:#059669;
+  --text:#1e293b;
+  --text-sec:#475569;
+  --text-muted:#94a3b8;
+  --border:#e2e8f0;
+  --surface:#ffffff;
+  --bg:#f1f4f9;
+  --radius:12px;
+  --radius-sm:8px;
+  --radius-lg:20px;
+  --shadow:0 4px 6px rgba(0,0,0,0.06),0 2px 4px rgba(0,0,0,0.04);
+  --shadow-lg:0 20px 40px rgba(0,0,0,0.12),0 8px 16px rgba(0,0,0,0.06);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--text);background:#fff;line-height:1.6}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(13,27,62,0.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.15)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 1.5rem;height:64px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:0.65rem;text-decoration:none}
+.nav-logo-icon{width:34px;height:34px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:0.85rem;color:var(--navy)}
+.nav-logo-text{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.1rem;color:#fff}
+.nav-logo-sub{font-size:0.62rem;color:rgba(201,168,76,0.7);letter-spacing:0.08em;text-transform:uppercase;display:block;line-height:1}
+.nav-links{display:flex;align-items:center;gap:0.75rem}
+.nav-link{color:rgba(255,255,255,0.75);text-decoration:none;font-size:0.875rem;font-weight:500;padding:0.4rem 0.75rem;border-radius:var(--radius-sm);transition:all 0.2s}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,0.08)}
+.btn{display:inline-flex;align-items:center;gap:0.4rem;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;border-radius:var(--radius-sm);cursor:pointer;transition:all 0.2s;text-decoration:none;border:none;font-size:0.875rem;white-space:nowrap}
+.btn-primary{background:var(--gold);color:var(--navy);padding:0.55rem 1.25rem}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-1px);box-shadow:0 4px 12px rgba(201,168,76,0.35)}
+.btn-outline{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,0.25);padding:0.5rem 1.2rem}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.btn-lg{font-size:1rem;padding:0.8rem 2rem;border-radius:var(--radius)}
+.btn-xl{font-size:1.1rem;padding:0.9rem 2.25rem;border-radius:var(--radius)}
+
+/* ── HERO ── */
+.hero{background:var(--navy);padding:140px 1.5rem 100px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% -10%,rgba(201,168,76,0.12),transparent)}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.3),transparent)}
+.hero-inner{max-width:900px;margin:0 auto;text-align:center;position:relative}
+.hero-ticker{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.25);border-radius:100px;padding:0.4rem 1rem;margin-bottom:2rem}
+.ticker-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.ticker-text{font-size:0.78rem;color:var(--gold);font-weight:600;letter-spacing:0.04em}
+#ticker-content{display:inline;transition:opacity 0.4s}
+.hero h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:1.25rem}
+.hero h1 span{color:var(--gold)}
+.hero-sub{font-size:1.15rem;color:rgba(255,255,255,0.65);max-width:640px;margin:0 auto 2.5rem;line-height:1.7}
+.hero-ctas{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap}
+.hero-stats{display:flex;align-items:center;justify-content:center;gap:2.5rem;margin-top:3.5rem;flex-wrap:wrap;padding-top:2.5rem;border-top:1px solid rgba(255,255,255,0.08)}
+.hero-stat{text-align:center}
+.hero-stat-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:2rem;font-weight:800;color:var(--gold);display:block}
+.hero-stat-label{font-size:0.78rem;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.06em}
+
+/* ── PROBLEM BAR ── */
+.problem-bar{background:var(--gold);padding:1.25rem 1.5rem}
+.problem-bar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:0.75rem;flex-wrap:wrap;text-align:center}
+.problem-bar p{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1rem;color:var(--navy)}
+.problem-bar strong{font-size:1.05rem}
+
+/* ── SECTIONS ── */
+section{padding:80px 1.5rem}
+.section-inner{max-width:1200px;margin:0 auto}
+.section-label{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);margin-bottom:0.75rem}
+.section-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.75rem,3vw,2.5rem);font-weight:800;color:var(--navy);line-height:1.25;margin-bottom:1rem}
+.section-sub{font-size:1.05rem;color:var(--text-sec);max-width:580px;line-height:1.7}
+
+/* ── FEATURES ── */
+.features-section{background:#fff}
+.features-header{text-align:center;margin-bottom:3.5rem}
+.features-header .section-sub{margin:0 auto}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem}
+.feature-card{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--radius);padding:1.75rem;position:relative;transition:all 0.2s}
+.feature-card:hover{border-color:var(--gold);background:#fff;box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.feature-card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem}
+.feature-icon{width:44px;height:44px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0}
+.feature-icon-blue{background:rgba(37,99,235,0.1)}
+.feature-icon-gold{background:var(--gold-pale)}
+.feature-icon-green{background:rgba(5,150,105,0.1)}
+.feature-icon-purple{background:rgba(124,58,237,0.1)}
+.feature-tier{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;padding:0.25rem 0.65rem;border-radius:100px}
+.tier-free{background:rgba(5,150,105,0.1);color:var(--green)}
+.tier-pro{background:var(--gold-pale);color:#a07a20}
+.feature-card h3{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1rem;color:var(--navy);margin-bottom:0.4rem}
+.feature-card p{font-size:0.875rem;color:var(--text-sec);line-height:1.6}
+.feature-list{list-style:none;margin-top:1rem;display:flex;flex-direction:column;gap:0.35rem}
+.feature-list li{font-size:0.8rem;color:var(--text-sec);display:flex;align-items:center;gap:0.5rem}
+.feature-list li::before{content:'✓';color:var(--gold);font-weight:700;flex-shrink:0}
+
+/* ── VOID CALCULATOR ── */
+.calc-section{background:var(--navy);padding:80px 1.5rem}
+.calc-inner{max-width:700px;margin:0 auto;text-align:center}
+.calc-inner .section-title{color:#fff}
+.calc-inner .section-sub{color:rgba(255,255,255,0.6);margin:0 auto 2.5rem}
+.calc-card{background:rgba(255,255,255,0.06);border:1px solid rgba(201,168,76,0.2);border-radius:var(--radius-lg);padding:2.5rem}
+.calc-row{display:flex;align-items:center;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem}
+.calc-label{font-size:0.95rem;color:rgba(255,255,255,0.7);font-weight:500}
+.calc-input-wrap{position:relative}
+.calc-input-wrap span{position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:var(--gold);font-weight:700;font-size:1.1rem}
+.calc-input{background:rgba(255,255,255,0.08);border:1.5px solid rgba(201,168,76,0.3);border-radius:var(--radius-sm);padding:0.7rem 1rem 0.7rem 2.2rem;font-size:1.25rem;font-weight:700;color:#fff;font-family:'Plus Jakarta Sans',sans-serif;width:140px;text-align:right;outline:none}
+.calc-input:focus{border-color:var(--gold)}
+.calc-result{background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);border-radius:var(--radius);padding:1.5rem;margin-top:1.5rem}
+.calc-result-row{display:flex;justify-content:space-between;align-items:center;padding:0.6rem 0;border-bottom:1px solid rgba(201,168,76,0.1)}
+.calc-result-row:last-child{border-bottom:none}
+.calc-result-label{font-size:0.875rem;color:rgba(255,255,255,0.6)}
+.calc-result-val{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:1.1rem;color:#fff}
+.calc-verdict{margin-top:1.25rem;padding:1rem;background:rgba(5,150,105,0.15);border-radius:var(--radius-sm);border:1px solid rgba(5,150,105,0.3)}
+.calc-verdict p{font-size:0.9rem;color:#6ee7b7;font-weight:500}
+.calc-verdict strong{color:#fff}
+
+/* ── PRICING ── */
+.pricing-section{background:var(--bg)}
+.pricing-header{text-align:center;margin-bottom:3.5rem}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;max-width:960px;margin:0 auto}
+.pricing-card{background:#fff;border:1.5px solid var(--border);border-radius:var(--radius-lg);padding:2rem;position:relative;transition:all 0.2s}
+.pricing-card.popular{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold),var(--shadow-lg)}
+.pricing-popular-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--navy);font-size:0.7rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;padding:0.3rem 1rem;border-radius:100px;white-space:nowrap}
+.pricing-tier{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:0.5rem}
+.pricing-price{margin:0.75rem 0 0.25rem}
+.pricing-price-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:2.5rem;font-weight:800;color:var(--navy)}
+.pricing-price-per{font-size:0.875rem;color:var(--text-muted)}
+.pricing-desc{font-size:0.875rem;color:var(--text-sec);margin-bottom:1.5rem;line-height:1.5}
+.pricing-cta{width:100%;text-align:center;display:block;padding:0.7rem;border-radius:var(--radius-sm);font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:0.9rem;cursor:pointer;transition:all 0.2s;text-decoration:none;border:none}
+.pricing-cta-primary{background:var(--gold);color:var(--navy)}
+.pricing-cta-primary:hover{background:var(--gold-light)}
+.pricing-cta-outline{background:transparent;border:1.5px solid var(--border);color:var(--text)}
+.pricing-cta-outline:hover{border-color:var(--navy);color:var(--navy)}
+.pricing-features{list-style:none;margin-top:1.5rem;display:flex;flex-direction:column;gap:0.6rem}
+.pricing-features li{font-size:0.83rem;color:var(--text-sec);display:flex;align-items:flex-start;gap:0.6rem;line-height:1.5}
+.pricing-features li .check{color:var(--green);font-weight:700;flex-shrink:0;margin-top:0.1rem}
+.pricing-features li .lock{color:var(--text-muted);flex-shrink:0;margin-top:0.1rem}
+.pricing-divider{border:none;border-top:1px solid var(--border);margin:1.25rem 0}
+
+/* ── CTA BANNER ── */
+.cta-banner{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);padding:80px 1.5rem;text-align:center;position:relative;overflow:hidden}
+.cta-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 80% 50%,rgba(201,168,76,0.08),transparent)}
+.cta-banner h2{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(1.75rem,3.5vw,2.75rem);font-weight:800;color:#fff;max-width:760px;margin:0 auto 1rem;line-height:1.3}
+.cta-banner h2 span{color:var(--gold)}
+.cta-banner p{font-size:1.1rem;color:rgba(255,255,255,0.6);max-width:540px;margin:0 auto 2.5rem}
+.cta-banner-btns{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap}
+
+/* ── FOOTER ── */
+footer{background:var(--navy);border-top:1px solid rgba(255,255,255,0.06);padding:2.5rem 1.5rem}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-logo{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:rgba(255,255,255,0.6);font-size:0.875rem}
+.footer-links{display:flex;gap:1.5rem}
+.footer-links a{color:rgba(255,255,255,0.4);font-size:0.8rem;text-decoration:none;transition:color 0.2s}
+.footer-links a:hover{color:rgba(255,255,255,0.7)}
+.footer-copy{color:rgba(255,255,255,0.3);font-size:0.78rem}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .nav-links .nav-link{display:none}
+  .hero{padding:110px 1.25rem 70px}
+  .hero-stats{gap:1.5rem}
+  .pricing-grid{grid-template-columns:1fr}
+  .features-grid{grid-template-columns:1fr}
+  .footer-inner{flex-direction:column;text-align:center}
+  .footer-links{justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="landing.html" class="nav-logo">
+      <div class="nav-logo-icon">OQ</div>
+      <div>
+        <span class="nav-logo-text">OperateIQ</span>
+        <span class="nav-logo-sub">Deal Intelligence</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="#features" class="nav-link">Features</a>
+      <a href="#pricing" class="nav-link">Pricing</a>
+      <a href="index.html" class="nav-link">Sign In</a>
+      <a href="index.html" class="btn btn-primary">Get Started Free</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-ticker">
+      <span class="ticker-dot"></span>
+      <span class="ticker-text" id="ticker-content">Analyse a deal in 90 seconds</span>
+    </div>
+    <h1>Stop Losing Money<br>to <span>Voids</span>.</h1>
+    <p class="hero-sub">OperateIQ gives serviced accommodation operators the data, AI coaching and deal tools to fill every night — and make every property profitable from day one.</p>
+    <div class="hero-ctas">
+      <a href="index.html" class="btn btn-primary btn-xl">Start Free →</a>
+      <a href="#features" class="btn btn-outline btn-lg">See How It Works</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num">90s</span>
+        <span class="hero-stat-label">Deal Analysis</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">8</span>
+        <span class="hero-stat-label">AI Coach Sections</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">Live</span>
+        <span class="hero-stat-label">Airbnb Rate Data</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num">£0</span>
+        <span class="hero-stat-label">To Start</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM BAR -->
+<div class="problem-bar">
+  <div class="problem-bar-inner">
+    <p>⚡ <strong>The average SA operator loses £400/month to preventable voids.</strong> OperateIQ fixes that — starting with better deals, better data, and smarter pricing.</p>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features-section" id="features">
+  <div class="section-inner">
+    <div class="features-header">
+      <p class="section-label">Everything You Need</p>
+      <h2 class="section-title">Built for SA operators who<br>mean business</h2>
+      <p class="section-sub">Every tool is purpose-built for the UK serviced accommodation market — not a generic property spreadsheet.</p>
+    </div>
+    <div class="features-grid">
+
+      <div class="feature-card">
+        <div class="feature-card-top">
+          <div class="feature-icon feature-icon-blue">🏠</div>
+          <span class="feature-tier tier-free">Free</span>
+        </div>
+        <h3>Deal Analyser</h3>
+        <p>Model any property in 90 seconds. Enter a postcode and get instant yield, profit, break-even occupancy and risk score.</p>
+        <ul class="feature-list">
+          <li>Rent, bills & costs auto-populated</li>
+          <li>Platform fee slider</li>
+          <li>Risk rating & contractor score</li>
+          <li>Save deals for later</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-card-top">
+          <div class="feature-icon feature-icon-gold">🤖</div>
+          <span class="feature-tier tier-pro">Pro</span>
+        </div>
+        <h3>AI Deal Coach</h3>
+        <p>Get a full 8-section AI analysis of every deal — pricing strategy, guest mix, break-even, landlord pitch and 30-day action plan.</p>
+        <ul class="feature-list">
+          <li>Weekday/weekend rate table</li>
+          <li>Guest type breakdown</li>
+          <li>Landlord objection handling</li>
+          <li>30-day launch milestones</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-card-top">
+          <div class="feature-icon feature-icon-green">📊</div>
+          <span class="feature-tier tier-pro">Pro</span>
+        </div>
+        <h3>Market Analysis</h3>
+        <p>Pull live Airbnb comparables for any area. See real nightly rates, occupancy patterns and competitor pricing — before you sign.</p>
+        <ul class="feature-list">
+          <li>Live Airbnb rate data</li>
+          <li>Nearby comps with ratings</li>
+          <li>ADR vs benchmark comparison</li>
+          <li>Regional rental data</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-card-top">
+          <div class="feature-icon feature-icon-blue">🔍</div>
+          <span class="feature-tier tier-free">Free</span>
+        </div>
+        <h3>Deal Finder IQ</h3>
+        <p>Search Rightmove, Zoopla and SpareRoom from one place. Score every listing for company-let suitability before you call.</p>
+        <ul class="feature-list">
+          <li>Multi-portal search links</li>
+          <li>Company-let suitability score</li>
+          <li>Listing pipeline management</li>
+          <li>Landlord contact tracker</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-card-top">
+          <div class="feature-icon feature-icon-purple">💰</div>
+          <span class="feature-tier tier-pro">Pro</span>
+        </div>
+        <h3>P&L Tracker</h3>
+        <p>Log monthly actuals against projections for every property. Spot underperformers before they become problems.</p>
+        <ul class="feature-list">
+          <li>Monthly income vs projection</li>
+          <li>Visual bar + line charts</li>
+          <li>Per-property breakdown</li>
+          <li>Variance alerts</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-card-top">
+          <div class="feature-icon feature-icon-gold">🔨</div>
+          <span class="feature-tier tier-pro">Pro</span>
+        </div>
+        <h3>Long-Term Toolkit</h3>
+        <p>Find relocation companies, NHS trusts and corporate clients in any area. Plus live development intelligence for every postcode.</p>
+        <ul class="feature-list">
+          <li>Companies House search</li>
+          <li>Google search keyword chips</li>
+          <li>Local development news</li>
+          <li>Insurance & NHS client guides</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- VOID CALCULATOR -->
+<section class="calc-section">
+  <div class="calc-inner">
+    <p class="section-label" style="color:rgba(201,168,76,0.7)">The Maths is Simple</p>
+    <h2 class="section-title">One void night covers<br>a whole month of OperateIQ</h2>
+    <p class="section-sub">Enter your nightly rate and see exactly how fast this pays for itself.</p>
+    <div class="calc-card">
+      <div class="calc-row">
+        <span class="calc-label">My nightly rate is</span>
+        <div class="calc-input-wrap">
+          <span>£</span>
+          <input type="number" class="calc-input" id="calc-rate" value="95" min="1" max="999" oninput="updateCalc()">
+        </div>
+        <span class="calc-label">per night</span>
+      </div>
+      <div class="calc-result">
+        <div class="calc-result-row">
+          <span class="calc-result-label">Cost of 1 void night</span>
+          <span class="calc-result-val" id="calc-void">£95</span>
+        </div>
+        <div class="calc-result-row">
+          <span class="calc-result-label">OperateIQ Solo (per month)</span>
+          <span class="calc-result-val" style="color:var(--gold)">£29</span>
+        </div>
+        <div class="calc-result-row">
+          <span class="calc-result-label">Voids needed to pay for itself</span>
+          <span class="calc-result-val" id="calc-voids">less than 1 night</span>
+        </div>
+      </div>
+      <div class="calc-verdict" id="calc-verdict">
+        <p>At <strong id="calc-rate-display">£95/night</strong>, OperateIQ pays for itself if it prevents just <strong>1 partial void per month</strong>. That's less than 4 hours of occupancy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="section-inner">
+    <div class="pricing-header">
+      <p class="section-label">Simple Pricing</p>
+      <h2 class="section-title">Start free. Upgrade when you're ready.</h2>
+      <p class="section-sub" style="margin:0 auto">No contracts. Cancel anytime. All plans include full access to start — pay when you scale.</p>
+    </div>
+    <div class="pricing-grid">
+
+      <!-- FREE -->
+      <div class="pricing-card">
+        <p class="pricing-tier">Free Forever</p>
+        <div class="pricing-price">
+          <span class="pricing-price-num">£0</span>
+          <span class="pricing-price-per">/month</span>
+        </div>
+        <p class="pricing-desc">Everything you need to analyse your first deals and get started.</p>
+        <a href="index.html" class="pricing-cta pricing-cta-outline">Get Started Free</a>
+        <hr class="pricing-divider">
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> Deal Analyser (benchmark data)</li>
+          <li><span class="check">✓</span> Save up to 3 deals</li>
+          <li><span class="check">✓</span> Deal Finder (portal links)</li>
+          <li><span class="check">✓</span> Operator Profile</li>
+          <li><span class="lock">—</span> Live Airbnb rate data</li>
+          <li><span class="lock">—</span> AI Deal Coach</li>
+          <li><span class="lock">—</span> Market Analysis</li>
+          <li><span class="lock">—</span> P&L Tracker</li>
+        </ul>
+      </div>
+
+      <!-- SOLO -->
+      <div class="pricing-card popular">
+        <div class="pricing-popular-badge">Most Popular</div>
+        <p class="pricing-tier">Solo Operator</p>
+        <div class="pricing-price">
+          <span class="pricing-price-num">£29</span>
+          <span class="pricing-price-per">/month</span>
+        </div>
+        <p class="pricing-desc">For operators with 1–2 properties who want the full data advantage.</p>
+        <a href="index.html" class="pricing-cta pricing-cta-primary">Start Solo →</a>
+        <hr class="pricing-divider">
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> Everything in Free</li>
+          <li><span class="check">✓</span> Live Airbnb nightly rates</li>
+          <li><span class="check">✓</span> AI Deal Coach (8 sections)</li>
+          <li><span class="check">✓</span> Full Market Analysis</li>
+          <li><span class="check">✓</span> P&L Tracker with charts</li>
+          <li><span class="check">✓</span> My Portfolio (1 property)</li>
+          <li><span class="check">✓</span> Companies House search</li>
+          <li><span class="check">✓</span> Development Intelligence</li>
+        </ul>
+      </div>
+
+      <!-- PRO -->
+      <div class="pricing-card">
+        <p class="pricing-tier">Pro</p>
+        <div class="pricing-price">
+          <span class="pricing-price-num">£49</span>
+          <span class="pricing-price-per">/month</span>
+        </div>
+        <p class="pricing-desc">For growing operators with multiple properties and a serious pipeline.</p>
+        <a href="index.html" class="pricing-cta pricing-cta-outline">Start Pro →</a>
+        <hr class="pricing-divider">
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> Everything in Solo</li>
+          <li><span class="check">✓</span> Up to 5 properties</li>
+          <li><span class="check">✓</span> Unlimited saved deals</li>
+          <li><span class="check">✓</span> Portfolio performance tracking</li>
+          <li><span class="check">✓</span> Long Term Booking Toolkit</li>
+          <li><span class="check">✓</span> Mentor Mode sharing</li>
+          <li><span class="check">✓</span> Priority support</li>
+          <li><span class="check">✓</span> Export reports (coming soon)</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <h2>If your property charges more than <span>£75/night</span>,<br>this costs less than one void night.</h2>
+  <p>Stop guessing. Start operating with data. Join SA operators already using OperateIQ to reduce voids and win long-term bookings.</p>
+  <div class="cta-banner-btns">
+    <a href="index.html" class="btn btn-primary btn-xl">Start Free — No Card Needed →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-logo">OperateIQ · Serviced Accommodation Intelligence</span>
+    <div class="footer-links">
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="index.html">Sign In</a>
+    </div>
+    <span class="footer-copy">© 2025 OperateIQ. All rights reserved.</span>
+  </div>
+</footer>
+
+<script>
+// Ticker rotation
+const tickers = [
+  'Analyse a deal in 90 seconds',
+  'AI coached 34% higher occupancy',
+  '£1,240/mo profit — 2-bed Manchester',
+  'Live Airbnb rates. Real decisions.',
+  'Prevent one void. Pay for a year.'
+];
+let tickerIdx = 0;
+function rotateTicker() {
+  const el = document.getElementById('ticker-content');
+  el.style.opacity = '0';
+  setTimeout(() => {
+    tickerIdx = (tickerIdx + 1) % tickers.length;
+    el.textContent = tickers[tickerIdx];
+    el.style.opacity = '1';
+  }, 400);
+}
+setInterval(rotateTicker, 3000);
+
+// Void calculator
+function updateCalc() {
+  const rate = parseFloat(document.getElementById('calc-rate').value) || 0;
+  const cost = 29;
+  document.getElementById('calc-void').textContent = '£' + rate.toFixed(0);
+  document.getElementById('calc-rate-display').textContent = '£' + rate.toFixed(0) + '/night';
+
+  if (rate <= 0) {
+    document.getElementById('calc-voids').textContent = '—';
+    document.getElementById('calc-verdict').querySelector('p').innerHTML = 'Enter your nightly rate above.';
+    return;
+  }
+
+  const voids = cost / rate;
+  if (voids < 1) {
+    const hours = Math.round(voids * 24);
+    document.getElementById('calc-voids').textContent = 'less than 1 night';
+    document.getElementById('calc-verdict').querySelector('p').innerHTML =
+      `At <strong>£${rate}/night</strong>, OperateIQ pays for itself if it prevents just <strong>${hours} hours of voids per month</strong>. That's less than one afternoon.`;
+  } else {
+    const nights = voids.toFixed(1);
+    document.getElementById('calc-voids').textContent = nights + ' nights';
+    document.getElementById('calc-verdict').querySelector('p').innerHTML =
+      `At <strong>£${rate}/night</strong>, OperateIQ pays for itself after preventing just <strong>${nights} void nights per month</strong>.`;
+  }
+}
+updateCalc();
+</script>
+</body>
+</html>
