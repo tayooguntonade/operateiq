@@ -577,6 +577,61 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
 .airdna-key-row{display:flex;gap:0.75rem;align-items:flex-end;margin-bottom:1rem;flex-wrap:wrap}
 .airdna-key-row .field-group{flex:1;min-width:200px}
 
+/* ─── MARKET KEYWORD SIGNALS ────────────────────────────── */
+.kw-signals{margin-top:1.25rem;padding-top:1.125rem;border-top:1px solid var(--border)}
+.kw-signals-title{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:0.625rem}
+.kw-pills{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:0.5rem}
+.kw-pill{display:inline-flex;align-items:center;padding:0.22rem 0.7rem;border-radius:50px;font-size:0.7rem;font-weight:700;letter-spacing:0.03em}
+.kw-pill.positive{background:rgba(5,150,105,0.1);color:var(--green);border:1px solid rgba(5,150,105,0.25)}
+.kw-pill.signal{background:var(--blue-bg);color:var(--blue);border:1px solid rgba(37,99,235,0.2)}
+.kw-summary{font-size:0.82rem;color:var(--text-sec);margin-top:0.5rem;line-height:1.55}
+
+/* ─── CONTRACTOR ACCORDION ───────────────────────────────── */
+.factor-accordion{border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;margin-bottom:0.5rem}
+.factor-header{display:flex;align-items:center;justify-content:space-between;padding:0.75rem 1rem;cursor:pointer;background:var(--surface-alt);gap:0.75rem;user-select:none}
+.factor-header:hover{background:var(--gold-pale)}
+.factor-title{font-size:0.85rem;font-weight:700;color:var(--navy);flex:1}
+.factor-score-pill{font-size:0.7rem;font-weight:700;padding:0.18rem 0.6rem;border-radius:50px;flex-shrink:0}
+.factor-score-pill.high{background:rgba(5,150,105,0.1);color:var(--green);border:1px solid rgba(5,150,105,0.2)}
+.factor-score-pill.medium{background:var(--amber-bg);color:var(--amber);border:1px solid rgba(217,119,6,0.2)}
+.factor-score-pill.low{background:var(--red-bg);color:var(--red);border:1px solid rgba(220,38,38,0.2)}
+.factor-chevron{color:var(--text-muted);transition:transform 0.2s;font-size:0.75rem}
+.factor-body{display:none;padding:0.875rem 1rem;border-top:1px solid var(--border);font-size:0.82rem;color:var(--text-sec);line-height:1.65;background:#fff}
+.factor-body.open{display:block}
+.factor-why-btn{font-size:0.72rem;font-weight:600;color:var(--gold);background:none;border:none;cursor:pointer;padding:0;margin-top:0.1rem;text-decoration:underline;text-underline-offset:2px}
+
+/* ─── CURATED COMPANIES (Rehousing Finder) ─────────────── */
+.company-filter-bar{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem}
+.company-filter-btn{padding:0.3rem 0.9rem;border-radius:50px;font-size:0.72rem;font-weight:700;border:1.5px solid var(--border);background:#fff;color:var(--text-sec);cursor:pointer;transition:var(--transition)}
+.company-filter-btn.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.company-cards{display:flex;flex-direction:column;gap:0.5rem}
+.company-card{display:flex;align-items:flex-start;gap:0.875rem;padding:0.875rem 1rem;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface-alt);transition:var(--transition)}
+.company-card:hover{border-color:rgba(201,168,76,0.4);background:var(--gold-pale)}
+.company-cat-pill{font-size:0.62rem;font-weight:700;text-transform:uppercase;padding:0.18rem 0.55rem;border-radius:50px;flex-shrink:0;margin-top:2px}
+.company-cat-pill.insurance{background:rgba(59,130,246,0.1);color:#2563eb;border:1px solid rgba(59,130,246,0.2)}
+.company-cat-pill.corporate{background:rgba(201,168,76,0.15);color:var(--amber);border:1px solid rgba(201,168,76,0.3)}
+.company-cat-pill.nhs{background:rgba(5,150,105,0.1);color:var(--green);border:1px solid rgba(5,150,105,0.2)}
+.company-info{flex:1;min-width:0}
+.company-name{font-size:0.875rem;font-weight:700;color:var(--navy);margin-bottom:0.2rem}
+.company-desc{font-size:0.78rem;color:var(--text-sec);line-height:1.5}
+.company-link{font-size:0.72rem;font-weight:600;color:var(--gold);text-decoration:none;margin-top:0.35rem;display:inline-block}
+.company-link:hover{color:var(--gold-light)}
+
+/* ─── APPROACH GENERATOR ─────────────────────────────────── */
+.approach-output{background:var(--surface-alt);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1.125rem;margin-top:1.125rem;display:none}
+.approach-section{margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.approach-section:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+.approach-section-title{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--gold);margin-bottom:0.4rem}
+.approach-section-body{font-size:0.83rem;color:var(--text);line-height:1.6}
+
+/* ─── INTEL TABS ─────────────────────────────────────────── */
+.intel-tabs{display:flex;border-bottom:2px solid var(--border);margin-bottom:1.25rem;gap:0}
+.intel-tab{padding:0.6rem 1rem;font-size:0.82rem;font-weight:600;color:var(--text-muted);cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-2px;transition:var(--transition)}
+.intel-tab.active{color:var(--navy);border-bottom-color:var(--gold)}
+.intel-tab:hover:not(.active){color:var(--text)}
+.intel-panel{display:none}
+.intel-panel.active{display:block}
+
 /* ─── TOAST ───────────────────────────────────────────────── */
 #toast{
   position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(20px);
@@ -626,6 +681,9 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
 
 /* ─── OPERATOR PROFILE ────────────────────────────────────── */
 .profile-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1.25rem}
+.goals-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-bottom:1.25rem}
+.goals-section-label{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);padding-bottom:0.5rem;border-bottom:1px solid var(--border);margin-bottom:0.75rem;margin-top:0.25rem}
+@media(max-width:600px){.goals-grid{grid-template-columns:1fr}}
 .profile-save-bar{background:var(--gold-pale);border:1.5px solid rgba(201,168,76,0.3);border-radius:var(--radius);padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-top:1rem}
 .profile-save-bar .ps-text{font-size:0.88rem;font-weight:600;color:var(--amber)}
 
@@ -811,14 +869,14 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
     <button class="nav-item" id="nav-finder" onclick="showPage('finder')">
       <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>Deal Finder IQ
     </button>
+    <button class="nav-item premium-nav" id="nav-duplicate" onclick="showPage('duplicate')">
+      <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></span>Duplicate Listing<span class="nav-lock"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+    </button>
     <button class="nav-item" id="nav-deals" onclick="showPage('deals')">
       <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span>My Deals
     </button>
     <button class="nav-item premium-nav" id="nav-portfolio" onclick="showPage('portfolio')">
       <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span>My Portfolio<span class="nav-lock"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
-    </button>
-    <button class="nav-item premium-nav" id="nav-mentor" onclick="showPage('mentor')">
-      <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>Mentor Mode<span class="nav-lock"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
     </button>
   </div>
   <div class="sidebar-footer">
@@ -896,10 +954,12 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
     <div class="card-header">
       <div class="card-title-wrap">
         <div class="card-title">My Goals</div>
-        <div class="card-subtitle">Define your freedom number and growth plan</div>
+        <div class="card-subtitle">Define your freedom number and business focus</div>
       </div>
     </div>
-    <div class="profile-grid">
+    <!-- Financial Goals -->
+    <div class="goals-section-label">Financial Goals</div>
+    <div class="goals-grid">
       <div class="field-group">
         <label>Monthly Freedom Number (£)</label>
         <div class="input-prefix"><span class="pfx">£</span><input type="number" id="pf-freedom" placeholder="3000" min="0"></div>
@@ -913,6 +973,10 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
         <div class="input-prefix"><span class="pfx">£</span><input type="number" id="pf-avg-profit" placeholder="500" min="0"></div>
       </div>
       <div class="field-group">
+        <label>Monthly Investment Budget (£)</label>
+        <div class="input-prefix"><span class="pfx">£</span><input type="number" id="pf-invest-budget" placeholder="5000" min="0"></div>
+      </div>
+      <div class="field-group">
         <label>Current Live Properties</label>
         <select id="pf-current">
           <option value="0" selected>0</option><option value="1">1</option><option value="2">2</option>
@@ -920,6 +984,10 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
           <option value="6">6</option><option value="7">7</option><option value="8">8</option>
           <option value="9">9</option><option value="10">10</option>
         </select>
+      </div>
+      <div class="field-group">
+        <label>Target Number of Properties</label>
+        <input type="number" id="pf-target-props" placeholder="10" min="1" max="50">
       </div>
       <div class="field-group">
         <label>Properties to Add Per Year</label>
@@ -934,6 +1002,48 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
           <option value="8">8 per year</option>
           <option value="9">9 per year</option>
           <option value="10">10 per year</option>
+        </select>
+      </div>
+    </div>
+    <!-- Business Focus -->
+    <div class="goals-section-label" style="margin-top:1.25rem">Business Focus</div>
+    <div class="goals-grid">
+      <div class="field-group">
+        <label>Preferred SA Market</label>
+        <select id="pf-market-type">
+          <option value="">Select market type...</option>
+          <option value="city">City Centre</option>
+          <option value="commuter">Commuter Belt</option>
+          <option value="suburban">Suburban</option>
+          <option value="coastal">Coastal</option>
+          <option value="mixed">Mixed</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Business Structure</label>
+        <select id="pf-biz-structure">
+          <option value="">Select structure...</option>
+          <option value="sole">Sole Trader</option>
+          <option value="ltd">Limited Company</option>
+          <option value="partnership">Partnership</option>
+          <option value="unsure">Not sure yet</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Target Regions</label>
+        <input type="text" id="pf-target-regions" placeholder="e.g. Manchester, Leeds, London">
+      </div>
+      <div class="field-group">
+        <label>Primary Guest Focus</label>
+        <select id="pf-guest-focus">
+          <option value="">Select primary focus...</option>
+          <option value="corporate">Corporate</option>
+          <option value="nhs">NHS / Healthcare</option>
+          <option value="contractors">Contractors</option>
+          <option value="insurance">Insurance / Alternative</option>
+          <option value="shortstay">Short Stay</option>
+          <option value="longstay">Long Stay / Monthly</option>
+          <option value="mixed">Mixed</option>
         </select>
       </div>
     </div>
@@ -953,6 +1063,25 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
       <div class="progress-bar-wrap" id="freedom-progress"></div>
       <div class="motivational" id="motivational-msg"></div>
     </div>
+  </div>
+
+  <!-- E4: My OperateIQ Wins — Attribution & Milestone Tracker -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">My OperateIQ Wins</div>
+        <div class="card-subtitle">Your milestones and achievements as an SA operator</div>
+      </div>
+      <button class="btn btn-outline btn-sm" onclick="refreshWins()">Refresh</button>
+    </div>
+    <div id="wins-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.75rem;margin-bottom:1.25rem">
+      <div class="pnl-summary-box"><div class="pnl-summary-val" id="wins-analysed">—</div><div class="pnl-summary-lbl">Deals Analysed</div></div>
+      <div class="pnl-summary-box"><div class="pnl-summary-val" id="wins-saved">—</div><div class="pnl-summary-lbl">Deals Saved</div></div>
+      <div class="pnl-summary-box"><div class="pnl-summary-val" id="wins-live">—</div><div class="pnl-summary-lbl">Live Properties</div></div>
+      <div class="pnl-summary-box"><div class="pnl-summary-val" id="wins-profit">—</div><div class="pnl-summary-lbl">Portfolio Monthly Profit</div></div>
+    </div>
+    <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:0.75rem">Milestones</div>
+    <div id="milestones-list" style="display:flex;flex-direction:column;gap:0.5rem"></div>
   </div>
 </div><!-- end page-operator -->
 
@@ -1000,7 +1129,7 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
         </select>
       </div>
     </div>
-    <div id="location-badge"><span>📍</span><span id="location-text"></span></div>
+    <div id="location-badge"><span id="location-text"></span></div>
     <div style="margin-top:1.25rem;display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;">
       <button class="btn btn-primary" id="btn-analyse">
         <span id="analyse-spinner" style="display:none;" class="loading-spinner"></span>
@@ -1015,7 +1144,7 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
     <div class="card-header">
       <div class="card-title-wrap">
         <div class="card-title">Rent Competitiveness</div>
-        <div class="card-subtitle">How your rent compares to local market rates — based on regional rental data compiled from ONS &amp; Rightmove market averages</div>
+        <div class="card-subtitle">How your rent compares to local market rates — based on regional rental data compiled from ONS &amp; major portal market averages</div>
       </div>
     </div>
     <div class="rent-gauge">
@@ -1094,7 +1223,7 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
         <div class="card-title">Revenue &amp; Profit</div>
         <div class="card-subtitle">Adjust occupancy and nightly rate to model your returns</div>
       </div>
-      <span class="card-badge" id="airdna-rate-badge" style="display:none;">AirDNA Rate</span>
+      <span class="card-badge" id="airdna-rate-badge" style="display:none;">Live Rate</span>
     </div>
     <div class="form-grid" style="margin-bottom:1.25rem;">
       <div class="field-group">
@@ -1198,17 +1327,19 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
     <p class="page-subtitle">Load a saved deal and pull live Airbnb comparables with real nightly rates.</p>
   </div>
 
-  <!-- AirDNA Key Setup -->
+  <!-- Live Rate API Setup -->
   <div class="card" id="card-airdna-setup">
     <div class="card-header">
       <div class="card-title-wrap">
-        <div class="card-title">Data Source</div>
-        <div class="card-subtitle">AirDNA provides professional-grade comparable data</div>
+        <div class="card-title">Live Rate Data</div>
+        <div class="card-subtitle">Real Airbnb listings near your postcode — used to pre-fill nightly rate</div>
       </div>
-      <span class="card-badge">AirDNA</span>
+      <span class="card-badge" style="background:rgba(5,150,105,0.1);color:var(--green);border:1px solid rgba(5,150,105,0.25)">Live</span>
+    </div>
+    <div class="notice notice-info" style="font-size:0.82rem">
+      <span>📡</span><span>Automatically fetches real Airbnb comparables for your postcode when you run an analysis. Average nightly rate is calculated from entire-home listings with the same bedroom count within 1 mile.</span>
     </div>
     <input type="hidden" id="airdna-key">
-    <button class="btn btn-secondary" id="btn-save-airdna-key" style="display:none">Save Key</button>
   </div>
 
   <!-- Deal Selector -->
@@ -1321,146 +1452,131 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
         <div style="font-size:0.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.4rem;">Nearby Major Projects &amp; Facilities</div>
         <div class="infra-list" id="infra-list"></div>
       </div>
+      <!-- D4: Qualifying Factor Accordions -->
+      <div id="contractor-factors-wrap" style="margin-top:1.25rem;display:none">
+        <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-muted);margin-bottom:0.625rem;">Qualifying Factors</div>
+        <div id="contractor-factors-list"></div>
+      </div>
     </div>
   </div>
 
-  <!-- Development Intelligence -->
+  <!-- D5: Local Intelligence Feed (merged Development + Planning) -->
   <div class="card" id="card-intelligence">
     <div class="card-header">
       <div class="card-title-wrap">
-        <div class="card-title">Development Intelligence</div>
-        <div class="card-subtitle">Local construction activity, planning approvals, and infrastructure news</div>
+        <div class="card-title">Local Intelligence Feed</div>
+        <div class="card-subtitle">Development news, planning alerts, and infrastructure signals for your area</div>
       </div>
     </div>
     <div class="notice notice-info" id="intel-no-deal">
       <span>💡</span><span>Analyse a deal first to see local development intelligence for that area.</span>
     </div>
     <div id="intel-results" style="display:none;">
-      <div class="links-grid" id="local-links-grid"></div>
-      <div class="section-divider"></div>
-      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;margin-bottom:0.875rem;">
-        <div>
-          <div style="font-size:0.88rem;font-weight:600;color:var(--navy);">Local Development News</div>
-          <div style="font-size:0.72rem;color:var(--text-muted);">Recent planning and construction activity in your area</div>
+      <div class="intel-tabs">
+        <button class="intel-tab active" onclick="switchIntelTab('news',this)">Development News</button>
+        <button class="intel-tab" onclick="switchIntelTab('planning',this)">Planning Alerts</button>
+        <button class="intel-tab" onclick="switchIntelTab('infra',this)">Infrastructure Signals</button>
+      </div>
+      <!-- Tab: Development News -->
+      <div class="intel-panel active" id="intel-panel-news">
+        <div class="links-grid" id="local-links-grid" style="margin-bottom:1rem"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;margin-bottom:0.875rem;">
+          <div>
+            <div style="font-size:0.85rem;font-weight:600;color:var(--navy);">Latest Local Development News</div>
+            <div style="font-size:0.72rem;color:var(--text-muted);">Construction, regeneration and infrastructure news near your postcode</div>
+          </div>
+          <button class="btn btn-secondary btn-sm" id="btn-fetch-news">Load News</button>
         </div>
-        <button class="btn btn-secondary btn-sm" id="btn-fetch-news">Load Latest News</button>
+        <div id="intel-key-row" style="display:none;margin-bottom:0.875rem;">
+          <div class="field-group" style="max-width:360px;">
+            <label>News API key</label>
+            <input type="text" id="newsapi-key" placeholder="Paste your NewsAPI key" autocomplete="off">
+          </div>
+        </div>
+        <div id="news-container"></div>
       </div>
-      <div id="intel-key-row" style="display:none;margin-bottom:0.875rem;">
-        <div class="field-group" style="max-width:360px;">
-          <label>Development intelligence key</label>
-          <input type="text" id="newsapi-key" placeholder="Paste your key here" autocomplete="off">
+      <!-- Tab: Planning Alerts -->
+      <div class="intel-panel" id="intel-panel-planning">
+        <div class="notice notice-info" style="margin-bottom:1rem"><span>📋</span><span>Planning applications are submitted to your local authority. Use the links below to check active applications near your postcode.</span></div>
+        <div id="planning-links-section">
+          <div class="links-grid" id="planning-links-grid"></div>
+        </div>
+        <div id="planning-news-section" style="margin-top:1.125rem">
+          <div style="font-size:0.8rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem;">Planning News</div>
+          <div id="planning-news-container"></div>
         </div>
       </div>
-      <div id="news-container"></div>
-    </div>
-  </div>
-
-  <!-- Contractor & Relocation Finder -->
-  <div class="card" id="card-contractor-finder">
-    <div class="card-header">
-      <div class="card-title-wrap">
-        <div class="card-title">Contractor &amp; Relocation Finder</div>
-        <div class="card-subtitle">Find active construction companies and corporate accommodation demand</div>
-      </div>
-    </div>
-    <div class="notice notice-info" id="finder-no-deal" style="margin-bottom:1rem;">
-      <span>💡</span><span>Analyse a deal first to search contractors near that postcode.</span>
-    </div>
-    <div id="finder-results" style="display:none;">
-      <div style="margin-bottom:1rem;">
-        <div style="font-size:0.82rem;font-weight:600;color:var(--navy);margin-bottom:0.5rem;">Contractor Job Boards</div>
-        <div class="job-links" id="job-links-grid"></div>
-      </div>
-      <div style="margin-bottom:1rem;">
-        <div style="font-size:0.82rem;font-weight:600;color:var(--navy);margin-bottom:0.5rem;">Corporate Relocation Sources</div>
-        <div class="job-links" id="relocation-links-grid"></div>
-      </div>
-      <div class="section-divider"></div>
-      <div style="font-size:0.88rem;font-weight:600;color:var(--navy);margin-bottom:0.875rem;">Active Construction Companies Near <span id="ch-postcode-label">—</span></div>
-      <input type="hidden" id="ch-api-key">
-      <div style="margin-bottom:0.875rem;">
-        <button class="btn btn-secondary" id="btn-search-companies">
-          <span id="ch-spinner" style="display:none;" class="loading-spinner"></span>
-          Search Companies
-        </button>
-      </div>
-      <div id="ch-results"></div>
-    </div>
-  </div>
-
-  <!-- Planning Alerts -->
-  <div class="card" id="card-planning">
-    <div class="card-header">
-      <div class="card-title-wrap">
-        <div class="card-title">Planning &amp; Development Alerts</div>
-        <div class="card-subtitle">Monitor planning activity and upcoming infrastructure near your deals</div>
-      </div>
-    </div>
-    <div id="planning-no-deal" class="notice notice-info"><span>💡</span><span>Analyse a deal first to see planning alerts for that area.</span></div>
-    <div id="planning-results" style="display:none;">
-      <button class="btn btn-secondary" id="btn-check-planning">
-        <span id="planning-spinner" style="display:none;" class="loading-spinner"></span>
-        Load Planning Intelligence
-      </button>
-      <div id="planning-links-section" style="display:none;margin-top:1rem;">
-        <div style="font-size:0.8rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem;">Planning Resources</div>
-        <div class="links-grid" id="planning-links-grid"></div>
-      </div>
-      <div id="planning-infra-section" style="display:none;margin-top:1.125rem;">
-        <div style="font-size:0.8rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem;">Infrastructure Signals</div>
-        <div id="planning-infra-list"></div>
-      </div>
-      <div id="planning-news-section" style="display:none;margin-top:1.125rem;">
-        <div style="font-size:0.8rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem;">Planning News</div>
-        <div id="planning-news-container"></div>
+      <!-- Tab: Infrastructure Signals -->
+      <div class="intel-panel" id="intel-panel-infra">
+        <div id="planning-infra-section">
+          <div id="planning-infra-list"></div>
+        </div>
+        <div style="margin-top:1rem">
+          <div class="infra-signal-card">
+            <div class="isc-name">NHS Hospital Network</div>
+            <div class="isc-meta" id="infra-nhs-label">Check whether NHS trusts operate near this postcode</div>
+            <div class="isc-action">Target: NHS Professionals, Medacs Healthcare, Pulse Healthcare</div>
+          </div>
+          <div class="infra-signal-card">
+            <div class="isc-name">University Footprint</div>
+            <div class="isc-meta" id="infra-uni-label">Check for university campuses near this area</div>
+            <div class="isc-action">Target: University accommodation offices, visiting academic programmes</div>
+          </div>
+          <div class="infra-signal-card">
+            <div class="isc-name">National Infrastructure Projects</div>
+            <div class="isc-meta">Cross-reference: <a href="https://www.gov.uk/government/collections/national-infrastructure-and-construction-pipeline" target="_blank" rel="noopener" style="color:var(--gold)">gov.uk Infrastructure Pipeline ↗</a></div>
+            <div class="isc-action">Target: Principal contractors' accommodation/welfare managers</div>
+          </div>
+          <div class="infra-signal-card">
+            <div class="isc-name">Active Construction Companies</div>
+            <div class="isc-meta">Find contractors near <span id="ch-postcode-label">—</span></div>
+            <div class="isc-action" style="margin-top:0.5rem">
+              <input type="hidden" id="ch-api-key">
+              <button class="btn btn-secondary btn-sm" id="btn-search-companies">
+                <span id="ch-spinner" style="display:none;" class="loading-spinner"></span>
+                Search Companies House
+              </button>
+              <div id="ch-results" style="margin-top:0.75rem"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Rehousing Keyword Finder -->
+  <!-- Contractor & Relocation Finder (hidden id preserved for JS compat) -->
+  <div id="card-contractor-finder" style="display:none">
+    <div class="notice notice-info" id="finder-no-deal"><span>💡</span><span></span></div>
+    <div id="finder-results" style="display:none">
+      <div class="job-links" id="job-links-grid"></div>
+      <div class="job-links" id="relocation-links-grid"></div>
+    </div>
+  </div>
+
+  <!-- Planning card (hidden, IDs preserved for JS compat) -->
+  <div id="card-planning" style="display:none">
+    <div id="planning-no-deal"></div>
+    <div id="planning-results" style="display:none">
+      <button id="btn-check-planning" style="display:none"></button>
+      <span id="planning-spinner"></span>
+    </div>
+  </div>
+
+  <!-- D6: Rehousing & Accommodation Company Finder (curated) -->
   <div class="card" id="card-keyword-finder">
     <div class="card-header">
       <div class="card-title-wrap">
         <div class="card-title">Rehousing &amp; Accommodation Company Finder</div>
-        <div class="card-subtitle">Search terms to find companies that rehouse people on a long-term basis — insurance, corporate, and workforce</div>
+        <div class="card-subtitle">Curated list of UK companies that source long-term SA placements — with direct website links</div>
       </div>
     </div>
-    <div style="font-size:0.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.875rem;">Click any term to search Google</div>
-    <div class="keyword-chips" id="keyword-chips-grid">
-      <a class="keyword-chip" href="https://www.google.com/search?q=%22insurance+alternative+accommodation+provider+UK%22" target="_blank" rel="noopener">
-        <span class="keyword-chip-icon">🔍</span>
-        <span class="keyword-chip-text">"insurance alternative accommodation provider UK"</span>
-        <span class="keyword-chip-arrow">↗</span>
-      </a>
-      <a class="keyword-chip" href="https://www.google.com/search?q=%22loss+adjuster+rehousing+contractor%22" target="_blank" rel="noopener">
-        <span class="keyword-chip-icon">🔍</span>
-        <span class="keyword-chip-text">"loss adjuster rehousing contractor"</span>
-        <span class="keyword-chip-arrow">↗</span>
-      </a>
-      <a class="keyword-chip" href="https://www.google.com/search?q=%22corporate+housing+agent+UK%22" target="_blank" rel="noopener">
-        <span class="keyword-chip-icon">🔍</span>
-        <span class="keyword-chip-text">"corporate housing agent UK"</span>
-        <span class="keyword-chip-arrow">↗</span>
-      </a>
-      <a class="keyword-chip" href="https://www.google.com/search?q=%22furnished+accommodation+for+insurance+claimants%22" target="_blank" rel="noopener">
-        <span class="keyword-chip-icon">🔍</span>
-        <span class="keyword-chip-text">"furnished accommodation for insurance claimants"</span>
-        <span class="keyword-chip-arrow">↗</span>
-      </a>
-      <a class="keyword-chip" href="https://www.google.com/search?q=%22temporary+housing+provider+insurance%22" target="_blank" rel="noopener">
-        <span class="keyword-chip-icon">🔍</span>
-        <span class="keyword-chip-text">"temporary housing provider insurance"</span>
-        <span class="keyword-chip-arrow">↗</span>
-      </a>
+    <div class="company-filter-bar">
+      <button class="company-filter-btn active" onclick="filterCompanies('all',this)">All Companies</button>
+      <button class="company-filter-btn" onclick="filterCompanies('insurance',this)">Insurance</button>
+      <button class="company-filter-btn" onclick="filterCompanies('corporate',this)">Corporate</button>
+      <button class="company-filter-btn" onclick="filterCompanies('nhs',this)">NHS / Healthcare</button>
     </div>
-    <div style="margin-top:1.125rem;padding-top:1rem;border-top:1px solid var(--border);">
-      <div style="font-size:0.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.625rem;">Key Company Types to Target</div>
-      <div class="keyword-type-list">
-        <div class="keyword-type-row"><span class="keyword-type-tag keyword-tag-insurance">Insurance</span><span class="keyword-type-desc">Loss adjusters · Alternative accommodation managers · Claims handlers · Home emergency providers</span></div>
-        <div class="keyword-type-row"><span class="keyword-type-tag keyword-tag-corporate">Corporate</span><span class="keyword-type-desc">Corporate relocation agents · Global mobility companies · Destination services providers · Workforce housing</span></div>
-        <div class="keyword-type-row"><span class="keyword-type-tag keyword-tag-nhs">NHS / Keyworker</span><span class="keyword-type-desc">Medical locum housing · NHS staff accommodation · Healthcare workforce providers</span></div>
-      </div>
-    </div>
+    <div class="company-cards" id="company-cards-list"></div>
   </div>
 
 </div><!-- end page-toolkit -->
@@ -1569,7 +1685,236 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
       <div class="compare-wrap"><table class="crm-table"><thead><tr><th>Name</th><th>Postcode</th><th>Phone</th><th>Status</th><th>Source</th><th>Follow-up</th><th></th></tr></thead><tbody id="crm-table-body"></tbody></table></div>
     </div>
   </div>
+
+  <!-- D7: Approach Strategy Generator -->
+  <div class="card" id="card-approach-gen">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Approach Strategy Generator</div>
+        <div class="card-subtitle">Generate a tailored landlord or agent approach script for any listing</div>
+      </div>
+    </div>
+    <div class="form-grid" style="margin-bottom:1.25rem">
+      <div class="field-group">
+        <label>Bedrooms</label>
+        <select id="ag-beds">
+          <option value="1">1 Bed</option><option value="2" selected>2 Bed</option>
+          <option value="3">3 Bed</option><option value="4">4 Bed</option><option value="5+">5+ Bed</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Monthly Rent (£)</label>
+        <div class="input-prefix"><span class="pfx">£</span><input type="number" id="ag-rent" placeholder="1200" min="0"></div>
+      </div>
+      <div class="field-group">
+        <label>Listing Type</label>
+        <select id="ag-type">
+          <option value="landlord">Landlord Direct</option>
+          <option value="agent">Via Agent / Agency</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Contact Method</label>
+        <select id="ag-method">
+          <option value="call">Phone Call</option>
+          <option value="email">Email</option>
+          <option value="message">Portal Message</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="generateApproach()">Generate Approach Strategy →</button>
+    <div class="approach-output" id="approach-output">
+      <div class="approach-section">
+        <div class="approach-section-title">Opening Message / Script</div>
+        <div class="approach-section-body" id="ag-opening"></div>
+      </div>
+      <div class="approach-section">
+        <div class="approach-section-title">Key Selling Points to Mention</div>
+        <div class="approach-section-body" id="ag-points"></div>
+      </div>
+      <div class="approach-section">
+        <div class="approach-section-title">Likely Objections &amp; Responses</div>
+        <div class="approach-section-body" id="ag-objections"></div>
+      </div>
+      <div class="approach-section">
+        <div class="approach-section-title">Suggested Offer Structure</div>
+        <div class="approach-section-body" id="ag-offer"></div>
+      </div>
+      <div class="approach-section">
+        <div class="approach-section-title">Follow-Up Timing</div>
+        <div class="approach-section-body" id="ag-followup"></div>
+      </div>
+    </div>
+  </div>
+
 </div><!-- end page-finder -->
+
+<!-- ═══ PAGE: DUPLICATE LISTING TOOL ════════════════════════ -->
+<div id="page-duplicate" class="page">
+  <div class="page-header">
+    <h1 class="page-title">Duplicate Listing <span>Tool</span></h1>
+    <p class="page-subtitle">Score your mirror listing's long-term booking visibility, generate an optimised template, and follow the setup guide.</p>
+  </div>
+
+  <!-- Part 1: Listing Scorer -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Listing Visibility Scorer</div>
+        <div class="card-subtitle">Answer 8 questions about your duplicate listing to get a score out of 100</div>
+      </div>
+      <span class="card-badge">Score /100</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-bottom:1.25rem">
+      <div class="field-group">
+        <label>Minimum Nights Setting</label>
+        <input type="number" id="dl-min-nights" placeholder="e.g. 30" min="1">
+      </div>
+      <div class="field-group">
+        <label>Booking Type</label>
+        <select id="dl-booking-type">
+          <option value="approve">Approve All Bookings</option>
+          <option value="instant">Instant Book</option>
+          <option value="request">Request to Book</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Can someone book 9 months from today?</label>
+        <select id="dl-availability">
+          <option value="yes">Yes — calendar is open</option>
+          <option value="no">No — calendar is blocked or restricted</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Monthly pricing set?</label>
+        <select id="dl-monthly-price">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Number of photos</label>
+        <input type="number" id="dl-photos" placeholder="e.g. 15" min="0">
+      </div>
+      <div class="field-group">
+        <label>Star rating (out of 5)</label>
+        <input type="number" id="dl-rating" placeholder="e.g. 4.8" min="0" max="5" step="0.1">
+      </div>
+      <div class="field-group">
+        <label>Number of reviews</label>
+        <input type="number" id="dl-reviews" placeholder="e.g. 12" min="0">
+      </div>
+      <div class="field-group">
+        <label>LTB keywords in description?</label>
+        <select id="dl-keywords">
+          <option value="3">Yes — 3 or more keywords</option>
+          <option value="2">Yes — 1–2 keywords</option>
+          <option value="0">No LTB keywords</option>
+        </select>
+      </div>
+    </div>
+    <div class="field-group" style="margin-bottom:1.25rem">
+      <label>LTB keywords in listing title?</label>
+      <select id="dl-title-keywords">
+        <option value="yes">Yes — title mentions corporate/monthly/professional etc.</option>
+        <option value="no">No LTB keywords in title</option>
+      </select>
+    </div>
+    <button class="btn btn-primary" onclick="scoreDuplicateListing()">Calculate Score →</button>
+    <div id="dl-score-output" style="display:none;margin-top:1.25rem">
+      <div class="score-display">
+        <div class="score-badge" id="dl-score-badge">—</div>
+        <div class="score-meta" id="dl-score-meta"></div>
+      </div>
+      <div class="score-bar-wrap"><div class="score-bar-track"><div class="score-bar-fill" id="dl-score-bar" style="width:0%"></div></div></div>
+      <div class="score-bullets" id="dl-score-bullets" style="margin-top:1rem"></div>
+    </div>
+  </div>
+
+  <!-- Part 2: Template Generator -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Optimised Listing Template Generator</div>
+        <div class="card-subtitle">Generate a ready-to-copy title, description, and amenity checklist for your duplicate listing</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-bottom:1.25rem">
+      <div class="field-group">
+        <label>Property Type</label>
+        <select id="tg-type">
+          <option value="apartment">Apartment</option>
+          <option value="house">House</option>
+          <option value="studio">Studio</option>
+          <option value="cottage">Cottage</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Bedrooms</label>
+        <select id="tg-beds">
+          <option value="1">1 Bed</option><option value="2" selected>2 Bed</option>
+          <option value="3">3 Bed</option><option value="4">4 Bed</option><option value="5+">5+ Bed</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label>Location Area</label>
+        <input type="text" id="tg-area" placeholder="e.g. Manchester City Centre">
+      </div>
+      <div class="field-group">
+        <label>Key Feature</label>
+        <input type="text" id="tg-feature" placeholder="e.g. parking, fast WiFi">
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="generateListingTemplate()">Generate Template →</button>
+    <div id="tg-output" style="display:none;margin-top:1.25rem">
+      <div class="approach-section">
+        <div class="approach-section-title">Optimised Title (60 chars max)</div>
+        <div class="approach-section-body" id="tg-title" style="font-size:1rem;font-weight:700;color:var(--navy)"></div>
+      </div>
+      <div class="approach-section">
+        <div class="approach-section-title">Description Introduction</div>
+        <div class="approach-section-body" id="tg-desc"></div>
+      </div>
+      <div class="approach-section">
+        <div class="approach-section-title">Recommended House Rules</div>
+        <div class="approach-section-body" id="tg-rules"></div>
+      </div>
+      <div class="approach-section">
+        <div class="approach-section-title">Priority Amenities Checklist</div>
+        <div class="approach-section-body" id="tg-amenities"></div>
+      </div>
+      <div class="approach-section">
+        <div class="approach-section-title">Suggested Monthly Pricing</div>
+        <div class="approach-section-body" id="tg-pricing"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Part 3: Setup Guide -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Duplicate Listing Setup Guide</div>
+        <div class="card-subtitle">Step-by-step checklist to create and optimise your mirror listing on Airbnb</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:0.5rem">
+      ${[
+        ['Go to your Airbnb hosting dashboard → click "Create listing"','Create a new listing from your host dashboard'],
+        ['Under "Listing details" → copy your main listing description, then adapt it with LTB language','Add long-stay focused language to title and description'],
+        ['Set minimum nights to 30 (this filters out short-stay enquiries)','Set 30-night minimum'],
+        ['Set Booking Type to "Approve All" — this maximises visibility in long-term searches','Enable Approve All Bookings'],
+        ['Open your calendar 12 months ahead — ensure all dates are unblocked','Open calendar fully'],
+        ['Set a monthly price — go to Pricing → Weekly/Monthly discounts → set monthly discount','Add monthly pricing'],
+        ['Upload 10+ photos — focus on workspace, storage, and professional features','Upload quality photos'],
+        ['Copy your main listing\'s reviews link and add to description for social proof','Reference review count in description'],
+      ].map((s,i)=>`<div style="display:flex;align-items:flex-start;gap:0.875rem;padding:0.75rem 1rem;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface-alt)">
+        <span style="min-width:24px;height:24px;background:var(--gold);color:var(--navy);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:800;flex-shrink:0">${i+1}</span>
+        <div><div style="font-size:0.85rem;font-weight:700;color:var(--navy);margin-bottom:0.2rem">${s[1]}</div><div style="font-size:0.78rem;color:var(--text-sec)">${s[0]}</div></div>
+      </div>`).join('')}
+    </div>
+  </div>
+</div><!-- end page-duplicate -->
 
 <!-- ═══ PAGE: MY PORTFOLIO ════════════════════════════════════ -->
 <!-- ═══ PAGE: MY DEALS ════════════════════════════════════════ -->
@@ -1778,53 +2123,6 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
   </div>
 </div><!-- end page-portfolio -->
 
-<!-- ═══ PAGE: MENTOR MODE ═════════════════════════════════════ -->
-<div id="page-mentor" class="page">
-  <div class="page-header">
-    <h1 class="page-title">Mentor <span>Mode</span></h1>
-    <p class="page-subtitle">A clean snapshot of your portfolio and progress — for sharing with your mentor.</p>
-  </div>
-
-  <!-- Key Stats -->
-  <div class="card">
-    <div class="card-header">
-      <div class="card-title-wrap">
-        <div class="card-title">Portfolio Snapshot</div>
-        <div class="card-subtitle">Key metrics at a glance</div>
-      </div>
-      <button class="btn btn-outline btn-sm" id="btn-refresh-mentor">Refresh</button>
-    </div>
-    <div class="mentor-grid" id="mentor-stats-grid">
-      <div class="mentor-stat-box"><div class="msb-val">—</div><div class="msb-lbl">Loading...</div></div>
-    </div>
-  </div>
-
-  <!-- Freedom Progress -->
-  <div class="card">
-    <div class="card-header">
-      <div class="card-title-wrap">
-        <div class="card-title">Freedom Progress</div>
-        <div class="card-subtitle">Journey to your monthly income target</div>
-      </div>
-    </div>
-    <div id="mentor-freedom-wrap">
-      <div class="notice notice-info"><span>💡</span><span>Set your freedom number in Operator Profile to see progress here.</span></div>
-    </div>
-  </div>
-
-  <!-- Deal Summary -->
-  <div class="card">
-    <div class="card-header">
-      <div class="card-title-wrap">
-        <div class="card-title">Deal Summary</div>
-        <div class="card-subtitle">All pipeline and live deals</div>
-      </div>
-    </div>
-    <div id="mentor-deal-list" class="mentor-deal-list">
-      <div class="notice notice-info"><span>💡</span><span>No deals saved yet. Analyse and save deals from Deal Analyser.</span></div>
-    </div>
-  </div>
-</div><!-- end page-mentor -->
 
 </div><!-- end main-content -->
 </div><!-- end app-shell -->
@@ -2249,7 +2547,7 @@ function removeGate(containerId) {
 }
 
 /* ════ NAVIGATION ═══════════════════════════════════════════ */
-const PAGES = ['operator','analyse','market','toolkit','finder','deals','portfolio','mentor'];
+const PAGES = ['operator','analyse','market','toolkit','finder','duplicate','deals','portfolio'];
 function showPage(id) {
   PAGES.forEach(p => {
     const pg = qs('page-'+p);
@@ -2270,9 +2568,9 @@ function showPage(id) {
   }
   if(id==='toolkit')   { loadDealsForToolkitDropdown(); renderToolkitIfReady(); }
   if(id==='operator')  { loadOperatorProfile(); }
-  if(id==='mentor')    {
-    if(!isPremium()) { showGate('page-mentor','Mentor Mode','£69/mo'); return; }
-    removeGate('page-mentor'); loadMentorPage();
+  if(id==='duplicate') {
+    if(!isPremium()) { showGate('page-duplicate','Duplicate Listing Tool','£69/mo'); return; }
+    removeGate('page-duplicate');
   }
 }
 window.showPage = showPage;
@@ -2287,6 +2585,219 @@ function closeSidebar() {
 }
 window.openSidebar = openSidebar;
 window.closeSidebar = closeSidebar;
+
+/* ════ D6: CURATED COMPANY DATABASE ════════════════════════ */
+const CURATED_COMPANIES=[
+  // INSURANCE
+  {name:'Cunningham Lindsey',cat:'insurance',desc:'Global loss adjusting and claims management firm. Their alternative accommodation team places claimants in serviced properties during insurance-funded resettlement.',url:'https://www.cunninghamlindsey.com'},
+  {name:'Crawford & Company',cat:'insurance',desc:'One of the UK\'s largest loss adjusters. Handles alternative accommodation placements for major insurers including home emergency and flood claims.',url:'https://www.crawco.co.uk'},
+  {name:'Davies Group',cat:'insurance',desc:'End-to-end insurance services with a specialist property claims division. Place claimants in furnished accommodation for extended periods.',url:'https://www.davies-group.com'},
+  {name:'Crest Plus',cat:'insurance',desc:'Dedicated alternative accommodation management company — sole focus is sourcing SA properties for insurance claimants UK-wide.',url:'https://www.crestplus.co.uk'},
+  {name:'RWA Group',cat:'insurance',desc:'Independent insurance intermediary with a specialist claims handling division. Source accommodation for displaced insurance customers.',url:'https://www.rwagroup.co.uk'},
+  {name:'Synectics Solutions',cat:'insurance',desc:'Analytics and claims intelligence for the insurance sector. Work with multiple insurers who require alternative accommodation sourcing.',url:'https://www.synectics-solutions.com'},
+  {name:'Homeprotect',cat:'insurance',desc:'Online home insurer with in-house claims team. Place claimants in alternative accommodation when properties become uninhabitable.',url:'https://www.homeprotect.co.uk'},
+  // CORPORATE
+  {name:'Dwellworks',cat:'corporate',desc:'Global corporate housing and destination services. Places relocating employees in short- and medium-term furnished accommodation across the UK.',url:'https://www.dwellworks.com'},
+  {name:'BGRS (Brookfield)',cat:'corporate',desc:'One of the world\'s largest corporate relocation companies. Their UK division sources serviced accommodation for employee relocations and project-based assignments.',url:'https://www.bgrs.com'},
+  {name:'Cartus',cat:'corporate',desc:'Global leader in workforce mobility. Manages thousands of UK relocations annually and sources SA for assignees on 1–12 month placements.',url:'https://www.cartus.com'},
+  {name:'Crown Relocations',cat:'corporate',desc:'Full-service relocation and moving company with UK temporary housing programme. Places corporate clients in fully furnished properties.',url:'https://www.crownrelo.com'},
+  {name:'Graebel',cat:'corporate',desc:'Global workforce mobility specialists. Their UK programme places corporate employees in short-term serviced accommodation during relocation transitions.',url:'https://www.graebel.com'},
+  {name:'Santa Fe Relocation',cat:'corporate',desc:'International mobility firm with strong UK presence. Sources temporary furnished accommodation for corporate clients and government contract workers.',url:'https://www.santaferelo.com'},
+  {name:'Altair Global',cat:'corporate',desc:'Corporate relocation specialists with dedicated UK temporary living solutions. Works with Fortune 500 companies requiring employee accommodation.',url:'https://www.altairglobal.com'},
+  {name:'Redwood Global',cat:'corporate',desc:'UK-based global mobility firm providing temporary accommodation solutions for corporate assignees. Known for flexible month-to-month arrangements.',url:'https://www.redwoodglobal.com'},
+  {name:'Mobility Services International',cat:'corporate',desc:'Global HR mobility services with a UK temporary housing division. Coordinate furnished apartment sourcing for corporate clients on assignment.',url:'https://www.msimobility.com'},
+  // NHS / HEALTHCARE
+  {name:'NHS Professionals',cat:'nhs',desc:'The NHS\'s own staffing agency. Places thousands of healthcare workers on temporary assignments across UK trusts — many need accommodation near their placement hospital.',url:'https://www.nhsprofessionals.nhs.uk'},
+  {name:'Medacs Healthcare',cat:'nhs',desc:'One of the UK\'s largest healthcare staffing agencies. Places locum doctors, nurses, and allied health professionals on assignments of 4–26 weeks.',url:'https://www.medacs.com'},
+  {name:'Compass Associates',cat:'nhs',desc:'Healthcare recruitment specialists. Place consultants, registrars, and senior nurses on locum contracts — many require accommodation near placement trusts.',url:'https://www.compassassoc.co.uk'},
+  {name:'Pulse Healthcare',cat:'nhs',desc:'Healthcare staffing and managed services. Their locum division places clinical staff on short-term assignments and actively sources SA accommodation for workers.',url:'https://www.pulsegroup.co.uk'},
+  {name:'Allocate Software',cat:'nhs',desc:'NHS workforce management platform used by 200+ NHS trusts. Their staffing data connects with accommodation requirements for temporary clinical staff.',url:'https://www.allocatesoftware.com'},
+  {name:'Global Medics',cat:'nhs',desc:'International medical recruitment firm. Places overseas doctors and nurses in UK trusts on sponsorship visas — typically require 3–12 month furnished accommodation.',url:'https://www.globalmedics.co.uk'},
+  {name:'Thornbury Nursing Services',cat:'nhs',desc:'Specialist nursing agency placing bank and agency nurses. Their nurses often travel to assignments and need SA accommodation near NHS facilities.',url:'https://www.thornburynursing.co.uk'},
+];
+
+window.filterCompanies=function(cat,btn){
+  document.querySelectorAll('.company-filter-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  renderCompanyCards(cat);
+};
+
+function renderCompanyCards(filter='all'){
+  const list=qs('company-cards-list'); if(!list) return;
+  const filtered=filter==='all'?CURATED_COMPANIES:CURATED_COMPANIES.filter(c=>c.cat===filter);
+  list.innerHTML=filtered.map(c=>`
+    <div class="company-card">
+      <span class="company-cat-pill ${c.cat}">${c.cat==='nhs'?'NHS / Healthcare':c.cat==='insurance'?'Insurance':'Corporate'}</span>
+      <div class="company-info">
+        <div class="company-name">${c.name}</div>
+        <div class="company-desc">${c.desc}</div>
+        <a class="company-link" href="${c.url}" target="_blank" rel="noopener">Visit website ↗</a>
+      </div>
+    </div>`).join('');
+}
+
+/* ════ E4: ATTRIBUTION / WINS TRACKER ═════════════════════ */
+window.refreshWins=async function(){
+  await ensureDealsLoaded(true);
+  const all=S.allDeals||[];
+  const live=all.filter(d=>d.isLive);
+  const totalProfit=live.reduce((a,d)=>a+(d.monthlyProfit||0),0);
+  const analysed=parseInt(localStorage.getItem('oiq-analyses-count')||0);
+  const el=id=>document.getElementById(id);
+  if(el('wins-analysed')) el('wins-analysed').textContent=analysed||S.analysisCount||0;
+  if(el('wins-saved')) el('wins-saved').textContent=all.length;
+  if(el('wins-live')) el('wins-live').textContent=live.length;
+  if(el('wins-profit')) el('wins-profit').textContent=gbp(totalProfit)+'/mo';
+  const freedom=parseFloat(qs('pf-freedom')?.value)||3000;
+  const milestones=[
+    {label:'First Deal Analysed',icon:'🔍',unlocked:analysed>=1||S.analysisCount>=1,desc:'You ran your first deal analysis.'},
+    {label:'First Deal Saved',icon:'💾',unlocked:all.length>=1,desc:'You saved your first deal to your portfolio.'},
+    {label:'First Live Property',icon:'🏠',unlocked:live.length>=1,desc:'You have at least one live SA property.'},
+    {label:'£1k/mo Portfolio',icon:'💷',unlocked:totalProfit>=1000,desc:'Your portfolio generates over £1,000 per month.'},
+    {label:'3-Property Club',icon:'🏘',unlocked:live.length>=3,desc:'You\'re running 3 or more live properties.'},
+    {label:'5-Property Club',icon:'🏆',unlocked:live.length>=5,desc:'You\'re running 5+ properties — serious scale.'},
+    {label:'Freedom Number Reached',icon:'🎯',unlocked:totalProfit>=freedom&&freedom>0,desc:'Your portfolio profit has reached your freedom number.'},
+    {label:'£5k/mo Portfolio',icon:'🚀',unlocked:totalProfit>=5000,desc:'Your SA portfolio generates £5,000+ per month.'},
+  ];
+  if(el('milestones-list')){
+    el('milestones-list').innerHTML=milestones.map(m=>`
+      <div style="display:flex;align-items:center;gap:0.875rem;padding:0.75rem 1rem;border:1px solid ${m.unlocked?'rgba(5,150,105,0.25)':'var(--border)'};border-radius:var(--radius-sm);background:${m.unlocked?'rgba(5,150,105,0.06)':'var(--surface-alt)'};opacity:${m.unlocked?1:0.5}">
+        <span style="font-size:1.4rem">${m.icon}</span>
+        <div style="flex:1">
+          <div style="font-size:0.85rem;font-weight:700;color:${m.unlocked?'var(--green)':'var(--text-sec)'}">${m.label}</div>
+          <div style="font-size:0.75rem;color:var(--text-muted)">${m.desc}</div>
+        </div>
+        <span style="font-size:0.7rem;font-weight:700;padding:0.2rem 0.6rem;border-radius:50px;${m.unlocked?'background:rgba(5,150,105,0.12);color:var(--green)':'background:var(--border);color:var(--text-muted)'}">${m.unlocked?'Unlocked':'Locked'}</span>
+      </div>`).join('');
+  }
+};
+
+/* ════ E1: DUPLICATE LISTING TOOL ═════════════════════════ */
+window.scoreDuplicateListing=function(){
+  const minNights=parseInt(qs('dl-min-nights').value)||0;
+  const bookingType=qs('dl-booking-type').value;
+  const availability=qs('dl-availability').value;
+  const monthlyPrice=qs('dl-monthly-price').value;
+  const photos=parseInt(qs('dl-photos').value)||0;
+  const rating=parseFloat(qs('dl-rating').value)||0;
+  const reviews=parseInt(qs('dl-reviews').value)||0;
+  const keywords=parseInt(qs('dl-keywords').value)||0;
+  const titleKw=qs('dl-title-keywords').value;
+
+  const factors=[
+    {label:'Availability (9-month window open)',max:30,pts:availability==='yes'?30:0,why:'The #1 factor. Long-term bookers plan months ahead. A blocked calendar is invisible to them.'},
+    {label:'Approve All Bookings',max:20,pts:bookingType==='approve'?20:bookingType==='instant'?10:0,why:'Approve All shows your listing in long-term stay searches. Request to Book reduces visibility significantly.'},
+    {label:'Minimum nights 30+',max:15,pts:minNights>=30?15:minNights>=14?7:0,why:'A 30-night minimum filters out short-stay enquiries and signals to Airbnb\'s algorithm that you\'re targeting long-term guests.'},
+    {label:'LTB keywords in listing title',max:10,pts:titleKw==='yes'?10:0,why:'Keywords like "corporate", "monthly", "professional stay" make your listing appear in long-term specific searches.'},
+    {label:'LTB keywords in description',max:10,pts:keywords>=3?10:keywords>=1?5:0,why:'The more long-stay language in your description, the better your listing ranks for guests filtering by stay type.'},
+    {label:'Monthly pricing set',max:8,pts:monthlyPrice==='yes'?8:0,why:'Setting a monthly price shows you understand the long-term market and makes booking easier for monthly guests.'},
+    {label:'Photo count (10+ photos)',max:4,pts:photos>=15?4:photos>=10?3:photos>=5?1:0,why:'More photos build trust with professional guests who want to verify the workspace and storage before committing to a month+.'},
+    {label:'Rating & reviews',max:3,pts:reviews>=20&&rating>=4.8?3:reviews>=5&&rating>=4.5?2:reviews>0?1:0,why:'Strong ratings and review count build trust with long-term bookers making larger financial commitments.'},
+  ];
+
+  const total=factors.reduce((a,f)=>a+f.pts,0);
+  const band=total>=85?{label:'Optimised',cls:'score-high'}:total>=65?{label:'Good — a few tweaks needed',cls:'score-medium'}:total>=40?{label:'Needs work',cls:'score-low'}:{label:'Not visible to long-term clients',cls:'score-low'};
+
+  const badge=qs('dl-score-badge'),bar=qs('dl-score-bar'),meta=qs('dl-score-meta');
+  badge.textContent=total+' / 100';
+  badge.className='score-badge '+band.cls;
+  meta.textContent=band.label;
+  bar.style.width=total+'%';
+  bar.style.background=total>=85?'var(--green)':total>=65?'var(--amber)':'var(--red)';
+  qs('dl-score-bullets').innerHTML=`<div class="score-bullets">${factors.map(f=>`
+    <div class="score-bullet">
+      <span class="sb-text"><strong>${f.label}</strong><br><span style="font-size:0.72rem;color:var(--text-muted)">${f.why}</span></span>
+      ${f.pts>0?`<span class="sb-pts">${f.pts}/${f.max}</span>`:`<span class="sb-zero">0/${f.max}</span>`}
+    </div>`).join('')}</div>`;
+  qs('dl-score-output').style.display='block';
+  qs('dl-score-output').scrollIntoView({behavior:'smooth',block:'nearest'});
+};
+
+window.generateListingTemplate=function(){
+  const type=qs('tg-type').value||'apartment';
+  const beds=qs('tg-beds').value||'2';
+  const area=qs('tg-area').value||'City Centre';
+  const feature=qs('tg-feature').value||'fast WiFi';
+  const TypeCap=type.charAt(0).toUpperCase()+type.slice(1);
+  const title=`${beds}-Bed ${TypeCap} | Monthly Rate | Corporate Welcome | ${area}`.slice(0,60);
+  const desc=`Welcome to this professionally managed ${beds}-bedroom ${type} in ${area}, designed specifically for corporate guests, NHS professionals, contractors, and long-term stays.\n\nThis property is offered on a monthly rate basis, making it ideal for 30-night+ stays. Everything is taken care of — from high-speed WiFi and a dedicated workspace to regular cleaning and a fully equipped kitchen. Whether you're on a rolling work contract, a medical placement, or a corporate relocation, this is your home away from home.\n\nWe specialise in professional and business stays. Our guests value privacy, reliability, and a property that just works. We aim to respond to all enquiries within 1 hour and have a 24/7 support line for any issues during your stay.`;
+  const rules=`<ul style="padding-left:1.2rem;margin:0;line-height:1.9"><li>Minimum stay: 30 nights</li><li>Professional and corporate guests preferred</li><li>No parties or events</li><li>Smoking outside only</li><li>Pets considered on request — please message before booking</li><li>Guests are responsible for the property during their stay</li></ul>`;
+  const amenities=`<ul style="padding-left:1.2rem;margin:0;line-height:1.9"><li>Fast broadband / dedicated workspace ✓</li><li>Fully equipped kitchen (all cooking equipment) ✓</li><li>Washer / dryer ✓</li><li>Smart TV / streaming services ✓</li><li>${feature} ✓</li><li>Weekly linen change (on request) ✓</li><li>All bills included (utilities, council tax, broadband) ✓</li><li>Welcome pack on arrival ✓</li></ul>`;
+  const pricing=`<ul style="padding-left:1.2rem;margin:0;line-height:1.9"><li>Set a <strong>monthly discount of 20–35%</strong> off your standard nightly rate to attract long-term bookers</li><li>Example: if your standard rate is £90/night → monthly rate ≈ £1,800–£2,100/month total</li><li>Enable Airbnb's "Custom Pricing" to set a flat monthly figure if available in your region</li><li>Keep the headline nightly rate competitive — the monthly discount does the conversion work</li></ul>`;
+  qs('tg-title').textContent=title;
+  qs('tg-desc').innerHTML=desc.replace(/\n/g,'<br>');
+  qs('tg-rules').innerHTML=rules;
+  qs('tg-amenities').innerHTML=amenities;
+  qs('tg-pricing').innerHTML=pricing;
+  qs('tg-output').style.display='block';
+  qs('tg-output').scrollIntoView({behavior:'smooth',block:'nearest'});
+};
+
+/* ════ D7: APPROACH STRATEGY GENERATOR ════════════════════ */
+window.generateApproach=function(){
+  const beds=qs('ag-beds').value||'2';
+  const rent=parseFloat(qs('ag-rent').value)||1200;
+  const type=qs('ag-type').value||'landlord';
+  const method=qs('ag-method').value||'call';
+  const isAgent=type==='agent';
+  const isCall=method==='call';
+  const isEmail=method==='email';
+  const rentBand=rent<900?'low':rent<1500?'mid':'high';
+
+  // Opening script
+  let opening='';
+  if(isCall&&!isAgent){
+    opening=`"Hi, I came across your property on [portal] — the ${beds}-bedroom at £${rent}/month. I'm a professional SA operator and I'm interested in taking it on a company let basis. Rather than advertising it myself, I'd like to rent directly from you on a guaranteed rent contract. Do you have a few minutes to chat?"`;
+  } else if(isCall&&isAgent){
+    opening=`"Hi, I'm calling about the ${beds}-bedroom you have listed at £${rent}/month. I work with a number of landlords on a company let arrangement where we take properties on behalf of our corporate clients. I'd love to have a quick conversation with the landlord or to understand if this type of arrangement has been discussed. Who would be the best person to speak to?"`;
+  } else if(isEmail&&!isAgent){
+    opening=`Subject: Company Let Enquiry — ${beds}-Bed Property\n\nHi [Name],\n\nI found your ${beds}-bedroom property listed at £${rent}/month and I'm very interested — but not as a standard tenant.\n\nI run a professional SA operation and would like to propose a guaranteed rent arrangement: I take full responsibility for the property, pay your asking rent every month regardless of occupancy, and maintain the property to a high standard for corporate and professional guests.\n\nWould you be open to a quick call this week to explore whether this works for you?`;
+  } else {
+    opening=`Hi,\n\nI'm interested in your ${beds}-bedroom property but would like to propose a company let arrangement rather than a standard AST. We offer guaranteed monthly rent, professional management, and no void periods for landlords.\n\nWould you be open to discussing? Happy to explain the model in more detail.`;
+  }
+
+  // Key points
+  const points=`<ul style="padding-left:1.2rem;margin:0;line-height:2">
+    <li><strong>Guaranteed rent</strong> — you receive ${rent ? '£'+rent.toLocaleString() : 'your full asking rent'} every month, regardless of whether we have guests or not</li>
+    <li><strong>Professional management</strong> — we handle all guest bookings, check-ins, cleaning, and maintenance coordination</li>
+    <li><strong>Higher standard of care</strong> — professional and corporate guests mean less wear and tear than typical tenants</li>
+    <li><strong>Longer contract</strong> — we typically sign 12–36 month agreements, giving you long-term certainty</li>
+    ${rentBand==='low'?'<li><strong>Above-market offer</strong> — our model allows us to meet or exceed your asking rent</li>':''}
+  </ul>`;
+
+  // Objections
+  const objections=`<div style="display:flex;flex-direction:column;gap:0.75rem">
+    <div><strong>"I don't want strangers in my property"</strong><br><span style="font-size:0.82rem;color:var(--text-sec)">Response: "Our guests are vetted professionals — corporate workers, NHS staff, contractors. No parties, no short stays without approval. We have guest policies and damage deposits in place."</span></div>
+    <div><strong>${isAgent?'"The landlord just wants a straightforward tenant"':'"I\'d rather just find a normal tenant"'}</strong><br><span style="font-size:0.82rem;color:var(--text-sec)">Response: "Totally understandable. The difference is that with us, you have zero void risk, no arrears, and we handle everything. A standard tenant can leave with one month's notice. We sign a longer contract."</span></div>
+    <div><strong>"Is this legal / what about my mortgage?"</strong><br><span style="font-size:0.82rem;color:var(--text-sec)">Response: "Great question. Most buy-to-let mortgages allow company lets. If there's any doubt, we can work with the landlord to ensure full compliance, including getting written consent from the lender if needed."</span></div>
+  </div>`;
+
+  // Offer structure
+  const offer=`<ul style="padding-left:1.2rem;margin:0;line-height:2">
+    <li><strong>Rent:</strong> £${rent.toLocaleString()}/month — matching the asking price</li>
+    <li><strong>Contract length:</strong> 12 months minimum, with option to extend to 24–36 months</li>
+    <li><strong>Deposit:</strong> Standard deposit per AST, held in approved scheme</li>
+    <li><strong>Break clause:</strong> 3-month mutual break clause after month 6 (standard)</li>
+    <li><strong>Bills:</strong> All utilities, council tax, and broadband covered by us</li>
+    <li><strong>Repairs:</strong> We handle minor maintenance (under £150) — landlord responsible for structural issues</li>
+  </ul>`;
+
+  // Follow-up
+  const followup=`<ul style="padding-left:1.2rem;margin:0;line-height:1.9">
+    <li><strong>No response after 48h:</strong> ${isCall?'Call again — try a different time of day (try before 9am or after 6pm for landlords)':'Send one follow-up email, referencing your first message'}</li>
+    <li><strong>After 1 week:</strong> ${isAgent?'Contact the agent again and ask if they\'ve spoken to the landlord':'Try a different channel — if you emailed, call; if you called, email'}</li>
+    <li><strong>If they decline:</strong> Ask "Would you consider it in the future if you have a void period?" — get permission to follow up in 3 months</li>
+    <li><strong>Move on if no response after 3 attempts.</strong> A landlord who doesn\'t respond isn\'t worth chasing — focus on the next listing.</li>
+  </ul>`;
+
+  qs('ag-opening').innerHTML=opening.replace(/\n/g,'<br>');
+  qs('ag-points').innerHTML=points;
+  qs('ag-objections').innerHTML=objections;
+  qs('ag-offer').innerHTML=offer;
+  qs('ag-followup').innerHTML=followup;
+  qs('approach-output').style.display='block';
+  qs('approach-output').scrollIntoView({behavior:'smooth',block:'nearest'});
+};
 
 /* ════ LOCAL STORAGE ════════════════════════════════════════ */
 const STORE='operateiq-v1';
@@ -2352,12 +2863,17 @@ async function doAnalyse() {
   if(_sb){_sb.disabled=false;_sb.innerHTML='<span id="save-spinner" style="display:none;" class="loading-spinner"></span>Save This Deal';_sb.className='btn btn-success';_sb.style.color='';}
   const _ss=qs('save-status'); if(_ss) _ss.textContent='';
 
+  // Track analysis count for attribution
+  const prevCount=parseInt(localStorage.getItem('oiq-analyses-count')||0);
+  localStorage.setItem('oiq-analyses-count',prevCount+1);
+  S.analysisCount=(S.analysisCount||0)+1;
+
   S.postcode=rawPC.replace(/\s/g,'').toUpperCase();
   S.pcData=pcData; S.rent=rent;
   S.beds=clamp(beds,1,6); S.baths=baths;
 
   const loc=[pcData.admin_district,pcData.region||pcData.country].filter(Boolean).join(', ');
-  qs('location-text').textContent='📍 '+loc+' — '+S.postcode;
+  qs('location-text').textContent=loc+' — '+S.postcode;
   qs('location-badge').classList.add('show');
 
   stepRentRanking();
@@ -2584,6 +3100,7 @@ async function doSaveDeal() {
     if(typeof window.__saveDeal==='function') {
       const id=await window.__saveDeal(dealData);
       S.savedDealId=id;
+      S.allDeals=[]; // clear cache so market/deals pages re-fetch fresh
       showToast('Deal saved to your portfolio!');
       st.textContent='Saved as "'+dealData.dealName+'"';
       btn.textContent='✓ Saved';
@@ -2734,15 +3251,81 @@ function initContractorScore(listings=[]) {
   } else if(infraWrap) {
     infraWrap.style.display='none';
   }
+
+  // D4: Qualifying Factor Accordions
+  const factorsWrap=qs('contractor-factors-wrap'), factorsList=qs('contractor-factors-list');
+  if(factorsWrap&&factorsList){
+    factorsWrap.style.display='block';
+    const dist=(S.pcData?.admin_district||'').toLowerCase();
+    const region3=(S.pcData?.region||'').toLowerCase();
+    const hasInfra=S.infraNearby.some(p=>p.type==='project');
+    const hasNHS=S.infraNearby.some(p=>p.type==='nhs');
+    const uniCities=['oxford','cambridge','leeds','manchester','sheffield','birmingham','bristol','edinburgh','glasgow','nottingham','leicester','coventry','liverpool','london','newcastle','cardiff','exeter','bath','brighton','reading','york','southampton'];
+    const hasUni=uniCities.some(c=>dist.includes(c)||region3.includes(c));
+    const industrialRegions=['west midlands','yorkshire','north west','north east','east midlands','wales','scotland'];
+    const hasIndustrial=industrialRegions.some(r=>region3.includes(r));
+    const factors=[
+      {
+        title:'Proximity to Major Infrastructure Projects',
+        score:hasInfra?'High':'Low',
+        desc:'Major road, rail, energy, and data infrastructure projects attract large contractor workforces — often 50–500+ workers — who need accommodation for 3–12 months at a time. These workers typically prefer serviced accommodation over hotels for stays longer than 2 weeks. To identify relevant projects: check the National Infrastructure and Construction Pipeline (published by the UK Government), HS2 community engagement notices, National Grid and energy company procurement portals, and local planning authority major applications registers. When a major project is active within 10 miles of your property, prioritise outreach to the principal contractor\'s welfare or accommodation manager. Rates for contractor accommodation are typically 10–20% above standard corporate rates due to the urgency and volume required. Building a relationship with just one project manager can deliver 6–18 months of guaranteed occupancy.'
+      },
+      {
+        title:'NHS Trust Density',
+        score:hasNHS?'High':'Medium',
+        desc:'Areas with multiple NHS Trusts attract a constant flow of locum doctors, agency nurses, allied health professionals, and healthcare administration staff who need flexible medium-term accommodation. NHS locums typically work on 4–13 week rotational contracts and receive a daily subsistence allowance for accommodation — often £70–£140 per night. Unlike hotel bookings, SA operators can negotiate monthly rates with healthcare staffing agencies (NHS Professionals, Medacs Healthcare, Pulse Healthcare, Compass Associates). The key is to register as an approved supplier on their preferred accommodation lists. Areas with teaching hospitals and medical schools have year-round demand from junior doctors rotating placements. Your property should be within 3 miles of the main hospital site for maximum appeal. Consider advertising your property directly on NHS accommodation boards and locum community Facebook groups for the relevant Trust.'
+      },
+      {
+        title:'University Presence',
+        score:hasUni?'High':'Low',
+        desc:'University towns and cities generate year-round demand for SA properties from visiting academics, PhD researchers on placements, external examiners, industry partners, and conference delegates. This demand is distinct from student lets — it comes from professionals who need short-to-medium stays (1 week to 3 months) and who are reimbursed by their institution. During term time (September to June), demand from visiting lecturers and researchers stays elevated. Summer months bring conference season — universities host hundreds of academic and professional conferences that bring delegates who prefer SA to hotels. Many universities also have visiting artist or writer-in-residence programmes. To access this market: list on university accommodation finder systems, contact accommodation departments directly at nearby universities, and join academic networking platforms. Properties within 0.5 miles of campus command premium rates and typically achieve 70–80%+ occupancy through university channels alone.'
+      },
+      {
+        title:'Industrial Estate & Logistics Hub Proximity',
+        score:hasIndustrial?'High':'Medium',
+        desc:'Manufacturing, logistics, and energy sector workers based at nearby industrial estates and distribution hubs represent a consistent and underserved SA demand segment. Unlike contractors on temporary projects, operations workers at established industrial sites may need accommodation on a rolling basis — particularly for shift patterns that make daily commuting impractical. Large fulfilment centres (Amazon, DHL, Royal Mail), manufacturing plants (automotive, aerospace, food production), and energy generation sites (power stations, renewable energy facilities) all employ a mix of permanent and temporary staff who need nearby accommodation. Seasonal project demand — factory upgrades, equipment installation, maintenance shutdowns — can require 10–40 workers for 6–18 weeks. Target outreach to: HR managers at major employers, site operations managers, facilities management companies contracted to industrial estates. An easy first step is to visit nearby business parks with a one-page SA information sheet and contact the estate manager or letting agents who handle commercial tenants in the area.'
+      }
+    ];
+    factorsList.innerHTML=factors.map((f,i)=>`
+      <div class="factor-accordion">
+        <div class="factor-header" onclick="toggleFactor(${i})">
+          <span class="factor-title">${f.title}</span>
+          <span class="factor-score-pill ${f.score.toLowerCase()}">${f.score} Potential</span>
+          <span class="factor-chevron" id="factor-chevron-${i}">▼</span>
+        </div>
+        <div class="factor-body" id="factor-body-${i}">${f.desc}</div>
+      </div>`).join('');
+  }
 }
 
+window.toggleFactor=function(i){
+  const body=qs('factor-body-'+i), ch=qs('factor-chevron-'+i);
+  if(!body) return;
+  const open=body.classList.toggle('open');
+  if(ch) ch.style.transform=open?'rotate(180deg)':'';
+};
+
 /* ════ DEVELOPMENT INTELLIGENCE (NEWS) ═════════════════════ */
+window.switchIntelTab=function(tab,btn){
+  ['news','planning','infra'].forEach(t=>{
+    const p=qs('intel-panel-'+t); if(p) p.classList.toggle('active',t===tab);
+  });
+  document.querySelectorAll('.intel-tab').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+};
+
 function renderToolkitIfReady() {
   if(!S.pcData) return;
   qs('intel-no-deal').style.display='none'; qs('intel-results').style.display='block';
   qs('contractor-no-deal').style.display='none'; qs('contractor-results').style.display='block';
-  qs('finder-no-deal').style.display='none'; qs('finder-results').style.display='block';
-  qs('planning-no-deal').style.display='none'; qs('planning-results').style.display='block';
+  if(qs('finder-no-deal')) qs('finder-no-deal').style.display='none';
+  if(qs('finder-results')) qs('finder-results').style.display='block';
+  if(qs('planning-no-deal')) qs('planning-no-deal').style.display='none';
+  if(qs('planning-results')) qs('planning-results').style.display='block';
+  // Update infrastructure signal labels
+  const dist2=(S.pcData?.admin_district||S.pcData?.region||S.postcode||'this area');
+  const nhsLbl=qs('infra-nhs-label'); if(nhsLbl) nhsLbl.textContent=`NHS facilities and hospitals near ${dist2}`;
+  const uniLbl=qs('infra-uni-label'); if(uniLbl) uniLbl.textContent=`University presence near ${dist2}`;
   // Show current postcode label in toolkit
   const lbl=qs('toolkit-current-label');
   if(lbl){lbl.style.display='block';lbl.textContent='Currently analysing: '+S.postcode+(S.pcData.admin_district?' — '+S.pcData.admin_district:'');}
@@ -2921,9 +3504,9 @@ function renderFinderSearchLinks() {
   // Secondary portal links (shown after search)
   const enc=pc?encodeURIComponent(pc):'';
   const portals=enc?[
-    {icon:'🏠',label:'Rightmove',sub:'UK\'s largest portal',href:`https://www.rightmove.co.uk/property-to-rent/search.html?searchLocation=${enc}&radius=1.0&minBedrooms=${beds}&maxBedrooms=${beds}${maxRent?'&maxPrice='+maxRent:''}&sortType=6`},
     {icon:'🏡',label:'Zoopla',sub:'Comprehensive listings',href:`https://www.zoopla.co.uk/to-rent/property/${enc.toLowerCase().replace(/%20/g,'-')}/?beds_min=${beds}&beds_max=${beds}&price_frequency=per_month${maxRent?'&price_max='+maxRent:''}`},
-    {icon:'📱',label:'SpareRoom',sub:'Whole properties & rooms',href:`https://www.spareroom.co.uk/flatshare/?search_type=rooms&location_type=town&location=${enc}&rooms_for=professionals&per_page=20&min_rooms=${beds}&max_rooms=${beds}`}
+    {icon:'📱',label:'SpareRoom',sub:'Whole properties & rooms',href:`https://www.spareroom.co.uk/flatshare/?search_type=rooms&location_type=town&location=${enc}&rooms_for=professionals&per_page=20&min_rooms=${beds}&max_rooms=${beds}`},
+    {icon:'🔑',label:'OpenRent',sub:'Landlord direct — no agent fees',href:`https://www.openrent.co.uk/properties-to-rent/?term=${enc}&minBeds=${beds}&maxBeds=${beds}${maxRent?'&maxPrice='+maxRent:''}`}
   ]:[];
   const sg=qs('finder-search-links');
   if(sg&&portals.length) sg.innerHTML=portals.map(p=>`<a class="portal-tile" href="${p.href}" target="_blank" rel="noopener" style="font-size:0.78rem;padding:0.75rem"><span class="pt-icon" style="font-size:1.3rem">${p.icon}</span><span>${p.label}</span><span class="pt-sub">${p.sub}</span></a>`).join('');
@@ -3163,7 +3746,6 @@ async function runMarketAnalysis() {
         ].map(s=>`<div class="pnl-summary-box"><div class="pnl-summary-val" style="font-size:1.1rem">${s.val}</div><div class="pnl-summary-lbl">${s.lbl}</div><div style="font-size:0.65rem;color:var(--text-muted);margin-top:2px">${s.sub}</div></div>`).join('')}
       </div>
       <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
-        <a class="portal-tile" href="https://www.insideairbnb.com/get-the-data/" target="_blank" rel="noopener" style="flex:1;min-width:200px"><span class="pt-icon">📈</span><span>Inside Airbnb</span><span class="pt-sub">Free UK city data — actual listings & pricing</span></a>
         <a class="portal-tile" href="https://www.airbnb.co.uk/s/${cityQ}/homes?refinement_paths%5B%5D=%2Fhomes&flexible_trip_lengths%5B%5D=one_week&min_bedrooms=${beds}&max_bedrooms=${beds}" target="_blank" rel="noopener" style="flex:1;min-width:200px"><span class="pt-icon">🏠</span><span>Browse Airbnb</span><span class="pt-sub">See live listings in this area to check real rates</span></a>
       </div>`;
     qs('card-market-results').classList.remove('hidden');
@@ -3175,6 +3757,21 @@ async function runMarketAnalysis() {
   qs('mkt-avg-rate').textContent=gbp(avg)+'/night';
   qs('mkt-range').textContent=gbp(Math.min(...prices))+' – '+gbp(Math.max(...prices));
   qs('market-listings-grid').innerHTML=`<div class="listings-grid">${listings.map(l=>{const p=l.price?.rate||0;const rev=l.reviews?.count||0;const rat=l.reviews?.guestSatisfactionOverall||0;const link=l.url?`<a class="listing-link" href="${l.url}" target="_blank" rel="noopener">View on Airbnb ↗</a>`:'';return`<div class="listing-card">${l.isSample?'<span class="sample-badge">Sample</span>':''}<div class="listing-name">${l.name}</div><div class="listing-meta">${l.bedrooms||beds} bed</div><div class="listing-price">${p?gbp(p):'—'}<span>/night</span></div>${rev>0?`<div class="listing-reviews"><span class="star">★</span> ${rat} · ${rev} reviews</div>`:''} ${link}</div>`;}).join('')}</div>`;
+  // D3: Market Keyword Signals — scan listing titles for SA-relevant keywords
+  const allTitles=listings.map(l=>(l.name||'').toLowerCase()).join(' ');
+  const ltbKws=['long stay','monthly','corporate','contractor','professional','business','nhs','extended','flexible','professional stay'];
+  const compKws=['luxury','en-suite','parking','wifi','hot tub','pet friendly','sea view'];
+  const ltbFound=ltbKws.filter(k=>allTitles.includes(k));
+  const compFound=compKws.filter(k=>allTitles.includes(k));
+  const sigStr=ltbFound.length>=3?'High':ltbFound.length>=1?'Medium':'Low';
+  const sigCol=ltbFound.length>=3?'var(--green)':ltbFound.length>=1?'var(--amber)':'var(--red)';
+  const kwHtml=`<div class="kw-signals">
+    <div class="kw-signals-title">Market Keyword Signals</div>
+    ${ltbFound.length?`<div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:0.3rem">Long-stay signals in nearby listings:</div><div class="kw-pills">${ltbFound.map(k=>`<span class="kw-pill positive">✓ ${k}</span>`).join('')}</div>`:'<div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:0.4rem">No long-stay keywords detected in nearby listing titles.</div>'}
+    ${compFound.length?`<div style="font-size:0.72rem;color:var(--text-muted);margin-bottom:0.3rem;margin-top:0.5rem">Competition signals:</div><div class="kw-pills">${compFound.map(k=>`<span class="kw-pill signal">${k}</span>`).join('')}</div>`:''}
+    <div class="kw-summary">${ltbFound.length} of ${ltbKws.length} long-stay keywords found nearby. <strong style="color:${sigCol}">${sigStr} demand signal</strong> for long-term bookings in this area.</div>
+  </div>`;
+  qs('market-listings-grid').innerHTML+=kwHtml;
   qs('card-market-results').classList.remove('hidden');
   setLoading('market-spinner',false); qs('btn-run-market').disabled=false;
 }
@@ -3208,7 +3805,7 @@ async function loadDealsPage() {
 
 async function loadPortfolioPage() {
   const lg=qs('live-grid'); if(!lg) return;
-  await ensureDealsLoaded();
+  await ensureDealsLoaded(true); // always force-fresh on portfolio load
   renderDealsGrid();
   updatePortfolioTotals();
   checkLeaseRenewals(S.allDeals||[]);
@@ -3517,66 +4114,6 @@ window.addPnlDashEntry=async function(){
   }catch(e){showToast('Error: '+e.message);}
 };
 
-/* ════ MENTOR MODE ══════════════════════════════════════════ */
-async function loadMentorPage() {
-  if(!S.allDeals.length&&typeof window.__loadDeals==='function'){
-    try{S.allDeals=await window.__loadDeals();}catch(e){}
-  }
-  renderMentorPage();
-}
-
-function renderMentorPage() {
-  const all=S.allDeals||[];
-  const live=all.filter(d=>d.isLive);
-  const pipeline=all.filter(d=>!d.isLive);
-  const totalMonthly=live.reduce((a,d)=>a+(d.monthlyProfit||0),0);
-  const avgROI=live.length?Math.round(live.reduce((a,d)=>a+(d.roi||0),0)/live.length):0;
-  const freedomTarget=parseFloat((qs('pf-freedom')||{}).value)||3000;
-  const freedomPct=Math.min(100,Math.round((totalMonthly/freedomTarget)*100));
-
-  const statsGrid=qs('mentor-stats-grid');
-  if(statsGrid) statsGrid.innerHTML=[
-    {val:live.length,lbl:'Live Properties',cls:''},
-    {val:pipeline.length,lbl:'Pipeline Deals',cls:'blue'},
-    {val:gbp(totalMonthly)+'/mo',lbl:'Monthly Profit',cls:'green'},
-    {val:(avgROI>0?'+':'')+avgROI+'%',lbl:'Avg ROI',cls:'gold'},
-    {val:freedomPct+'%',lbl:'Freedom Progress',cls:''}
-  ].map(s=>`<div class="mentor-stat-box"><div class="msb-val ${s.cls}">${s.val}</div><div class="msb-lbl">${s.lbl}</div></div>`).join('');
-
-  const list=qs('mentor-deal-list');
-  if(list){
-    if(!all.length){
-      list.innerHTML='<div class="notice notice-info"><span>💡</span><span>No deals saved yet. Analyse and save deals from Deal Analyser.</span></div>';
-    } else {
-      list.innerHTML=all.map(d=>`
-        <div class="mentor-deal-row">
-          <div>
-            <div class="mentor-deal-name">${d.dealName||d.postcode||'Deal'}</div>
-            <div class="mentor-deal-meta">${d.adminDistrict||d.region||''} · ${d.beds||'?'} bed · £${(d.rent||0).toLocaleString()}/mo rent</div>
-          </div>
-          <div class="mentor-deal-right">
-            <div class="mentor-deal-profit ${(d.monthlyProfit||0)>=0?'positive':'negative'}">${gbp(d.monthlyProfit||0)}/mo</div>
-            <span class="mentor-tag ${d.isLive?'live':'pipeline'}">${d.isLive?'Live':'Pipeline'}</span>
-          </div>
-        </div>`).join('');
-    }
-  }
-
-  const fw=qs('mentor-freedom-wrap');
-  if(fw&&freedomTarget>0){
-    const remaining=Math.max(0,freedomTarget-totalMonthly);
-    fw.innerHTML=`
-      <div style="margin-bottom:1rem">
-        <div class="pb-label"><span>Journey to ${gbp(freedomTarget)}/mo</span><span>${freedomPct}%</span></div>
-        <div class="pb-track"><div class="pb-fill" style="width:${freedomPct}%"></div></div>
-      </div>
-      <div style="font-size:0.85rem;color:var(--text-sec);display:flex;gap:1.5rem;flex-wrap:wrap">
-        <span>Current: <strong>${gbp(totalMonthly)}/mo</strong></span>
-        <span>Target: <strong>${gbp(freedomTarget)}/mo</strong></span>
-        <span>Remaining: <strong>${gbp(remaining)}</strong></span>
-      </div>`;
-  }
-}
 
 window.openCoachForDeal=function(dealId){
   const deal=S.allDeals.find(d=>d.id===dealId);
@@ -3850,7 +4387,16 @@ async function loadOperatorProfile() {
     if(profile.pfAvgProfit)   { const el=qs('pf-avg-profit'); if(el) el.value=profile.pfAvgProfit; }
     if(profile.pfCurrent)     { const el=qs('pf-current');    if(el) el.value=profile.pfCurrent; }
     if(profile.pfGrowth)      { const el=qs('pf-growth');     if(el) el.value=profile.pfGrowth; }
+    // Load new goal fields
+    if(profile.pfInvestBudget) { const el=qs('pf-invest-budget'); if(el) el.value=profile.pfInvestBudget; }
+    if(profile.pfTargetProps)  { const el=qs('pf-target-props');  if(el) el.value=profile.pfTargetProps; }
+    if(profile.pfMarketType)   { const el=qs('pf-market-type');   if(el) el.value=profile.pfMarketType; }
+    if(profile.pfBizStructure) { const el=qs('pf-biz-structure'); if(el) el.value=profile.pfBizStructure; }
+    if(profile.pfTargetRegions){ const el=qs('pf-target-regions');if(el) el.value=profile.pfTargetRegions; }
+    if(profile.pfGuestFocus)   { const el=qs('pf-guest-focus');   if(el) el.value=profile.pfGuestFocus; }
   } catch(e){ console.warn('loadOperatorProfile error',e); }
+  // Load wins tracker
+  if(window.refreshWins) window.refreshWins();
 }
 
 async function saveProfile() {
@@ -3869,7 +4415,13 @@ async function saveProfile() {
     opIncome:     (qs('op-current-income')||{}).value||'',
     pfAvgProfit:  (qs('pf-avg-profit')||{}).value||'',
     pfCurrent:    (qs('pf-current')||{}).value||'',
-    pfGrowth:     (qs('pf-growth')||{}).value||''
+    pfGrowth:     (qs('pf-growth')||{}).value||'',
+    pfInvestBudget:(qs('pf-invest-budget')||{}).value||'',
+    pfTargetProps: (qs('pf-target-props')||{}).value||'',
+    pfMarketType:  (qs('pf-market-type')||{}).value||'',
+    pfBizStructure:(qs('pf-biz-structure')||{}).value||'',
+    pfTargetRegions:(qs('pf-target-regions')||{}).value||'',
+    pfGuestFocus:  (qs('pf-guest-focus')||{}).value||''
   };
   // Auto-fill sidebar name if provided
   if(data.opName){ const el=qs('sidebar-user-name'); if(el) el.textContent=data.opName; }
@@ -3931,7 +4483,6 @@ function bindEvents() {
   });
   qs('btn-refresh-deals').addEventListener('click',()=>{ S.allDeals=[]; loadDealsPage(); loadDealsForCoachDropdown(); });
   qs('btn-refresh-portfolio').addEventListener('click',()=>{ S.allDeals=[]; loadPortfolioPage(); });
-  qs('btn-refresh-mentor').addEventListener('click',loadMentorPage);
   qs('btn-load-pnl').addEventListener('click',loadPnlDashboard);
   qs('btn-add-pnl-entry').addEventListener('click',addPnlDashEntry);
   qs('btn-save-profile').addEventListener('click',saveProfile);
@@ -3943,6 +4494,7 @@ function init() {
   loadSavedState();
   bindEvents();
   renderFinderSearchLinks();
+  renderCompanyCards('all');
 }
 window.__appInit = init;
 document.addEventListener('DOMContentLoaded',()=>{

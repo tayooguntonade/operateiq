@@ -229,71 +229,74 @@ nav{
 .feature-items li::before{content:'→';color:var(--gold);font-weight:700;flex-shrink:0}
 
 /* ─── CALCULATOR ────────────────────────────────────────────── */
-.calc-section{background:var(--navy);padding:100px 2rem}
+.calc-section{background:#f4f6f9;padding:100px 2rem}
 .calc-inner{max-width:680px;margin:0 auto}
 .calc-eyebrow{
   font-size:0.72rem;font-weight:700;text-transform:uppercase;
-  letter-spacing:0.12em;color:rgba(201,168,76,0.65);margin-bottom:0.75rem;
+  letter-spacing:0.12em;color:var(--gold);margin-bottom:0.75rem;
 }
 .calc-title{
   font-family:'Plus Jakarta Sans',sans-serif;
   font-size:clamp(1.75rem,3vw,2.5rem);font-weight:800;
-  color:#fff;line-height:1.2;letter-spacing:-0.02em;margin-bottom:0.875rem;
+  color:var(--navy);line-height:1.2;letter-spacing:-0.02em;margin-bottom:0.875rem;
 }
-.calc-sub{font-size:1rem;color:rgba(255,255,255,0.5);line-height:1.7;margin-bottom:2.5rem}
+.calc-sub{font-size:1rem;color:var(--text-sec);line-height:1.7;margin-bottom:2.5rem}
 
 .calc-widget{
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(201,168,76,0.18);
+  background:#fff;
+  border:1.5px solid var(--border);
   border-radius:var(--radius-lg);padding:2.5rem;
+  box-shadow:var(--shadow-md);
 }
 .calc-row{
   display:flex;align-items:center;gap:1rem;
   flex-wrap:wrap;margin-bottom:2rem;
 }
-.calc-label{font-size:0.95rem;color:rgba(255,255,255,0.6);font-weight:400}
+.calc-label{font-size:0.95rem;color:var(--text-sec);font-weight:400}
 .calc-input-wrap{position:relative;flex-shrink:0}
 .calc-pfx{
   position:absolute;left:0.875rem;top:50%;transform:translateY(-50%);
   color:var(--gold);font-weight:700;font-size:1.1rem;pointer-events:none;
 }
 .calc-input{
-  background:rgba(255,255,255,0.07);
-  border:1.5px solid rgba(201,168,76,0.25);
+  background:var(--bg);
+  border:1.5px solid var(--border);
   border-radius:var(--radius-sm);
   padding:0.7rem 0.875rem 0.7rem 2rem;
-  font-size:1.35rem;font-weight:700;color:#fff;
+  font-size:1.35rem;font-weight:700;color:var(--navy);
   font-family:'Plus Jakarta Sans',sans-serif;
   width:130px;text-align:right;outline:none;
-  transition:border-color 0.18s;
+  transition:border-color 0.18s,box-shadow 0.18s;
 }
-.calc-input:focus{border-color:var(--gold)}
-.calc-input::placeholder{color:rgba(255,255,255,0.25)}
+.calc-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,0.12)}
+.calc-input::placeholder{color:var(--text-muted)}
 
-.calc-results{
-  display:flex;flex-direction:column;gap:0;
-  border:1px solid rgba(201,168,76,0.15);border-radius:var(--radius-sm);overflow:hidden;
-}
-.calc-result-row{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:0.9rem 1.25rem;
-  border-bottom:1px solid rgba(201,168,76,0.1);
-  background:rgba(255,255,255,0.03);
-}
-.calc-result-row:last-child{border-bottom:none}
-.calc-result-label{font-size:0.875rem;color:rgba(255,255,255,0.5)}
-.calc-result-val{
-  font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;
-  font-size:1.1rem;color:#fff;
-}
 .calc-verdict-box{
-  margin-top:1.5rem;padding:1.1rem 1.25rem;
-  background:rgba(5,150,105,0.12);
-  border:1px solid rgba(5,150,105,0.25);
+  padding:1.25rem 1.5rem;
+  background:var(--bg);
+  border:1.5px solid var(--border);
+  border-left:4px solid var(--gold);
   border-radius:var(--radius-sm);
 }
-.calc-verdict-box p{font-size:0.9rem;color:rgba(255,255,255,0.75);line-height:1.65}
-.calc-verdict-box strong{color:#fff}
+.calc-verdict-box p{font-size:0.95rem;color:var(--text-sec);line-height:1.7}
+.calc-verdict-box strong{color:var(--navy)}
+.calc-verdict-highlight{
+  display:flex;align-items:baseline;gap:1.5rem;
+  margin-bottom:1rem;flex-wrap:wrap;
+}
+.calc-big-num{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:2.5rem;font-weight:900;
+  color:var(--navy);line-height:1;letter-spacing:-0.03em;
+}
+.calc-big-label{font-size:0.875rem;color:var(--text-sec);font-weight:500}
+.calc-vs{
+  font-size:0.8rem;font-weight:600;color:var(--text-muted);
+  text-transform:uppercase;letter-spacing:0.06em;
+}
+.calc-premium-cost{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:1.5rem;font-weight:800;
+  color:var(--gold);
+}
 
 /* ─── PRICING ───────────────────────────────────────────────── */
 .pricing-section{background:#fff;padding:100px 2rem}
@@ -378,6 +381,11 @@ nav{
   font-size:1.05rem;color:rgba(13,27,62,0.65);
   max-width:480px;margin:0 auto 2.5rem;line-height:1.7;
 }
+.marker-highlight{
+  background:linear-gradient(180deg,transparent 52%,rgba(13,27,62,0.22) 52%);
+  display:inline;
+  padding-bottom:2px;
+}
 .cta-banner-btns{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap}
 .btn-banner{
   background:var(--navy);color:#fff;
@@ -449,24 +457,24 @@ footer{background:var(--navy);padding:3rem 2rem}
       <span class="ticker-dot"></span>
       <span class="ticker-text" id="ticker-content">Deal analysed in 90 seconds</span>
     </div>
-    <h1>Stop Losing Money to Voids.<em>Start Winning Long-Term Bookings.</em></h1>
-    <p class="hero-sub">OperateIQ gives serviced accommodation operators the data, AI coaching and deal tools to fill every night — and make every property profitable from day one.</p>
+    <h1>The SA operator's<em>unfair advantage.</em></h1>
+    <p class="hero-sub">Secure profitable deals before anyone else does. Lock in long-term bookings that boost occupancy, eliminate voids, and grow your monthly revenue — all from one platform.</p>
     <div class="hero-ctas">
       <a href="index.html" class="btn btn-gold btn-xl">Get Started Free →</a>
       <a href="#features" class="btn btn-outline-dark btn-lg" style="border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.75)">See Features</a>
     </div>
     <div class="hero-proof">
       <div class="hero-proof-item">
-        <span class="proof-num">90s</span>
+        <span class="proof-num">60s</span>
         <span class="proof-label">Deal Analysis</span>
       </div>
       <div class="hero-proof-item">
         <span class="proof-num">8</span>
-        <span class="proof-label">AI Coach Sections</span>
+        <span class="proof-label">AI Coach Metrics</span>
       </div>
       <div class="hero-proof-item">
-        <span class="proof-num">Live</span>
-        <span class="proof-label">Airbnb Rate Data</span>
+        <span class="proof-num">Long Term</span>
+        <span class="proof-label">Booking Magnet</span>
       </div>
       <div class="hero-proof-item">
         <span class="proof-num">£0</span>
@@ -578,9 +586,9 @@ footer{background:var(--navy);padding:3rem 2rem}
 <!-- VOID CALCULATOR -->
 <section class="calc-section">
   <div class="calc-inner">
-    <p class="calc-eyebrow">Does It Pay for Itself?</p>
-    <h2 class="calc-title">One void covers your subscription.</h2>
-    <p class="calc-sub">Enter your nightly rate and see exactly how fast Premium pays for itself.</p>
+    <p class="calc-eyebrow">We only need to get you booked for one more night.</p>
+    <h2 class="calc-title">At your rate, here's what one void costs you.</h2>
+    <p class="calc-sub">Enter your average nightly rate and we'll show you exactly how quickly Premium pays for itself.</p>
     <div class="calc-widget">
       <div class="calc-row">
         <span class="calc-label">My average nightly rate is</span>
@@ -590,22 +598,19 @@ footer{background:var(--navy);padding:3rem 2rem}
         </div>
         <span class="calc-label">per night</span>
       </div>
-      <div class="calc-results">
-        <div class="calc-result-row">
-          <span class="calc-result-label">Revenue lost per void night</span>
-          <span class="calc-result-val" id="calc-void">£115</span>
-        </div>
-        <div class="calc-result-row">
-          <span class="calc-result-label">OperateIQ Premium (per month)</span>
-          <span class="calc-result-val" style="color:var(--gold)">£69</span>
-        </div>
-        <div class="calc-result-row">
-          <span class="calc-result-label">Voids needed to cover Premium</span>
-          <span class="calc-result-val" id="calc-voids">less than 1 night</span>
-        </div>
-      </div>
       <div class="calc-verdict-box" id="calc-verdict">
-        <p>At <strong id="calc-rate-display">£115/night</strong>, preventing just <strong>one partial void per month</strong> more than covers your subscription. That's less than 15 hours of occupancy.</p>
+        <div class="calc-verdict-highlight">
+          <div>
+            <div class="calc-big-num" id="calc-void">£115</div>
+            <div class="calc-big-label">lost per void night</div>
+          </div>
+          <div class="calc-vs">vs</div>
+          <div>
+            <div class="calc-premium-cost">£69/mo</div>
+            <div class="calc-big-label">OperateIQ Premium</div>
+          </div>
+        </div>
+        <p id="calc-verdict-text">At <strong>£115/night</strong>, just one void night more than covers your entire month of Premium. The maths are simple.</p>
       </div>
     </div>
   </div>
@@ -687,8 +692,8 @@ footer{background:var(--navy);padding:3rem 2rem}
 
 <!-- CTA BANNER -->
 <section class="cta-banner">
-  <h2>If your property charges more than £115 a night, one void covers Premium.</h2>
-  <p>Start free. No card required. Join SA operators already using OperateIQ to reduce voids and win long-term bookings.</p>
+  <h2>OperateIQ Premium <span class="marker-highlight">pays for itself.</span></h2>
+  <p>If your property charges more than <strong>£69 a night</strong>, one void night covers a full month of Premium. Start free. No card required.</p>
   <div class="cta-banner-btns">
     <a href="index.html" class="btn-banner">Get Started Free →</a>
     <a href="#pricing" class="btn-banner btn-banner-outline">View Pricing</a>
@@ -709,13 +714,15 @@ footer{background:var(--navy);padding:3rem 2rem}
 </footer>
 
 <script>
-// Ticker rotation
+// Ticker rotation — 7 selected messages, 5s cycle
 const tickers = [
-  'Deal analysed in 90 seconds',
-  'AI coaching — 34% occupancy improvement',
-  '£1,240/mo profit on a 2-bed in Manchester',
-  'Live Airbnb rates. Real decisions.',
-  'Prevent one void. Pay for a year.'
+  'Deal analysed in 60 seconds — know your numbers before you call',
+  'Real Airbnb comps — not estimates, not guesses',
+  'From postcode to profit forecast in under a minute',
+  'NHS stays. Corporate contracts. Contractor bookings. All found here.',
+  'Your freedom number. Your portfolio. Your roadmap. One platform.',
+  'We only need you booked one more night for it to pay for itself',
+  'Built for SA operators who are serious about scale'
 ];
 let tickerIdx = 0;
 function rotateTicker() {
@@ -727,33 +734,37 @@ function rotateTicker() {
     el.style.opacity = '1';
   }, 350);
 }
-setInterval(rotateTicker, 3200);
+setInterval(rotateTicker, 5000);
 
-// Void calculator
+// Void calculator — dynamic contextual messaging
 function updateCalc() {
   const rate = parseFloat(document.getElementById('calc-rate').value) || 0;
   const cost = 69;
-  document.getElementById('calc-void').textContent = rate > 0 ? '£' + rate.toFixed(0) : '—';
-  document.getElementById('calc-rate-display').textContent = '£' + rate.toFixed(0) + '/night';
+
+  // Update the big void number
+  document.getElementById('calc-void').textContent = rate > 0 ? '£' + rate.toFixed(0) : '£—';
 
   if (rate <= 0) {
-    document.getElementById('calc-voids').textContent = '—';
-    document.getElementById('calc-verdict').querySelector('p').innerHTML = 'Enter your nightly rate above.';
+    document.getElementById('calc-verdict-text').innerHTML = 'Enter your nightly rate above to see the calculation.';
     return;
   }
 
   const voids = cost / rate;
-  if (voids < 1) {
-    const hours = Math.round(voids * 24);
-    document.getElementById('calc-voids').textContent = 'less than 1 night';
-    document.getElementById('calc-verdict').querySelector('p').innerHTML =
-      `At <strong>£${rate}/night</strong>, preventing just <strong>${hours} hours of voids per month</strong> more than covers Premium. That's less than one night's occupancy.`;
-  } else {
+  let msg = '';
+
+  if (rate < 35) {
     const nights = voids.toFixed(1);
-    document.getElementById('calc-voids').textContent = nights + ' nights';
-    document.getElementById('calc-verdict').querySelector('p').innerHTML =
-      `At <strong>£${rate}/night</strong>, Premium pays for itself after preventing just <strong>${nights} void nights per month</strong>.`;
+    msg = `At <strong>£${rate.toFixed(0)}/night</strong>, it takes <strong>${nights} void nights</strong> per month to cover Premium — but our tools help you fill those nights faster than guessing.`;
+  } else if (rate < 69) {
+    const nights = voids.toFixed(1);
+    msg = `At <strong>£${rate.toFixed(0)}/night</strong>, preventing just <strong>${nights} void nights</strong> a month covers Premium. That's achievable with the right data behind every decision.`;
+  } else if (rate < 115) {
+    const hours = Math.round(voids * 24);
+    msg = `At <strong>£${rate.toFixed(0)}/night</strong>, just <strong>one void night</strong> more than covers your entire month of Premium — that's only ${hours} hours of occupancy.`;
+  } else {
+    msg = `At <strong>£${rate.toFixed(0)}/night</strong>, <strong>less than 15 hours</strong> of one void night covers a full month of Premium. The maths are simple.`;
   }
+  document.getElementById('calc-verdict-text').innerHTML = msg;
 }
 updateCalc();
 </script>
