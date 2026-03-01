@@ -264,6 +264,20 @@ window.setApproval = async function(uid, approve) {
       approvedAt: approve ? serverTimestamp() : null,
       approvedBy: currentUser?.uid || null
     });
+    // If approving, trigger welcome email via Firebase Function
+    if (approve) {
+      try {
+        // Function URL: update region if needed (default is us-central1)
+        const fnUrl = 'https://us-central1-operateiq-570ee.cloudfunctions.net/sendAccessApproved';
+        await fetch(fnUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ uid })
+        });
+      } catch(emailErr) {
+        console.warn('Welcome email failed (non-critical):', emailErr.message);
+      }
+    }
     loadUsers();
   } catch(e) {
     alert('Error: ' + e.message);

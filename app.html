@@ -628,6 +628,23 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
 .factor-body{display:none;padding:0.875rem 1rem;border-top:1px solid var(--border);font-size:0.82rem;color:var(--text-sec);line-height:1.65;background:#fff}
 .factor-body.open{display:block}
 .factor-why-btn{font-size:0.72rem;font-weight:600;color:var(--gold);background:none;border:none;cursor:pointer;padding:0;margin-top:0.1rem;text-decoration:underline;text-underline-offset:2px}
+/* Revenue Ideas */
+.ri-grid{display:flex;flex-direction:column;gap:0}
+.ri-card{border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;margin-bottom:0.5rem}
+.ri-header{display:flex;align-items:center;gap:0.875rem;padding:0.875rem 1rem;cursor:pointer;user-select:none;background:var(--surface-alt);transition:background 0.15s}
+.ri-header:hover{background:rgba(201,168,76,0.06)}
+.ri-icon{font-size:1.25rem;flex-shrink:0;width:28px;text-align:center}
+.ri-meta{flex:1;min-width:0}
+.ri-title{font-size:0.875rem;font-weight:700;color:var(--navy)}
+.ri-summary{font-size:0.72rem;color:var(--text-muted);margin-top:0.1rem;line-height:1.4}
+.ri-right{display:flex;align-items:center;gap:0.5rem;flex-shrink:0}
+.ri-earn{font-size:0.68rem;font-weight:700;padding:0.18rem 0.55rem;border-radius:999px;background:rgba(201,168,76,0.12);color:var(--gold)}
+.ri-chev{font-size:0.75rem;color:var(--text-muted);transition:transform 0.2s}
+.ri-body{display:none;padding:0.875rem 1rem;border-top:1px solid var(--border);font-size:0.82rem;line-height:1.7;color:var(--text-sec)}
+.ri-body.open{display:block}
+.ri-body ul{margin:0.5rem 0 0.5rem 1.25rem;padding:0}
+.ri-body li{margin-bottom:0.35rem}
+.ri-body strong{color:var(--navy)}
 
 /* ─── CURATED COMPANIES (Rehousing Finder) ─────────────── */
 .company-filter-bar{display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem}
@@ -851,6 +868,29 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
 .gate-price{font-size:0.78rem;color:var(--text-muted);margin-top:-0.25rem}
 .btn-upgrade{background:var(--gold);color:var(--navy);border:none;border-radius:var(--radius-sm);padding:0.6rem 1.5rem;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:0.875rem;cursor:pointer;transition:all 0.2s}
 .btn-upgrade:hover{background:var(--gold-light);transform:translateY(-1px);box-shadow:0 4px 12px rgba(201,168,76,0.3)}
+.gate-plans{display:flex;gap:0.6rem;margin-top:0.5rem;flex-wrap:wrap;justify-content:center}
+.gate-plan-btn{padding:0.55rem 1.1rem;border-radius:var(--radius-sm);font-weight:700;font-size:0.8rem;cursor:pointer;transition:all 0.15s;font-family:'Plus Jakarta Sans',sans-serif}
+.gate-plan-btn.gp-primary{background:var(--gold);color:var(--navy);border:2px solid var(--gold)}
+.gate-plan-btn.gp-secondary{background:transparent;color:var(--navy);border:2px solid var(--navy)}
+.gate-plan-btn:hover{transform:translateY(-1px);opacity:0.9}
+/* Upgrade plan cards */
+.plans-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:0.25rem}
+.plan-card{border:2px solid var(--border);border-radius:var(--radius);padding:1.5rem;position:relative;transition:border-color 0.2s}
+.plan-card.plan-popular{border-color:var(--gold)}
+.plan-popular-tag{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--navy);font-size:0.62rem;font-weight:800;padding:0.2rem 0.75rem;border-radius:999px;text-transform:uppercase;letter-spacing:0.06em;white-space:nowrap}
+.plan-name{font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:0.3rem}
+.plan-price{font-size:2rem;font-weight:800;color:var(--navy);line-height:1;margin-bottom:0.15rem}
+.plan-price span{font-size:0.85rem;font-weight:500;color:var(--text-muted)}
+.plan-features{list-style:none;padding:0;margin:1rem 0;display:flex;flex-direction:column;gap:0.45rem}
+.plan-features li{font-size:0.8rem;color:var(--text-sec);display:flex;align-items:flex-start;gap:0.4rem}
+.plan-features li::before{content:'✓';color:var(--green);font-weight:800;flex-shrink:0;margin-top:0.05rem}
+.plan-btn{width:100%;padding:0.65rem;border-radius:var(--radius-sm);font-weight:700;font-size:0.85rem;cursor:pointer;border:2px solid;font-family:'Plus Jakarta Sans',sans-serif;transition:all 0.15s}
+.plan-btn-gold{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+.plan-btn-navy{background:var(--navy);color:#fff;border-color:var(--navy)}
+.plan-btn-outline{background:transparent;color:var(--navy);border-color:var(--navy)}
+.plan-btn:hover{opacity:0.88;transform:translateY(-1px)}
+.plan-btn:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+.plan-current-lbl{text-align:center;font-size:0.72rem;font-weight:700;color:var(--green);margin-bottom:0.5rem}
 
 /* ── METRIC CARD ACCENTS ── */
 .metric-good{border-left:3px solid var(--green)!important}
@@ -1114,6 +1154,24 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
     </div>
     <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:0.75rem">Milestones</div>
     <div id="milestones-list" style="display:flex;flex-direction:column;gap:0.5rem"></div>
+  </div>
+
+  <!-- Upgrade / Subscription -->
+  <div class="card" id="card-upgrade">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Your Plan</div>
+        <div class="card-subtitle">Manage your OperateIQ subscription</div>
+      </div>
+      <span class="card-badge tier-badge tier-free" id="upgrade-tier-badge" style="font-size:0.72rem">Free</span>
+    </div>
+    <div id="upgrade-success-msg" class="notice notice-info" style="display:none;margin-bottom:1rem">
+      <span>🎉</span><span><strong>Payment successful!</strong> Your plan has been upgraded. If your tier hasn't updated yet, refresh the page in a few seconds.</span>
+    </div>
+    <div class="plans-grid" id="plans-grid-wrap">
+      <!-- Rendered by renderPlansGrid() -->
+    </div>
+    <p style="font-size:0.72rem;color:var(--text-muted);margin-top:1rem;text-align:center">Payments processed securely by Stripe. Cancel anytime from your Stripe billing portal.</p>
   </div>
 </div><!-- end page-operator -->
 
@@ -1646,6 +1704,18 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
       <button class="company-filter-btn" onclick="filterCompanies('nhs',this)">NHS / Healthcare</button>
     </div>
     <div class="company-cards" id="company-cards-list"></div>
+  </div>
+
+  <!-- Revenue Ideas -->
+  <div class="card" id="card-revenue-ideas">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Revenue Ideas</div>
+        <div class="card-subtitle">5 proven SA income streams beyond standard short-stays — expand each to see how to action it</div>
+      </div>
+      <span class="card-badge" style="background:rgba(201,168,76,0.12);color:var(--gold)">Playbook</span>
+    </div>
+    <div class="ri-grid" id="revenue-ideas-list"></div>
   </div>
 
 </div><!-- end page-toolkit -->
@@ -2642,9 +2712,13 @@ function showGate(containerId, featureName, price) {
   overlay.innerHTML = `
     <div class="gate-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
     <div class="gate-title">${featureName}</div>
-    <div class="gate-desc">Upgrade to unlock live data, AI analysis and full portfolio tools.</div>
-    <div class="gate-price">From £69/month · Cancel anytime</div>
-    <button class="btn-upgrade" onclick="showPage('operator')">Upgrade to Premium →</button>`;
+    <div class="gate-desc">Unlock live market data, AI coaching, portfolio tracking and more.</div>
+    <div class="gate-price">Start free · Cancel anytime</div>
+    <div class="gate-plans">
+      <button class="gate-plan-btn gp-primary" onclick="startCheckout('premium')">Premium — £69/mo</button>
+      <button class="gate-plan-btn gp-secondary" onclick="startCheckout('pro')">Pro — £119/mo</button>
+    </div>
+    <div style="font-size:0.68rem;color:var(--text-muted);margin-top:0.25rem">Powered by Stripe · Secure payment</div>`;
   el.appendChild(overlay);
 }
 function removeGate(containerId) {
@@ -2698,6 +2772,139 @@ function closeSidebar() {
 }
 window.openSidebar = openSidebar;
 window.closeSidebar = closeSidebar;
+
+/* ════ STRIPE / UPGRADE ═════════════════════════════════════ */
+const PLANS={
+  free:{name:'Free',price:'£0',features:['Deal Analyser (basic)','Deal Finder IQ','Save up to 3 deals']},
+  premium:{name:'Premium',price:'£69',period:'/mo',features:['Everything in Free','Live Market Analysis (Airbnb comps)','AI Deal Coach (12 sections)','My Portfolio + P&L Tracker','Duplicate Listing Tool','Long Term Toolkit','Unlimited saved deals']},
+  pro:{name:'Pro',price:'£119',period:'/mo',features:['Everything in Premium','Priority support','Early access to new features','Pro badge']}
+};
+
+function renderPlansGrid(){
+  const wrap=qs('plans-grid-wrap'); if(!wrap) return;
+  const cur=userProfile?.tier||'free';
+  const badge=qs('upgrade-tier-badge');
+  if(badge){badge.textContent=cur.charAt(0).toUpperCase()+cur.slice(1);badge.className='card-badge tier-badge tier-'+cur;}
+  wrap.innerHTML=Object.entries(PLANS).map(([key,plan])=>{
+    const isCur=cur===key;
+    const isPopular=key==='premium';
+    const btnCls=key==='pro'?'plan-btn plan-btn-navy':'plan-btn plan-btn-gold';
+    return`<div class="plan-card${isPopular?' plan-popular':''}">
+      ${isPopular?'<div class="plan-popular-tag">Most Popular</div>':''}
+      <div class="plan-name">${plan.name}</div>
+      <div class="plan-price">${plan.price}${plan.period?`<span>${plan.period}</span>`:''}</div>
+      <ul class="plan-features">${plan.features.map(f=>`<li>${f}</li>`).join('')}</ul>
+      ${isCur?`<div class="plan-current-lbl">✓ Your current plan</div>`
+       :key==='free'?''
+       :`<button class="${btnCls}" onclick="startCheckout('${key}')">Upgrade to ${plan.name}</button>`}
+    </div>`;
+  }).join('');
+}
+
+window.startCheckout=async function(plan){
+  if(plan==='free') return;
+  const uid=window.__currentUser?.uid, email=window.__currentUser?.email;
+  if(!uid){showToast('Sign in required to upgrade.');return;}
+  // Check if Worker URL is configured (placeholder check)
+  if(OIQ_WORKER_URL.includes('YOUR_SUBDOMAIN')){
+    showToast('Stripe not yet live — contact info@servicedaccommodationsuccess.com to upgrade.');
+    return;
+  }
+  try{
+    showToast('Redirecting to checkout…');
+    const priceId=plan==='pro'?STRIPE_PRICE_PRO:STRIPE_PRICE_PREMIUM;
+    const res=await fetch(OIQ_WORKER_URL+'/create-checkout',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({uid,email,priceId,plan,
+        successUrl:window.location.href+'?payment=success&plan='+plan,
+        cancelUrl:window.location.href})
+    });
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const{url}=await res.json();
+    window.location.href=url;
+  }catch(e){showToast('Checkout error — please try again or contact support.');}
+};
+
+// Handle Stripe payment success redirect
+(function checkStripeReturn(){
+  const p=new URLSearchParams(window.location.search);
+  if(p.get('payment')==='success'){
+    const msg=qs('upgrade-success-msg');
+    if(msg) msg.style.display='flex';
+    history.replaceState({},'',window.location.pathname);
+    setTimeout(()=>showPage('operator'),200);
+  }
+})();
+
+/* ════ G: REVENUE IDEAS ═════════════════════════════════════ */
+const REVENUE_IDEAS=[
+  {
+    id:'insurance',
+    icon:'🏠',
+    title:'Insurance Alternative Accommodation Contracts',
+    summary:'Loss adjusters need 3–6 month placements after floods, fires, and major damage — at above-market rates.',
+    earn:'Above-market nightly rates',
+    body:`<strong>The opportunity:</strong> When a home is made uninhabitable by fire, flood, or storm damage, the insurer must house the displaced family. They use loss adjusters (Crawford, Cunningham Lindsey, Davies Group) who need SA placements — fast, quality, and flexible. These contracts often pay 20–40% above standard Airbnb rates because the insurer is footing the bill, not a budget traveller.<br><br><strong>How to get on their radar:</strong><ul><li>Contact the accommodation teams at Crawford & Company, Cunningham Lindsey, Davies Group, and Crest Plus directly — email is fine, explain you operate SA in [your area] and want to be added to their approved supplier list</li><li>Join the <strong>British Institute of Loss Adjusters (BILA)</strong> supplier directory</li><li>Make sure your property has 3+ bedrooms if possible — families need space</li><li>Highlight: fast availability, professional management, flexible check-in, no minimum stay</li></ul><strong>What they need from you:</strong> A rate card (nightly and weekly), your property specs (beds, bathrooms, parking), and confirmation you can accommodate at 24–48 hours' notice. Keep at least one property with a flex-blocked calendar to take emergency calls.`
+  },
+  {
+    id:'corporate',
+    icon:'💼',
+    title:'Corporate Relocation Retainers',
+    summary:'Sign a preferred supplier deal with 2–3 relocation agencies — they guarantee volume in exchange for a discounted rate.',
+    earn:'Guaranteed monthly nights',
+    body:`<strong>The opportunity:</strong> Corporate relocation agencies (Dwellworks, Cartus, Crown Relocations, BGRS) manage the accommodation for professionals moving to a new city for work. They're placing people for 1–6 month assignments and need trusted SA contacts they can call on. A preferred supplier agreement gives you a guaranteed volume of nights each month — often 15–25 nights — at a negotiated but stable rate.<br><br><strong>How to structure it:</strong><ul><li>Offer a rate 15–20% below your standard nightly rate in exchange for a guaranteed booking volume (e.g., minimum 15 nights/month)</li><li>Commit to 24-hour response time and fast check-in process</li><li>Offer a "corporate pack": fast WiFi, dedicated workspace, ironing board, smart TV with streaming</li><li>Provide monthly invoicing rather than per-night — this fits their internal billing cycle</li></ul><strong>Who to contact:</strong> Use the Rehousing & Accommodation Company Finder above — the Corporate section lists the main relocation agencies operating in the UK. Send a one-page supplier pack: your properties, location, rates, and what makes you different from a hotel.`
+  },
+  {
+    id:'nhs',
+    icon:'🏥',
+    title:'Duplicate Listing for NHS Locums',
+    summary:'NHS locum doctors and agency nurses book 1–3 month placements — a second listing with Approve All Bookings captures this demand.',
+    earn:'30–90 night guaranteed stays',
+    body:`<strong>The opportunity:</strong> NHS locum doctors, agency nurses, and healthcare assistants are regularly placed at hospitals outside their home city for short contracts — typically 4–12 weeks. They need flexible, professional accommodation near the hospital. Many search Airbnb specifically because they can filter for 30+ night stays, respond to "Approve All Bookings" listings, and pay using their locum agency's accommodation allowance.<br><br><strong>Why a duplicate listing works:</strong><ul><li>Create a second Airbnb listing for the same property with a 30-night minimum and Approve All Bookings enabled</li><li>Set a monthly rate (typically 20–25% below nightly equivalent) and make sure the calendar has no blocked dates 9 months ahead</li><li>Use title keywords: "Monthly Stay", "Professional", "NHS Welcome", "Healthcare Worker Accommodation"</li><li>This listing is invisible to short-stay guests (they filter it out) but highly visible to locum searchers</li></ul><strong>NHS-specific approach:</strong> Contact the accommodation offices at NHS Trusts within 10 miles of your property directly. Many have informal referral networks for locum staff. A short email with your rates and location can land recurring monthly bookings without any OTA involved — saving both parties platform fees.`
+  },
+  {
+    id:'infrastructure',
+    icon:'🏗️',
+    title:'Infrastructure Project Partnerships',
+    summary:'Major construction projects (HS2, National Grid, data centres) need blocks of accommodation for 6–18 months — at premium rates.',
+    earn:'6–18 month guaranteed contracts',
+    body:`<strong>The opportunity:</strong> Large infrastructure projects employ hundreds of workers who need accommodation close to the site for the duration of the project. Unlike hotel chains who can't offer flexibility, SA operators can provide home-from-home accommodation at a fixed monthly rate with no minimum guest number. HS2, National Grid, offshore wind, data centre builds, and major road schemes all have dedicated accommodation budgets — and they prefer SA to hotels for long stays.<br><br><strong>How to identify active projects near you:</strong><ul><li>Search the Planning Portal for approved large-scale projects in your area</li><li>Check the <strong>Infrastructure Projects Authority</strong> pipeline — published annually by the government</li><li>Look for planning applications from Skanska, Balfour Beatty, Costain, Kier Group — they are the major contractors on UK projects</li></ul><strong>How to approach them:</strong><ul><li>Contact the project office directly — find the site address and email the Project Manager or Accommodation Coordinator</li><li>Offer a fixed monthly rate per room (e.g., £1,800/room/month) with a 6-month minimum commitment</li><li>Highlight: no availability gaps, professional management, flexible check-in/check-out</li></ul>One partnership can fill a 3-bed property for a year — the equivalent of 365 individual Airbnb nights without the churn.`
+  },
+  {
+    id:'seasonal',
+    icon:'📅',
+    title:'Seasonal Corporate Arbitrage',
+    summary:'Premium short-stay rates during peak events + long-term corporate stays off-season = maximum revenue from one property.',
+    earn:'Peak rates + zero off-season voids',
+    body:`<strong>The opportunity:</strong> Most SA operators treat their property as either short-stay or long-stay. The smart approach is to sequence both: charge premium short-stay rates during high-demand events, then pivot to a corporate/contractor let during quieter periods. This eliminates the seasonal void problem that kills off-peak profitability.<br><br><strong>How to sequence it:</strong><ul><li><strong>Peak periods:</strong> Local exhibitions, sporting events (Grand National, Wimbledon, Premier League matches), Christmas markets, graduation weeks, bank holiday weekends — charge 3–5x your base nightly rate. Block these weeks on your long-term listing months in advance.</li><li><strong>Off-peak periods:</strong> Fill with a 4–8 week contractor or corporate let at a discounted monthly rate. Communicate your upcoming availability dates to relocation agencies and NHS staffing teams 6–8 weeks ahead.</li></ul><strong>How to manage the calendar:</strong><ul><li>Build a 12-month event calendar for your area at the start of each year</li><li>Block peak event weeks on your long-stay listing as soon as you know the dates</li><li>Use Pricelabs or Wheelhouse to auto-raise rates during peak windows</li><li>Offer a premium "event package" — fast WiFi, parking, local guide — to justify the uplift</li></ul>A well-sequenced property can earn 40–60% more annually than one locked into either strategy alone.`
+  }
+];
+
+function renderRevenueIdeas(){
+  const wrap=qs('revenue-ideas-list'); if(!wrap) return;
+  wrap.innerHTML=REVENUE_IDEAS.map((idea,i)=>`
+    <div class="ri-card" id="ri-card-${idea.id}">
+      <div class="ri-header" onclick="toggleRevenueIdea('${idea.id}')">
+        <span class="ri-icon">${idea.icon}</span>
+        <div class="ri-meta">
+          <div class="ri-title">${idea.title}</div>
+          <div class="ri-summary">${idea.summary}</div>
+        </div>
+        <div class="ri-right">
+          <span class="ri-earn">${idea.earn}</span>
+          <span class="ri-chev" id="ri-chev-${idea.id}">▾</span>
+        </div>
+      </div>
+      <div class="ri-body" id="ri-body-${idea.id}">${idea.body}</div>
+    </div>`).join('');
+}
+
+window.toggleRevenueIdea=function(id){
+  const body=qs('ri-body-'+id), chev=qs('ri-chev-'+id);
+  if(!body) return;
+  const open=body.classList.toggle('open');
+  if(chev) chev.style.transform=open?'rotate(180deg)':'';
+};
 
 /* ════ D6: CURATED COMPANY DATABASE ════════════════════════ */
 const CURATED_COMPANIES=[
@@ -2917,6 +3124,11 @@ const STORE='operateiq-v1';
 const GNEWS_KEY    = '5f478b850e6481e142a33c4abf595498';
 const RAPIDAPI_KEY = '2eb7680515msh748af52a1edadcap18ba81jsn81399ef3dd1c';
 const CH_KEY       = '2c62ebce-954a-4050-9e48-58d3207b5a01';
+// Cloudflare Worker — set your deployed URL here after wrangler publish
+const OIQ_WORKER_URL = 'https://operateiq-api.YOUR_SUBDOMAIN.workers.dev';
+// Stripe Price IDs — create in Stripe dashboard and paste here
+const STRIPE_PRICE_PREMIUM = 'price_REPLACE_PREMIUM_MONTHLY';
+const STRIPE_PRICE_PRO     = 'price_REPLACE_PRO_MONTHLY';
 function saveState() {
   try {
     localStorage.setItem(STORE, JSON.stringify({
@@ -4716,6 +4928,8 @@ async function loadOperatorProfile() {
   } catch(e){ console.warn('loadOperatorProfile error',e); }
   // Load wins tracker
   if(window.refreshWins) window.refreshWins();
+  // Render upgrade plans
+  renderPlansGrid();
 }
 
 async function saveProfile() {
@@ -4817,6 +5031,7 @@ function init() {
   renderFinderSearchLinks();
   renderCompanyCards('all');
   buildCoachSectionCards();
+  renderRevenueIdeas();
 }
 window.__appInit = init;
 document.addEventListener('DOMContentLoaded',()=>{
