@@ -519,6 +519,35 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
 .sc-body{font-size:0.85rem;line-height:1.7;color:var(--text)}
 .coach-deal-selector{display:flex;gap:0.75rem;align-items:flex-end;margin-bottom:1.25rem;flex-wrap:wrap}
 .coach-deal-selector .field-group{flex:1;min-width:200px}
+/* AI Coach Page sections */
+.coach-section-card{border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:0.6rem;overflow:hidden;background:var(--surface-alt)}
+.coach-section-header{display:flex;align-items:center;justify-content:space-between;padding:0.875rem 1rem;cursor:pointer;user-select:none;gap:1rem;transition:background 0.15s}
+.coach-section-header:hover{background:rgba(201,168,76,0.05)}
+.csh-left{display:flex;align-items:center;gap:0.875rem;flex:1;min-width:0}
+.csh-num{font-size:0.65rem;font-weight:700;color:var(--text-muted);background:var(--border);border-radius:50%;width:24px;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.csh-title{font-size:0.875rem;font-weight:600;color:var(--navy)}.csh-preview{font-size:0.72rem;color:var(--text-muted);margin-top:0.15rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:300px}
+.csh-right{display:flex;align-items:center;gap:0.75rem;flex-shrink:0}
+.csh-badge{font-size:0.62rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;padding:0.2rem 0.5rem;border-radius:999px}.csh-badge.csh-pending{background:var(--border);color:var(--text-muted)}.csh-badge.csh-done{background:rgba(5,150,105,0.1);color:var(--green)}
+.coach-chev{transition:transform 0.2s;color:var(--text-muted);font-size:0.75rem}
+.coach-section-body{display:none;padding:0 1rem 1rem 1rem;border-top:1px solid var(--border)}.coach-section-body.open{display:block}
+.coach-progress-bar{background:var(--border);border-radius:999px;height:6px;overflow:hidden;margin-bottom:1.25rem}
+.coach-progress-fill{background:linear-gradient(90deg,var(--gold),#c8961a);height:100%;border-radius:999px;transition:width 0.4s ease}
+.coach-progress-label{font-size:0.72rem;color:var(--text-muted);margin-bottom:0.35rem;display:flex;justify-content:space-between}
+/* Portfolio extras */
+.lease-timeline{display:flex;gap:0.75rem;overflow-x:auto;padding:0.25rem 0 0.75rem;-webkit-overflow-scrolling:touch}
+.lease-timeline-item{min-width:155px;border-radius:var(--radius-sm);padding:0.8rem;border:1px solid var(--border);background:var(--surface-alt);flex-shrink:0}
+.lt-name{font-size:0.75rem;font-weight:700;margin-bottom:0.3rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.lt-date{font-size:0.68rem;color:var(--text-muted);margin-bottom:0.35rem}
+.lt-badge{font-size:0.62rem;font-weight:700;padding:0.15rem 0.45rem;border-radius:999px;display:inline-block}
+.lt-badge.lt-green{background:rgba(5,150,105,0.1);color:var(--green)}.lt-badge.lt-amber{background:rgba(245,158,11,0.1);color:var(--amber)}.lt-badge.lt-red{background:rgba(220,38,38,0.1);color:var(--red)}.lt-badge.lt-gray{background:var(--border);color:var(--text-muted)}
+.portfolio-bar-chart{display:flex;flex-direction:column;gap:0.6rem}
+.pbc-row{display:flex;align-items:center;gap:0.75rem}
+.pbc-label{font-size:0.72rem;font-weight:600;width:130px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pbc-track{flex:1;background:var(--border);border-radius:999px;height:8px}
+.pbc-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--gold),var(--amber));transition:width 0.4s ease}
+.pbc-val{font-size:0.72rem;font-weight:700;width:70px;text-align:right;flex-shrink:0}
+.next-actions-list{display:flex;flex-direction:column;gap:0.5rem}
+.nax-item{display:flex;align-items:flex-start;gap:0.75rem;padding:0.6rem 0.75rem;border-radius:var(--radius-sm);background:var(--surface-alt);border:1px solid var(--border)}
+.nax-icon{flex-shrink:0;font-size:0.85rem;margin-top:0.05rem}.nax-text{font-size:0.8rem;color:var(--text);line-height:1.45}.nax-text strong{color:var(--navy)}
 
 /* ─── CRM ─────────────────────────────────────────────────── */
 .crm-views{display:flex;gap:0.4rem;margin-bottom:1.125rem}
@@ -859,6 +888,9 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
     </button>
     <button class="nav-item active" id="nav-analyse" onclick="showPage('analyse')">
       <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg></span>Deal Analyser
+    </button>
+    <button class="nav-item premium-nav" id="nav-coach" onclick="showPage('coach')">
+      <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.52 0 10-4.48 10-10S17.52 2 12 2 2 6.48 2 12s4.48 10 10 10z"/><path d="M12 8v4l3 3"/></svg></span>AI Deal Coach<span class="nav-lock"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
     </button>
     <button class="nav-item premium-nav" id="nav-market" onclick="showPage('market')">
       <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span>Market Analysis<span class="nav-lock"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
@@ -1319,6 +1351,43 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
     </div>
   </div>
 </div><!-- end page-analyse -->
+
+<!-- ═══ PAGE: AI DEAL COACH ══════════════════════════════════ -->
+<div id="page-coach" class="page">
+  <div class="page-header">
+    <h1 class="page-title">AI Deal <span>Coach</span></h1>
+    <p class="page-subtitle">12-dimension deal strategy — from pricing and risk to scale-up roadmap. Powered by a UK SA rule engine.</p>
+  </div>
+
+  <!-- Deal Selector + Progress -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Select Deal to Coach</div>
+        <div class="card-subtitle">Choose a saved deal or use your current Deal Analyser inputs</div>
+      </div>
+    </div>
+    <div class="coach-deal-selector">
+      <div class="field-group" style="flex:1">
+        <label>Deal</label>
+        <select id="coach-page-deal-select">
+          <option value="current">Use current Deal Analyser data</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" id="btn-generate-coach-page">Generate All 12 Sections →</button>
+    </div>
+    <div class="coach-progress-label"><span id="coach-prog-text">0 of 12 sections generated</span><span id="coach-prog-pct" style="font-weight:700;color:var(--gold)">0%</span></div>
+    <div class="coach-progress-bar"><div class="coach-progress-fill" id="coach-progress-fill" style="width:0%"></div></div>
+    <div id="coach-page-ai-note" class="notice notice-info" style="display:none;margin-top:0.5rem">
+      <span>🤖</span><span>Strategy generated by an intelligent rule engine trained on UK SA deal patterns. Always conduct your own due diligence before entering any property agreement.</span>
+    </div>
+  </div>
+
+  <!-- 12 Section Cards -->
+  <div id="coach-sections-wrap">
+    <!-- Generated by buildCoachSectionCards() on init -->
+  </div>
+</div><!-- end page-coach -->
 
 <!-- ═══ PAGE: MARKET ANALYSIS ════════════════════════════════ -->
 <div id="page-market" class="page">
@@ -1953,26 +2022,20 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
     </div>
   </div>
 
-  <!-- AI Deal Coach -->
+  <!-- AI Deal Coach Teaser -->
   <div class="card" id="card-coach">
     <div class="card-header">
       <div class="card-title-wrap">
         <div class="card-title">AI Deal Coach</div>
-        <div class="card-subtitle">Deal-specific strategy and recommendations</div>
+        <div class="card-subtitle">12-dimension deal strategy — pricing, risk, guest mix, void prevention, and scale-up roadmap</div>
       </div>
+      <span class="card-badge" style="background:rgba(201,168,76,0.12);color:var(--gold)">Premium</span>
     </div>
-    <div class="coach-deal-selector">
-      <div class="field-group">
-        <label>Select Deal to Coach</label>
-        <select id="coach-deal-select"><option value="">— Select a saved deal or use current —</option><option value="current">Use current Deal Analyser data</option></select>
-      </div>
-      <button class="btn btn-primary" id="btn-generate-strategy">
-        Generate Strategy →
-      </button>
-    </div>
-    <div id="strategy-output" style="display:none;"></div>
-    <div id="ai-note" style="display:none;" class="notice notice-info">
-      <span>🤖</span><span>Strategy is generated by an intelligent rule engine trained on UK SA deal patterns. Always conduct your own due diligence before entering any property agreement.</span>
+    <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:1rem;line-height:1.6">The AI Coach is now a full standalone tool with 12 analysis sections. Open it from the sidebar or click below to coach a specific deal.</p>
+    <!-- Hidden legacy select for openCoachForDeal() compatibility -->
+    <select id="coach-deal-select" style="display:none"><option value="current">current</option></select>
+    <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="showPage('coach')">Open AI Coach →</button>
     </div>
   </div>
 </div><!-- end page-deals -->
@@ -2121,6 +2184,52 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
       </div>
     </div>
   </div>
+
+  <!-- Lease Expiry Timeline -->
+  <div class="card" id="card-lease-timeline">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Lease Expiry Timeline</div>
+        <div class="card-subtitle">Colour-coded by urgency — act before leases expire</div>
+      </div>
+    </div>
+    <div id="lease-timeline-wrap">
+      <div class="notice notice-info"><span>📋</span><span>Mark deals as Live and add lease end dates to see your timeline.</span></div>
+    </div>
+    <div style="margin-top:0.5rem;font-size:0.7rem;color:var(--text-muted);display:flex;gap:1rem;flex-wrap:wrap">
+      <span><span class="lt-badge lt-green">●</span> 12+ months</span>
+      <span><span class="lt-badge lt-amber">●</span> 6–12 months</span>
+      <span><span class="lt-badge lt-red">●</span> Under 6 months</span>
+      <span><span class="lt-badge lt-gray">●</span> No date set</span>
+    </div>
+  </div>
+
+  <!-- Revenue Bar Chart -->
+  <div class="card" id="card-revenue-chart">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Revenue per Property</div>
+        <div class="card-subtitle">Monthly projected profit — ranked highest to lowest</div>
+      </div>
+    </div>
+    <div id="revenue-bar-wrap">
+      <div class="notice notice-info"><span>📊</span><span>Mark deals as Live to see revenue comparison.</span></div>
+    </div>
+  </div>
+
+  <!-- Next Actions -->
+  <div class="card" id="card-next-actions">
+    <div class="card-header">
+      <div class="card-title-wrap">
+        <div class="card-title">Next Actions</div>
+        <div class="card-subtitle">Auto-generated prompts based on your portfolio status</div>
+      </div>
+    </div>
+    <div id="next-actions-wrap">
+      <div class="notice notice-info"><span>💡</span><span>Add live properties to generate suggested next actions.</span></div>
+    </div>
+  </div>
+
 </div><!-- end page-portfolio -->
 
 
@@ -2547,7 +2656,7 @@ function removeGate(containerId) {
 }
 
 /* ════ NAVIGATION ═══════════════════════════════════════════ */
-const PAGES = ['operator','analyse','market','toolkit','finder','duplicate','deals','portfolio'];
+const PAGES = ['operator','analyse','coach','market','toolkit','finder','duplicate','deals','portfolio'];
 function showPage(id) {
   PAGES.forEach(p => {
     const pg = qs('page-'+p);
@@ -2558,6 +2667,10 @@ function showPage(id) {
   window.scrollTo(0,0);
   closeSidebar();
   if(id==='deals')     { loadDealsPage(); loadDealsForCoachDropdown(); }
+  if(id==='coach')     {
+    if(!isPremium()) { showGate('page-coach','AI Deal Coach','£69/mo'); return; }
+    removeGate('page-coach'); loadDealsForCoachPageDropdown();
+  }
   if(id==='portfolio') {
     if(!isPremium()) { showGate('page-portfolio','My Portfolio & P&L Tracker','£69/mo'); return; }
     removeGate('page-portfolio'); loadPortfolioPage();
@@ -3812,6 +3925,11 @@ async function loadPortfolioPage() {
   const pfCur=qs('pf-current');
   if(pfCur) pfCur.value=(S.allDeals||[]).filter(d=>d.isLive).length||0;
   populatePnlSelector();
+  // Render portfolio extras
+  const live=(S.allDeals||[]).filter(d=>d.isLive);
+  renderLeaseTimeline(live);
+  renderRevenueChart(live);
+  renderNextActions(live,S.allDeals||[]);
 }
 
 function renderDealsGrid() {
@@ -4118,13 +4236,17 @@ window.addPnlDashEntry=async function(){
 window.openCoachForDeal=function(dealId){
   const deal=S.allDeals.find(d=>d.id===dealId);
   if(!deal) return;
-  qs('coach-deal-select').value='current'; // just use current for now, or set to deal id
-  // Load deal into coach state temporarily
-  const coachS={...deal,pcData:{region:deal.region||'England',admin_district:deal.adminDistrict||'',country:'England'},rentRanking:'average'};
-  renderStrategyForState(coachS);
-  // Scroll to coach
-  qs('card-coach').scrollIntoView({behavior:'smooth',block:'start'});
-  showToast('AI Coach loaded for '+deal.dealName);
+  // Store deal for coach page, then navigate there
+  S.pendingCoachDeal=deal;
+  showPage('coach');
+  // After navigation, select the deal and auto-generate
+  setTimeout(()=>{
+    const sel=qs('coach-page-deal-select');
+    if(sel){ const opt=sel.querySelector(`option[value="${dealId}"]`); if(opt) sel.value=dealId; }
+    const coachS={...deal,pcData:{region:deal.region||'England',admin_district:deal.adminDistrict||'',country:'England'},rentRanking:'average'};
+    renderCoachPage(coachS);
+    showToast('AI Coach loaded for '+(deal.dealName||deal.postcode||'deal'));
+  },150);
 };
 
 async function loadDealsForCoachDropdown() {
@@ -4175,36 +4297,13 @@ function calcPortfolio() {
 
 /* ════ AI DEAL COACH / STRATEGY ════════════════════════════ */
 function generateStrategy() {
-  if (!isPremium()) { showGate('card-coach','AI Deal Coach','£69/mo'); return; }
-  const sel=qs('coach-deal-select').value;
-  let coachS;
-  if(sel==='current'||!sel){
-    coachS=S;
-    if(!S.pcData){showToast('Analyse a deal first, or select a saved deal.');return;}
-  } else {
-    const deal=S.allDeals.find(d=>d.id===sel);
-    if(!deal){showToast('Deal not found.');return;}
-    coachS={...deal, pcData:{region:deal.region||'England',admin_district:deal.adminDistrict||'',country:'England'}, rentRanking:'average',nightlyRate:deal.nightlyRate||90,beds:deal.beds||2,baths:deal.baths||1,contractorScore:deal.contractorScore||0};
-  }
-  renderStrategyForState(coachS);
+  // Redirect to the new full AI Coach page
+  showPage('coach');
 }
 
 function renderStrategyForState(coachS) {
-  const region=coachS.pcData?.region||coachS.region||'England';
-  const contractorScore=coachS.contractorScore||0;
-  const cards=[
-    {type:'market',   title:'1. Market Assessment',      body:generateMarketInsight(coachS,region)},
-    {type:'pricing',  title:'2. Pricing Strategy',       body:generatePricingInsight(coachS)},
-    {type:'guest',    title:'3. Guest Mix & Profile',    body:generateGuestInsight(coachS,contractorScore)},
-    {type:'breakeven',title:'4. Break-Even Deep Dive',   body:generateBreakevenInsight(coachS)},
-    {type:'risk',     title:'5. Risk Assessment',        body:generateRiskInsight(coachS)},
-    {type:'pitch',    title:'6. Landlord Pitch',         body:generateLandlordPitch(coachS)},
-    {type:'nextsteps',title:'7. 30-Day Action Plan',     body:generateNextSteps(coachS)},
-    {type:'milestones',title:'8. Financial Milestones',  body:generateMilestones(coachS)}
-  ];
-  qs('strategy-output').innerHTML=cards.map(c=>`<div class="strategy-card ${c.type}"><div class="sc-type">${c.title}</div><div class="sc-body">${c.body}</div></div>`).join('');
-  qs('strategy-output').style.display='block';
-  qs('ai-note').style.display='flex';
+  // Legacy redirect — use renderCoachPage() instead
+  renderCoachPage(coachS);
 }
 
 function generateMarketInsight(s,region){
@@ -4311,6 +4410,226 @@ function generateMilestones(s){
   const yr1=prof*12, yr2=prof*24, yr3=prof*36;
   const recoupStr=recoup?`${recoup} months (${recoup>12?Math.round(recoup/12)+' years':recoup+' months'})`:'N/A — deal not profitable';
   return `<strong>This property's financial trajectory:</strong><br><br><table style="width:100%;font-size:0.78rem;border-collapse:collapse"><tr style="font-weight:600;color:var(--text-muted)"><td>Milestone</td><td>Figure</td></tr><tr><td>Monthly profit</td><td><strong>${gbp(prof)}/mo</strong></td></tr><tr><td>Break-even upfront capital</td><td>${recoupStr}</td></tr><tr><td>Year 1 cumulative profit</td><td>${gbp(Math.round(yr1))}</td></tr><tr><td>Year 2 cumulative profit</td><td>${gbp(Math.round(yr2))}</td></tr><tr><td>Year 3 cumulative profit</td><td>${gbp(Math.round(yr3))}</td></tr></table><br>${prof>=500?`<strong>Portfolio note:</strong> At ${gbp(prof)}/mo per property, you'd need ${Math.ceil(3000/prof)} properties to reach a ${gbp(3000)}/mo income. With 2 properties/year that's ${Math.ceil(Math.ceil(3000/prof)/2)} years to financial freedom.`:'Focus on improving this deal\'s margins before scaling.'}`;
+}
+
+/* ─── 4 NEW COACH SECTIONS ──────────────────────────────── */
+function generateLTBStrategy(s){
+  const region=s.pcData?.region||s.region||'England';
+  const beds=s.beds||2;
+  const rate=s.nightlyRate||90;
+  const cScore=s.contractorScore||0;
+  const district=s.pcData?.admin_district||s.adminDistrict||'the area';
+  const weeklyRate=Math.round(rate*0.85);
+  const monthlyRate=Math.round(rate*0.75);
+  const ltbPot=cScore>=62?'Strong':(region.includes('London')||region.includes('Manchester'))?'Strong':'Moderate';
+  return `<strong>Long-Term Booking Potential: ${ltbPot}</strong><br><br><strong>Why LTBs matter:</strong> A single 3-month contractor booking eliminates void risk for an entire quarter. At ${gbp(rate)}/night, a 90-night booking generates ~${gbp(rate*90)} — equivalent to 3 months of guaranteed income with zero OTA fees if booked direct.<br><br><strong>Your LTB pricing ladder:</strong><br>• 7–13 nights: ${gbp(weeklyRate)}/night (15% discount — weekly rate)<br>• 14–29 nights: ${gbp(Math.round(rate*0.80))}/night (20% discount)<br>• 30+ nights: ${gbp(monthlyRate)}/night (25% — still above your rent-per-night cost)<br><br><strong>Channels to activate:</strong><br>1. Create a duplicate Airbnb listing with 30-night minimum and Approve All Bookings enabled<br>2. Contact local NHS trusts and locum staffing agencies with weekly/monthly rates<br>3. Register on Hotelpads and Corporate Keys for contractor bookings<br>4. Reach out to construction project managers near ${district} via LinkedIn — offer a fixed monthly rate for the duration of their project`;
+}
+
+function generatePlatformOptimisation(s){
+  const beds=s.beds||2;
+  const district=s.pcData?.admin_district||s.adminDistrict||'the area';
+  const rate=s.nightlyRate||90;
+  const cScore=s.contractorScore||0;
+  const focus=cScore>=62?'Corporate & Contractor':'Professional';
+  const sugTitle=`${beds}-Bed ${focus} Stay | Monthly Rate | ${district}`.slice(0,60);
+  return `<strong>Airbnb Listing Optimisation</strong><br><br><strong>Suggested title (under 60 chars):</strong><br><em>"${sugTitle}"</em><br><br><strong>Title rules that improve search rank:</strong><br>• Include beds + property type — Airbnb's algorithm weights these heavily<br>• Use "monthly rate" to appear in long-stay search filters<br>• Use the district name, not the postcode — guests search by area<br>• Avoid emoji in the title — can reduce search visibility<br><br><strong>Description priorities (first 150 words are indexed):</strong><br>• Lead with who the property is for: "Ideal for contractors, professionals, and corporate stays"<br>• Include: WiFi speed in Mbps, dedicated workspace, blackout blinds, parking (if applicable)<br>• State your response time: "I respond within 1 hour during business hours"<br>• Close with a prompt for monthly enquiries<br><br><strong>Pricing SEO:</strong> Set a Custom Weekly Price and Custom Monthly Price in your Airbnb settings. Listings without monthly pricing are invisible to Airbnb's long-stay filter — this single change can unlock a significant new audience.`;
+}
+
+function generateVoidPrevention(s){
+  const region=s.pcData?.region||s.region||'England';
+  const rate=s.nightlyRate||90;
+  const district=s.pcData?.admin_district||s.adminDistrict||'the area';
+  const voidCost=Math.round((s.rent||0)/30);
+  const floorRate=Math.round(rate*0.75);
+  const lastMinRate=Math.round(rate*0.80);
+  return `<strong>Void Prevention for ${district}, ${region}</strong><br><br><strong>Your void cost:</strong> Every empty night costs ${gbp(voidCost)} in unrecovered fixed costs. Missing break-even by 5% — just ${Math.ceil(30*0.05)} nights — costs ${gbp(Math.round(voidCost*30*0.05))}/mo. Voids are the silent killer of SA margins.<br><br><strong>Tactic 1 — Off-peak rate floor</strong><br>During low-demand months (Jan, Feb, early Sept), reduce your rate to ${gbp(floorRate)}/night. You'd rather earn ${gbp(floorRate)} than £0. Set your hard floor at rent-per-night (${gbp(voidCost)}) as the absolute minimum — never accept less than this.<br><br><strong>Tactic 2 — Last-minute discount automation</strong><br>Use Pricelabs or Wheelhouse to drop rates by 20% for check-ins within 3 days — floored at ${gbp(lastMinRate)}/night. A discounted booking always beats a void. A 20% discount that fills the night generates ${gbp(Math.round(lastMinRate-voidCost))} more than leaving it empty.<br><br><strong>Tactic 3 — Corporate email outreach</strong><br>Build a list of 20 local businesses and email them quarterly with availability and weekly/monthly rates. Subject: "Professional SA in ${district} — from ${gbp(floorRate)}/night." Businesses that book direct avoid OTA fees — you save 15% margin and build a repeating relationship.`;
+}
+
+function generateScaleUpRoadmap(s){
+  const prof=s.profit||s.monthlyProfit||0;
+  const beds=s.beds||2;
+  const region=s.pcData?.region||s.region||'England';
+  const district=s.pcData?.admin_district||s.adminDistrict||'this area';
+  const isLondon=region.includes('London');
+  const nextLine=isLondon?'Consider a city-fringe or commuter belt location for deal 3 — lower rent, similar demand, better margins.':'Consider adding a Manchester, Leeds, or Birmingham city deal for higher ADR to lift average portfolio profit per property.';
+  const propsToFreedom=prof>0?Math.ceil(3000/prof):null;
+  return `<strong>Scale-Up Roadmap</strong><br><br>${prof>=400?`<strong>Strong deal.</strong> If you replicate it ${propsToFreedom} times, you'd hit a £3,000/mo portfolio — a solid income replacement figure.`:`<strong>Optimise this deal first.</strong> Target £400+/mo before scaling — adding properties at thin margins amplifies risk, not reward.`}<br><br><strong>Step 1 — Stabilise (Months 1–3):</strong> Hit consistent 75%+ occupancy before sourcing deal #2. Log monthly P&L in OperateIQ. If you're exceeding the model, your assumptions are conservative — revise upward.<br><br><strong>Step 2 — Source deal #2 (Month 3–6):</strong> Stay in the same geography — you already know the ${district} market. Vary the property type: if this is a ${beds}-bed flat, try a house or different bedroom count to diversify your guest mix and avoid self-competition on search.<br><br><strong>Step 3 — Higher-value market (Month 6–12):</strong> ${nextLine}<br><br><strong>Step 4 — Direct booking funnel (Month 12+):</strong> With 3+ properties, a simple direct booking website saves 15–20% in OTA fees. Corporate accounts, relocation agencies, and returning guests prefer to book direct. Use the Rehousing & Accommodation Finder to start building these relationships now.`;
+}
+
+/* ════ AI COACH PAGE ════════════════════════════════════════ */
+const COACH_SECTIONS=[
+  {id:'market',    num:'01', title:'Market Assessment',          preview:'Regional viability and rent benchmarks'},
+  {id:'pricing',   num:'02', title:'Pricing Strategy',           preview:'Rate structure, occupancy targets and seasonality'},
+  {id:'guest',     num:'03', title:'Guest Mix & Profile',        preview:'Who to target and which booking channels to activate'},
+  {id:'breakeven', num:'04', title:'Break-Even Deep Dive',       preview:'Sensitivity table — profit at each occupancy level'},
+  {id:'risk',      num:'05', title:'Risk Assessment',            preview:'Risk level, mitigation actions, and capital reserve'},
+  {id:'pitch',     num:'06', title:'Landlord Pitch',             preview:'Script, key points, and objection handling'},
+  {id:'nextsteps', num:'07', title:'30-Day Action Plan',         preview:'Day-by-day launch checklist'},
+  {id:'milestones',num:'08', title:'Financial Milestones',       preview:'Year 1–3 cumulative profit trajectory'},
+  {id:'ltb',       num:'09', title:'Long-Term Booking Strategy', preview:'How to attract 3–12 month contractor and corporate bookings'},
+  {id:'platform',  num:'10', title:'Platform Optimisation',      preview:'Airbnb title, description, and listing SEO tips'},
+  {id:'void',      num:'11', title:'Void Prevention Playbook',   preview:'Three area-specific tactics to eliminate empty nights'},
+  {id:'scaleup',   num:'12', title:'Scale-Up Roadmap',           preview:'What to do after this deal works — next property, next market'}
+];
+
+function buildCoachSectionCards(){
+  const wrap=qs('coach-sections-wrap'); if(!wrap) return;
+  wrap.innerHTML=COACH_SECTIONS.map(sec=>`
+    <div class="coach-section-card" id="csc-${sec.id}">
+      <div class="coach-section-header" onclick="toggleCoachSection('${sec.id}')">
+        <div class="csh-left">
+          <div class="csh-num">${sec.num}</div>
+          <div style="min-width:0">
+            <div class="csh-title">${sec.title}</div>
+            <div class="csh-preview" id="csh-prev-${sec.id}">${sec.preview}</div>
+          </div>
+        </div>
+        <div class="csh-right">
+          <span class="csh-badge csh-pending" id="csh-badge-${sec.id}">Pending</span>
+          <span class="coach-chev" id="coach-chev-${sec.id}">▾</span>
+        </div>
+      </div>
+      <div class="coach-section-body" id="csb-${sec.id}">
+        <div class="sc-body" id="coach-content-${sec.id}" style="padding-top:0.75rem"></div>
+      </div>
+    </div>`).join('');
+}
+
+window.toggleCoachSection=function(id){
+  const body=qs('csb-'+id), chev=qs('coach-chev-'+id);
+  if(!body) return;
+  const open=body.classList.toggle('open');
+  if(chev) chev.style.transform=open?'rotate(180deg)':'';
+};
+
+async function loadDealsForCoachPageDropdown(){
+  const sel=qs('coach-page-deal-select'); if(!sel) return;
+  if(!S.allDeals.length && typeof window.__loadDeals==='function'){
+    try{ S.allDeals=await window.__loadDeals(); } catch(e){}
+  }
+  const opts=S.allDeals.map(d=>`<option value="${d.id}">${d.dealName||d.postcode||'Deal'}</option>`).join('');
+  sel.innerHTML='<option value="current">Use current Deal Analyser data</option>'+opts;
+  if(S.pendingCoachDeal){
+    const opt=sel.querySelector(`option[value="${S.pendingCoachDeal.id}"]`);
+    if(opt) sel.value=S.pendingCoachDeal.id;
+  }
+}
+
+function generateCoachPageStrategy(){
+  if(!isPremium()){ showGate('page-coach','AI Deal Coach','£69/mo'); return; }
+  const sel=qs('coach-page-deal-select');
+  const selVal=sel?sel.value:'current';
+  let coachS;
+  if(selVal==='current'||!selVal){
+    coachS=S;
+    if(!S.pcData){ showToast('Analyse a deal first, or select a saved deal.'); return; }
+  } else {
+    const deal=S.allDeals.find(d=>d.id===selVal);
+    if(!deal){ showToast('Deal not found.'); return; }
+    coachS={...deal,pcData:{region:deal.region||'England',admin_district:deal.adminDistrict||'',country:'England'},rentRanking:'average',nightlyRate:deal.nightlyRate||90,beds:deal.beds||2,baths:deal.baths||1,contractorScore:deal.contractorScore||0};
+  }
+  renderCoachPage(coachS);
+}
+
+function renderCoachPage(coachS){
+  const region=coachS.pcData?.region||coachS.region||'England';
+  const cs=coachS.contractorScore||0;
+  const bodies={
+    market:    generateMarketInsight(coachS,region),
+    pricing:   generatePricingInsight(coachS),
+    guest:     generateGuestInsight(coachS,cs),
+    breakeven: generateBreakevenInsight(coachS),
+    risk:      generateRiskInsight(coachS),
+    pitch:     generateLandlordPitch(coachS),
+    nextsteps: generateNextSteps(coachS),
+    milestones:generateMilestones(coachS),
+    ltb:       generateLTBStrategy(coachS),
+    platform:  generatePlatformOptimisation(coachS),
+    void:      generateVoidPrevention(coachS),
+    scaleup:   generateScaleUpRoadmap(coachS)
+  };
+  const total=COACH_SECTIONS.length;
+  COACH_SECTIONS.forEach(sec=>{
+    const el=qs('coach-content-'+sec.id);
+    const badge=qs('csh-badge-'+sec.id);
+    const prev=qs('csh-prev-'+sec.id);
+    if(el) el.innerHTML=bodies[sec.id]||'';
+    if(badge){ badge.textContent='Generated'; badge.className='csh-badge csh-done'; }
+    if(prev&&bodies[sec.id]){
+      const tmp=document.createElement('div'); tmp.innerHTML=bodies[sec.id];
+      const txt=tmp.textContent||''; prev.textContent=txt.slice(0,80)+(txt.length>80?'…':'');
+    }
+  });
+  // Open first section
+  COACH_SECTIONS.forEach((sec,i)=>{
+    const body=qs('csb-'+sec.id), chev=qs('coach-chev-'+sec.id);
+    if(body) body.classList.toggle('open',i===0);
+    if(chev) chev.style.transform=i===0?'rotate(180deg)':'';
+  });
+  const fill=qs('coach-progress-fill'), txt=qs('coach-prog-text'), pct=qs('coach-prog-pct');
+  if(fill) fill.style.width='100%';
+  if(txt) txt.textContent=`${total} of ${total} sections generated`;
+  if(pct) pct.textContent='100%';
+  const note=qs('coach-page-ai-note'); if(note) note.style.display='flex';
+  S.pendingCoachDeal=null;
+}
+
+/* ════ PORTFOLIO EXTRAS ═════════════════════════════════════ */
+function renderLeaseTimeline(live){
+  const wrap=qs('lease-timeline-wrap'); if(!wrap) return;
+  if(!live.length){ wrap.innerHTML='<div class="notice notice-info"><span>📋</span><span>Mark deals as Live and add lease end dates to see your timeline.</span></div>'; return; }
+  const today=new Date(); today.setHours(0,0,0,0);
+  const items=live.map(d=>{
+    const end=d.leaseEnd?new Date(d.leaseEnd):null;
+    const days=end?Math.round((end-today)/(1000*60*60*24)):null;
+    let cls='lt-gray', label='No date';
+    if(days!==null){
+      if(days<0){ cls='lt-red'; label='Expired'; }
+      else if(days<180){ cls='lt-red'; label=days+' days'; }
+      else if(days<365){ cls='lt-amber'; label=Math.round(days/30)+' months'; }
+      else { cls='lt-green'; label=Math.round(days/30)+' months'; }
+    }
+    const name=d.dealName||d.postcode||'Property';
+    const endStr=end?end.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'2-digit'}):'No date set';
+    return`<div class="lease-timeline-item"><div class="lt-name">${name}</div><div class="lt-date">${endStr}</div><span class="lt-badge ${cls}">${label}</span></div>`;
+  }).join('');
+  wrap.innerHTML=`<div class="lease-timeline">${items}</div>`;
+}
+
+function renderRevenueChart(live){
+  const wrap=qs('revenue-bar-wrap'); if(!wrap) return;
+  if(!live.length){ wrap.innerHTML='<div class="notice notice-info"><span>📊</span><span>Mark deals as Live to see revenue comparison.</span></div>'; return; }
+  const sorted=[...live].sort((a,b)=>(b.monthlyProfit||0)-(a.monthlyProfit||0));
+  const maxP=Math.max(...sorted.map(d=>Math.max(d.monthlyProfit||0,1)));
+  const rows=sorted.map(d=>{
+    const p=d.monthlyProfit||0;
+    const pct=Math.max(0,Math.round((p/maxP)*100));
+    const col=p>=500?'var(--green)':p>=200?'var(--gold)':p>0?'var(--amber)':'var(--red)';
+    return`<div class="pbc-row"><span class="pbc-label">${d.dealName||d.postcode||'Deal'}</span><div class="pbc-track"><div class="pbc-fill" style="width:${pct}%;background:${col}"></div></div><span class="pbc-val" style="color:${col}">${gbp(p)}</span></div>`;
+  }).join('');
+  wrap.innerHTML=`<div class="portfolio-bar-chart">${rows}</div>`;
+}
+
+function renderNextActions(live,all){
+  const wrap=qs('next-actions-wrap'); if(!wrap) return;
+  const today=new Date(); today.setHours(0,0,0,0);
+  const actions=[];
+  live.forEach(d=>{
+    const end=d.leaseEnd?new Date(d.leaseEnd):null;
+    if(!end){ actions.push({icon:'📅',text:`<strong>${d.dealName||d.postcode}</strong> has no lease end date — add it to My Portfolio to track renewal timing.`}); }
+    else {
+      const days=Math.round((end-today)/(1000*60*60*24));
+      if(days<0){ actions.push({icon:'🚨',text:`<strong>${d.dealName||d.postcode}</strong> lease has expired — contact the landlord immediately to formalise continuation or plan an exit.`}); }
+      else if(days<180){ actions.push({icon:'⚠️',text:`<strong>${d.dealName||d.postcode}</strong> lease expires in ${days} days — begin renewal conversation with the landlord now.`}); }
+    }
+  });
+  if(!live.length && all.length){ actions.push({icon:'🏡',text:'You have saved deals but none are marked as Live. Mark a deal as Live in <strong>My Deals</strong> to start portfolio tracking.'}); }
+  if(!all.length){ actions.push({icon:'💡',text:'No deals saved yet. Run an analysis in <strong>Deal Analyser</strong> and save a deal to get started.'}); }
+  if(live.length>=1 && live.length<3){ actions.push({icon:'📈',text:`You have ${live.length} live ${live.length===1?'property':'properties'}. Check <strong>AI Coach</strong> for a scale-up roadmap to reach your next milestone.`}); }
+  const totalProfit=live.reduce((a,d)=>a+(d.monthlyProfit||0),0);
+  if(totalProfit>0){ actions.push({icon:'💰',text:`Portfolio generating <strong>${gbp(totalProfit)}/mo</strong> projected profit across ${live.length} ${live.length===1?'property':'properties'}. Log actuals in P&L Tracker to verify real performance vs projection.`}); }
+  if(!actions.length){ wrap.innerHTML='<div class="notice notice-info"><span>✅</span><span>No urgent actions — portfolio looks healthy. Keep logging monthly P&L actuals to stay on top of performance.</span></div>'; return; }
+  wrap.innerHTML=`<div class="next-actions-list">${actions.map(a=>`<div class="nax-item"><span class="nax-icon">${a.icon}</span><span class="nax-text">${a.text}</span></div>`).join('')}</div>`;
 }
 
 /* ════ CRM ══════════════════════════════════════════════════ */
@@ -4472,7 +4791,9 @@ function bindEvents() {
   qs('btn-load-deals').addEventListener('click',loadDealsForComparison);
   qs('btn-calc-portfolio').addEventListener('click',calcPortfolio);
   qs('pf-avg-profit').addEventListener('input',()=>{qs('pf-avg-profit').dataset.auto='false';});
-  qs('btn-generate-strategy').addEventListener('click',generateStrategy);
+  qs('btn-generate-strategy') && qs('btn-generate-strategy').addEventListener('click',generateStrategy);
+  const btnCoachPage=qs('btn-generate-coach-page');
+  if(btnCoachPage) btnCoachPage.addEventListener('click',generateCoachPageStrategy);
   qs('btn-fetch-news').addEventListener('click',doFetchNews);
   qs('btn-search-companies').addEventListener('click',searchCompaniesHouse);
   qs('btn-check-planning').addEventListener('click',checkPlanningActivity);
@@ -4495,6 +4816,7 @@ function init() {
   bindEvents();
   renderFinderSearchLinks();
   renderCompanyCards('all');
+  buildCoachSectionCards();
 }
 window.__appInit = init;
 document.addEventListener('DOMContentLoaded',()=>{
