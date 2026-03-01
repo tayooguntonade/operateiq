@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OperateIQ — SAS Members Exclusive Access</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0d1b3e;--navy-mid:#142248;--navy-card:#1a2f5e;
+  --gold:#C9A84C;--gold-light:#e8c96a;--gold-dim:rgba(201,168,76,0.12);
+  --white:#fff;
+  --border:#e2e8f0;--bg:#f4f6f9;--bg-alt:#eef0f7;
+  --text:#1e293b;--text-sec:#475569;--text-muted:#94a3b8;
+  --green:#059669;--green-bg:rgba(5,150,105,0.08);
+}
+html,body{min-height:100vh}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;
+  padding:0 1.25rem;
+  position:relative;overflow-x:hidden;
+}
+
+/* ─── TOP NAV ─────────────────────────────────── */
+.top-nav{
+  width:100%;max-width:780px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.5rem 0;
+  position:relative;z-index:10;
+}
+.nav-brand{display:flex;align-items:center;gap:0.6rem;text-decoration:none}
+.brand-mark{
+  width:36px;height:36px;background:var(--gold);border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:0.75rem;color:var(--navy);
+}
+.brand-name{
+  font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;
+  font-size:1rem;color:var(--navy);letter-spacing:-0.02em;
+}
+.brand-name span{color:var(--gold)}
+.nav-back{font-size:0.78rem;color:var(--text-muted);text-decoration:none;transition:color 0.18s}
+.nav-back:hover{color:var(--navy)}
+
+/* ─── HERO ────────────────────────────────────── */
+.hero{
+  width:100%;max-width:700px;
+  text-align:center;
+  padding:3rem 0 2rem;
+}
+.sas-badge{
+  display:inline-flex;align-items:center;gap:0.5rem;
+  background:var(--navy);
+  border-radius:999px;padding:0.35rem 1rem;
+  font-size:0.68rem;font-weight:700;color:var(--gold);
+  letter-spacing:0.1em;text-transform:uppercase;
+  margin-bottom:1.5rem;
+}
+.sas-badge .dot{
+  width:6px;height:6px;border-radius:50%;background:var(--gold);
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+
+.hero-h1{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:clamp(2.25rem,6.5vw,3.75rem);
+  font-weight:900;line-height:1.05;
+  letter-spacing:-0.04em;
+  color:var(--navy);margin-bottom:1.25rem;
+}
+.hero-h1 .gold{color:var(--gold)}
+.hero-h1 .underline-gold{
+  position:relative;display:inline-block;
+}
+.hero-h1 .underline-gold::after{
+  content:'';position:absolute;left:0;bottom:-4px;
+  width:100%;height:4px;border-radius:999px;
+  background:linear-gradient(90deg,var(--gold),var(--gold-light));
+}
+.hero-sub{
+  font-size:1.05rem;color:var(--text-sec);line-height:1.65;
+  max-width:520px;margin:0 auto 2.5rem;
+}
+
+/* ─── TRIAL HERO CARD ────────────────────────── */
+.trial-hero{
+  display:flex;flex-wrap:wrap;align-items:stretch;justify-content:center;
+  gap:1px;background:var(--border);border:1px solid var(--border);
+  border-radius:16px;overflow:hidden;margin-bottom:2.5rem;
+  box-shadow:0 4px 24px rgba(13,27,62,0.07);
+}
+.th-cell{
+  background:#fff;padding:1.5rem 2rem;
+  display:flex;flex-direction:column;align-items:center;gap:0.2rem;
+  flex:1;min-width:130px;
+}
+.th-label{font-size:0.65rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em}
+.th-value{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:2.25rem;font-weight:900;
+  color:var(--navy);letter-spacing:-0.03em;line-height:1;
+}
+.th-value.gold{color:var(--gold)}
+.th-sub{font-size:0.72rem;color:var(--text-muted)}
+.th-cell.th-primary{background:var(--navy)}
+.th-cell.th-primary .th-label{color:rgba(255,255,255,0.5)}
+.th-cell.th-primary .th-value{color:var(--gold)}
+.th-cell.th-primary .th-sub{color:rgba(255,255,255,0.45)}
+
+/* ─── CTA ─────────────────────────────────────── */
+.cta-wrap{text-align:center;margin-bottom:1rem}
+.btn-cta{
+  display:inline-flex;align-items:center;gap:0.6rem;
+  background:var(--navy);color:#fff;border:none;
+  border-radius:12px;padding:1.1rem 2.75rem;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:1.05rem;font-weight:900;letter-spacing:-0.01em;
+  cursor:pointer;transition:all 0.2s;
+  box-shadow:0 6px 24px rgba(13,27,62,0.22);
+  text-decoration:none;
+}
+.btn-cta:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(13,27,62,0.3)}
+.btn-cta .arrow{transition:transform 0.18s}
+.btn-cta:hover .arrow{transform:translateX(4px)}
+.cta-note{
+  font-size:0.75rem;color:var(--text-muted);
+  margin-top:0.65rem;text-align:center;
+}
+.cta-note strong{color:var(--text-sec)}
+
+/* ─── DIVIDER ──────────────────────────────────── */
+.section-divider{
+  width:100%;max-width:700px;
+  border:none;border-top:1px solid var(--border);
+  margin:0.25rem 0 2.25rem;
+}
+
+/* ─── FEATURES ─────────────────────────────────── */
+.features-section{width:100%;max-width:700px;padding-bottom:2.5rem}
+.features-label{
+  text-align:center;font-size:0.68rem;font-weight:700;
+  color:var(--text-muted);letter-spacing:0.12em;text-transform:uppercase;
+  margin-bottom:1.25rem;
+}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.65rem}
+.feat-item{
+  display:flex;align-items:flex-start;gap:0.75rem;
+  background:#fff;border:1px solid var(--border);
+  border-radius:12px;padding:1rem 1.1rem;
+}
+.feat-check{
+  width:20px;height:20px;border-radius:50%;
+  background:var(--green-bg);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:1px;
+}
+.feat-check svg{width:11px;height:11px;stroke:var(--green)}
+.feat-title{font-size:0.82rem;font-weight:600;color:var(--text);margin-bottom:0.15rem}
+.feat-desc{font-size:0.72rem;color:var(--text-muted);line-height:1.45}
+
+/* ─── COMMUNITY CALLOUT ──────────────────────── */
+.community-card{
+  width:100%;max-width:700px;
+  background:var(--navy);border-radius:16px;
+  padding:1.75rem 2rem;margin-bottom:2.5rem;
+  display:flex;gap:1.5rem;align-items:flex-start;flex-wrap:wrap;
+  box-shadow:0 4px 24px rgba(13,27,62,0.12);
+}
+.cc-icon{font-size:2rem;flex-shrink:0;line-height:1}
+.cc-text h3{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:700;
+  color:#fff;margin-bottom:0.4rem;letter-spacing:-0.01em;
+}
+.cc-text p{font-size:0.82rem;color:rgba(255,255,255,0.6);line-height:1.6}
+.cc-text strong{color:var(--gold)}
+
+/* ─── PRICE COMPARISON ────────────────────────── */
+.price-compare{
+  width:100%;max-width:700px;
+  display:flex;gap:0.75rem;flex-wrap:wrap;margin-bottom:2.5rem;
+}
+.pc-card{
+  flex:1;min-width:180px;background:#fff;
+  border:1px solid var(--border);border-radius:12px;
+  padding:1.25rem;
+}
+.pc-card.pc-highlight{
+  border-color:var(--gold);
+  background:linear-gradient(135deg,#fffdf5 0%,#fff 100%);
+  box-shadow:0 4px 20px rgba(201,168,76,0.12);
+}
+.pc-label{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:0.5rem}
+.pc-price{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:1.75rem;font-weight:900;
+  color:var(--navy);letter-spacing:-0.03em;line-height:1;
+}
+.pc-price span{font-size:0.875rem;font-weight:500;color:var(--text-muted)}
+.pc-price.strikethrough{text-decoration:line-through;color:var(--text-muted);font-size:1.35rem}
+.pc-desc{font-size:0.75rem;color:var(--text-muted);margin-top:0.3rem}
+.pc-badge{
+  display:inline-block;margin-top:0.5rem;
+  background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);
+  color:var(--gold);font-size:0.65rem;font-weight:700;
+  letter-spacing:0.08em;text-transform:uppercase;
+  padding:0.2rem 0.6rem;border-radius:999px;
+}
+
+/* ─── FOOTER ──────────────────────────────────── */
+.page-footer{
+  width:100%;max-width:700px;
+  text-align:center;padding-bottom:2.5rem;
+  font-size:0.72rem;color:var(--text-muted);line-height:1.7;
+  border-top:1px solid var(--border);padding-top:1.5rem;
+}
+.page-footer a{color:var(--text-muted);text-decoration:none}
+.page-footer a:hover{color:var(--navy)}
+
+/* ─── MOBILE ──────────────────────────────────── */
+@media(max-width:540px){
+  .hero-h1{font-size:2rem}
+  .btn-cta{padding:1rem 2rem;font-size:0.95rem}
+  .th-cell{padding:1.1rem 1.25rem}
+  .th-value{font-size:1.85rem}
+  .features-grid{grid-template-columns:1fr}
+  .community-card{padding:1.25rem}
+}
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="nav-brand" href="landing.html">
+    <div class="brand-mark">OQ</div>
+    <div class="brand-name">Operate<span>IQ</span></div>
+  </a>
+  <a class="nav-back" href="landing.html">← Back to home</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="sas-badge">
+    <span class="dot"></span>
+    SA Success Members · Exclusive Access
+  </div>
+
+  <h1 class="hero-h1">
+    91 days free.<br>
+    Then <span class="underline-gold">just £49/mo</span>.
+  </h1>
+
+  <p class="hero-sub">
+    Because you're part of the SA Success community, you get nearly three months to put OperateIQ through its paces — completely free. Then pay 29% less than the public price, forever.
+  </p>
+
+  <!-- Trial stats -->
+  <div class="trial-hero">
+    <div class="th-cell th-primary">
+      <div class="th-label">Free Trial</div>
+      <div class="th-value">91</div>
+      <div class="th-sub">days free</div>
+    </div>
+    <div class="th-cell">
+      <div class="th-label">Then just</div>
+      <div class="th-value gold">£49</div>
+      <div class="th-sub">per month</div>
+    </div>
+    <div class="th-cell">
+      <div class="th-label">You save</div>
+      <div class="th-value">£240</div>
+      <div class="th-sub">vs public price/yr</div>
+    </div>
+    <div class="th-cell">
+      <div class="th-label">Card needed</div>
+      <div class="th-value" style="font-size:1.4rem">No</div>
+      <div class="th-sub">during trial</div>
+    </div>
+  </div>
+
+  <div class="cta-wrap">
+    <button class="btn-cta" onclick="claimAccess()">
+      Claim My Free 91 Days
+      <svg class="arrow" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+    <div class="cta-note"><strong>No card required</strong> for the 91-day trial. Cancel anytime.</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- COMMUNITY CALLOUT -->
+<div class="community-card">
+  <div class="cc-icon">🤝</div>
+  <div class="cc-text">
+    <h3>Built alongside the SA Success community</h3>
+    <p>OperateIQ was shaped by feedback from SA operators just like you. Your community gets early access to every new feature, priority support, and a permanent member rate. <strong>£49/mo locked for life</strong> — even as we add more tools.</p>
+  </div>
+</div>
+
+<!-- PRICE COMPARISON -->
+<div class="price-compare">
+  <div class="pc-card">
+    <div class="pc-label">Public price</div>
+    <div class="pc-price strikethrough">£69<span>/mo</span></div>
+    <div class="pc-desc">Standard Premium subscription</div>
+  </div>
+  <div class="pc-card pc-highlight">
+    <div class="pc-label">SAS Member price</div>
+    <div class="pc-price">£49<span>/mo</span></div>
+    <div class="pc-desc">After your 91-day free trial</div>
+    <div class="pc-badge">Members Rate · Locked</div>
+  </div>
+  <div class="pc-card">
+    <div class="pc-label">You save</div>
+    <div class="pc-price" style="color:var(--green)">£240<span>/yr</span></div>
+    <div class="pc-desc">Compared to standard pricing</div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features-section">
+  <div class="features-label">Full Premium access from day one</div>
+  <div class="features-grid">
+
+    <div class="feat-item">
+      <div class="feat-check"><svg fill="none" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div>
+        <div class="feat-title">Deal Analyser</div>
+        <div class="feat-desc">Full profit analysis from any UK postcode in under 60 seconds</div>
+      </div>
+    </div>
+
+    <div class="feat-item">
+      <div class="feat-check"><svg fill="none" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div>
+        <div class="feat-title">Live Airbnb Comps</div>
+        <div class="feat-desc">Real nightly rates from nearby listings, not estimates</div>
+      </div>
+    </div>
+
+    <div class="feat-item">
+      <div class="feat-check"><svg fill="none" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div>
+        <div class="feat-title">AI Deal Coach</div>
+        <div class="feat-desc">12-section deal strategy — pricing, risk, landlord pitch, action plan</div>
+      </div>
+    </div>
+
+    <div class="feat-item">
+      <div class="feat-check"><svg fill="none" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div>
+        <div class="feat-title">Market Analysis</div>
+        <div class="feat-desc">Comparable data, demand signals, and planning intelligence</div>
+      </div>
+    </div>
+
+    <div class="feat-item">
+      <div class="feat-check"><svg fill="none" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div>
+        <div class="feat-title">Deal Finder IQ</div>
+        <div class="feat-desc">SA-compatible property searches + approach strategy generator</div>
+      </div>
+    </div>
+
+    <div class="feat-item">
+      <div class="feat-check"><svg fill="none" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div>
+        <div class="feat-title">Portfolio Tracker</div>
+        <div class="feat-desc">P&L, lease timeline, void rate tracker, revenue charts</div>
+      </div>
+    </div>
+
+    <div class="feat-item">
+      <div class="feat-check"><svg fill="none" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div>
+        <div class="feat-title">Duplicate Listing Tool</div>
+        <div class="feat-desc">Score and optimise your LTB shadow listing</div>
+      </div>
+    </div>
+
+    <div class="feat-item">
+      <div class="feat-check"><svg fill="none" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div>
+        <div class="feat-title">Revenue Ideas</div>
+        <div class="feat-desc">Insurance, corporate, NHS, infrastructure — real booking strategies</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<footer class="page-footer">
+  OperateIQ &copy; 2025 &nbsp;·&nbsp; <a href="landing.html">Home</a> &nbsp;·&nbsp; <a href="index.html">Sign In</a><br>
+  Subscription billed monthly via Stripe after your 91-day free trial. Cancel anytime — no charge if you cancel before the trial ends.
+</footer>
+
+<script>
+function claimAccess() {
+  // Store cohort in localStorage so the registration page can read it
+  localStorage.setItem('oiq-cohort', 'sas');
+  localStorage.setItem('oiq-trial-days', '91');
+  // Redirect to registration
+  window.location.href = 'index.html?cohort=sas&tab=register';
+}
+</script>
+</body>
+</html>

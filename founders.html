@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OperateIQ — Founders Access</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0d1b3e;--navy-mid:#142248;--navy-card:#1a2f5e;
+  --gold:#C9A84C;--gold-light:#e8c96a;--gold-dim:rgba(201,168,76,0.15);
+  --white:#fff;--text-muted:rgba(255,255,255,0.55);--text-sec:rgba(255,255,255,0.75);
+  --border:rgba(255,255,255,0.08);
+}
+html,body{min-height:100vh}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--navy);
+  color:#fff;
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;
+  padding:0 1.25rem;
+  position:relative;overflow-x:hidden;
+}
+
+/* ─── BACKGROUND TEXTURE ─────────────────────── */
+.bg-grid{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(201,168,76,0.04) 1px,transparent 1px);
+  background-size:48px 48px;
+}
+.bg-glow{
+  position:fixed;top:-200px;left:50%;transform:translateX(-50%);
+  width:800px;height:500px;border-radius:50%;
+  background:radial-gradient(ellipse at center,rgba(201,168,76,0.12) 0%,transparent 65%);
+  pointer-events:none;z-index:0;
+}
+
+/* ─── TOP NAV ─────────────────────────────────── */
+.top-nav{
+  position:relative;z-index:10;
+  width:100%;max-width:780px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.5rem 0;
+}
+.nav-brand{
+  display:flex;align-items:center;gap:0.6rem;text-decoration:none;
+}
+.brand-mark{
+  width:36px;height:36px;background:var(--gold);border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Plus Jakarta Sans',sans-serif;font-weight:900;font-size:0.75rem;
+  color:var(--navy);
+}
+.brand-name{
+  font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;
+  font-size:1rem;color:#fff;letter-spacing:-0.02em;
+}
+.brand-name span{color:var(--gold)}
+.nav-back{
+  font-size:0.78rem;color:var(--text-muted);text-decoration:none;
+  transition:color 0.18s;
+}
+.nav-back:hover{color:var(--gold)}
+
+/* ─── BADGE ───────────────────────────────────── */
+.founders-badge{
+  position:relative;z-index:2;
+  display:inline-flex;align-items:center;gap:0.5rem;
+  background:rgba(201,168,76,0.12);border:1.5px solid rgba(201,168,76,0.35);
+  border-radius:999px;padding:0.35rem 1rem;
+  font-size:0.68rem;font-weight:700;color:var(--gold);
+  letter-spacing:0.12em;text-transform:uppercase;
+  margin-bottom:1.5rem;
+}
+.badge-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--gold);
+  animation:pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.7)}}
+
+/* ─── HERO ────────────────────────────────────── */
+.hero{
+  position:relative;z-index:2;
+  width:100%;max-width:700px;
+  text-align:center;
+  padding:3.5rem 0 2rem;
+}
+.hero-price-block{
+  display:flex;align-items:center;justify-content:center;gap:1rem;
+  margin-bottom:1.5rem;flex-wrap:wrap;
+}
+.hero-price-old{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:1.5rem;font-weight:700;
+  color:var(--text-muted);
+  text-decoration:line-through;
+  text-decoration-color:rgba(255,255,255,0.3);
+}
+.hero-price-new{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:2.25rem;font-weight:900;
+  color:var(--gold);letter-spacing:-0.03em;
+}
+.hero-price-period{font-size:1rem;font-weight:500;color:var(--text-muted)}
+.hero-h1{
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:clamp(2.5rem,7vw,4rem);
+  font-weight:900;line-height:1.05;
+  letter-spacing:-0.04em;
+  color:#fff;margin-bottom:1.25rem;
+}
+.hero-h1 .gold{color:var(--gold)}
+.hero-sub{
+  font-size:1.05rem;color:var(--text-sec);line-height:1.65;
+  max-width:540px;margin:0 auto 2.5rem;
+}
+
+/* ─── TRIAL CALLOUT ───────────────────────────── */
+.trial-callout{
+  display:inline-flex;flex-direction:column;align-items:center;
+  background:rgba(201,168,76,0.08);border:1.5px solid rgba(201,168,76,0.22);
+  border-radius:16px;padding:1.25rem 2rem;margin-bottom:2.5rem;gap:0.25rem;
+}
+.tc-label{font-size:0.68rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em}
+.tc-value{
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:2.75rem;font-weight:900;
+  color:#fff;letter-spacing:-0.03em;line-height:1;
+}
+.tc-sub{font-size:0.8rem;color:var(--text-sec)}
+
+/* ─── CTA BUTTON ──────────────────────────────── */
+.cta-wrap{margin-bottom:1rem}
+.btn-cta{
+  display:inline-flex;align-items:center;gap:0.6rem;
+  background:var(--gold);color:var(--navy);border:none;
+  border-radius:12px;padding:1.1rem 2.75rem;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:1.05rem;font-weight:900;letter-spacing:-0.01em;
+  cursor:pointer;transition:all 0.2s;
+  box-shadow:0 6px 28px rgba(201,168,76,0.4);
+  text-decoration:none;
+}
+.btn-cta:hover{
+  background:var(--gold-light);transform:translateY(-2px);
+  box-shadow:0 10px 36px rgba(201,168,76,0.55);
+}
+.cta-note{
+  font-size:0.75rem;color:var(--text-muted);
+  margin-top:0.65rem;
+}
+.cta-note strong{color:rgba(255,255,255,0.7)}
+
+/* ─── DIVIDER ──────────────────────────────────── */
+.section-divider{
+  width:100%;max-width:700px;
+  border:none;border-top:1px solid var(--border);
+  margin:0.5rem 0 2.5rem;
+  position:relative;z-index:2;
+}
+
+/* ─── FEATURES GRID ───────────────────────────── */
+.features-section{
+  position:relative;z-index:2;
+  width:100%;max-width:700px;
+  padding-bottom:3rem;
+}
+.features-label{
+  text-align:center;font-size:0.68rem;font-weight:700;
+  color:var(--text-muted);letter-spacing:0.12em;text-transform:uppercase;
+  margin-bottom:1.5rem;
+}
+.features-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.75rem;
+}
+.feat-item{
+  display:flex;align-items:flex-start;gap:0.75rem;
+  background:rgba(255,255,255,0.03);border:1px solid var(--border);
+  border-radius:12px;padding:1rem 1.1rem;
+}
+.feat-check{
+  width:20px;height:20px;border-radius:50%;
+  background:rgba(201,168,76,0.15);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:1px;
+}
+.feat-check svg{width:11px;height:11px;stroke:var(--gold)}
+.feat-title{font-size:0.82rem;font-weight:600;color:#fff;margin-bottom:0.15rem}
+.feat-desc{font-size:0.72rem;color:var(--text-muted);line-height:1.45}
+
+/* ─── GUARANTEE BAR ───────────────────────────── */
+.guarantee-bar{
+  position:relative;z-index:2;
+  width:100%;max-width:700px;
+  background:rgba(255,255,255,0.03);border:1px solid var(--border);
+  border-radius:12px;padding:1.1rem 1.5rem;
+  display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;
+  margin-bottom:3rem;
+}
+.gb-icon{font-size:1.5rem;flex-shrink:0}
+.gb-text{font-size:0.82rem;color:var(--text-sec);line-height:1.5}
+.gb-text strong{color:#fff}
+
+/* ─── FOOTER ──────────────────────────────────── */
+.page-footer{
+  position:relative;z-index:2;
+  width:100%;max-width:700px;
+  text-align:center;padding-bottom:2.5rem;
+  font-size:0.72rem;color:var(--text-muted);line-height:1.7;
+  border-top:1px solid var(--border);padding-top:1.5rem;
+}
+.page-footer a{color:var(--text-muted);text-decoration:none}
+.page-footer a:hover{color:var(--gold)}
+
+/* ─── MOBILE ──────────────────────────────────── */
+@media(max-width:540px){
+  .hero-h1{font-size:2.25rem}
+  .tc-value{font-size:2.25rem}
+  .btn-cta{padding:1rem 2rem;font-size:0.95rem}
+  .hero-price-new{font-size:1.85rem}
+  .features-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-glow"></div>
+
+<nav class="top-nav">
+  <a class="nav-brand" href="landing.html">
+    <div class="brand-mark">OQ</div>
+    <div class="brand-name">Operate<span>IQ</span></div>
+  </a>
+  <a class="nav-back" href="landing.html">← Back to home</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="founders-badge">
+    <span class="badge-dot"></span>
+    Founders Only · Limited Offer
+  </div>
+
+  <h1 class="hero-h1">
+    30 Days Free.<br>
+    Then <span class="gold">£39/mo</span> forever.
+  </h1>
+
+  <p class="hero-sub">
+    You're early. As a founder-tier member you lock in Premium access at 44% below the public price — for life. No rate increases. No questions asked.
+  </p>
+
+  <div class="hero-price-block">
+    <div>
+      <span class="hero-price-old">£69</span>
+    </div>
+    <div>
+      <span class="hero-price-new">£39</span><span class="hero-price-period">/mo</span>
+    </div>
+    <div style="background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.3);border-radius:999px;padding:0.25rem 0.75rem;font-size:0.7rem;font-weight:700;color:var(--gold);letter-spacing:0.05em">FOUNDERS RATE · LOCKED FOR LIFE</div>
+  </div>
+
+  <div class="cta-wrap">
+    <button class="btn-cta" onclick="claimAccess()">
+      Claim Founders Access
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+    <div class="cta-note"><strong>No card needed today.</strong> 30 days completely free, cancel anytime.</div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- WHAT YOU GET -->
+<section class="features-section">
+  <div class="features-label">Everything in Premium — yours from day one</div>
+  <div class="features-grid">
+
+    <div class="feat-item">
+      <div class="feat-check"><svg fill="none" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div>
+        <div class="feat-title">Deal Analyser</div>
+        <div class="feat-desc">Full profit analysis from any UK postcode in under 60 seconds</div>
+      </div>
+    </div>
+
+    <div class="feat-item">
+      <div class="feat-check"><svg fill="none" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div>
+        <div class="feat-title">Live Airbnb Comps</div>
+        <div class="feat-desc">Real nightly rates from nearby listings, not estimates</div>
+      </div>
+    </div>
+
+    <div class="feat-item">
+      <div class="feat-check"><svg fill="none" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div>
+        <div class="feat-title">AI Deal Coach</div>
+        <div class="feat-desc">12-section deal strategy — pricing, risk, landlord pitch, action plan</div>
+      </div>
+    </div>
+
+    <div class="feat-item">
+      <div class="feat-check"><svg fill="none" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div>
+        <div class="feat-title">Market Analysis</div>
+        <div class="feat-desc">Comparable data, demand signals, and planning intelligence</div>
+      </div>
+    </div>
+
+    <div class="feat-item">
+      <div class="feat-check"><svg fill="none" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div>
+        <div class="feat-title">Deal Finder IQ</div>
+        <div class="feat-desc">SA-compatible property searches + approach strategy generator</div>
+      </div>
+    </div>
+
+    <div class="feat-item">
+      <div class="feat-check"><svg fill="none" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div>
+        <div class="feat-title">Portfolio Tracker</div>
+        <div class="feat-desc">P&L, lease timeline, void rate tracker, revenue charts</div>
+      </div>
+    </div>
+
+    <div class="feat-item">
+      <div class="feat-check"><svg fill="none" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div>
+        <div class="feat-title">Duplicate Listing Tool</div>
+        <div class="feat-desc">Score and optimise your LTB shadow listing</div>
+      </div>
+    </div>
+
+    <div class="feat-item">
+      <div class="feat-check"><svg fill="none" viewBox="0 0 24 24" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div>
+        <div class="feat-title">Long-Term Toolkit</div>
+        <div class="feat-desc">Contractor finder, revenue ideas, booking company database</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="section-divider" style="margin-bottom:1.5rem">
+
+<!-- GUARANTEE -->
+<div class="guarantee-bar">
+  <div class="gb-icon">🔒</div>
+  <div class="gb-text">
+    <strong>Founders rate locked for life.</strong> If OperateIQ Premium ever rises above £39/mo, you pay £39/mo. We honour founders pricing permanently — no fine print.
+  </div>
+</div>
+
+<footer class="page-footer">
+  OperateIQ &copy; 2025 &nbsp;·&nbsp; <a href="landing.html">Home</a> &nbsp;·&nbsp; <a href="index.html">Sign In</a><br>
+  Subscription billed monthly via Stripe. Cancel anytime before your trial ends and you won't be charged.
+</footer>
+
+<script>
+function claimAccess() {
+  // Store cohort in localStorage so the registration page can read it
+  localStorage.setItem('oiq-cohort', 'founders');
+  localStorage.setItem('oiq-trial-days', '30');
+  // Redirect to registration page with tab pre-opened
+  window.location.href = 'index.html?cohort=founders&tab=register';
+}
+</script>
+</body>
+</html>

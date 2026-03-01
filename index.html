@@ -159,6 +159,19 @@ body{
 }
 @keyframes spin{to{transform:rotate(360deg)}}
 
+/* ─── COHORT BANNER ─────────────────────────────────────────── */
+.cohort-banner{
+  border-radius:10px;padding:0.75rem 1rem;margin-bottom:1.25rem;display:none;
+  background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.25);
+  font-size:0.8rem;color:#475569;line-height:1.5;
+}
+.cohort-banner strong{color:#0d1b3e}
+.cohort-banner .cb-badge{
+  display:inline-block;background:#C9A84C;color:#0d1b3e;
+  border-radius:999px;padding:0.15rem 0.6rem;font-size:0.65rem;
+  font-weight:700;letter-spacing:0.07em;text-transform:uppercase;margin-right:0.4rem;
+}
+
 /* ─── NOTICES ─────────────────────────────────────────── */
 .pending-notice{
   background:rgba(201,168,76,0.06);border:1px solid rgba(201,168,76,0.2);
@@ -236,6 +249,7 @@ body{
 
   <!-- REGISTER -->
   <div class="form-section" id="tab-register">
+    <div class="cohort-banner" id="cohort-banner"></div>
     <div class="field">
       <label>Full Name</label>
       <input type="text" id="reg-name" placeholder="Your full name" autocomplete="name">
@@ -306,6 +320,35 @@ if (isConfigured) {
   });
 }
 
+// ─── COHORT DETECTION ─────────────────────────────────────
+const urlParams = new URLSearchParams(window.location.search);
+const cohortParam = urlParams.get('cohort') || localStorage.getItem('oiq-cohort') || null;
+const validCohorts = { founders: { days: 30, label: 'Founders', price: '£39/mo', desc: '30-day free trial, then £39/mo forever' }, sas: { days: 91, label: 'SAS Member', price: '£49/mo', desc: '91-day free trial, then £49/mo' } };
+const cohortInfo = validCohorts[cohortParam] || null;
+
+// If cohort param in URL — sync to localStorage and open register tab
+if (cohortParam && validCohorts[cohortParam]) {
+  localStorage.setItem('oiq-cohort', cohortParam);
+}
+
+// Pre-open register tab if requested
+if (urlParams.get('tab') === 'register') {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('tab-register').classList.add('active');
+  document.querySelectorAll('.tab')[1].classList.add('active');
+}
+
+// Show cohort banner if detected
+if (cohortInfo) {
+  const banner = document.getElementById('cohort-banner');
+  banner.innerHTML = `<span class="cb-badge">${cohortInfo.label}</span><strong>Special offer applied.</strong> You're registering with a ${cohortInfo.desc}. Your account will be activated instantly — no approval wait.`;
+  banner.style.display = 'block';
+  // Update button label
+  const regBtn = document.getElementById('btn-register');
+  if (regBtn) regBtn.textContent = 'Create Account →';
+}
+
 window.switchTab = function(tab) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.form-section').forEach(s => s.classList.remove('active'));
@@ -361,13 +404,33 @@ window.doRegister = async function() {
   try {
     const cred = await createUserWithEmailAndPassword(auth, email, pass);
     const isAdmin = email.toLowerCase() === ADMIN_EMAIL.toLowerCase();
-    await setDoc(doc(db, 'users', cred.user.uid), {
+
+    // Cohort users are auto-approved with Premium tier + trial metadata
+    const activeCohort = localStorage.getItem('oiq-cohort');
+    const activeCohortInfo = validCohorts[activeCohort] || null;
+    const isCohortUser = !isAdmin && !!activeCohortInfo;
+    const isAutoApproved = isAdmin || isCohortUser;
+
+    const userData = {
       name, email,
-      approved: isAdmin,
-      role: isAdmin ? 'admin' : 'pending',
+      approved: isAutoApproved,
+      role: isAdmin ? 'admin' : (isCohortUser ? 'user' : 'pending'),
+      tier: isCohortUser ? 'premium' : 'free',
       createdAt: serverTimestamp()
-    });
-    if (isAdmin) {
+    };
+    if (isCohortUser) {
+      userData.cohort = activeCohort;
+      userData.trialDays = activeCohortInfo.days;
+      userData.trialStart = serverTimestamp();
+      userData.cohortPrice = activeCohort === 'founders' ? 3900 : 4900; // pence
+    }
+
+    await setDoc(doc(db, 'users', cred.user.uid), userData);
+
+    // Clean up cohort localStorage on success
+    if (isCohortUser) localStorage.removeItem('oiq-cohort');
+
+    if (isAutoApproved) {
       window.location.href = 'app.html';
     } else {
       await auth.signOut();
@@ -396,9 +459,15 @@ function showMsg(id, type, text) {
 function setLoading(btnId, on) {
   const btn = document.getElementById(btnId);
   btn.disabled = on;
-  btn.innerHTML = on
-    ? '<span class="spinner"></span> Please wait…'
-    : (btnId === 'btn-login' ? 'Sign In →' : 'Request Access →');
+  if (on) {
+    btn.innerHTML = '<span class="spinner"></span> Please wait…';
+  } else {
+    if (btnId === 'btn-login') {
+      btn.innerHTML = 'Sign In →';
+    } else {
+      btn.innerHTML = cohortInfo ? 'Create Account →' : 'Request Access →';
+    }
+  }
 }
 
 // Allow Enter key to submit

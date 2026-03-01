@@ -117,6 +117,15 @@ h1,h2,h3,.logo-name,.page-title,.card-title{font-family:'Plus Jakarta Sans',sans
   text-transform:uppercase;letter-spacing:0.1em;
   padding:0.75rem 0.75rem 0.25rem;
 }
+/* ─── TRIAL BANNER (sidebar) ──────────────── */
+.trial-banner{
+  margin:0 0.625rem 0.5rem;
+  background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.25);
+  border-radius:8px;padding:0.6rem 0.75rem;display:none;
+}
+.trial-banner-label{font-size:0.6rem;font-weight:700;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.15rem}
+.trial-banner-days{font-size:0.88rem;font-weight:700;color:var(--gold)}
+.trial-banner-note{font-size:0.64rem;color:rgba(255,255,255,0.4);margin-top:0.1rem}
 .sidebar-footer{
   padding:1rem 1.25rem;
   border-top:1px solid rgba(255,255,255,0.07);
@@ -950,6 +959,11 @@ input[type="range"]::-webkit-slider-thumb:hover{transform:scale(1.2)}
     <button class="nav-item premium-nav" id="nav-portfolio" onclick="showPage('portfolio')">
       <span class="nav-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span>My Portfolio<span class="nav-lock"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
     </button>
+  </div>
+  <div id="trial-banner" class="trial-banner">
+    <div class="trial-banner-label">Free Trial</div>
+    <div class="trial-banner-days" id="trial-days-text">-- days remaining</div>
+    <div class="trial-banner-note" id="trial-cohort-note"></div>
   </div>
   <div class="sidebar-footer">
     <div class="user-info">
@@ -2362,6 +2376,8 @@ if (auth) {
         tierBadge.textContent = tier.charAt(0).toUpperCase() + tier.slice(1);
         tierBadge.className = 'tier-badge tier-' + tier;
       }
+      // Show trial banner for cohort users
+      if (typeof renderTrialBanner === 'function') renderTrialBanner();
       // Show/hide nav locks based on tier
       if (isPremium()) {
         document.querySelectorAll('.premium-nav .nav-lock').forEach(el => el.style.display = 'none');
@@ -2780,19 +2796,50 @@ const PLANS={
   pro:{name:'Pro',price:'£119',period:'/mo',features:['Everything in Premium','Priority support','Early access to new features','Pro badge']}
 };
 
+// ─── COHORT TRIAL STATUS ───────────────────────────────────
+function getCohortTrialStatus(){
+  if(!userProfile||!userProfile.cohort||!userProfile.trialStart||!userProfile.trialDays) return null;
+  const startMs=userProfile.trialStart?.toMillis?userProfile.trialStart.toMillis()
+               :userProfile.trialStart?.seconds?userProfile.trialStart.seconds*1000:null;
+  if(!startMs) return null;
+  const trialDays=userProfile.trialDays;
+  const remaining=Math.max(0,trialDays-Math.floor((Date.now()-startMs)/(86400000)));
+  const price=userProfile.cohort==='founders'?'£39/mo':userProfile.cohort==='sas'?'£49/mo':null;
+  const label=userProfile.cohort==='founders'?'Founders Trial':'SAS Member Trial';
+  return{cohort:userProfile.cohort,remaining,trialDays,price,label,active:remaining>0};
+}
+function renderTrialBanner(){
+  const status=getCohortTrialStatus();
+  const banner=document.getElementById('trial-banner'); if(!banner) return;
+  if(!status||!status.active){banner.style.display='none';return;}
+  document.getElementById('trial-days-text').textContent=`${status.remaining} day${status.remaining===1?'':'s'} remaining`;
+  document.getElementById('trial-cohort-note').textContent=`${status.label} · ${status.price} after`;
+  banner.style.display='block';
+}
+
 function renderPlansGrid(){
   const wrap=qs('plans-grid-wrap'); if(!wrap) return;
   const cur=userProfile?.tier||'free';
+  const cohortStatus=getCohortTrialStatus();
   const badge=qs('upgrade-tier-badge');
   if(badge){badge.textContent=cur.charAt(0).toUpperCase()+cur.slice(1);badge.className='card-badge tier-badge tier-'+cur;}
   wrap.innerHTML=Object.entries(PLANS).map(([key,plan])=>{
     const isCur=cur===key;
     const isPopular=key==='premium';
     const btnCls=key==='pro'?'plan-btn plan-btn-navy':'plan-btn plan-btn-gold';
+    // Cohort-specific price display for premium
+    let priceHtml=`${plan.price}${plan.period?`<span>${plan.period}</span>`:''}`;
+    let trialNote='';
+    if(key==='premium'&&cohortStatus){
+      const cohortPrice=cohortStatus.price;
+      priceHtml=`<span style="font-size:0.9rem;color:var(--text-muted);text-decoration:line-through">${plan.price}</span> ${cohortPrice}<span>/mo</span>`;
+      if(cohortStatus.active) trialNote=`<div style="font-size:0.72rem;color:var(--green);margin-top:0.2rem">${cohortStatus.remaining} days free remaining</div>`;
+    }
     return`<div class="plan-card${isPopular?' plan-popular':''}">
       ${isPopular?'<div class="plan-popular-tag">Most Popular</div>':''}
       <div class="plan-name">${plan.name}</div>
-      <div class="plan-price">${plan.price}${plan.period?`<span>${plan.period}</span>`:''}</div>
+      <div class="plan-price">${priceHtml}</div>
+      ${trialNote}
       <ul class="plan-features">${plan.features.map(f=>`<li>${f}</li>`).join('')}</ul>
       ${isCur?`<div class="plan-current-lbl">✓ Your current plan</div>`
        :key==='free'?''
@@ -2805,17 +2852,31 @@ window.startCheckout=async function(plan){
   if(plan==='free') return;
   const uid=window.__currentUser?.uid, email=window.__currentUser?.email;
   if(!uid){showToast('Sign in required to upgrade.');return;}
-  // Check if Worker URL is configured (placeholder check)
   if(OIQ_WORKER_URL.includes('YOUR_SUBDOMAIN')){
     showToast('Stripe not yet live — contact info@servicedaccommodationsuccess.com to upgrade.');
     return;
   }
   try{
     showToast('Redirecting to checkout…');
-    const priceId=plan==='pro'?STRIPE_PRICE_PRO:STRIPE_PRICE_PREMIUM;
+    // Determine price ID — use cohort rate if applicable
+    const cohort=userProfile?.cohort||null;
+    let priceId;
+    if(plan==='pro'){
+      priceId=STRIPE_PRICE_PRO;
+    } else if(cohort==='founders'){
+      priceId=STRIPE_PRICE_FOUNDERS;
+    } else if(cohort==='sas'){
+      priceId=STRIPE_PRICE_SAS;
+    } else {
+      priceId=STRIPE_PRICE_PREMIUM;
+    }
+    // Trial period: if cohort user still in trial, pass remaining days so Stripe honours it
+    const trialStatus=getCohortTrialStatus();
+    const trialDays=trialStatus&&trialStatus.active?trialStatus.remaining:0;
     const res=await fetch(OIQ_WORKER_URL+'/create-checkout',{
       method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({uid,email,priceId,plan,
+        trialDays:trialDays||undefined,
         successUrl:window.location.href+'?payment=success&plan='+plan,
         cancelUrl:window.location.href})
     });
@@ -3127,8 +3188,11 @@ const CH_KEY       = '2c62ebce-954a-4050-9e48-58d3207b5a01';
 // Cloudflare Worker — set your deployed URL here after wrangler publish
 const OIQ_WORKER_URL = 'https://operateiq-api.YOUR_SUBDOMAIN.workers.dev';
 // Stripe Price IDs — create in Stripe dashboard and paste here
-const STRIPE_PRICE_PREMIUM = 'price_REPLACE_PREMIUM_MONTHLY';
-const STRIPE_PRICE_PRO     = 'price_REPLACE_PRO_MONTHLY';
+const STRIPE_PRICE_PREMIUM  = 'price_REPLACE_PREMIUM_MONTHLY';
+const STRIPE_PRICE_PRO      = 'price_REPLACE_PRO_MONTHLY';
+// Cohort-specific prices (create in Stripe with correct recurring amount)
+const STRIPE_PRICE_FOUNDERS = 'price_REPLACE_FOUNDERS_MONTHLY'; // £39/mo
+const STRIPE_PRICE_SAS      = 'price_REPLACE_SAS_MONTHLY';      // £49/mo
 function saveState() {
   try {
     localStorage.setItem(STORE, JSON.stringify({
